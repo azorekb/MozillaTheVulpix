@@ -1,0 +1,53 @@
+.worldmap
+{
+	border-collapse: collapse;
+}
+
+.worldmap td
+{
+	padding: 0;	
+}
+
+.widnow_map
+{
+	display: flex;
+}
+
+.mapMenu
+{
+	margin-left: 20px;
+}
+
+
+.mapMenuButton
+{
+    text-align: center;
+    background-color: #0c0;
+    width: 150;
+    padding: 6px 1px;
+    margin: 4 0;
+    border: 4px #0a0 outset;
+    border-radius: 20px;
+}
+
+.mapMenuButton:hover
+{
+	border-color: #0c0;
+	background-color: #0e0;
+}
+
+.mapMenuButton:active
+{
+	border-style: inset;
+    padding: 7px 0px 5px 2px; 
+}
+
+.pokedex_okno
+{
+    display: flex;
+}
+
+.pokedex_buttons
+{
+    flex-basis: 50%;
+}

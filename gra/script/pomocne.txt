@@ -1,0 +1,89 @@
+------ability--------
+run away
+adaptability
+anticipation
+flash fire
+guts
+volt absorb
+quick feet
+water absorb
+hydration
+leaf guard
+chlorophyll
+synchronize
+magic bounce
+inner focus
+cute charm
+pixilate
+simple
+unaware
+moody
+keen eye
+sheer force
+hustle
+defiant
+drought
+swift swim
+water veil
+dry skin
+sand veil
+solar power
+big pecks
+gale wings
+flame body
+rivalry
+intimidate
+hyper cutter
+mold breaker
+moxie
+steadfast
+prankster
+justtified
+
+-------egg group--------
+field
+flying
+dragon/monster
+undiscovered
+
+------growth exp ---
+medium fast
+slow
+medium slow
+
+
+-------evo method -----
+lv (1-100)
+stone (water stone, fire stone, thunder stone,sun stone)
+place (mossy rock, icy rock)
+friendship (null, dayime, nighttime)
+love (fairy move)
+
+
+---------stats---------
+hp
+attack
+defence
+spAttack
+spDeffence
+speed
+
+-------types--------
+normal
+fire
+water
+electric
+grass
+ice
+fighting
+poison
+ground
+flying
+psychic
+bug
+rock
+ghost
+dragon
+dark
+steel
+fairy
