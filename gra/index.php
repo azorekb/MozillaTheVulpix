@@ -17,7 +17,7 @@ if($_SESSION['nazwa']=="")
 echo "Witaj ".$_SESSION['nazwa'].". Miło cię widzieć.";
 ?>
 <div id=pozaza>0/0</div>
-<div id=okno><button onclick="openMap()">Test Mapy</button></div>
+<div id=okno><button onclick="start()">Test Mapy</button></div>
 
 </body>
 </html>

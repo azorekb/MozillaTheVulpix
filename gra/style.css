@@ -15,7 +15,7 @@
 
 .mapMenu
 {
-	margin-left: 20px;
+	margin: 0 20px;
 }
 
 
@@ -40,6 +40,18 @@
 {
 	border-style: inset;
     padding: 7px 0px 5px 2px; 
+}
+
+.mapMenuButton.active
+{
+    background-color: cc0;
+    border-color: aa0;
+}
+
+.mapMenuButton.active:hover
+{
+    border-color: #cc0;
+	background-color: #ee0;
 }
 
 .pokedex_okno

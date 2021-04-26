@@ -77,10 +77,6 @@ function map_characterMove(_direct,_character,_position)
 	}
 	
 	activeWindow=WINDOW_UNACTIVE;
-	if(typeOfMove==1 && (_direct==DIRECT_LEFT || _direct==DIRECT_RIGHT))
-	{
-		map_menu.style.marginLeft=0;
-	}
 	
 	if(typeOfMove==0)
 	{
@@ -237,5 +233,4 @@ function endOfWalk(_position,_type)
 	actualPosition.y=_position[1];
 	activeWindow=WINDOW_WORLDMAP;
 	pozaza.innerHTML=actualPosition.x+'/'+actualPosition.y;
-	map_menu.style.marginLeft=20;
 }
