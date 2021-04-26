@@ -1,5 +1,3 @@
-let worldMapTable;
-let worldMapWindow;
 let map_menu;
 let worldMapConteiner;
 let worldmapContent;

@@ -2,12 +2,27 @@ const WINDOW_UNACTIVE=-1;
 const WINDOW_WORLDMAP=0;
 const WINDOW_OPTIONS=1;
 const POKEDEX_TEXTS={
-    name:['gatunek','specie'],
+    no:['nr','no.'],
+    types:['typy','types'],
+    ability:['umiejętności','abilities'],
+    baseStats:['bazowe statystyki','base stats'],
+    hp:['życie','hit points'],
+    attack:['atak','attack'],
+    defence:['obrona','defence'],
+    spAttack:['sp. atak','sp. attack'],
+    spDefence:['sp. obrona','sp. defence'],
+    speed:['szybkość','speed'],
     
 }
 
 let poktable;
 let activeButton=null;
+let worldMapTable;
+let worldMapWindow;
+let dex_containter;
+let dex_dataPlace;
+let dex_baseStats;
+
 
 // var xmlhttp = new XMLHttpRequest();
 // var url = "myTutorials.txt";
@@ -23,32 +38,65 @@ let activeButton=null;
 
 function clickMenuButton(_element)
 {
-    if(_element.id == 'mapMenuButton_Adventure' && activeWindow != WINDOW_UNACTIVE)
+    if(activeWindow != WINDOW_UNACTIVE)
     {
-        openMap();
+        switch(_element.id)
+        {
+            case 'mapMenuButton_Adventure': openMap(); break;
+            case 'mapMenuButton_Pokedex': openPokedex(); break;
+
+            default: return false;
+        }
+
+        if(activeButton!=null){activeButton.classList.remove('active');}
+        activeButton=_element;
+        _element.classList.add('active');
     }
 
-    if(_element.id == 'mapMenuButton_Pokedex' && activeWindow != WINDOW_UNACTIVE)
-    {
-        
-    }
-    if(_element.id == 'mapMenuButton_Options' && activeWindow != WINDOW_UNACTIVE)
+}
 
-    {
-        
-    }
+function openPokedex()
+{
+    worldmapContent.innerHTML='';
 
-    if(activeButton!=null){activeButton.classList.remove('active');}
-    activeButton=_element;
-    _element.classList.add('active');
+    dex_containter=document.createElement('div');
+    dex_containter.classList.add('dexContainer');
+    worldmapContent.appendChild(dex_containter);
 
+    dex_dataPlace=document.createElement('div');
+    dex_dataPlace.classList.add('dexPlace');
+    dex_containter.appendChild(dex_dataPlace);
 
+    dex_baseStats=document.createElement('div');
+    dex_baseStats.classList.add('dexBaseStats');
+    dex_dataPlace.appendChild(dex_baseStats);
+
+    pokedex_show('eevee');
 }
 
 function pokedex_show(_pokemon)
 {
-    poktable.rows[0].cells[1].innerHTML=POKEMON_LIST[_pokemon].specie;
+    const BR='<br>';
+    let type_text=POKEMON_LIST[_pokemon].types.first;
+    if(POKEMON_LIST[_pokemon].types.second!=''){type_text+='/'+POKEMON_LIST[_pokemon].types.second;}
 
+    dex_baseStats.innerHTML='';
+    dex_baseStats.innerHTML+=POKEDEX_TEXTS.no[language]+' '+POKEMON_LIST[_pokemon].no+': '+ _pokemon+BR;
+    dex_baseStats.innerHTML+=POKEDEX_TEXTS.types[language]+': '+type_text+BR;
+    dex_baseStats.innerHTML+=POKEDEX_TEXTS.ability[language]+':'+BR;
+    dex_baseStats.innerHTML+=POKEMON_LIST[_pokemon].abilities.first+BR;
+    dex_baseStats.innerHTML+=POKEMON_LIST[_pokemon].abilities.second+BR;
+    dex_baseStats.innerHTML+='<i>'+POKEMON_LIST[_pokemon].abilities.hidden+'</i>'+BR;
+    dex_baseStats.innerHTML+=POKEDEX_TEXTS.baseStats[language]+BR;
+    dex_baseStats.innerHTML+=POKEDEX_TEXTS.hp[language]+': '+POKEMON_LIST[_pokemon].baseStats.hp+BR;
+    dex_baseStats.innerHTML+=POKEDEX_TEXTS.attack[language]+': '+POKEMON_LIST[_pokemon].baseStats.attack+BR;
+    dex_baseStats.innerHTML+=POKEDEX_TEXTS.defence[language]+': '+POKEMON_LIST[_pokemon].baseStats.defence+BR;
+    dex_baseStats.innerHTML+=POKEDEX_TEXTS.spAttack[language]+': '+POKEMON_LIST[_pokemon].baseStats.spAttack+BR;
+    dex_baseStats.innerHTML+=POKEDEX_TEXTS.spDefence[language]+': '+POKEMON_LIST[_pokemon].baseStats.spDefence+BR;
+    dex_baseStats.innerHTML+=POKEDEX_TEXTS.speed[language]+': '+POKEMON_LIST[_pokemon].baseStats.speed+BR;
+    dex_baseStats.innerHTML+='';
+    dex_baseStats.innerHTML+='';
+    dex_baseStats.innerHTML+='';
 
 }
 
