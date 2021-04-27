@@ -34,6 +34,10 @@ if(isset($_GET['log']))
 <input name='log_login' maxlength=30></label><br>
 <label>hasło/password:<br>
 <input type=password name='log_haslo' maxlength=30><br></label>
+<select name='lang'>
+<option value=0>Polski</option>
+<option value=1>English</option>
+</select>
 <button>logowanie</button>
 </form>
 </td>
