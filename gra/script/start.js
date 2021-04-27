@@ -1,9 +1,6 @@
 let map_menu;
 let worldMapConteiner;
 let worldmapContent;
-const POLSKI=0;
-const ENGLISH=1;
-let language=POLSKI;
 let mapCenter={
 	toX: 0,
 	isX: 0,

@@ -5,6 +5,7 @@
 <link rel="shortcut icon" href="img/icon.ico" type="image/x-icon">
 </head>
 <body>
+<script> sessionStorage.lang=document.getElementByName('lang').value; </script>
 <table cellpadding=10>
 <tr align=center>
 <td colspan=2><b>
@@ -34,7 +35,7 @@ if(isset($_GET['log']))
 <input name='log_login' maxlength=30></label><br>
 <label>hasło/password:<br>
 <input type=password name='log_haslo' maxlength=30><br></label>
-<select name='lang'>
+<select name='lang' onchange='sessionStorage.lang=this.value'>
 <option value=0>Polski</option>
 <option value=1>English</option>
 </select>
