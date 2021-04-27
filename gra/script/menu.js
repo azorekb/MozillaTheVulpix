@@ -88,31 +88,38 @@ function openPokedex()
 		dex_pokemonList.appendChild(newPokemon);
 	}
 
+	let table=document.createElement('table');
+	let rows=['no','types','ability','baseStats','hp','attack','defence','spAttack','spDefence','speed'];
+	for(let i=0;i<rows.length;i++)
+	{
+		table.insertRow(i).insertCell(0).innerHTML=POKEDEX_TEXTS[rows[i]][language];
+		if(i==2||i==3){table.rows[i].cells[0].colSpan=2;}
+		else{table.rows[i].insertCell(1).style.textAlign='right';}
+	}
+
+	table.insertRow(3).insertCell(0).colSpan=2;
+	table.id='pokedex_tableOfStats';
+	table.classList.add('pokedexTableOfStats');
+	dex_baseStats.appendChild(table);
+	
     pokedex_show('eevee');
 }
 
 function pokedex_show(_pokemon)
 {
-    const BR='<br>';
     let type_text=POKEMON_LIST[_pokemon].types.first;
     if(POKEMON_LIST[_pokemon].types.second!=''){type_text+='/'+POKEMON_LIST[_pokemon].types.second;}
-
-    dex_baseStats.innerHTML='';
-    dex_baseStats.innerHTML+=POKEDEX_TEXTS.no[language]+' '+POKEMON_LIST[_pokemon].no+': '+ _pokemon+BR;
-    dex_baseStats.innerHTML+=POKEDEX_TEXTS.types[language]+': '+type_text+BR;
-    dex_baseStats.innerHTML+=POKEDEX_TEXTS.ability[language]+':'+BR;
-    dex_baseStats.innerHTML+=POKEMON_LIST[_pokemon].abilities.first+BR;
-    dex_baseStats.innerHTML+=POKEMON_LIST[_pokemon].abilities.second+BR;
-    dex_baseStats.innerHTML+='<i>'+POKEMON_LIST[_pokemon].abilities.hidden+'</i>'+BR;
-    dex_baseStats.innerHTML+=POKEDEX_TEXTS.baseStats[language]+BR;
-    dex_baseStats.innerHTML+=POKEDEX_TEXTS.hp[language]+': '+POKEMON_LIST[_pokemon].baseStats.hp+BR;
-    dex_baseStats.innerHTML+=POKEDEX_TEXTS.attack[language]+': '+POKEMON_LIST[_pokemon].baseStats.attack+BR;
-    dex_baseStats.innerHTML+=POKEDEX_TEXTS.defence[language]+': '+POKEMON_LIST[_pokemon].baseStats.defence+BR;
-    dex_baseStats.innerHTML+=POKEDEX_TEXTS.spAttack[language]+': '+POKEMON_LIST[_pokemon].baseStats.spAttack+BR;
-    dex_baseStats.innerHTML+=POKEDEX_TEXTS.spDefence[language]+': '+POKEMON_LIST[_pokemon].baseStats.spDefence+BR;
-    dex_baseStats.innerHTML+=POKEDEX_TEXTS.speed[language]+': '+POKEMON_LIST[_pokemon].baseStats.speed+BR;
-    dex_baseStats.innerHTML+='';
-
+	
+	pokedex_tableOfStats.rows[0].cells[0].innerHTML=POKEDEX_TEXTS.no[language]+' '+POKEMON_LIST[_pokemon].no;
+	pokedex_tableOfStats.rows[0].cells[1].innerHTML=_pokemon;
+	pokedex_tableOfStats.rows[1].cells[1].innerHTML=type_text;
+	pokedex_tableOfStats.rows[3].cells[0].innerHTML=POKEMON_LIST[_pokemon].abilities.first+'<br>'+POKEMON_LIST[_pokemon].abilities.second+'<br><i>'+POKEMON_LIST[_pokemon].abilities.hidden+'</i>';
+	pokedex_tableOfStats.rows[5].cells[1].innerHTML=POKEMON_LIST[_pokemon].baseStats.hp;
+	pokedex_tableOfStats.rows[6].cells[1].innerHTML=POKEMON_LIST[_pokemon].baseStats.attack;
+	pokedex_tableOfStats.rows[7].cells[1].innerHTML=POKEMON_LIST[_pokemon].baseStats.defence;
+	pokedex_tableOfStats.rows[8].cells[1].innerHTML=POKEMON_LIST[_pokemon].baseStats.spAttack;
+	pokedex_tableOfStats.rows[9].cells[1].innerHTML=POKEMON_LIST[_pokemon].baseStats.spDefence;
+	pokedex_tableOfStats.rows[10].cells[1].innerHTML=POKEMON_LIST[_pokemon].baseStats.speed;
 }
 
 function openMap()
