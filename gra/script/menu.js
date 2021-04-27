@@ -22,6 +22,7 @@ let worldMapWindow;
 let dex_containter;
 let dex_dataPlace;
 let dex_baseStats;
+let dex_pokemonList;
 
 
 // var xmlhttp = new XMLHttpRequest();
@@ -71,6 +72,22 @@ function openPokedex()
     dex_baseStats.classList.add('dexBaseStats');
     dex_dataPlace.appendChild(dex_baseStats);
 
+	dex_pokemonList=document.createElement('div');
+	dex_pokemonList.classList.add('dexPokemonList');
+	dex_containter.appendChild(dex_pokemonList);
+
+	let list=Object.keys(POKEMON_LIST);
+	for(let i=0;i<list.length;i++)
+	{
+		const pokemon=POKEMON_LIST[list[i]];
+		if(pokemon.no==0){continue;}
+		let newPokemon=document.createElement('div');
+		newPokemon.classList.add('pokedexPokemon');
+		newPokemon.innerHTML=pokemon.no;
+		newPokemon.onclick=function(){pokedex_show(list[i]);}
+		dex_pokemonList.appendChild(newPokemon);
+	}
+
     pokedex_show('eevee');
 }
 
@@ -94,8 +111,6 @@ function pokedex_show(_pokemon)
     dex_baseStats.innerHTML+=POKEDEX_TEXTS.spAttack[language]+': '+POKEMON_LIST[_pokemon].baseStats.spAttack+BR;
     dex_baseStats.innerHTML+=POKEDEX_TEXTS.spDefence[language]+': '+POKEMON_LIST[_pokemon].baseStats.spDefence+BR;
     dex_baseStats.innerHTML+=POKEDEX_TEXTS.speed[language]+': '+POKEMON_LIST[_pokemon].baseStats.speed+BR;
-    dex_baseStats.innerHTML+='';
-    dex_baseStats.innerHTML+='';
     dex_baseStats.innerHTML+='';
 
 }
