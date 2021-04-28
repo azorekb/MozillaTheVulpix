@@ -2,6 +2,7 @@
 <head>
 <meta charset=utf8>
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style/admin.css">
 <title>PKMN Game</title>
 <link rel="shortcut icon" href="../img/icon.ico" type="image/x-icon">
 </head>
@@ -17,7 +18,10 @@ if($_SESSION['lang']==0){echo "Witaj ".$_SESSION['nazwa'].". Miło cię widzieć
 if($_SESSION['lang']==1){echo "Hello ".$_SESSION['nazwa'].". Nice to meet you.";}
 ?>
 <div id=pozaza>0/0</div>
-<div id=okno><button onclick="start()">Test Mapy</button></div>
+<div id=okno>
+	<button onclick='start()'>Test Mapy</button><br>
+	<button onclick='admin_start()'>Panel Admina</button>
+</div>
 
 <script src="script/load.js"></script>
 </body>

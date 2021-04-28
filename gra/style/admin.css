@@ -1,0 +1,36 @@
+.adminContainer
+{
+    display: flex;
+}
+
+.adminTask
+{
+    text-align: center;
+    background-color: #0cc;
+    width: 150;
+    padding: 6px 1px;
+    margin: 4 0;
+    border: 4px #0aa outset;
+}
+
+.adminTask:hover
+{
+	border-color: #0cc;
+	background-color: #0ee;
+}
+
+.adminTask:active
+{
+	border-style: inset;
+    padding: 7px 0px 5px 2px; 
+}
+
+.admFormTable
+{
+    border: 2px solid black;
+}
+
+.admFormTable tr td
+{
+    border: 2px solid black;
+}

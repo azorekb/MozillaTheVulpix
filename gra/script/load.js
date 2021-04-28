@@ -12,6 +12,7 @@ function loadScripts()
 	listOfScripts.push('keyboard');
 	listOfScripts.push('menu');
 	listOfScripts.push('database');
+	listOfScripts.push('edits');
 	for(let i=0;i<listOfScripts.length;i++)
 	{
 		let script  = document.createElement('script'); 
