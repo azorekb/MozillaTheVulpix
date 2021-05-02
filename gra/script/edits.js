@@ -67,10 +67,10 @@ const ADMIN_POKEMON_DESCRIPTION=
     name:['nie używaj spacji','do not use space'],
     types:['w przypadku dwu wypisz po przecinku bez spacji','in the case of two write out after "," without space'],
     abilities:['w przypadku dwu lub trzech (trzecia to zawsze ukryta) wypisz po przecinku bez spacji, jeśli ma być jedna umiejętność + ukryta wypisz drugą jako pustą','in the case of two or three (third is always hidden) write out after "," without space, in the case if there is only one ability plus hidden write second as empty'],
-    EVYeld:['1 atak = attack, 2 atak = attack,attack','1 attack = attack, 2 attack = attack,attack'],
+    EVYeld:['1 atak = attack, 2 atak = attack,attack (hp,attack,defence,spAttack,spDeffence,speed)','1 attack = attack, 2 attack = attack,attack (hp,attack,defence,spAttack,spDeffence,speed)'],
     catchRate:['1-255, 255-pewne złapanie','1-255, 255-sure catch'],
     baseExp:['',''],
-    growthExp:['',''],
+    growthExp:['erratic,fast,medium fast,medium slow,slow,fluctuating','erratic,fast,medium fast,medium slow,slow,fluctuating'],
     femaleRate:['sama liczba 0-100, zamiast przecinka użyj kropki','only number 0-100, use dot insted of comma'],
     eggGroup:['',''],
     eggCycles:['minimum 1','minimum 1'],
@@ -123,7 +123,7 @@ function adm_formPokemon()
         let input=document.createElement('input');
         input.type='text';
         input.id='adm_form_'+texts[i];
-        input.value=EXAMPLE[texts[i]];
+        //input.value=EXAMPLE[texts[i]];
 
         table.insertRow(i).insertCell(0).innerHTML=ADMIN_POKEMON_TEXTS[texts[i]][language];
         table.rows[i].insertCell(1).appendChild(input);
@@ -183,7 +183,99 @@ function adm_formPokemon()
         if(isNaN(temp)){adm_error(tt,2); return false;}
         if(temp<=0){adm_error(tt,1); return false;}
         adm_add(temp+',');
+
+        temp=adm_form_growthExp.value;
+        tt=ADMIN_POKEMON_TEXTS.growthExp;
+        if(temp==''){adm_error(tt,0); return false;}
+        adm_add("'"+temp+"',");
+
+        temp=adm_form_femaleRate.value/100;
+        tt=ADMIN_POKEMON_TEXTS.femaleRate;
+        if(temp==''){adm_error(tt,0); return false;}
+        if(isNaN(temp)){adm_error(tt,2); return false;}
+        if(temp<0){adm_error(tt,1); return false;}
+        if(temp>1){adm_error(tt,1); return false;}
+        adm_add(temp+',');
+
+        temp=adm_form_eggGroup.value;
+        tt=ADMIN_POKEMON_TEXTS.eggGroup;
+        if(temp==''){adm_error(tt,0); return false;}
+        adm_add("'"+temp+"',");
+
+        temp=adm_form_eggCycles.value;
+        tt=ADMIN_POKEMON_TEXTS.eggCycles;
+        if(temp==''){adm_error(tt,0); return false;}
+        if(isNaN(temp)){adm_error(tt,2); return false;}
+        if(temp<=0){adm_error(tt,1); return false;}
+        adm_add(temp+',');
+
+        temp=adm_form_baseHP.value;
+        tt=ADMIN_POKEMON_TEXTS.baseHP;
+        if(temp==''){adm_error(tt,0); return false;}
+        if(isNaN(temp)){adm_error(tt,2); return false;}
+        if(temp<=0){adm_error(tt,1); return false;}
+        adm_add(temp+',');
+
+        temp=adm_form_baseAttack.value;
+        tt=ADMIN_POKEMON_TEXTS.baseAttack;
+        if(temp==''){adm_error(tt,0); return false;}
+        if(isNaN(temp)){adm_error(tt,2); return false;}
+        if(temp<=0){adm_error(tt,1); return false;}
+        adm_add(temp+',');
+
+        temp=adm_form_baseDefence.value;
+        tt=ADMIN_POKEMON_TEXTS.baseDefence;
+        if(temp==''){adm_error(tt,0); return false;}
+        if(isNaN(temp)){adm_error(tt,2); return false;}
+        if(temp<=0){adm_error(tt,1); return false;}
+        adm_add(temp+',');
+
+        temp=adm_form_baseSpAttack.value;
+        tt=ADMIN_POKEMON_TEXTS.baseSpAttack;
+        if(temp==''){adm_error(tt,0); return false;}
+        if(isNaN(temp)){adm_error(tt,2); return false;}
+        if(temp<=0){adm_error(tt,1); return false;}
+        adm_add(temp+',');
+
+        temp=adm_form_baseSpDefence.value;
+        tt=ADMIN_POKEMON_TEXTS.baseSpDefence;
+        if(temp==''){adm_error(tt,0); return false;}
+        if(isNaN(temp)){adm_error(tt,2); return false;}
+        if(temp<=0){adm_error(tt,1); return false;}
+        adm_add(temp+',');
+
+        temp=adm_form_baseSpeed.value;
+        tt=ADMIN_POKEMON_TEXTS.baseSpeed;
+        if(temp==''){adm_error(tt,0); return false;}
+        if(isNaN(temp)){adm_error(tt,2); return false;}
+        if(temp<=0){adm_error(tt,1); return false;}
+        adm_add(temp+',');
         
+        temp=adm_form_preevolutionSpecie.value;
+        tt=ADMIN_POKEMON_TEXTS.preevolutionSpecie;
+        adm_add("'"+temp+"',");
+
+        temp=adm_form_preevolutionMethod.value;
+        tt=ADMIN_POKEMON_TEXTS.preevolutionMethod;
+        adm_add("'"+temp+"',");
+
+        temp=adm_form_preevolutionMethodValue.value;
+        tt=ADMIN_POKEMON_TEXTS.preevolutionMethodValue;
+        adm_add("'"+temp+"',");
+
+        temp=adm_form_weight.value;
+        tt=ADMIN_POKEMON_TEXTS.weight;
+        if(temp==''){adm_error(tt,0); return false;}
+        if(isNaN(temp)){adm_error(tt,2); return false;}
+        if(temp<=0){adm_error(tt,1); return false;}
+        adm_add(temp+',');
+
+        temp=adm_form_height.value;
+        tt=ADMIN_POKEMON_TEXTS.height;
+        if(temp==''){adm_error(tt,0); return false;}
+        if(isNaN(temp)){adm_error(tt,2); return false;}
+        if(temp<=0){adm_error(tt,1); return false;}
+        adm_add(temp+'),');
     }
 
 //,'medium fast',0.125,'field',35,55,55,50,45,65,55,'','','',0.3,6.5),
@@ -202,12 +294,30 @@ function adm_add(_text)
 
 function adm_error(_text,_type)
 {
-    let text;
-    switch(_type)
+    let text=_text[language];
+    let error='';
+
+    if(language==ENGLISH)
     {
-        case 0: text=_text[1]+' is empty'; break;
-        case 1: text=_text[1]+' is too low or too high'; break;
-        case 2: text=_text[1]+' is not a number'; break;
+        error='error: ';
+        switch(_type)
+        {
+            case 0: text+=' is empty'; break;
+            case 1: text+=' is too low or too high'; break;
+            case 2: text+=' is not a number'; break;
+        }
     }
-    adm_createContent.value='error: '+text;
+
+    if(language==POLSKI)
+    {
+        error='błąd: ';
+        switch(_type)
+        {
+            case 0: text+=' nic nie zawiera'; break;
+            case 1: text+=' ma zbyt małą lub zbyt dużą wartość'; break;
+            case 2: text+=' nie jest liczbą'; break;
+        }
+    }
+    
+    adm_createContent.value=error+text;
 }

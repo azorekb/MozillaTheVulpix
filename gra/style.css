@@ -1,11 +1,26 @@
-.worldmap
+.worldMapWindow
 {
-	border-collapse: collapse;
+    position: relative;
 }
 
-.worldmap td
+.worldMapWindow .worldmap
+{
+	border-collapse: collapse;
+    position: relative;
+	left: 0;
+	top: 0;
+}
+
+.worldMapWindow .worldmap td
 {
 	padding: 0;	
+}
+
+.worldMapWindow .helpDiv
+{
+    position: absolute;
+    border-style: ridge;
+    border-color: green;
 }
 
 .widnow_map
@@ -15,16 +30,16 @@
 
 .mapMenu
 {
-	margin: 0 20px;
+	margin: 0 30px;
 }
 
 .mapMenuButton
 {
     text-align: center;
     background-color: #0c0;
-    width: 150;
+    width: 150px;
     padding: 6px 1px;
-    margin: 4 0;
+    margin: 4px 0;
     border: 4px #0a0 outset;
     border-radius: 20px;
 }

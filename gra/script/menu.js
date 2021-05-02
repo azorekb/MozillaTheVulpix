@@ -1,6 +1,7 @@
 const WINDOW_UNACTIVE=-1;
 const WINDOW_WORLDMAP=0;
 const WINDOW_OPTIONS=1;
+const SIZE_OF_TD=20;
 const POKEDEX_TEXTS={
     no:['nr','no.'],
     types:['typy','types'],
@@ -126,13 +127,10 @@ function openMap()
 {
     worldmapContent.innerHTML='';
 	worldMapWindow=document.createElement('div');
-	worldMapWindow.style.position='relative';
+	worldMapWindow.classList.add('worldMapWindow');
 	
 	worldMapTable=document.createElement('table');
 	worldMapTable.classList.add('worldmap');
-	worldMapTable.style.position='relative';
-	worldMapTable.style.left=0;
-	worldMapTable.style.top=0;
 	worldMapWindow.appendChild(worldMapTable);
 	
 	mainCharacter = document.createElement('img');
@@ -141,6 +139,17 @@ function openMap()
 	resize_worldMap();
 	worldMapWindow.appendChild(mainCharacter);
 	worldmapContent.appendChild(worldMapWindow);
+
+	let helpdiv = document.createElement('div');
+	helpdiv.classList.add('helpDiv');
+	helpdiv.style.height = worldMapTable.rows.length * SIZE_OF_TD;
+	helpdiv.style.width = worldMapTable.rows[0].cells.length * SIZE_OF_TD;
+	helpdiv.style.top = -1 * SIZE_OF_TD;
+	helpdiv.style.left = -1 * SIZE_OF_TD;
+	helpdiv.style.borderWidth = SIZE_OF_TD;
+	//helpdiv.onclick=function(){worldMap_clickMove()};
+	helpdiv.id='worldmap_helpdiv';
+	worldMapWindow.appendChild(helpdiv);
 
 	activeWindow = WINDOW_WORLDMAP;
 	
@@ -200,7 +209,7 @@ function resize_worldMap()
 		}
 	}
 	
-	mainCharacter.style.left = 20 * newPosition.x;
-	mainCharacter.style.top = 20 * newPosition.y;
+	mainCharacter.style.left = SIZE_OF_TD * newPosition.x;
+	mainCharacter.style.top = SIZE_OF_TD * newPosition.y;
 	
 }

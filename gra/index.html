@@ -7,7 +7,7 @@
 <link rel="shortcut icon" href="../img/icon.ico" type="image/x-icon">
 </head>
 <body onload="loadScripts()"> 
-<?php
+<!---<?php
 session_start();
 if($_SESSION['nazwa']=="")
 {
@@ -17,6 +17,7 @@ if($_SESSION['nazwa']=="")
 if($_SESSION['lang']==0){echo "Witaj ".$_SESSION['nazwa'].". Miło cię widzieć.";}
 if($_SESSION['lang']==1){echo "Hello ".$_SESSION['nazwa'].". Nice to meet you.";}
 ?>
+--->
 <div id=pozaza>0/0</div>
 <div id=okno>
 	<button onclick='start()'>Test Mapy</button><br>

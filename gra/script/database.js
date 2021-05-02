@@ -24,6 +24,14 @@ class Resistance{
     }
 }
 
+const POKEMON_TYPES=['normal','fire','water','electric','grass','ice','fighting','poison','ground','flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy'];
+
+const POKEMON_STATS=['hp','attack','defence','spAttack','spDeffence','speed'];
+
+const POKEMON_EXP_GROWTH=['erratic','fast','medium fast','medium slow','slow','fluctuating'];
+
+
+
 const RESISTANCE={
 normal: new Resistance(1,1,1,1,1,1,2,1,1,1,1,1,1,0,1,1,1,1),
 fire: new Resistance(1,0.5,2,1,0.5,0.5,1,1,2,1,1,0.5,2,1,1,1,0.5,0.5),
