@@ -34,7 +34,6 @@ function start()
 		map_menu.appendChild(newbutton);
 	}
 
-	const BUTTON_DESCRIBE = ['<','^','>','v'];
 	const BUTTON_PLACES = [[1,0],[0,1],[1,2],[2,1]];
 
 	let tableButton = document.createElement('table');
@@ -52,11 +51,11 @@ function start()
 	{
 		let buttondiv=document.createElement('div');
 		buttondiv.classList.add('directButton');
+		buttondiv.classList.add('button'+i);
 		buttondiv.onmousedown=function(){way_comming = i; if(activeWindow==WINDOW_WORLDMAP){map_actionOfCharacter(i);}}
 		buttondiv.onmouseup=function(){way_comming = -1;}
 		buttondiv.ontouchstart=function(){way_comming = i; if(activeWindow==WINDOW_WORLDMAP){map_actionOfCharacter(i);}}
 		buttondiv.ontouchend=function(){way_comming = -1;}
-		buttondiv.innerHTML='<p>'+BUTTON_DESCRIBE[i]+'</p>';
 		tableButton.rows[BUTTON_PLACES[i][0]].cells[BUTTON_PLACES[i][1]].appendChild(buttondiv);
 	}
 	

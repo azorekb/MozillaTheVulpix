@@ -79,6 +79,30 @@
     border: 2px outset #0a0;
 }
 
+.mapMenu .directButton.button0
+{
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.mapMenu .directButton.button1
+{
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.mapMenu .directButton.button2
+{
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.mapMenu .directButton.button3
+{
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
 .mapMenu .directButton:active
 {
     background-color: #cc0;
