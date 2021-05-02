@@ -22,6 +22,8 @@ function start()
 	worldMapConteiner.classList.add('widnow_map');
 	map_menu=document.createElement('div');
 	map_menu.classList.add('mapMenu');
+	worldMapConteiner.appendChild(map_menu);
+
 	for(let i=0;i<mapMenu_buttons.length;i++)
 	{
 		let newbutton=document.createElement('div');
@@ -31,7 +33,34 @@ function start()
 		newbutton.onclick=function(){clickMenuButton(this);}
 		map_menu.appendChild(newbutton);
 	}
-	worldMapConteiner.appendChild(map_menu);
+
+	const BUTTON_DESCRIBE = ['<','^','>','v'];
+	const BUTTON_PLACES = [[1,0],[0,1],[1,2],[2,1]];
+
+	let tableButton = document.createElement('table');
+	for(let i=0;i<3;i++)
+	{
+		tableButton.insertRow(i);
+		for(let j=0;j<3;j++)
+		{
+			tableButton.rows[i].insertCell(j);
+		}
+	}
+	map_menu.appendChild(tableButton);
+	
+	for(let i=0;i<4;i++)
+	{
+		let buttondiv=document.createElement('div');
+		buttondiv.classList.add('directButton');
+		buttondiv.onmousedown=function(){way_comming = i; if(activeWindow==WINDOW_WORLDMAP){map_actionOfCharacter(i);}}
+		buttondiv.onmouseup=function(){way_comming = -1;}
+		buttondiv.ontouchstart=function(){way_comming = i; if(activeWindow==WINDOW_WORLDMAP){map_actionOfCharacter(i);}}
+		buttondiv.ontouchend=function(){way_comming = -1;}
+		buttondiv.innerHTML='<p>'+BUTTON_DESCRIBE[i]+'</p>';
+		tableButton.rows[BUTTON_PLACES[i][0]].cells[BUTTON_PLACES[i][1]].appendChild(buttondiv);
+	}
+	
+
 
 	worldmapContent=document.createElement('div');
 	worldMapConteiner.appendChild(worldmapContent);

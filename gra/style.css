@@ -68,6 +68,29 @@
 	background-color: #ee0;
 }
 
+
+.mapMenu .directButton
+{
+    background-color: #0c0;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    font-size: 24px;
+    border: 2px outset #0a0;
+}
+
+.mapMenu .directButton:active
+{
+    background-color: #cc0;
+    border: 2px inset #aa0;
+}
+
+
+.mapMenu .directButton p
+{
+    display: ruby;
+}
+
 .pokedex_okno
 {
     display: flex;

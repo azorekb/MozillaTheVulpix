@@ -231,18 +231,13 @@ function endOfWalk(_position,_type)
 	actualPosition.x=_position[0];
 	actualPosition.y=_position[1];
 
-	if(way_comming == 0)
+	if(way_comming == -1)
 	{
 		activeWindow = WINDOW_WORLDMAP;
 	}
 	else
 	{
-		if(worldmap_wayTable[_position[0]][_position[1]] == 0)
-		{
-			way_comming = 0;
-			activeWindow = WINDOW_WORLDMAP;
-		}
-		else(mapWay_incomming());
+		map_actionOfCharacter(way_comming);
 	}
 	pozaza.innerHTML=actualPosition.x+'/'+actualPosition.y;
 }
