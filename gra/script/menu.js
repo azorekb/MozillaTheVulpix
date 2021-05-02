@@ -1,23 +1,20 @@
-const WINDOW_UNACTIVE=-1;
-const WINDOW_WORLDMAP=0;
-const WINDOW_OPTIONS=1;
-const SIZE_OF_TD=20;
-const POKEDEX_TEXTS={
-    no:['nr','no.'],
-    types:['typy','types'],
-    ability:['umiejętności','abilities'],
-    baseStats:['bazowe statystyki','base stats'],
-    hp:['życie','hit points'],
-    attack:['atak','attack'],
-    defence:['obrona','defence'],
-    spAttack:['sp. atak','sp. attack'],
-    spDefence:['sp. obrona','sp. defence'],
-    speed:['szybkość','speed'],
+const SIZE_OF_TD = 20;
+const POKEDEX_TEXTS = {
+    no: ['nr','no.'],
+    types: ['typy','types'],
+    ability: ['umiejętności','abilities'],
+    baseStats: ['bazowe statystyki','base stats'],
+    hp: ['życie','hit points'],
+    attack: ['atak','attack'],
+    defence: ['obrona','defence'],
+    spAttack: ['sp. atak','sp. attack'],
+    spDefence: ['sp. obrona','sp. defence'],
+    speed: ['szybkość','speed'],
     
 }
 
 let poktable;
-let activeButton=null;
+let activeButton = null;
 let worldMapTable;
 let worldMapWindow;
 let dex_containter;
@@ -40,7 +37,7 @@ let dex_pokemonList;
 
 function clickMenuButton(_element)
 {
-    if(activeWindow != WINDOW_UNACTIVE)
+    if(activeWindow != 'unactive')
     {
         switch(_element.id)
         {
@@ -50,8 +47,8 @@ function clickMenuButton(_element)
             default: return false;
         }
 
-        if(activeButton!=null){activeButton.classList.remove('active');}
-        activeButton=_element;
+        if(activeButton != null){activeButton.classList.remove('active');}
+        activeButton = _element;
         _element.classList.add('active');
     }
 
@@ -59,47 +56,47 @@ function clickMenuButton(_element)
 
 function openPokedex()
 {
-    worldmapContent.innerHTML='';
+    worldmapContent.innerHTML = '';
 
-    dex_containter=document.createElement('div');
+    dex_containter = document.createElement('div');
     dex_containter.classList.add('dexContainer');
     worldmapContent.appendChild(dex_containter);
 
-    dex_dataPlace=document.createElement('div');
+    dex_dataPlace = document.createElement('div');
     dex_dataPlace.classList.add('dexPlace');
     dex_containter.appendChild(dex_dataPlace);
 
-    dex_baseStats=document.createElement('div');
+    dex_baseStats = document.createElement('div');
     dex_baseStats.classList.add('dexBaseStats');
     dex_dataPlace.appendChild(dex_baseStats);
 
-	dex_pokemonList=document.createElement('div');
+	dex_pokemonList = document.createElement('div');
 	dex_pokemonList.classList.add('dexPokemonList');
 	dex_containter.appendChild(dex_pokemonList);
 
-	let list=Object.keys(POKEMON_LIST);
+	let list = Object.keys(POKEMON_LIST);
 	for(let i=0;i<list.length;i++)
 	{
-		const pokemon=POKEMON_LIST[list[i]];
-		if(pokemon.no==0){continue;}
-		let newPokemon=document.createElement('div');
+		const pokemon = POKEMON_LIST[list[i]];
+		if(pokemon.no == 0){continue;}
+		let newPokemon = document.createElement('div');
 		newPokemon.classList.add('pokedexPokemon');
-		newPokemon.innerHTML=pokemon.no;
+		newPokemon.innerHTML = pokemon.no;
 		newPokemon.onclick=function(){pokedex_show(list[i]);}
 		dex_pokemonList.appendChild(newPokemon);
 	}
 
-	let table=document.createElement('table');
-	let rows=['no','types','ability','baseStats','hp','attack','defence','spAttack','spDefence','speed'];
+	let table = document.createElement('table');
+	let rows = ['no','types','ability','baseStats','hp','attack','defence','spAttack','spDefence','speed'];
 	for(let i=0;i<rows.length;i++)
 	{
-		table.insertRow(i).insertCell(0).innerHTML=POKEDEX_TEXTS[rows[i]][language];
-		if(i==2||i==3){table.rows[i].cells[0].colSpan=2;}
-		else{table.rows[i].insertCell(1).style.textAlign='right';}
+		table.insertRow(i).insertCell(0).innerHTML = POKEDEX_TEXTS[rows[i]][language];
+		if(i == 2 || i == 3){table.rows[i].cells[0].colSpan = 2;}
+		else{table.rows[i].insertCell(1).style.textAlign = 'right';}
 	}
 
-	table.insertRow(3).insertCell(0).colSpan=2;
-	table.id='pokedex_tableOfStats';
+	table.insertRow(3).insertCell(0).colSpan = 2;
+	table.id = 'pokedex_tableOfStats';
 	table.classList.add('pokedexTableOfStats');
 	dex_baseStats.appendChild(table);
 	
@@ -108,34 +105,34 @@ function openPokedex()
 
 function pokedex_show(_pokemon)
 {
-    let type_text=POKEMON_LIST[_pokemon].types.first;
-    if(POKEMON_LIST[_pokemon].types.second!=''){type_text+='/'+POKEMON_LIST[_pokemon].types.second;}
+    let type_text = POKEMON_LIST[_pokemon].types.first;
+    if(POKEMON_LIST[_pokemon].types.second != ''){type_text += '/' + POKEMON_LIST[_pokemon].types.second;}
 	
-	pokedex_tableOfStats.rows[0].cells[0].innerHTML=POKEDEX_TEXTS.no[language]+' '+POKEMON_LIST[_pokemon].no;
-	pokedex_tableOfStats.rows[0].cells[1].innerHTML=_pokemon;
-	pokedex_tableOfStats.rows[1].cells[1].innerHTML=type_text;
-	pokedex_tableOfStats.rows[3].cells[0].innerHTML=POKEMON_LIST[_pokemon].abilities.first+'<br>'+POKEMON_LIST[_pokemon].abilities.second+'<br><i>'+POKEMON_LIST[_pokemon].abilities.hidden+'</i>';
-	pokedex_tableOfStats.rows[5].cells[1].innerHTML=POKEMON_LIST[_pokemon].baseStats.hp;
-	pokedex_tableOfStats.rows[6].cells[1].innerHTML=POKEMON_LIST[_pokemon].baseStats.attack;
-	pokedex_tableOfStats.rows[7].cells[1].innerHTML=POKEMON_LIST[_pokemon].baseStats.defence;
-	pokedex_tableOfStats.rows[8].cells[1].innerHTML=POKEMON_LIST[_pokemon].baseStats.spAttack;
-	pokedex_tableOfStats.rows[9].cells[1].innerHTML=POKEMON_LIST[_pokemon].baseStats.spDefence;
-	pokedex_tableOfStats.rows[10].cells[1].innerHTML=POKEMON_LIST[_pokemon].baseStats.speed;
+	pokedex_tableOfStats.rows[0].cells[0].innerHTML = POKEDEX_TEXTS.no[language] + ' ' + POKEMON_LIST[_pokemon].no;
+	pokedex_tableOfStats.rows[0].cells[1].innerHTML = _pokemon;
+	pokedex_tableOfStats.rows[1].cells[1].innerHTML = type_text;
+	pokedex_tableOfStats.rows[3].cells[0].innerHTML = POKEMON_LIST[_pokemon].abilities.first + '<br>' + POKEMON_LIST[_pokemon].abilities.second + '<br><i>' + POKEMON_LIST[_pokemon].abilities.hidden + '</i>';
+	pokedex_tableOfStats.rows[5].cells[1].innerHTML = POKEMON_LIST[_pokemon].baseStats.hp;
+	pokedex_tableOfStats.rows[6].cells[1].innerHTML = POKEMON_LIST[_pokemon].baseStats.attack;
+	pokedex_tableOfStats.rows[7].cells[1].innerHTML = POKEMON_LIST[_pokemon].baseStats.defence;
+	pokedex_tableOfStats.rows[8].cells[1].innerHTML = POKEMON_LIST[_pokemon].baseStats.spAttack;
+	pokedex_tableOfStats.rows[9].cells[1].innerHTML = POKEMON_LIST[_pokemon].baseStats.spDefence;
+	pokedex_tableOfStats.rows[10].cells[1].innerHTML = POKEMON_LIST[_pokemon].baseStats.speed;
 }
 
 function openMap()
 {
-    worldmapContent.innerHTML='';
-	worldMapWindow=document.createElement('div');
+    worldmapContent.innerHTML = '';
+	worldMapWindow = document.createElement('div');
 	worldMapWindow.classList.add('worldMapWindow');
 	
-	worldMapTable=document.createElement('table');
+	worldMapTable = document.createElement('table');
 	worldMapTable.classList.add('worldmap');
 	worldMapWindow.appendChild(worldMapTable);
 	
 	mainCharacter = document.createElement('img');
 	mainCharacter.style.position='absolute';
-	mainCharacter.src='../img/joy.png';
+	mainCharacter.src = '../img/joy.png';
 	resize_worldMap();
 	worldMapWindow.appendChild(mainCharacter);
 	worldmapContent.appendChild(worldMapWindow);
@@ -151,21 +148,21 @@ function openMap()
 	helpdiv.id='worldmap_helpdiv';
 	worldMapWindow.appendChild(helpdiv);
 
-	activeWindow = WINDOW_WORLDMAP;
+	activeWindow = 'worldmap';
 	
 }
 
 function resize_worldMap()
 {
-	let x_count=20;//Math.floor((window.innerWidth-800)/20);
-	let y_count=20;//Math.floor((window.innerHeight-400)/20);
-	mapCenter.toY=Math.ceil(y_count/2);
-	mapCenter.isY=1-y_count%2;
-	mapCenter.toX=Math.ceil(x_count/2);
-	mapCenter.isX=1-x_count%2;
+	let x_count = 20;//Math.floor((window.innerWidth-800)/20);
+	let y_count = 20;//Math.floor((window.innerHeight-400)/20);
+	mapCenter.toY = Math.ceil(y_count / 2);
+	mapCenter.isY = 1-y_count % 2;
+	mapCenter.toX = Math.ceil(x_count / 2);
+	mapCenter.isX = 1-x_count % 2;
 
-	let firstCell = {x:0,y:0};
-	let newPosition = {x:actualPosition.x,y:actualPosition.y};
+	let firstCell = {x:0, y:0};
+	let newPosition = {x:actualPosition.x, y:actualPosition.y};
 
 	if(actualMap[0].length > x_count)
 	{
@@ -205,7 +202,7 @@ function resize_worldMap()
 		worldMapTable.insertRow(i);
 		for(let j=0;j<x_count;j++)
 		{
-			worldMapTable.rows[i].insertCell(j).innerHTML='<img src=../img/'+actualMap[i+firstCell.y][j+firstCell.x]+'.png>';
+			worldMapTable.rows[i].insertCell(j).innerHTML='<img src=../img/' + actualMap[i + firstCell.y][j + firstCell.x] + '.png>';
 		}
 	}
 	

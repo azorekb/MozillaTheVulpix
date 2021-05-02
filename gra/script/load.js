@@ -1,11 +1,11 @@
-const POLSKI=0;
-const ENGLISH=1;
-let language=POLSKI;
-if(sessionStorage.lang!=undefined){language=sessionStorage.lang;}
+const POLSKI = 0;
+const ENGLISH = 1;
+let language = POLSKI;
+if(sessionStorage.lang != undefined){language = sessionStorage.lang;}
 
 function loadScripts()
 {
-	let listOfScripts=[];
+	let listOfScripts = [];
 	listOfScripts.push('start');
 	listOfScripts.push('maps');
 	listOfScripts.push('moves');

@@ -1,10 +1,6 @@
 let actualPosition = {x:0, y:0};
 let activeWindow = -1;
 let speed = 10;
-const DIRECT_UP = 1;
-const DIRECT_DOWN = 3;
-const DIRECT_LEFT = 0;
-const DIRECT_RIGHT = 2;
 
 let actualMap=testmap;
 
@@ -12,11 +8,11 @@ function map_actionOfCharacter(_direct)
 {
 	let newX=actualPosition.x;
 	let newY=actualPosition.y;
-	if(_direct==DIRECT_UP){newY--;}
-	if(_direct==DIRECT_DOWN){newY++;}
-	if(_direct==DIRECT_LEFT){newX--;}
-	if(_direct==DIRECT_RIGHT){newX++;}
-	if(newY==-1||newX==-1||newY==actualMap.length||newX==actualMap[0].length){return false;}
+	if(_direct == 'up'){newY--;}
+	if(_direct == 'down'){newY++;}
+	if(_direct == 'left'){newX--;}
+	if(_direct == 'right'){newX++;}
+	if(newY == -1 || newX == -1 || newY == actualMap.length || newX == actualMap[0].length){return false;}
 	
 
 	//przeszkoda=actualMap[newX+1][newY][0];
@@ -26,97 +22,96 @@ function map_actionOfCharacter(_direct)
 
 function map_characterMove(_direct,_character,_position)
 {
-	let j=0;
-	let typeOfMove=0;
-	let positionX=_position[0];
-	let positionY=_position[1];
+	let j = 0;
+	let typeOfMove = 0;
+	let positionX = _position[0];
+	let positionY = _position[1];
 	
 	if(actualMap[0].length>worldMapTable.rows[0].cells.length)
 	{
-		if(_position[0]>mapCenter.toX-mapCenter.isX-1&&_position[0]<actualMap[0].length-mapCenter.toX-1&&_direct==DIRECT_LEFT)
+		if(_position[0] > mapCenter.toX - mapCenter.isX - 1 && _position[0] < actualMap[0].length - mapCenter.toX - 1 && _direct == 'left')
 		{
-			positionX=mapCenter.toX-1;
-			typeOfMove=1;
+			positionX = mapCenter.toX - 1;
+			typeOfMove = 1;
 		}
-		if(_position[0]>mapCenter.toX-mapCenter.isX&&_position[0]<actualMap[0].length-mapCenter.toX&&_direct!=DIRECT_LEFT)
+		if(_position[0] > mapCenter.toX - mapCenter.isX && _position[0] < actualMap[0].length - mapCenter.toX && _direct != 'left')
 		{
-			positionX=mapCenter.toX-1;
-			if(_direct==DIRECT_RIGHT){typeOfMove=1;}
+			positionX = mapCenter.toX - 1;
+			if(_direct == 'right'){typeOfMove = 1;}
 		}
-		if(_position[0]>=actualMap[0].length-mapCenter.toX-1&&_direct==DIRECT_LEFT)
+		if(_position[0] >= actualMap[0].length - mapCenter.toX - 1 && _direct == 'left')
 		{
 			positionX=_position[0]-(actualMap[0].length-worldMapTable.rows[0].cells.length);
 		}
-		if(_position[0]>=actualMap[0].length-mapCenter.toX&&_direct!=DIRECT_LEFT)
+		if(_position[0] >= actualMap[0].length - mapCenter.toX && _direct != 'left')
 		{
-			positionX=_position[0]-(actualMap[0].length-worldMapTable.rows[0].cells.length);
+			positionX = _position[0] - (actualMap[0].length - worldMapTable.rows[0].cells.length);
 		}
 		
 	}
-	if(actualMap[1].length>worldMapTable.rows.length)
+	if(actualMap[1].length > worldMapTable.rows.length)
 	{
-		if(_position[1]>mapCenter.toY-mapCenter.isY-1&&_position[1]<actualMap.length-mapCenter.toY-1&&_direct==DIRECT_UP)
+		if(_position[1] > mapCenter.toY - mapCenter.isY -1 && _position[1] < actualMap.length - mapCenter.toY -1 && _direct == 'up')
 		{
-			positionY=mapCenter.toY-1;
-			typeOfMove=1;
+			positionY = mapCenter.toY - 1;
+			typeOfMove = 1;
 		}
-		if(_position[1]>mapCenter.toY-mapCenter.isY&&_position[1]<actualMap.length-mapCenter.toY&&_direct!=DIRECT_UP)
+		if(_position[1] > mapCenter.toY - mapCenter.isY && _position[1] < actualMap.length - mapCenter.toY && _direct != 'up')
 		{
-			positionY=mapCenter.toY-1;
-			if(_direct==DIRECT_DOWN){typeOfMove=1;}
+			positionY = mapCenter.toY - 1;
+			if(_direct == 'down'){typeOfMove = 1;}
 		}
-		if(_position[1]>=actualMap.length-mapCenter.toY-1&&_direct==DIRECT_UP)
+		if(_position[1] >= actualMap.length - mapCenter.toY - 1 && _direct == 'up')
 		{
-			positionY=_position[1]-(actualMap.length-worldMapTable.rows.length);
+			positionY = _position[1] - (actualMap.length - worldMapTable.rows.length);
 		}
-		if(_position[1]>=actualMap.length-mapCenter.toY&&_direct!=DIRECT_UP)
+		if(_position[1] >= actualMap.length - mapCenter.toY && _direct != 'up')
 		{
-			positionY=_position[1]-(actualMap.length-worldMapTable.rows.length);
+			positionY = _position[1] - (actualMap.length - worldMapTable.rows.length);
 		}
 		
 	}
 	
-	activeWindow=WINDOW_UNACTIVE;
+	activeWindow = 'unactive';
 	
-	if(typeOfMove==0)
+	if(typeOfMove == 0)
 	{
 		for(let i=1;i<=SIZE_OF_TD;i++)
 		{
-			if(_direct==DIRECT_UP){setTimeout(function(){_character.style.top=((positionY+1)*SIZE_OF_TD-j); j++;},i*speed);}
-			if(_direct==DIRECT_DOWN){setTimeout(function(){_character.style.top=((positionY-1)*SIZE_OF_TD+j); j++;},i*speed);}
-			if(_direct==DIRECT_LEFT){setTimeout(function(){_character.style.left=((positionX+1)*SIZE_OF_TD-j); j++;},i*speed);}
-			if(_direct==DIRECT_RIGHT){setTimeout(function(){_character.style.left=((positionX-1)*SIZE_OF_TD+j); j++;},i*speed);}
-			
+			if(_direct == 'up'){setTimeout(function(){_character.style.top = ((positionY + 1) * SIZE_OF_TD - j); j++;}, i * speed);}
+			if(_direct == 'down'){setTimeout(function(){_character.style.top = ((positionY - 1) * SIZE_OF_TD + j); j++;}, i * speed);}
+			if(_direct == 'left'){setTimeout(function(){_character.style.left = ((positionX + 1) * SIZE_OF_TD - j); j++;}, i * speed);}
+			if(_direct == 'right'){setTimeout(function(){_character.style.left = ((positionX - 1) * SIZE_OF_TD + j); j++;}, i * speed);}	
 		}
 		setTimeout(function()
 		{
-			_character.style.top=positionY*SIZE_OF_TD;
-			_character.style.left=positionX*SIZE_OF_TD;
-			endOfWalk(_position,typeOfMove);
-		},(SIZE_OF_TD+1)*speed);
+			_character.style.top = positionY * SIZE_OF_TD;
+			_character.style.left = positionX * SIZE_OF_TD;
+			endOfWalk(_position, typeOfMove);
+		},(SIZE_OF_TD + 1) * speed);
 	}
 	
 	
-	if(typeOfMove==1)
+	if(typeOfMove == 1)
 	{
-		if(_direct==DIRECT_LEFT)
+		if(_direct == 'left')
 		{
-			let lastCell=worldMapTable.rows[0].cells.length;
-			let newElement=_position[0]-mapCenter.toX-mapCenter.isX+2;
+			let lastCell = worldMapTable.rows[0].cells.length;
+			let newElement = _position[0] - mapCenter.toX - mapCenter.isX+2;
 			
 			for(let i=0;i<worldMapTable.rows.length;i++)
 			{
-				worldMapTable.rows[i].insertCell(0).innerHTML='<img src=../img/'+actualMap[_position[1]-positionY+i][newElement]+'.png>';
+				worldMapTable.rows[i].insertCell(0).innerHTML = '<img src=../img/' + actualMap[_position[1] - positionY + i][newElement] + '.png>';
 			}
-			worldMapTable.style.left= -1 * SIZE_OF_TD;
+			worldMapTable.style.left = -1 * SIZE_OF_TD;
 			
 			for(let i=1;i<=SIZE_OF_TD;i++)
 			{
 				setTimeout(function()
 				{
-					worldMapTable.style.left=j -1 * SIZE_OF_TD;
+					worldMapTable.style.left = j -1 * SIZE_OF_TD;
 					j++;
-				},i*speed);
+				}, i * speed);
 			}
 			
 			setTimeout(function()
@@ -125,28 +120,28 @@ function map_characterMove(_direct,_character,_position)
 				{
 					worldMapTable.rows[i].deleteCell(lastCell);
 				}
-				endOfWalk(_position,typeOfMove);
+				endOfWalk(_position, typeOfMove);
 				
-			},(SIZE_OF_TD+1)*speed);
+			},(SIZE_OF_TD + 1) * speed);
 		}
 		
-		if(_direct==DIRECT_RIGHT)
+		if(_direct == 'right')
 		{
-			let lastCell=worldMapTable.rows[0].cells.length;
-			let newElement=_position[0]+mapCenter.toX+mapCenter.isX-1;
+			let lastCell = worldMapTable.rows[0].cells.length;
+			let newElement = _position[0]+mapCenter.toX + mapCenter.isX - 1;
 			
 			for(let i=0;i<worldMapTable.rows.length;i++)
 			{
-				worldMapTable.rows[i].insertCell(lastCell).innerHTML='<img src=../img/'+actualMap[_position[1]-positionY+i][newElement]+'.png>';
+				worldMapTable.rows[i].insertCell(lastCell).innerHTML = '<img src=../img/' + actualMap[_position[1] - positionY + i][newElement] + '.png>';
 			}
 			
 			for(let i=1;i<=SIZE_OF_TD;i++)
 			{
 				setTimeout(function()
 				{
-					worldMapTable.style.left=-j;
+					worldMapTable.style.left = -j;
 					j++;
-				},i*speed);
+				}, i * speed);
 			}
 			
 			setTimeout(function()
@@ -155,90 +150,87 @@ function map_characterMove(_direct,_character,_position)
 				{
 					worldMapTable.rows[i].deleteCell(0);
 				}
-				endOfWalk(_position,typeOfMove);
+				endOfWalk(_position, typeOfMove);
 				
-			},(SIZE_OF_TD+1)*speed);
+			},(SIZE_OF_TD + 1) * speed);
 		}
 		
-		if(_direct==DIRECT_UP)
+		if(_direct == 'up')
 		{
-			let lastRow=worldMapTable.rows.length;
+			let lastRow = worldMapTable.rows.length;
 			worldMapTable.insertRow(0);
-			worldMapTable.style.top=-1 * SIZE_OF_TD;
+			worldMapTable.style.top = -1 * SIZE_OF_TD;
 			
-			let newElement=_position[1]-mapCenter.toY-mapCenter.isY+2;
+			let newElement = _position[1] - mapCenter.toY - mapCenter.isY + 2;
 			
 			for(let i=0;i<worldMapTable.rows[1].cells.length;i++)
 			{
-				worldMapTable.rows[0].insertCell(i).innerHTML='<img src=../img/'+actualMap[newElement][_position[0]-positionX+i]+'.png>';
+				worldMapTable.rows[0].insertCell(i).innerHTML = '<img src=../img/' + actualMap[newElement][_position[0] - positionX + i] + '.png>';
 			}
 			
 			for(let i=1;i<(SIZE_OF_TD+1);i++)
 			{
 				setTimeout(function()
 				{
-					worldMapTable.style.top=j -1 * SIZE_OF_TD;
+					worldMapTable.style.top = j -1 * SIZE_OF_TD;
 					j++;
-				},i*speed);
+				}, i * speed);
 			}
 			
 			setTimeout(function()
 			{
 				worldMapTable.deleteRow(lastRow);
-				endOfWalk(_position,typeOfMove);
+				endOfWalk(_position, typeOfMove);
 				
-			},(SIZE_OF_TD+1)*speed);
+			},(SIZE_OF_TD + 1) * speed);
 		}
 		
-		if(_direct==DIRECT_DOWN)
+		if(_direct == 'down')
 		{
-			let lastRow=worldMapTable.rows.length;
+			let lastRow = worldMapTable.rows.length;
 			worldMapTable.insertRow(lastRow);
-			let newElement=_position[1]+mapCenter.toY+mapCenter.isY-1;
+			let newElement = _position[1] + mapCenter.toY + mapCenter.isY - 1;
 			
 			for(let i=0;i<worldMapTable.rows[0].cells.length;i++)
 			{
-				worldMapTable.rows[lastRow].insertCell(i).innerHTML='<img src=../img/'+actualMap[newElement][_position[0]-positionX+i]+'.png>';
+				worldMapTable.rows[lastRow].insertCell(i).innerHTML = '<img src=../img/' + actualMap[newElement][_position[0] - positionX + i] + '.png>';
 			}
 			
-			for(let i=1;i<=(SIZE_OF_TD);i++)
+			for(let i=1;i<=SIZE_OF_TD;i++)
 			{
 				setTimeout(function()
 				{
-					worldMapTable.style.top=-j;
+					worldMapTable.style.top = -j;
 					j++;
-				},i*speed);
+				}, i * speed);
 			}
 			
 			setTimeout(function()
 			{
 				worldMapTable.deleteRow(0);
-				endOfWalk(_position,typeOfMove);
+				endOfWalk(_position, typeOfMove);
 				
-			},(SIZE_OF_TD+1)*speed);
+			},(SIZE_OF_TD + 1) * speed);
 		}
 	}
 	
 }
 
-function endOfWalk(_position,_type)
+function endOfWalk(_position, _type)
 {
-	if(_type==1)
+	if(_type == 1)
 	{
-		worldMapTable.style.left=0;
-		worldMapTable.style.top=0;
+		worldMapTable.style.left = 0;
+		worldMapTable.style.top = 0;
 	}
-	actualPosition.x=_position[0];
-	actualPosition.y=_position[1];
+	actualPosition.x = _position[0];
+	actualPosition.y = _position[1];
 
-	if(way_comming == -1)
-	{
-		activeWindow = WINDOW_WORLDMAP;
-	}
-	else
+	activeWindow = 'worldmap';
+	if(way_comming != null)
 	{
 		map_actionOfCharacter(way_comming);
 	}
-	pozaza.innerHTML=actualPosition.x+'/'+actualPosition.y;
+	pozaza.innerHTML = actualPosition.x + '/' + actualPosition.y;
 }
 
