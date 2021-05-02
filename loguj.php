@@ -15,7 +15,7 @@ if(isset($_POST['log_login']))
 				session_start();
 				$_SESSION['nazwa']=$login;
 				$_SESSION['lang']=$_POST['lang'];
-				header("Location: gra/index.php");
+				header("Location: gra/index.html");
 			}
 			else
 			{

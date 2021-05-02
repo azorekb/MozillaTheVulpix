@@ -15,6 +15,8 @@ mapMenu_buttons.push(['Pokemony','Pokemon']);
 mapMenu_buttons.push(['Przedmioty','Items']);
 mapMenu_buttons.push(['Opcje','Options']);
 let way_comming = null;
+let tableButton;
+const MOBILE_WIDTH = 760;
 
 function start()
 {
@@ -41,7 +43,7 @@ function start()
 
 	const BUTTON_PLACES = [[1,0],[0,1],[1,2],[2,1]];
 
-	let tableButton = document.createElement('table');
+	tableButton = document.createElement('table');
 	tableButton.classList='tableButton';
 	for(let i=0;i<3;i++)
 	{
@@ -51,7 +53,7 @@ function start()
 			tableButton.rows[i].insertCell(j);
 		}
 	}
-	if(window.innerWidth < 760){worldMapConteiner.appendChild(tableButton);}
+	if(window.innerWidth < MOBILE_WIDTH){worldMapConteiner.appendChild(tableButton);}
 	else{map_menu.appendChild(tableButton);}
 	
 	for(let i=0;i<4;i++)

@@ -94,6 +94,13 @@ function map_characterMove(_direct,_character,_position)
 	
 	if(typeOfMove == 1)
 	{
+		if(window.innerWidth < MOBILE_WIDTH)
+		{
+			if(_direct == 'up' || _direct == 'down')
+			{
+				tableButton.classList.add('moving');
+			}
+		}
 		if(_direct == 'left')
 		{
 			let lastCell = worldMapTable.rows[0].cells.length;
@@ -222,6 +229,7 @@ function endOfWalk(_position, _type)
 	{
 		worldMapTable.style.left = 0;
 		worldMapTable.style.top = 0;
+		tableButton.classList.remove('moving');
 	}
 	actualPosition.x = _position[0];
 	actualPosition.y = _position[1];

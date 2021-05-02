@@ -1,3 +1,8 @@
+div
+{
+    max-width: 100%;
+}
+
 .worldMapWindow
 {
     position: relative;
@@ -29,7 +34,7 @@
     margin: 0 auto;
 }
 
-@media screen and (min-width: 760px)
+@media only screen and (min-width: 760px)
 {
     .widnow_map
     {
@@ -134,6 +139,11 @@
 .tableButton
 {
     margin: 30px auto;
+}
+
+.tableButton.moving
+{
+    margin-top: 10px;
 }
 
 @media screen and (min-width: 760px)
