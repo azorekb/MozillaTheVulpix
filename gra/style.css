@@ -25,23 +25,46 @@
 
 .widnow_map
 {
-	display: flex;
+	max-width: max-content;
+    margin: 0 auto;
+}
+
+@media screen and (min-width: 760px)
+{
+    .widnow_map
+    {
+        display: flex;
+    }
 }
 
 .mapMenu
 {
-	margin: 0 30px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
 }
+
+@media screen and (min-width: 760px)
+{
+    .mapMenu
+    {
+        display: block;
+        flex-wrap: nowrap;
+        margin: 0 30px;
+    }
+}
+
 
 .mapMenuButton
 {
     text-align: center;
     background-color: #0c0;
-    width: 150px;
+    width: 120px;
     padding: 6px 1px;
     margin: 4px 0;
     border: 4px #0a0 outset;
     border-radius: 20px;
+    height: max-content;
 }
 
 .mapMenuButton:hover
@@ -67,7 +90,6 @@
     border-color: #cc0;
 	background-color: #ee0;
 }
-
 
 .directButton
 {
@@ -109,10 +131,17 @@
     border-bottom-right-radius: 15px;
 }
 
-
-.mapMenu .directButton p
+.tableButton
 {
-    display: ruby;
+    margin: 30px auto;
+}
+
+@media screen and (min-width: 760px)
+{
+    .tableButton
+    {
+        margin: 15px auto;
+    }
 }
 
 .pokedex_okno
@@ -133,11 +162,19 @@
 
 .dexPlace
 {
-    width: 500px;
+    width: auto;
     border: 3px solid #0ae;
     border-radius: 10px;
     display: flex;
     background-color: #039
+}
+
+@media screen and (min-width: 760px)
+{
+    .dexPlace
+    {
+        width: 500px;
+    }
 }
 
 .dexBaseStats
@@ -150,10 +187,18 @@
 {
     display: flex;
     flex-wrap: wrap;
-    width: 470px;
+    width: auto;
     border: 3px solid #0ae;
     margin: 15px;
     background-color: #039
+}
+
+@media screen and (min-width: 760px)
+{
+    .dexPokemonList
+    {
+        width: 470px;
+    }
 }
 
 .pokedexPokemon 

@@ -100,6 +100,8 @@ function openPokedex()
 	table.classList.add('pokedexTableOfStats');
 	dex_baseStats.appendChild(table);
 	
+	activeWindow = 'pokedex';
+
     pokedex_show('eevee');
 }
 

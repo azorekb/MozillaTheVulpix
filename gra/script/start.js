@@ -36,9 +36,13 @@ function start()
 		map_menu.appendChild(newbutton);
 	}
 
+	worldmapContent = document.createElement('div');
+	worldMapConteiner.appendChild(worldmapContent);
+
 	const BUTTON_PLACES = [[1,0],[0,1],[1,2],[2,1]];
 
 	let tableButton = document.createElement('table');
+	tableButton.classList='tableButton';
 	for(let i=0;i<3;i++)
 	{
 		tableButton.insertRow(i);
@@ -47,7 +51,8 @@ function start()
 			tableButton.rows[i].insertCell(j);
 		}
 	}
-	map_menu.appendChild(tableButton);
+	if(window.innerWidth < 760){worldMapConteiner.appendChild(tableButton);}
+	else{map_menu.appendChild(tableButton);}
 	
 	for(let i=0;i<4;i++)
 	{
@@ -62,9 +67,6 @@ function start()
 		buttondiv.ontouchend = function(){wayUnactive(this);}
 		tableButton.rows[BUTTON_PLACES[i][0]].cells[BUTTON_PLACES[i][1]].appendChild(buttondiv);
 	}
-	
-	worldmapContent = document.createElement('div');
-	worldMapConteiner.appendChild(worldmapContent);
 
 	okno.appendChild(worldMapConteiner);
 	
