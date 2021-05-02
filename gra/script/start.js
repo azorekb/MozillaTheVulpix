@@ -55,15 +55,14 @@ function start()
 		let buttondiv = document.createElement('div');
 		buttondiv.classList.add('directButton');
 		buttondiv.classList.add('button'+i);
-		buttondiv.onmousedown = function(){way_comming = BUTTONS[i]; globalButtons('direct', BUTTONS[i]);}
-		buttondiv.onmouseup = function(){way_comming = null;}
-		buttondiv.ontouchstart = function(){way_comming = BUTTONS[i]; globalButtons('direct', BUTTONS[i]);}
-		buttondiv.ontouchend = function(){way_comming = null;}
+		buttondiv.onmousedown = function(event){wayActive(event, this, BUTTONS[i]);}
+		buttondiv.onmouseup = function(){wayUnactive(this);}
+		buttondiv.onmouseout = function(){wayUnactive(this);}
+		buttondiv.ontouchstart = function(event){wayActive(event, this, BUTTONS[i]);}
+		buttondiv.ontouchend = function(){wayUnactive(this);}
 		tableButton.rows[BUTTON_PLACES[i][0]].cells[BUTTON_PLACES[i][1]].appendChild(buttondiv);
 	}
 	
-
-
 	worldmapContent = document.createElement('div');
 	worldMapConteiner.appendChild(worldmapContent);
 
@@ -71,4 +70,18 @@ function start()
 	
 	activeWindow = 'worldmap';
 	clickMenuButton(document.getElementById('mapMenuButton_Adventure'));
+}
+
+function wayActive(_event, _element, _direct)
+{
+	way_comming = _direct;
+	globalButtons('direct', _direct);
+	_element.classList.add('active');
+	_event.preventDefault();
+}
+
+function wayUnactive(_element)
+{
+	way_comming = null;
+	_element.classList.remove('active');
 }
