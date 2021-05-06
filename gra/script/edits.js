@@ -261,11 +261,11 @@ function adm_mapEditor()
     adm_mapItems_container.classList.add('admMapItems');
     admin_content.appendChild(adm_mapItems_container);
 
-    for(let i=0;i<NUMBER_OF_MAP_ITEMS;i++)
+    for(let i=0;i<MAP_ITEMS.length;i++)
     {
         let adm_mapItem = document.createElement('div');
         let img = document.createElement('img');
-        img.src = '../img/' + i + '.png';
+        img.src = MAP_ITEMS[i].src;
         img.title = ADMIN_MAPS_DESCRIPTIONS.imgTitle[language] + i;
         adm_mapItem.appendChild(img);
         adm_mapItem.onclick = function(){adm_mapItemSelect(this, i);}

@@ -102,7 +102,8 @@ function map_characterMove(_direct,_character,_position)
 			
 			for(let i=0;i<worldMapTable.rows.length;i++)
 			{
-				worldMapTable.rows[i].insertCell(0).innerHTML = '<img src=../img/' + actualMap[_position[1] - positionY + i][newElement] + '.png>';
+				const imgNo = actualMap[_position[1] - positionY + i][newElement];
+				worldMapTable.rows[i].insertCell(0).appendChild(mapImg(imgNo));
 			}
 			worldMapTable.style.left = -1 * SIZE_OF_TD;
 			
@@ -133,7 +134,8 @@ function map_characterMove(_direct,_character,_position)
 			
 			for(let i=0;i<worldMapTable.rows.length;i++)
 			{
-				worldMapTable.rows[i].insertCell(lastCell).innerHTML = '<img src=../img/' + actualMap[_position[1] - positionY + i][newElement] + '.png>';
+				const imgNo = actualMap[_position[1] - positionY + i][newElement];
+				worldMapTable.rows[i].insertCell(lastCell).appendChild(mapImg(imgNo));
 			}
 			
 			for(let i=1;i<=SIZE_OF_TD;i++)
@@ -166,7 +168,8 @@ function map_characterMove(_direct,_character,_position)
 			
 			for(let i=0;i<worldMapTable.rows[1].cells.length;i++)
 			{
-				worldMapTable.rows[0].insertCell(i).innerHTML = '<img src=../img/' + actualMap[newElement][_position[0] - positionX + i] + '.png>';
+				const imgNo = actualMap[newElement][_position[0] - positionX + i];
+				worldMapTable.rows[0].insertCell(i).appendChild(mapImg(imgNo));
 			}
 			
 			for(let i=1;i<(SIZE_OF_TD+1);i++)
@@ -194,7 +197,8 @@ function map_characterMove(_direct,_character,_position)
 			
 			for(let i=0;i<worldMapTable.rows[0].cells.length;i++)
 			{
-				worldMapTable.rows[lastRow].insertCell(i).innerHTML = '<img src=../img/' + actualMap[newElement][_position[0] - positionX + i] + '.png>';
+				const imgNo = actualMap[newElement][_position[0] - positionX + i];
+				worldMapTable.rows[lastRow].insertCell(i).appendChild(mapImg(imgNo));
 			}
 			
 			for(let i=1;i<=SIZE_OF_TD;i++)
@@ -236,3 +240,9 @@ function endOfWalk(_position, _type)
 	pozaza.innerHTML = actualPosition.x + '/' + actualPosition.y;
 }
 
+function mapImg(_src)
+{
+	let img = document.createElement('img');
+	img.src = MAP_ITEMS[_src].src;
+	return img;
+}

@@ -2,7 +2,7 @@
 
 const MOBILE_WIDTH = 760;
 const SIZE_OF_TD = 20;
-const NUMBER_OF_MAP_ITEMS = 11;
+const IMG_WAY = '../img/';
 
 //========================== KLASY | CLASSES =========================
 
@@ -75,6 +75,23 @@ const ADMIN_WARNINGS=
     ['używaj tylko języka <u>angielskiego</u> oraz małych liter','use only <u>english</u> language and small letters']
 ];
 
+const MAP_ITEMS = 
+[
+    {name: 'grass', src: IMG_WAY+'trawa.png'},
+    {name: 'wayNW', src: IMG_WAY+'drogaNW.png'},
+    {name: 'wayN', src: IMG_WAY+'drogaN.png'},
+    {name: 'wayNE', src: IMG_WAY+'drogaNE.png'},
+    {name: 'wayW', src: IMG_WAY+'drogaW.png'},
+    {name: 'wayC', src: IMG_WAY+'drogaC.png'},
+    {name: 'wayE', src: IMG_WAY+'drogaE.png'},
+    {name: 'waySW', src: IMG_WAY+'drogaSW.png'},
+    {name: 'wayS', src: IMG_WAY+'drogaS.png'},
+    {name: 'waySE', src: IMG_WAY+'drogaSE.png'},
+    {name: 'tallgrass', src: IMG_WAY+'wysokatrawa.png'},
+    {name: 'water', src: IMG_WAY+'woda.gif'},
+    {name: 'joy', src: IMG_WAY+'joy.png'},
+    
+];
 //========================= OBIEKTY | OBJECTS ==========================
 
 const RESISTANCE={
