@@ -1,92 +1,3 @@
-let admin_conteiner;
-let admin_list;
-let admin_content;
-
-
-const ADMIN_LIST_OF_TASKS=
-[
-    {name:['dodaj pokemona','add pokemon'], function: adm_formPokemon}
-];
-const ADMIN_POKEMON_TEXTS=
-{
-    name:['nazwa pokemona','name of pokemon'],
-    types:['typy','types'],
-    abilities:['umiejętności','abilities'],
-    EVYeld:['EV Yeld','EV Yeld'],
-    catchRate:['szanse złapania','catch rate'],
-    baseExp:['bazowe doświadczenie','base expirience'],
-    growthExp:['wzrost doświadczenia','growth of expirience'],
-    femaleRate:['szanse na samiczkę','female rate'],
-    eggGroup:['grupa jajek','egg group'],
-    eggCycles:['cykle do wyklucia','egg cycles'],
-    baseHP:['bazowe życie','base hit points'],
-    baseAttack:['bazowy atak','base attack'],
-    baseDefence:['bazowa obrona','base defence'],
-    baseSpAttack:['bazowy specjalny atak','base special attack'],
-    baseSpDefence:['bazowa specjalna obrona','base special defence'],
-    baseSpeed:['bazowa szybkość','base speed'],
-    preevolutionSpecie:['gatunek preewolucji','preevolution specie'],
-    preevolutionMethod:['metoda ewolucji preewolucji','evolution method of preevolution'],
-    preevolutionMethodValue:['podtyp lub wartość metody','subtype or value od method'],
-    height:['wysokość','height'],
-    weight:['waga','weight'],
-}
-
-const EXAMPLE=
-{
-    name: 'alolan_ninetales',
-    types:'ice,fairy',
-    abilities:'snow cloak,,snow warning',
-    EVYeld:'speed,speed',
-    catchRate:75,
-    baseExp:177,
-    growthExp:'medium fast',
-    femaleRate:75,
-    eggGroup:'field',
-    eggCycles:20,
-    baseHP:75,
-    baseAttack:80,
-    baseDefence:85,
-    baseSpAttack:90,
-    baseSpDefence:95,
-    baseSpeed:100,
-    preevolutionSpecie:'alolan_vulpix',
-    preevolutionMethod:'stone',
-    preevolutionMethodValue:'ice stone',
-    height:1.1,
-    weight:19.9,
-}
-
-const ADMIN_WARNINGS=
-[
-    ['używaj tylko języka <u>angielskiego</u> oraz małych liter','use only <u>english</u> language and small letters']
-];
-
-const ADMIN_POKEMON_DESCRIPTION=
-{
-    name:['nie używaj spacji','do not use space'],
-    types:['w przypadku dwu wypisz po przecinku bez spacji','in the case of two write out after "," without space'],
-    abilities:['w przypadku dwu lub trzech (trzecia to zawsze ukryta) wypisz po przecinku bez spacji, jeśli ma być jedna umiejętność + ukryta wypisz drugą jako pustą','in the case of two or three (third is always hidden) write out after "," without space, in the case if there is only one ability plus hidden write second as empty'],
-    EVYeld:['1 atak = attack, 2 atak = attack,attack (hp,attack,defence,spAttack,spDeffence,speed)','1 attack = attack, 2 attack = attack,attack (hp,attack,defence,spAttack,spDeffence,speed)'],
-    catchRate:['1-255, 255-pewne złapanie','1-255, 255-sure catch'],
-    baseExp:['',''],
-    growthExp:['erratic,fast,medium fast,medium slow,slow,fluctuating','erratic,fast,medium fast,medium slow,slow,fluctuating'],
-    femaleRate:['sama liczba 0-100, zamiast przecinka użyj kropki','only number 0-100, use dot insted of comma'],
-    eggGroup:['',''],
-    eggCycles:['minimum 1','minimum 1'],
-    baseHP:['',''],
-    baseAttack:['',''],
-    baseDefence:['',''],
-    baseSpAttack:['',''],
-    baseSpDefence:['',''],
-    baseSpeed:['',''],
-    preevolutionSpecie:['',''],
-    preevolutionMethod:['przykłady: stone, mega stone, level, friendship, place, love, move, trade...','examples: stone, mega stone, level, friendship, place, love, move, trade...'],
-    preevolutionMethodValue:['przykłady: fire stone, lucarionite, 52, night, icy rock, fairy move, metal coath..','examples: fire stone, lucarionite, 52, night, icy rock, fairy move, metal coath...'],
-    height:['zamiast przecinka użyj kropki','use dot insted of comma'],
-    weight:['zamiast przecinka użyj kropki','use dot insted of comma'],
-}
-
 function admin_start()
 {
     okno.innerHTML='';
@@ -103,7 +14,7 @@ function admin_start()
         let task=document.createElement('div');
         task.classList.add('adminTask');
         task.innerHTML=ADMIN_LIST_OF_TASKS[i].name[language];
-        task.onclick=function(){ADMIN_LIST_OF_TASKS[i].function()}
+        task.onclick=function(){eval(ADMIN_LIST_OF_TASKS[i].function)()}
         admin_list.appendChild(task);
     }
 
@@ -199,14 +110,14 @@ function adm_formPokemon()
 
         temp=adm_form_eggGroup.value;
         tt=ADMIN_POKEMON_TEXTS.eggGroup;
-        if(temp==''){adm_error(tt,0); return false;}
+        //if(temp==''){adm_error(tt,0); return false;}
         adm_add("'"+temp+"',");
 
         temp=adm_form_eggCycles.value;
         tt=ADMIN_POKEMON_TEXTS.eggCycles;
-        if(temp==''){adm_error(tt,0); return false;}
-        if(isNaN(temp)){adm_error(tt,2); return false;}
-        if(temp<=0){adm_error(tt,1); return false;}
+        //if(temp==''){adm_error(tt,0); return false;}
+        //if(isNaN(temp)){adm_error(tt,2); return false;}
+        //if(temp<=0){adm_error(tt,1); return false;}
         adm_add(temp+',');
 
         temp=adm_form_baseHP.value;
@@ -297,7 +208,7 @@ function adm_error(_text,_type)
     let text=_text[language];
     let error='';
 
-    if(language==ENGLISH)
+    if(language == ENGLISH)
     {
         error='error: ';
         switch(_type)
@@ -308,7 +219,7 @@ function adm_error(_text,_type)
         }
     }
 
-    if(language==POLSKI)
+    if(language == POLSKI)
     {
         error='błąd: ';
         switch(_type)
@@ -320,4 +231,60 @@ function adm_error(_text,_type)
     }
     
     adm_createContent.value=error+text;
+}
+
+function adm_mapEditor()
+{
+    admin_content.innerHTML='';
+    
+    adm_details = document.createElement('div');
+    adm_details.classList.add('admDetails');
+    admin_content.appendChild(adm_details);
+
+    let text = document.createElement('p');
+    text.innerHTML = ADMIN_MAPS_DESCRIPTIONS.no[language];
+    adm_details.appendChild(text);
+
+    adm_mapNo = document.createElement('select');
+    adm_mapNo.id = 'adm_mapNo';
+    adm_details.appendChild(adm_mapNo);
+    
+    for(let i=0;i<maps.length;i++)
+    {
+        option = document.createElement('option');
+        option.value = i;
+        option.innerHTML = i;
+        adm_mapNo.appendChild(option);
+    }
+
+    let adm_mapItems_container = document.createElement('div');
+    adm_mapItems_container.classList.add('admMapItems');
+    admin_content.appendChild(adm_mapItems_container);
+
+    for(let i=0;i<NUMBER_OF_MAP_ITEMS;i++)
+    {
+        let adm_mapItem = document.createElement('div');
+        let img = document.createElement('img');
+        img.src = '../img/' + i + '.png';
+        img.title = ADMIN_MAPS_DESCRIPTIONS.imgTitle[language] + i;
+        adm_mapItem.appendChild(img);
+        adm_mapItem.onclick = function(){adm_mapItemSelect(this, i);}
+        adm_mapItems_container.appendChild(adm_mapItem);
+    }
+
+    adm_mapItems_container.childNodes[0].classList.add('active');
+
+    adm_mapChange(0);
+}
+
+function adm_mapItemSelect(_item,_index)
+{
+    _item.parentNode.childNodes[adm_selectedMapItem].classList.remove('active');
+    _item.classList.add('active');
+    adm_selectedMapItem = _index;
+}
+
+function adm_mapChange(_number)
+{
+
 }

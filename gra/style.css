@@ -1,8 +1,3 @@
-div
-{
-    max-width: 100%;
-}
-
 .worldMapWindow
 {
     position: relative;
@@ -31,7 +26,6 @@ div
 .widnow_map
 {
 	max-width: max-content;
-    margin: 0 auto;
 }
 
 @media only screen and (min-width: 760px)

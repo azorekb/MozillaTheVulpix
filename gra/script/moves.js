@@ -1,9 +1,3 @@
-let actualPosition = {x:0, y:0};
-let activeWindow = -1;
-let speed = 10;
-
-let actualMap=testmap;
-
 function map_actionOfCharacter(_direct)
 {
 	let newX=actualPosition.x;

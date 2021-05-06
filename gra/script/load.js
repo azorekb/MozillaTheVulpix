@@ -1,6 +1,7 @@
 const POLSKI = 0;
 const ENGLISH = 1;
 let language = POLSKI;
+
 if(sessionStorage.lang != undefined){language = sessionStorage.lang;}
 
 function loadScripts()
@@ -13,10 +14,11 @@ function loadScripts()
 	listOfScripts.push('menu');
 	listOfScripts.push('database');
 	listOfScripts.push('edits');
+	listOfScripts.push('globalvar');
 	for(let i=0;i<listOfScripts.length;i++)
 	{
 		let script  = document.createElement('script'); 
-		script.src  = 'script/'+listOfScripts[i]+'.js'; 
+		script.src  = 'script/' + listOfScripts[i] + '.js'; 
 		script.type = 'text/javascript'; 
 		script.defer = true; 
 		document.getElementsByTagName('body').item(0).appendChild(script); 

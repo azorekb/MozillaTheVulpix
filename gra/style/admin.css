@@ -34,3 +34,36 @@
 {
     border: 2px solid black;
 }
+
+
+
+.admDetails
+{
+    display: flex;
+    padding: 10px;
+}
+
+.admDetails p
+{
+    margin: 5px;
+}
+
+.admMapItems
+{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 10px;
+}
+
+.admMapItems div
+{
+    padding: 2px;
+    margin: 1px;
+    border: 1px #000 solid;
+}
+
+.admMapItems .active
+{
+    border-color:#ee0;
+    background-color: #ff0;
+}

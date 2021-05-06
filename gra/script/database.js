@@ -1,3 +1,11 @@
+//============== STAŁE LICZBOWE | NUMBER CONSTANS ====================
+
+const MOBILE_WIDTH = 760;
+const SIZE_OF_TD = 20;
+const NUMBER_OF_MAP_ITEMS = 11;
+
+//========================== KLASY | CLASSES =========================
+
 class Resistance{
     normal; fire; water; electric; grass; ice; fighting; poison; ground; flying; psychic; bug; rock; ghost; dragon; dark; steel; fairy;
  
@@ -22,35 +30,6 @@ class Resistance{
         this.steel=steel;
         this.fairy=fairy;
     }
-}
-
-const POKEMON_TYPES=['normal','fire','water','electric','grass','ice','fighting','poison','ground','flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy'];
-
-const POKEMON_STATS=['hp','attack','defence','spAttack','spDeffence','speed'];
-
-const POKEMON_EXP_GROWTH=['erratic','fast','medium fast','medium slow','slow','fluctuating'];
-
-
-
-const RESISTANCE={
-normal: new Resistance(1,1,1,1,1,1,2,1,1,1,1,1,1,0,1,1,1,1),
-fire: new Resistance(1,0.5,2,1,0.5,0.5,1,1,2,1,1,0.5,2,1,1,1,0.5,0.5),
-water: new Resistance(1,0.5,0.5,2,2,0.5,1,1,1,1,1,1,1,1,1,1,0.5,1),
-electric: new Resistance(1,1,1,0.5,1,1,1,1,2,0.5,1,1,1,1,1,1,0.5,1),
-grass: new Resistance(1,2,0.5,0.5,0.5,2,1,2,0.5,2,1,2,1,1,1,1,1,1),
-ice: new Resistance(1,2,1,1,1,0.5,2,1,1,1,1,1,2,1,1,1,2,1),
-fighting: new Resistance(1,1,1,1,1,1,1,1,1,2,2,0.5,0.5,1,1,0.5,1,2),
-poison: new Resistance(1,1,1,1,0.5,1,0.5,0.5,2,1,2,0.5,1,1,1,1,1,0.5),
-ground: new Resistance(1,1,2,0,2,2,1,0.5,1,1,1,1,0.5,1,1,1,1,1),
-flying: new Resistance(1,1,1,2,0.5,2,0.5,1,0,1,1,0.5,2,1,1,1,1,1),
-psychic: new Resistance(1,1,1,1,1,1,0.5,1,1,1,0.5,2,1,2,1,2,1,1),
-bug: new Resistance(1,2,1,1,0.5,1,0.5,1,0.5,2,1,1,2,1,1,1,1,1),
-rock: new Resistance(0.5,0.5,2,1,2,1,2,0.5,2,0.5,1,1,1,1,1,1,2,1),
-ghost: new Resistance(0,1,1,1,1,1,0,0.5,1,1,1,0.5,1,2,1,2,1,1),
-dragon: new Resistance(1,0.5,0.5,0.5,0.5,2,1,1,1,1,1,1,1,1,2,1,1,2),
-dark: new Resistance(1,1,1,1,1,1,2,1,1,1,0,2,1,0.5,1,0.5,1,2),
-steel: new Resistance(0.5,2,1,1,0.5,0.5,2,0,2,0.5,0.5,0.5,0.5,1,0.5,1,0.5,0.5),
-fairy: new Resistance(1,1,1,1,1,1,0.5,2,1,1,1,0.5,1,1,0,0.5,2,1)
 }
 
 class Pokemon_list{
@@ -84,6 +63,39 @@ class Pokemon_list{
         this.height=height;
         this.weight=weight;
     }
+}
+
+//========================== TABLICE | ARRAYS =============================
+
+const POKEMON_TYPES=['normal','fire','water','electric','grass','ice','fighting','poison','ground','flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy'];
+const POKEMON_STATS=['hp','attack','defence','spAttack','spDeffence','speed'];
+const POKEMON_EXP_GROWTH=['erratic','fast','medium fast','medium slow','slow','fluctuating'];
+const ADMIN_WARNINGS=
+[
+    ['używaj tylko języka <u>angielskiego</u> oraz małych liter','use only <u>english</u> language and small letters']
+];
+
+//========================= OBIEKTY | OBJECTS ==========================
+
+const RESISTANCE={
+normal: new Resistance(1,1,1,1,1,1,2,1,1,1,1,1,1,0,1,1,1,1),
+fire: new Resistance(1,0.5,2,1,0.5,0.5,1,1,2,1,1,0.5,2,1,1,1,0.5,0.5),
+water: new Resistance(1,0.5,0.5,2,2,0.5,1,1,1,1,1,1,1,1,1,1,0.5,1),
+electric: new Resistance(1,1,1,0.5,1,1,1,1,2,0.5,1,1,1,1,1,1,0.5,1),
+grass: new Resistance(1,2,0.5,0.5,0.5,2,1,2,0.5,2,1,2,1,1,1,1,1,1),
+ice: new Resistance(1,2,1,1,1,0.5,2,1,1,1,1,1,2,1,1,1,2,1),
+fighting: new Resistance(1,1,1,1,1,1,1,1,1,2,2,0.5,0.5,1,1,0.5,1,2),
+poison: new Resistance(1,1,1,1,0.5,1,0.5,0.5,2,1,2,0.5,1,1,1,1,1,0.5),
+ground: new Resistance(1,1,2,0,2,2,1,0.5,1,1,1,1,0.5,1,1,1,1,1),
+flying: new Resistance(1,1,1,2,0.5,2,0.5,1,0,1,1,0.5,2,1,1,1,1,1),
+psychic: new Resistance(1,1,1,1,1,1,0.5,1,1,1,0.5,2,1,2,1,2,1,1),
+bug: new Resistance(1,2,1,1,0.5,1,0.5,1,0.5,2,1,1,2,1,1,1,1,1),
+rock: new Resistance(0.5,0.5,2,1,2,1,2,0.5,2,0.5,1,1,1,1,1,1,2,1),
+ghost: new Resistance(0,1,1,1,1,1,0,0.5,1,1,1,0.5,1,2,1,2,1,1),
+dragon: new Resistance(1,0.5,0.5,0.5,0.5,2,1,1,1,1,1,1,1,1,2,1,1,2),
+dark: new Resistance(1,1,1,1,1,1,2,1,1,1,0,2,1,0.5,1,0.5,1,2),
+steel: new Resistance(0.5,2,1,1,0.5,0.5,2,0,2,0.5,0.5,0.5,0.5,1,0.5,1,0.5,0.5),
+fairy: new Resistance(1,1,1,1,1,1,0.5,2,1,1,1,0.5,1,1,0,0.5,2,1)
 }
 
 const POKEMON_LIST={
@@ -137,4 +149,103 @@ const POKEMON_LIST={
     // tauros, (normal ground)
     // miltank, (normal fairy)
     // arceus, 
+}
+
+const POKEDEX_TEXTS = {
+    no: ['nr','no.'],
+    types: ['typy','types'],
+    ability: ['umiejętności','abilities'],
+    baseStats: ['bazowe statystyki','base stats'],
+    hp: ['życie','hit points'],
+    attack: ['atak','attack'],
+    defence: ['obrona','defence'],
+    spAttack: ['sp. atak','sp. attack'],
+    spDefence: ['sp. obrona','sp. defence'],
+    speed: ['szybkość','speed'],
+}
+
+const ADMIN_LIST_OF_TASKS=
+[
+    {name:['dodaj pokemona','add pokemon'], function: 'adm_formPokemon'},
+    {name:['edytor map','map editor'], function: 'adm_mapEditor'},
+];
+const ADMIN_POKEMON_TEXTS=
+{
+    name:['nazwa pokemona','name of pokemon'],
+    types:['typy','types'],
+    abilities:['umiejętności','abilities'],
+    EVYeld:['EV Yeld','EV Yeld'],
+    catchRate:['szanse złapania','catch rate'],
+    baseExp:['bazowe doświadczenie','base expirience'],
+    growthExp:['wzrost doświadczenia','growth of expirience'],
+    femaleRate:['szanse na samiczkę','female rate'],
+    eggGroup:['grupa jajek','egg group'],
+    eggCycles:['cykle do wyklucia','egg cycles'],
+    baseHP:['bazowe życie','base hit points'],
+    baseAttack:['bazowy atak','base attack'],
+    baseDefence:['bazowa obrona','base defence'],
+    baseSpAttack:['bazowy specjalny atak','base special attack'],
+    baseSpDefence:['bazowa specjalna obrona','base special defence'],
+    baseSpeed:['bazowa szybkość','base speed'],
+    preevolutionSpecie:['gatunek preewolucji','preevolution specie'],
+    preevolutionMethod:['metoda ewolucji preewolucji','evolution method of preevolution'],
+    preevolutionMethodValue:['podtyp lub wartość metody','subtype or value od method'],
+    height:['wysokość','height'],
+    weight:['waga','weight'],
+}
+
+const EXAMPLE=
+{
+    name: 'alolan_ninetales',
+    types: 'ice,fairy',
+    abilities: 'snow cloak,,snow warning',
+    EVYeld: 'speed,speed',
+    catchRate: 75,
+    baseExp: 177,
+    growthExp: 'medium fast',
+    femaleRate: 75,
+    eggGroup: 'field',
+    eggCycles: 20,
+    baseHP: 75,
+    baseAttack: 80,
+    baseDefence: 85,
+    baseSpAttack: 90,
+    baseSpDefence: 95,
+    baseSpeed: 100,
+    preevolutionSpecie: 'alolan_vulpix',
+    preevolutionMethod: 'stone',
+    preevolutionMethodValue: 'ice stone',
+    height: 1.1,
+    weight: 19.9,
+}
+
+const ADMIN_POKEMON_DESCRIPTION=
+{
+    name:['nie używaj spacji','do not use space'],
+    types:['w przypadku dwu wypisz po przecinku bez spacji','in the case of two write out after "," without space'],
+    abilities:['w przypadku dwu lub trzech (trzecia to zawsze ukryta) wypisz po przecinku bez spacji, jeśli ma być jedna umiejętność + ukryta wypisz drugą jako pustą','in the case of two or three (third is always hidden) write out after "," without space, in the case if there is only one ability plus hidden write second as empty'],
+    EVYeld:['1 atak = attack, 2 atak = attack,attack (hp,attack,defence,spAttack,spDeffence,speed)','1 attack = attack, 2 attack = attack,attack (hp,attack,defence,spAttack,spDeffence,speed)'],
+    catchRate:['1-255, 255-pewne złapanie','1-255, 255-sure catch'],
+    baseExp:['',''],
+    growthExp:['erratic,fast,medium fast,medium slow,slow,fluctuating','erratic,fast,medium fast,medium slow,slow,fluctuating'],
+    femaleRate:['sama liczba 0-100, zamiast przecinka użyj kropki','only number 0-100, use dot insted of comma'],
+    eggGroup:['',''],
+    eggCycles:['minimum 1','minimum 1'],
+    baseHP:['',''],
+    baseAttack:['',''],
+    baseDefence:['',''],
+    baseSpAttack:['',''],
+    baseSpDefence:['',''],
+    baseSpeed:['',''],
+    preevolutionSpecie:['',''],
+    preevolutionMethod:['przykłady: stone, mega stone, level, friendship, place, love, move, trade...','examples: stone, mega stone, level, friendship, place, love, move, trade...'],
+    preevolutionMethodValue:['przykłady: fire stone, lucarionite, 52, night, icy rock, fairy move, metal coath..','examples: fire stone, lucarionite, 52, night, icy rock, fairy move, metal coath...'],
+    height:['zamiast przecinka użyj kropki','use dot insted of comma'],
+    weight:['zamiast przecinka użyj kropki','use dot insted of comma'],
+}
+
+const ADMIN_MAPS_DESCRIPTIONS =
+{
+    no: ['mapa nr','map no.'],
+    imgTitle: ['obiekt nr: ', 'object no: '],
 }

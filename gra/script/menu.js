@@ -1,28 +1,3 @@
-const SIZE_OF_TD = 20;
-const POKEDEX_TEXTS = {
-    no: ['nr','no.'],
-    types: ['typy','types'],
-    ability: ['umiejętności','abilities'],
-    baseStats: ['bazowe statystyki','base stats'],
-    hp: ['życie','hit points'],
-    attack: ['atak','attack'],
-    defence: ['obrona','defence'],
-    spAttack: ['sp. atak','sp. attack'],
-    spDefence: ['sp. obrona','sp. defence'],
-    speed: ['szybkość','speed'],
-    
-}
-
-let poktable;
-let activeButton = null;
-let worldMapTable;
-let worldMapWindow;
-let dex_containter;
-let dex_dataPlace;
-let dex_baseStats;
-let dex_pokemonList;
-
-
 // var xmlhttp = new XMLHttpRequest();
 // var url = "myTutorials.txt";
 
