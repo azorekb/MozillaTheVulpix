@@ -1,0 +1,59 @@
+.dexContainer
+{
+    background-color: $dex_outsideColor;
+    padding: 10px;
+
+    .dexPlace
+    {
+        width: auto;
+        border: 3px solid $dexPlace_colorOut;
+        border-radius: 10px;
+        display: flex;
+        background-color: $dexPlace_colorIn;
+
+        @media screen and (min-width: $big_window)
+        {
+            width: 500px;
+        }
+
+        .dexBaseStats
+        {
+            color: $dexStats_colorIn;
+            margin: 5px;
+
+            .pokedexTableOfStats tr td
+            {
+                color: $dexStats_text;
+            }
+        }
+    }
+
+    .dexPokemonList
+    {
+        display: flex;
+        flex-wrap: wrap;
+        width: auto;
+        border: 3px solid $dexPlace_colorOut;
+        margin: 15px;
+        background-color: $dexPlace_colorIn;
+
+        @media screen and (min-width: $big_window)
+        {
+            width: 470px;
+        }
+
+        .pokedexPokemon 
+        {
+            width: $dex_pokemon_size;
+            height: $dex_pokemon_size;
+            margin: 2;
+            padding: 2;
+            background-color: $dex_pokemon_colorIn;
+            text-align: center;
+            color: $dex_pokemon_text_have;
+            border-radius: $dex_pokemon_size;
+            border: 2px $dex_pokemon_colorOut solid;
+            cursor: pointer;
+        }
+    }
+}

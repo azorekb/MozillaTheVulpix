@@ -1,0 +1,24 @@
+.worldMapWindow
+{
+    position: relative;
+
+    .worldmap
+    {
+        border-collapse: collapse;
+        position: relative;
+	    left: 0;
+	    top: 0;
+
+        td 
+        {
+            padding: 0;	
+        }
+    }
+
+    .helpDiv
+    {
+        position: absolute;
+        border-style: ridge;
+        border-color: $map_borderColor;
+    }
+}

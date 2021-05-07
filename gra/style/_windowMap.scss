@@ -1,0 +1,60 @@
+.widnow_map
+{
+	max-width: max-content;
+
+    @media only screen and (min-width: $big_window)
+    {
+        display: flex;
+    }
+
+    .mapMenu
+    {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 25px;
+
+        @media screen and (min-width: $big_window)
+        {
+            display: block;
+            flex-wrap: nowrap;
+            margin: 0 30px;
+        }
+        .mapMenuButton
+        {
+            text-align: center;
+            background-color: $button_colorIn;
+            width: 120px;
+            padding: 6px 1px;
+            margin: 4px 0;
+            border: 4px $button_colorOut outset;
+            border-radius: 20px;
+            height: max-content;
+
+            &:hover
+            {
+	            border-color: $button_colorOut_hover;
+            	background-color: $button_colorIn_hover;
+            }
+
+            &:active
+            {
+	            border-style: inset;
+                padding: 7px 0px 5px 2px; 
+            }
+
+            &.active
+            {
+                background-color: $button_colorIn_active;
+                border-color: $button_colorOut_active;
+
+                &:hover
+                {
+                    border-color: $button_colorIn_active_hover;
+	                background-color: $button_colorOut_active_hover;
+                }
+            }
+        }
+
+    }
+
+}

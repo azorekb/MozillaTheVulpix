@@ -1,0 +1,54 @@
+.tableButton
+{
+    margin: 30px auto;
+
+    &.moving
+    {
+        margin-top: 10px;
+    }
+
+    @media screen and (min-width: $big_window)
+    {
+        margin: 15px auto;
+    }   
+
+    .directButton
+    {
+        background-color: $directButtons_colorIn;
+        width: $directButtons_size;
+        height: $directButtons_size;
+        text-align: center;
+        font-size: 24px;
+        border: 2px outset $directButtons_colorOut;
+
+        &.active
+        {
+            background-color: $directButtons_colorIn_active;
+            border: 2px inset $directButtons_colorOut_active;
+        }
+
+        &.button0
+        {
+            border-top-left-radius: $directButtons_radius;
+            border-bottom-left-radius: $directButtons_radius;
+        }
+
+        &.button1
+        {
+            border-top-left-radius: $directButtons_radius;
+            border-top-right-radius: $directButtons_radius;
+        }
+
+        &.button2
+        {
+            border-top-right-radius: $directButtons_radius;
+            border-bottom-right-radius: $directButtons_radius;
+        }
+
+        &.button3
+        {
+            border-bottom-left-radius: $directButtons_radius;
+            border-bottom-right-radius: $directButtons_radius;
+        }
+    }
+}

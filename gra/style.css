@@ -1,225 +1,259 @@
-.worldMapWindow
-{
-    position: relative;
+.widnow_map {
+  max-width: -webkit-max-content;
+  max-width: -moz-max-content;
+  max-width: max-content;
 }
 
-.worldMapWindow .worldmap
-{
-	border-collapse: collapse;
-    position: relative;
-	left: 0;
-	top: 0;
-}
-
-.worldMapWindow .worldmap td
-{
-	padding: 0;	
-}
-
-.worldMapWindow .helpDiv
-{
-    position: absolute;
-    border-style: ridge;
-    border-color: green;
-}
-
-.widnow_map
-{
-	max-width: max-content;
-}
-
-@media only screen and (min-width: 760px)
-{
-    .widnow_map
-    {
-        display: flex;
-    }
-}
-
-.mapMenu
-{
+@media only screen and (min-width: 760px) {
+  .widnow_map {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 25px;
+  }
 }
 
-@media screen and (min-width: 760px)
-{
-    .mapMenu
-    {
-        display: block;
+.widnow_map .mapMenu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+@media screen and (min-width: 760px) {
+  .widnow_map .mapMenu {
+    display: block;
+    -ms-flex-wrap: nowrap;
         flex-wrap: nowrap;
-        margin: 0 30px;
-    }
+    margin: 0 30px;
+  }
 }
 
-
-.mapMenuButton
-{
-    text-align: center;
-    background-color: #0c0;
-    width: 120px;
-    padding: 6px 1px;
-    margin: 4px 0;
-    border: 4px #0a0 outset;
-    border-radius: 20px;
-    height: max-content;
+.widnow_map .mapMenu .mapMenuButton {
+  text-align: center;
+  background-color: #0c0;
+  width: 120px;
+  padding: 6px 1px;
+  margin: 4px 0;
+  border: 4px #0a0 outset;
+  border-radius: 20px;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
 }
 
-.mapMenuButton:hover
-{
-	border-color: #0c0;
-	background-color: #0e0;
+.widnow_map .mapMenu .mapMenuButton:hover {
+  border-color: #0c0;
+  background-color: #0e0;
 }
 
-.mapMenuButton:active
-{
-	border-style: inset;
-    padding: 7px 0px 5px 2px; 
+.widnow_map .mapMenu .mapMenuButton:active {
+  border-style: inset;
+  padding: 7px 0px 5px 2px;
 }
 
-.mapMenuButton.active
-{
-    background-color: cc0;
-    border-color: aa0;
+.widnow_map .mapMenu .mapMenuButton.active {
+  background-color: #cc0;
+  border-color: #aa0;
 }
 
-.mapMenuButton.active:hover
-{
-    border-color: #cc0;
-	background-color: #ee0;
+.widnow_map .mapMenu .mapMenuButton.active:hover {
+  border-color: #cc0;
+  background-color: #ee0;
 }
 
-.directButton
-{
-    background-color: #0c0;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    font-size: 24px;
-    border: 2px outset #0a0;
+.worldMapWindow {
+  position: relative;
 }
 
-.directButton.active
-{
-    background-color: #cc0;
-    border: 2px inset #aa0;
+.worldMapWindow .worldmap {
+  border-collapse: collapse;
+  position: relative;
+  left: 0;
+  top: 0;
 }
 
-.directButton.button0
-{
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
+.worldMapWindow .worldmap td {
+  padding: 0;
 }
 
-.directButton.button1
-{
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+.worldMapWindow .helpDiv {
+  position: absolute;
+  border-style: ridge;
+  border-color: #0a0;
 }
 
-.directButton.button2
-{
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
+.tableButton {
+  margin: 30px auto;
 }
 
-.directButton.button3
-{
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+.tableButton.moving {
+  margin-top: 10px;
 }
 
-.tableButton
-{
-    margin: 30px auto;
+@media screen and (min-width: 760px) {
+  .tableButton {
+    margin: 15px auto;
+  }
 }
 
-.tableButton.moving
-{
-    margin-top: 10px;
+.tableButton .directButton {
+  background-color: #0c0;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  font-size: 24px;
+  border: 2px outset #0a0;
 }
 
-@media screen and (min-width: 760px)
-{
-    .tableButton
-    {
-        margin: 15px auto;
-    }
+.tableButton .directButton.active {
+  background-color: #cc0;
+  border: 2px inset #aa0;
 }
 
-.pokedex_okno
-{
-    display: flex;
+.tableButton .directButton.button0 {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
 }
 
-.pokedex_buttons
-{
-    flex-basis: 50%;
+.tableButton .directButton.button1 {
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 
-.dexContainer
-{
-    background-color: #05f;
-    padding: 10px;
+.tableButton .directButton.button2 {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
-.dexPlace
-{
-    width: auto;
-    border: 3px solid #0ae;
-    border-radius: 10px;
-    display: flex;
-    background-color: #039
+.tableButton .directButton.button3 {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
-@media screen and (min-width: 760px)
-{
-    .dexPlace
-    {
-        width: 500px;
-    }
+.dexContainer {
+  background-color: #05f;
+  padding: 10px;
 }
 
-.dexBaseStats
-{
-    color: #0ae;
-    margin: 5px;
+.dexContainer .dexPlace {
+  width: auto;
+  border: 3px solid #0ae;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #039;
 }
 
-.dexPokemonList
-{
-    display: flex;
-    flex-wrap: wrap;
-    width: auto;
-    border: 3px solid #0ae;
-    margin: 15px;
-    background-color: #039
+@media screen and (min-width: 760px) {
+  .dexContainer .dexPlace {
+    width: 500px;
+  }
 }
 
-@media screen and (min-width: 760px)
-{
-    .dexPokemonList
-    {
-        width: 470px;
-    }
+.dexContainer .dexPlace .dexBaseStats {
+  color: #0ae;
+  margin: 5px;
 }
 
-.pokedexPokemon 
-{
-    width: 20;
-    height: 20;
-    margin: 2;
-    padding: 2;
-    background-color: #000;
-    text-align: center;
-    color: #0c0;
-    border-radius: 15px;
-    border: 2px #fff solid;
-    cursor: pointer;
+.dexContainer .dexPlace .dexBaseStats .pokedexTableOfStats tr td {
+  color: #0ae;
 }
 
-.pokedexTableOfStats tr td
-{
-    color:#0ae;
+.dexContainer .dexPokemonList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: auto;
+  border: 3px solid #0ae;
+  margin: 15px;
+  background-color: #039;
 }
+
+@media screen and (min-width: 760px) {
+  .dexContainer .dexPokemonList {
+    width: 470px;
+  }
+}
+
+.dexContainer .dexPokemonList .pokedexPokemon {
+  width: 20px;
+  height: 20px;
+  margin: 2;
+  padding: 2;
+  background-color: #000;
+  text-align: center;
+  color: #0c0;
+  border-radius: 20px;
+  border: 2px #fff solid;
+  cursor: pointer;
+}
+
+.adminContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.adminTask {
+  text-align: center;
+  background-color: #0cc;
+  width: 150;
+  padding: 6px 1px;
+  margin: 4 0;
+  border: 4px #0aa outset;
+}
+
+.adminTask:hover {
+  border-color: #0cc;
+  background-color: #0ee;
+}
+
+.adminTask:active {
+  border-style: inset;
+  padding: 7px 0px 5px 2px;
+}
+
+.admFormTable {
+  border: 2px solid black;
+}
+
+.admFormTable tr td {
+  border: 2px solid black;
+}
+
+.admDetails {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 10px;
+}
+
+.admDetails p {
+  margin: 5px;
+}
+
+.admMapItems {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin: 0 10px;
+}
+
+.admMapItems div {
+  padding: 2px;
+  margin: 1px;
+  border: 1px #000 solid;
+}
+
+.admMapItems .active {
+  border-color: #ee0;
+  background-color: #ff0;
+}
+/*# sourceMappingURL=style.css.map */

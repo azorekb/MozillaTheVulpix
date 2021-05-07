@@ -240,9 +240,9 @@ function endOfWalk(_position, _type)
 	pozaza.innerHTML = actualPosition.x + '/' + actualPosition.y;
 }
 
-function mapImg(_src)
+function mapImg(_number)
 {
 	let img = document.createElement('img');
-	img.src = MAP_ITEMS[_src].src;
+	img.src = MAP_ITEMS[_number].src;
 	return img;
 }
