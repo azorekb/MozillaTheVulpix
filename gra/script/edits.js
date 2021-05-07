@@ -19,6 +19,8 @@ function admin_start()
     }
 
     admin_content=document.createElement('div');
+    admin_content.id = 'admin_content';
+    admin_content.innerHTML = ADMIN_WARNINGS[2][language];
     admin_conteiner.appendChild(admin_content);
     
 }
@@ -257,6 +259,34 @@ function adm_mapEditor()
         adm_mapNo.appendChild(option);
     }
 
+    adm_newMapButton = document.createElement('button');
+    adm_newMapButton.innerHTML = '+';
+    adm_details.appendChild(adm_newMapButton);
+
+    text = document.createElement('p');
+    text.innerHTML = 'X:';
+    adm_details.appendChild(text);
+
+    let adm_sizeX = document.createElement('input');
+    adm_sizeX.type = 'number';
+    adm_sizeX.min = 1;
+    adm_sizeX.id = 'adm_sizeX';
+    adm_sizeX.classList.add('adm_size');
+    adm_sizeX.oninput = function(){adm_changeSizeOfMap();}
+    adm_details.appendChild(adm_sizeX);
+
+    text = document.createElement('p');
+    text.innerHTML = 'Y:';
+    adm_details.appendChild(text);
+
+    let adm_sizeY = document.createElement('input');
+    adm_sizeY.type = 'number';
+    adm_sizeY.min = 1;
+    adm_sizeY.id = 'adm_sizeY';
+    adm_sizeY.classList.add('adm_size');
+    adm_sizeY.oninput = function(){adm_changeSizeOfMap();}
+    adm_details.appendChild(adm_sizeY);
+
     let adm_mapItems_container = document.createElement('div');
     adm_mapItems_container.classList.add('admMapItems');
     admin_content.appendChild(adm_mapItems_container);
@@ -274,6 +304,15 @@ function adm_mapEditor()
 
     adm_mapItems_container.childNodes[0].classList.add('active');
 
+    adm_infoDiv = document.createElement('div');
+    adm_infoDiv.innerHTML = ADMIN_WARNINGS[1][language];
+    adm_infoDiv.classList.add('admInfo');
+    admin_content.appendChild(adm_infoDiv);
+
+    adm_mapTable = document.createElement('table');
+    adm_mapTable.classList.add('admMapTable');
+    admin_content.appendChild(adm_mapTable);
+
     adm_mapChange(0);
 }
 
@@ -286,5 +325,80 @@ function adm_mapItemSelect(_item,_index)
 
 function adm_mapChange(_number)
 {
+    while(adm_mapTable.rows.length > 0){adm_mapTable.deleteRow(0);}
 
+    for(let i=0;i<maps[_number].length;i++)
+    {
+        adm_mapTable.insertRow(i);
+        for(let j=0;j<maps[_number][i].length;j++)
+        {
+            const img = maps[_number][i][j];
+            adm_mapTable.rows[i].insertCell(j).appendChild(mapImg(img));
+            adm_mapTable.rows[i].cells[j].onclick = function(){adm_changeMapField(i,j);}
+            adm_mapTable.rows[i].cells[j].onmouseover = function(_event){if(_event.ctrlKey){adm_changeMapField(i,j);}}
+        }
+    }
+    
+    adm_sizeY.value = maps[_number].length;
+    adm_sizeX.value = maps[_number][0].length;
+}
+
+function adm_changeMapField(_y,_x)
+{
+    adm_mapTable.rows[_y].cells[_x].innerHTML = '';
+    adm_mapTable.rows[_y].cells[_x].appendChild(mapImg(adm_selectedMapItem));
+    maps[adm_mapNo.value][_y][_x] = adm_selectedMapItem;
+}
+
+function adm_changeSizeOfMap()
+{
+    while(adm_sizeY.value > maps[adm_mapNo.value].length)
+    {
+        let lastRow = adm_mapTable.rows.length;
+        let cellsCount = 0;
+        if(maps[adm_mapNo.value].length > 0){cellsCount = maps[adm_mapNo.value][0].length}
+        adm_mapTable.insertRow(lastRow);
+        maps[adm_mapNo.value].push([]);
+        for(let i=0;i<cellsCount;i++)
+        {
+            adm_mapTable.rows[lastRow].insertCell(i).appendChild(mapImg(adm_selectedMapItem));
+            adm_mapTable.rows[lastRow].cells[i].onclick = function(){adm_changeMapField(lastRow,i);}
+            adm_mapTable.rows[lastRow].cells[i].onmouseover = function(_event){if(_event.ctrlKey){adm_changeMapField(lastRow,i);}}
+            maps[adm_mapNo.value][lastRow].push(adm_selectedMapItem);
+        }
+    }
+
+    while(adm_sizeY.value < maps[adm_mapNo.value].length)
+    {
+        let lastRow = adm_mapTable.rows.length;
+        adm_mapTable.deleteRow(lastRow - 1);
+        maps[adm_mapNo.value].pop();
+    }
+
+    while(adm_sizeX.value > maps[adm_mapNo.value][0].length)
+    {
+        let lastCell = adm_mapTable.rows[0].cells.length;
+        let rowsCount = adm_mapTable.rows.length;
+
+        for(let i=0;i<rowsCount;i++)
+        {
+            adm_mapTable.rows[i].insertCell(lastCell).appendChild(mapImg(adm_selectedMapItem));
+            adm_mapTable.rows[i].cells[lastCell].onclick = function(){adm_changeMapField(i,lastCell);}
+            adm_mapTable.rows[i].cells[lastCell].onmouseover = function(_event){if(_event.ctrlKey){adm_changeMapField(i,lastCell);}}
+            maps[adm_mapNo.value][i].push(adm_selectedMapItem);
+        }
+    }
+
+    while(adm_sizeX.value < maps[adm_mapNo.value][0].length)
+    {
+        let lastCell = adm_mapTable.rows[0].cells.length;
+        let rowsCount = adm_mapTable.rows.length;
+
+        for(let i=0;i<rowsCount;i++)
+        {
+            adm_mapTable.rows[i].deleteCell(lastCell - 1);
+            maps[adm_mapNo.value][i].pop();
+        }
+    }
+    
 }

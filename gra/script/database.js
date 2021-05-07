@@ -72,7 +72,9 @@ const POKEMON_STATS=['hp','attack','defence','spAttack','spDeffence','speed'];
 const POKEMON_EXP_GROWTH=['erratic','fast','medium fast','medium slow','slow','fluctuating'];
 const ADMIN_WARNINGS=
 [
-    ['używaj tylko języka <u>angielskiego</u> oraz małych liter','use only <u>english</u> language and small letters']
+    ['używaj tylko języka <u>angielskiego</u> oraz małych liter', 'use only <u>english</u> language and small letters'],
+    ['kliknij w pole mapy aby zmienić je na wybrany wyżej element<br>użyj CTRL by móc zmienić pole najechaniem myszy<br>CTRL+Z nie działa', 'click on field to change element to selectet upper<br>use CTRL to change it with mouse over<br>CTRL+Z does not work'],
+    ['zdecydowanie łatwiej jest używać panelu administratora na komputerze', 'it is so much better to use admin panel on the computer']
 ];
 
 const MAP_ITEMS = 
@@ -89,7 +91,6 @@ const MAP_ITEMS =
     {name: 'waySE', src: IMG_WAY+'drogaSE.png'},
     {name: 'tallgrass', src: IMG_WAY+'wysokatrawa.png'},
     {name: 'water', src: IMG_WAY+'woda.gif'},
-    {name: 'joy', src: IMG_WAY+'joy.png'},
     
 ];
 //========================= OBIEKTY | OBJECTS ==========================

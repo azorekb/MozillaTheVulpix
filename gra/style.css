@@ -158,7 +158,7 @@
   margin: 5px;
 }
 
-.dexContainer .dexPlace .dexBaseStats .pokedexTableOfStats tr td {
+.dexContainer .dexPlace .dexBaseStats .pokedexTableOfStats td {
   color: #0ae;
 }
 
@@ -255,5 +255,20 @@
 .adminContainer .admMapItems .active {
   border-color: #ee0;
   background-color: #ff0;
+}
+
+.adminContainer .admInfo {
+  margin: 10px;
+  text-align: center;
+}
+
+.adminContainer .admMapTable {
+  border-collapse: collapse;
+  margin: 10px;
+}
+
+.adminContainer .admMapTable td {
+  padding: 0;
+  border: 1px #000 solid;
 }
 /*# sourceMappingURL=style.css.map */
