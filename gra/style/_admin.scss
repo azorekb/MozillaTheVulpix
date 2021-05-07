@@ -1,69 +1,68 @@
 .adminContainer
 {
     display: flex;
-}
+    .adminTask
+    {
+        text-align: center;
+        background-color: $adm_taskColorIn;
+        width: 150;
+        padding: 6px 1px;
+        margin: 4 0;
+        border: 4px $adm_taskColorOut outset;
+        
+        &:hover
+        {
+            border-color: $adm_taskColorOut_active;
+            background-color: $adm_taskColorIn_active;
+        }
 
-.adminTask
-{
-    text-align: center;
-    background-color: #0cc;
-    width: 150;
-    padding: 6px 1px;
-    margin: 4 0;
-    border: 4px #0aa outset;
-}
+        &:active
+        {
+            border-style: inset;
+            padding: 7px 0px 5px 2px; 
+        }
+    }
 
-.adminTask:hover
-{
-	border-color: #0cc;
-	background-color: #0ee;
-}
+    .admFormTable
+    {
+        border: 2px solid $adm_borderColor;
+    
+        tr td
+        {
+            border: 2px solid $adm_borderColor;
+        }
+    }
 
-.adminTask:active
-{
-	border-style: inset;
-    padding: 7px 0px 5px 2px; 
-}
-
-.admFormTable
-{
-    border: 2px solid black;
-}
-
-.admFormTable tr td
-{
-    border: 2px solid black;
-}
+    
+    .admDetails
+    {
+        display: flex;
+        padding: 10px;
+    
+        p
+        {
+            margin: 5px;
+        }
+    }
 
 
-
-.admDetails
-{
-    display: flex;
-    padding: 10px;
-}
-
-.admDetails p
-{
-    margin: 5px;
-}
-
-.admMapItems
-{
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 10px;
-}
-
-.admMapItems div
-{
-    padding: 2px;
-    margin: 1px;
-    border: 1px #000 solid;
-}
-
-.admMapItems .active
-{
-    border-color:#ee0;
-    background-color: #ff0;
+    .admMapItems
+    {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 10px;
+    
+        div
+        {
+            padding: 2px;
+            margin: 1px;
+            border: 1px $adm_borderColor solid;
+        }
+    
+        .active
+        {
+            border-color:#ee0;
+            background-color: #ff0;
+        }
+    }
 }
