@@ -261,6 +261,7 @@ function adm_mapEditor()
 
     adm_newMapButton = document.createElement('button');
     adm_newMapButton.innerHTML = '+';
+    adm_newMapButton.onclick = function(){adm_addNewMap();}
     adm_details.appendChild(adm_newMapButton);
 
     text = document.createElement('p');
@@ -308,6 +309,17 @@ function adm_mapEditor()
     adm_infoDiv.innerHTML = ADMIN_WARNINGS[1][language];
     adm_infoDiv.classList.add('admInfo');
     admin_content.appendChild(adm_infoDiv);
+
+    let createCode = document.createElement('button');
+    createCode.innerHTML = 'twórz kod';
+    createCode.onclick = function() {adm_createCode();}
+    admin_content.appendChild(createCode);
+
+    let codeText = document.createElement('textarea');
+    codeText.rows = 1;
+    codeText.cols = 10;
+    codeText.id = 'adm_codeText';
+    admin_content.appendChild(codeText);
 
     adm_mapTable = document.createElement('table');
     adm_mapTable.classList.add('admMapTable');
@@ -401,4 +413,49 @@ function adm_changeSizeOfMap()
         }
     }
     
+}
+
+function adm_createCode()
+{
+    adm_codeText.value = '';
+    adm_addToCodeText('let maps = [];');
+    for(let i=0;i<maps.length;i++)
+    {
+        adm_addToCodeText('');
+        adm_addToCodeText('maps[' + i + '] = [];');
+        for(let j=0;j<maps[i].length;j++)
+        {
+            let newText = 'maps[' + i + '].push([' + maps[i][j][0];
+
+            for(let k=1;k<maps[i][j].length;k++)
+            {
+                newText += ',' + maps[i][j][k];
+            }
+
+            newText += ']);';
+            adm_addToCodeText(newText);
+
+        }
+    }
+
+    adm_codeText.select();
+    document.execCommand("copy");
+}
+
+function adm_addToCodeText(_text)
+{
+    adm_codeText.value += _text + '\n';
+}
+
+function adm_addNewMap()
+{
+    let newMapNo = maps.length;
+    maps.push([[0]]);
+    let option = document.createElement('option');
+    option.value = newMapNo;
+    option.innerHTML = newMapNo;
+    option.selected = true;
+    adm_mapNo.appendChild(option);
+
+    adm_mapChange(newMapNo);
 }
