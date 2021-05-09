@@ -7,14 +7,20 @@ if(sessionStorage.lang != undefined){language = sessionStorage.lang;}
 function loadScripts()
 {
 	let listOfScripts = [];
-	listOfScripts.push('globalvar');
+	listOfScripts.push('db_classes');
+	listOfScripts.push('db_constans');
+	listOfScripts.push('db_globalvar');
+	listOfScripts.push('db_arrays');
+	listOfScripts.push('db_objects');
+	listOfScripts.push('db_pokemon');
+	listOfScripts.push('db_maps');
+
 	listOfScripts.push('start');
-	listOfScripts.push('maps');
 	listOfScripts.push('moves');
 	listOfScripts.push('keyboard');
 	listOfScripts.push('menu');
-	listOfScripts.push('database');
 	listOfScripts.push('adminpanel');
+	
 	for(let i=0;i<listOfScripts.length;i++)
 	{
 		let script  = document.createElement('script'); 

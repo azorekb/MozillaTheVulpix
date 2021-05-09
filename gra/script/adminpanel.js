@@ -70,12 +70,12 @@ function adm_formPokemon()
             else if(OBJECT.isMulti)
             {
                 const VALUES = VALUE.split(',');
-                text = ",['" + VALUES[0] + "'";
+                text = ',[\'' + VALUES[0] + '\'';
                 if(VALUES.length >= 2)
                 {
                     for(let j=1;j<VALUES.length;j++)
                     {   
-                        text += ",'" + VALUES[j] + "'";
+                        text += ',\'' + VALUES[j] + '\'';
                     }
                 }
                 text += ']';
@@ -89,7 +89,7 @@ function adm_formPokemon()
                 }
                 else
                 {
-                    text += "'" + VALUE + "'";
+                    text += '\'' + VALUE + '\'';
                 }
             }
 
@@ -321,34 +321,31 @@ function adm_changeSizeOfMap()
 
 function adm_createCode()
 {
-    adm_codeText.value = '';
-    adm_addToCodeText('let maps = [];');
+    adm_codeText.value = 'let maps =\n';
+    adm_codeText.value +='[';
+
     for(let i=0;i<maps.length;i++)
     {
-        adm_addToCodeText('');
-        adm_addToCodeText('maps[' + i + '] = [];');
+        adm_codeText.value +='\n\t[';
         for(let j=0;j<maps[i].length;j++)
         {
-            let newText = 'maps[' + i + '].push([' + maps[i][j][0];
+            adm_codeText.value += '\n\t\t[' + maps[i][j][0];
 
             for(let k=1;k<maps[i][j].length;k++)
             {
-                newText += ',' + maps[i][j][k];
+                adm_codeText.value += ',' + maps[i][j][k];
             }
 
-            newText += ']);';
-            adm_addToCodeText(newText);
+            adm_codeText.value += '],';
 
         }
+        adm_codeText.value +='\n\t],';
     }
+    
+    adm_codeText.value += '\n]';
 
     adm_codeText.select();
     document.execCommand("copy");
-}
-
-function adm_addToCodeText(_text)
-{
-    adm_codeText.value += _text + '\n';
 }
 
 function adm_addNewMap()
