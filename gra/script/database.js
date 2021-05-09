@@ -6,7 +6,8 @@ const IMG_WAY = '../img/';
 
 //========================== KLASY | CLASSES =========================
 
-class Resistance{
+class Resistance
+{
     normal; fire; water; electric; grass; ice; fighting; poison; ground; flying; psychic; bug; rock; ghost; dragon; dark; steel; fairy;
  
     constructor(normal, fire, water, electric, grass, ice, fighting, poison, ground, flying, psychic, bug, rock, ghost, dragon, dark, steel, fairy)
@@ -32,7 +33,8 @@ class Resistance{
     }
 }
 
-class Pokemon_list{
+class Pokemon_list
+{
     no; types; abilities; EVYeld; catchRate; baseExp; growthExp; femaleRate; eggGroup; eggCycles; baseStats; preevolution; height; weight;
 
     constructor(no,type1,type2,ability1,ability2,hiddenAbility,EVYeld,catchRate,baseExp,growthExp,femaleRate, eggGroup, eggCycles, baseHP, baseAttack, baseDefence, baseSpAttack, baseSpDefence, baseSpeed, preevolutionSpecie, preevolutionMethod, preevolutionMethodValue, height, weight)
@@ -65,6 +67,22 @@ class Pokemon_list{
     }
 }
 
+class AdminPokemonDetails
+{
+    isImportant; isMulti; isNumber; min; max; description; text; example;
+    constructor(isImportant, isMulti, isNumber, min, max, description, text, example)
+    {
+        this.isImportant = isImportant; 
+        this.isMulti = isMulti;
+        this.isNumber = isNumber; 
+        this.min = min; 
+        this.max = max; 
+        this.description = description;
+        this.text = text;
+        this.example = example;
+    }
+}
+
 //========================== TABLICE | ARRAYS =============================
 
 const POKEMON_TYPES=['normal','fire','water','electric','grass','ice','fighting','poison','ground','flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy'];
@@ -93,6 +111,13 @@ const MAP_ITEMS =
     {name: 'water', src: IMG_WAY+'woda.gif'},
     
 ];
+
+const ADMIN_LIST_OF_TASKS=
+[
+    {name:['dodaj pokemona','add pokemon'], function: 'adm_formPokemon'},
+    {name:['edytor map','map editor'], function: 'adm_mapEditor'},
+];
+
 //========================= OBIEKTY | OBJECTS ==========================
 
 const RESISTANCE={
@@ -169,7 +194,8 @@ const POKEMON_LIST={
     // arceus, 
 }
 
-const POKEDEX_TEXTS = {
+const POKEDEX_TEXTS = 
+{
     no: ['nr','no.'],
     types: ['typy','types'],
     ability: ['umiejętności','abilities'],
@@ -182,84 +208,29 @@ const POKEDEX_TEXTS = {
     speed: ['szybkość','speed'],
 }
 
-const ADMIN_LIST_OF_TASKS=
-[
-    {name:['dodaj pokemona','add pokemon'], function: 'adm_formPokemon'},
-    {name:['edytor map','map editor'], function: 'adm_mapEditor'},
-];
-const ADMIN_POKEMON_TEXTS=
+const ADMIN_POKEMON_DETAILS = 
 {
-    name:['nazwa pokemona','name of pokemon'],
-    types:['typy','types'],
-    abilities:['umiejętności','abilities'],
-    EVYeld:['EV Yeld','EV Yeld'],
-    catchRate:['szanse złapania','catch rate'],
-    baseExp:['bazowe doświadczenie','base expirience'],
-    growthExp:['wzrost doświadczenia','growth of expirience'],
-    femaleRate:['szanse na samiczkę','female rate'],
-    eggGroup:['grupa jajek','egg group'],
-    eggCycles:['cykle do wyklucia','egg cycles'],
-    baseHP:['bazowe życie','base hit points'],
-    baseAttack:['bazowy atak','base attack'],
-    baseDefence:['bazowa obrona','base defence'],
-    baseSpAttack:['bazowy specjalny atak','base special attack'],
-    baseSpDefence:['bazowa specjalna obrona','base special defence'],
-    baseSpeed:['bazowa szybkość','base speed'],
-    preevolutionSpecie:['gatunek preewolucji','preevolution specie'],
-    preevolutionMethod:['metoda ewolucji preewolucji','evolution method of preevolution'],
-    preevolutionMethodValue:['podtyp lub wartość metody','subtype or value od method'],
-    height:['wysokość','height'],
-    weight:['waga','weight'],
-}
-
-const EXAMPLE=
-{
-    name: 'alolan_ninetales',
-    types: 'ice,fairy',
-    abilities: 'snow cloak,,snow warning',
-    EVYeld: 'speed,speed',
-    catchRate: 75,
-    baseExp: 177,
-    growthExp: 'medium fast',
-    femaleRate: 75,
-    eggGroup: 'field',
-    eggCycles: 20,
-    baseHP: 75,
-    baseAttack: 80,
-    baseDefence: 85,
-    baseSpAttack: 90,
-    baseSpDefence: 95,
-    baseSpeed: 100,
-    preevolutionSpecie: 'alolan_vulpix',
-    preevolutionMethod: 'stone',
-    preevolutionMethodValue: 'ice stone',
-    height: 1.1,
-    weight: 19.9,
-}
-
-const ADMIN_POKEMON_DESCRIPTION=
-{
-    name:['nie używaj spacji','do not use space'],
-    types:['w przypadku dwu wypisz po przecinku bez spacji','in the case of two write out after "," without space'],
-    abilities:['w przypadku dwu lub trzech (trzecia to zawsze ukryta) wypisz po przecinku bez spacji, jeśli ma być jedna umiejętność + ukryta wypisz drugą jako pustą','in the case of two or three (third is always hidden) write out after "," without space, in the case if there is only one ability plus hidden write second as empty'],
-    EVYeld:['1 atak = attack, 2 atak = attack,attack (hp,attack,defence,spAttack,spDeffence,speed)','1 attack = attack, 2 attack = attack,attack (hp,attack,defence,spAttack,spDeffence,speed)'],
-    catchRate:['1-255, 255-pewne złapanie','1-255, 255-sure catch'],
-    baseExp:['',''],
-    growthExp:['erratic,fast,medium fast,medium slow,slow,fluctuating','erratic,fast,medium fast,medium slow,slow,fluctuating'],
-    femaleRate:['sama liczba 0-100, zamiast przecinka użyj kropki','only number 0-100, use dot insted of comma'],
-    eggGroup:['',''],
-    eggCycles:['minimum 1','minimum 1'],
-    baseHP:['',''],
-    baseAttack:['',''],
-    baseDefence:['',''],
-    baseSpAttack:['',''],
-    baseSpDefence:['',''],
-    baseSpeed:['',''],
-    preevolutionSpecie:['',''],
-    preevolutionMethod:['przykłady: stone, mega stone, level, friendship, place, love, move, trade...','examples: stone, mega stone, level, friendship, place, love, move, trade...'],
-    preevolutionMethodValue:['przykłady: fire stone, lucarionite, 52, night, icy rock, fairy move, metal coath..','examples: fire stone, lucarionite, 52, night, icy rock, fairy move, metal coath...'],
-    height:['zamiast przecinka użyj kropki','use dot insted of comma'],
-    weight:['zamiast przecinka użyj kropki','use dot insted of comma'],
+    name: new AdminPokemonDetails(true,false,false,false,false,['nie używaj spacji','do not use space'],['nazwa pokemona','name of pokemon'],'alolan_ninetales'),
+    types: new AdminPokemonDetails(true,true,false,false,false,['w przypadku dwu wypisz po przecinku bez spacji','in the case of two write out after "," without space'],['typy','types'],'ice,fairy'),
+    abilities: new AdminPokemonDetails(true,true,false,false,false,['w przypadku dwu lub trzech (trzecia to zawsze ukryta) wypisz po przecinku bez spacji, jeśli ma być jedna umiejętność + ukryta wypisz drugą jako pustą','in the case of two or three (third is always hidden) write out after "," without space, in the case if there is only one ability plus hidden write second as empty'],['umiejętności','abilities'],'snow cloak,,snow warning'),
+    EVYeld: new AdminPokemonDetails(true,true,false,false,false,['1 atak = attack, 2 atak = attack,attack (hp,attack,defence,spAttack,spDeffence,speed)','1 attack = attack, 2 attack = attack,attack (hp,attack,defence,spAttack,spDeffence,speed)'],['EV Yeld','EV Yeld'],'speed,speed'),
+    catchRate: new AdminPokemonDetails(true,false,true,1,255,['1-255, 255-pewne złapanie','1-255, 255-sure catch'],['szanse złapania','catch rate'],75),
+    baseExp: new AdminPokemonDetails(true,false,true,1,false,['',''],['bazowe doświadczenie','base expirience'],177),
+    growthExp: new AdminPokemonDetails(true,false,false,false,false,['erratic,fast,medium fast,medium slow,slow,fluctuating','erratic,fast,medium fast,medium slow,slow,fluctuating'],['wzrost doświadczenia','growth of expirience'],'medium fast'),
+    femaleRate: new AdminPokemonDetails(true,false,true,0,100,['sama liczba 0-100, zamiast przecinka użyj kropki','only number 0-100, use dot insted of comma'],['szanse na samiczkę','female rate'],75),
+    eggGroup: new AdminPokemonDetails(false,false,false,false,false,['',''],['grupa jajek','egg group'],'field'),
+    eggCycles: new AdminPokemonDetails(false,false,true,false,false,['',''],['cykle do wyklucia','egg cycles'],20),
+    baseHP: new AdminPokemonDetails(true,false,true,1,false,['',''],['bazowe życie','base hit points'],75),
+    baseAttack: new AdminPokemonDetails(true,false,true,1,false,['',''],['bazowy atak','base attack'],80),
+    baseDefence: new AdminPokemonDetails(true,false,true,1,false,['',''],['bazowa obrona','base defence'],85),
+    baseSpAttack: new AdminPokemonDetails(true,false,true,1,false,['',''],['bazowy specjalny atak','base special attack'],90),
+    baseSpDefence: new AdminPokemonDetails(true,false,true,1,false,['',''],['bazowa specjalna obrona','base special defence'],95),
+    baseSpeed: new AdminPokemonDetails(true,false,true,1,false,['',''],['bazowa szybkość','base speed'],100),
+    preevolutionSpecie: new AdminPokemonDetails(false,false,false,false,false,['',''],['gatunek preewolucji','preevolution specie'],'alolan_vulpix'),
+    preevolutionMethod: new AdminPokemonDetails(false,false,false,false,false,['przykłady: stone, mega stone, level, friendship, place, love, move, trade...','examples: stone, mega stone, level, friendship, place, love, move, trade...'],['metoda ewolucji preewolucji','evolution method of preevolution'],'stone'),
+    preevolutionMethodValue: new AdminPokemonDetails(false,false,false,false,false,['przykłady: fire stone, lucarionite, 52, night, icy rock, fairy move, metal coath..','examples: fire stone, lucarionite, 52, night, icy rock, fairy move, metal coath...'],['podtyp lub wartość metody','subtype or value od method'],'ice stone'),
+    height:  new AdminPokemonDetails(true,false,true,0.1,false,['zamiast przecinka użyj kropki','use dot insted of comma'],['wysokość','height'],1.1),
+    weight:  new AdminPokemonDetails(true,false,true,0.1,false,['zamiast przecinka użyj kropki','use dot insted of comma'],['waga','weight'],19.9),
 }
 
 const ADMIN_MAPS_DESCRIPTIONS =

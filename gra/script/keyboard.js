@@ -2,7 +2,7 @@ window.addEventListener('keyup', function(event){event.preventDefault();}, false
 window.addEventListener('keydown', function(event)
 {
 	let active=false;
-	//console.log('keyCode:', event.keyCode, 'key', event.key);
+	console.log('keyCode:', event.keyCode, 'key', event.key);
 
 	switch(event.key)
 	{

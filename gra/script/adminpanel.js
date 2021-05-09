@@ -1,6 +1,6 @@
 function admin_start()
 {
-    okno.innerHTML='';
+    okno.innerHTML = '';
     admin_conteiner=document.createElement('div');
     admin_conteiner.classList.add('adminContainer');
     okno.appendChild(admin_conteiner);
@@ -11,14 +11,14 @@ function admin_start()
 
     for(let i=0;i<ADMIN_LIST_OF_TASKS.length;i++)
     {
-        let task=document.createElement('div');
+        let task = document.createElement('div');
         task.classList.add('adminTask');
-        task.innerHTML=ADMIN_LIST_OF_TASKS[i].name[language];
+        task.innerHTML = ADMIN_LIST_OF_TASKS[i].name[language];
         task.onclick=function(){eval(ADMIN_LIST_OF_TASKS[i].function)()}
         admin_list.appendChild(task);
     }
 
-    admin_content=document.createElement('div');
+    admin_content = document.createElement('div');
     admin_content.id = 'admin_content';
     admin_content.innerHTML = ADMIN_WARNINGS[2][language];
     admin_conteiner.appendChild(admin_content);
@@ -27,212 +27,115 @@ function admin_start()
 
 function adm_formPokemon()
 {
-    admin_content.innerHTML='';
-    let table=document.createElement('table');
+    admin_content.innerHTML = '';
+    let table = document.createElement('table');
     table.classList.add('admFormTable');
-    let texts=Object.keys(ADMIN_POKEMON_TEXTS);
-    for(let i=0;i<texts.length;i++)
+    let details = Object.keys(ADMIN_POKEMON_DETAILS);
+    for(let i=0;i<details.length;i++)
     {
-        let input=document.createElement('input');
-        input.type='text';
-        input.id='adm_form_'+texts[i];
-        //input.value=EXAMPLE[texts[i]];
+        let input = document.createElement('input');
+        input.type = 'text';
+        input.id = 'adm_form_'+details[i];
+        // input.value = ADMIN_POKEMON_DETAILS[details[i]].example;
 
-        table.insertRow(i).insertCell(0).innerHTML=ADMIN_POKEMON_TEXTS[texts[i]][language];
+        table.insertRow(i).insertCell(0).innerHTML = ADMIN_POKEMON_DETAILS[details[i]].text[language];
         table.rows[i].insertCell(1).appendChild(input);
-        table.rows[i].insertCell(2).innerHTML=ADMIN_POKEMON_DESCRIPTION[texts[i]][language];
+        table.rows[i].insertCell(2).innerHTML = ADMIN_POKEMON_DETAILS[details[i]].description[language];
     }
-    table.insertRow(0).insertCell(0).colSpan=3;
-    table.rows[0].cells[0].innerHTML='<font color=ff0000>'+ADMIN_WARNINGS[0][language]+'</font>';
+    table.insertRow(0).insertCell(0).colSpan = 3;
+    table.rows[0].cells[0].innerHTML = '<font color=ff0000>' + ADMIN_WARNINGS[0][language] + '</font>';
     admin_content.appendChild(table);
-    let createButton=document.createElement('button');
-    createButton.innerHTML="dodaj";
+    let createButton = document.createElement('button');
+    createButton.innerHTML = "dodaj";
     createButton.onclick=function()
     {
-        let temp,tt;
-        adm_createContent.value='';
-        tt=ADMIN_POKEMON_TEXTS.name;
-        if(adm_form_name.value==''){adm_error(tt,0); return false;}
-        adm_add(adm_form_name.value);
-        adm_add(':new Pokemon_list(0,');
-        
-        temp=adm_form_types.value.split(',');
-        tt=ADMIN_POKEMON_TEXTS.types;
-        if(temp[0]==''){adm_error(tt,0); return false;}
-        adm_add("'"+temp[0]+"',");
-        if(temp.length==2){adm_add("'"+temp[1]+"',");}else{adm_add("'',");}
-        
-        temp=adm_form_abilities.value.split(',');
-        tt=ADMIN_POKEMON_TEXTS.abilities;
-        if(temp[0]==''){adm_error(tt,0); return false;}
-        adm_add("'"+temp[0]+"',");
-        if(temp.length>=2){adm_add("'"+temp[1]+"',");}else{adm_add("'',");}
-        if(temp.length==3){adm_add("'"+temp[2]+"',");}else{adm_add("'',");}
-        
-        temp=adm_form_EVYeld.value.split(',');
-        tt=ADMIN_POKEMON_TEXTS.EVYeld;
-        if(temp[0]==''){adm_error(tt,0); return false;}
-        adm_add("['"+temp[0]+"'");
-        if(temp.length>=2)
+        adm_createContent.value = '';
+
+        for(let i=0;i<details.length;i++)
         {
-            for(let i=1;i<temp.length;i++)
-            {   
-                adm_add(",'"+temp[i]+"'");
+            const DETAIL =  details[i];
+            const VALUE = document.getElementById('adm_form_' + DETAIL).value;
+            const OBJECT = ADMIN_POKEMON_DETAILS[DETAIL];
+            let text;
+
+            if(OBJECT.isImportant && VALUE == ''){adm_error(OBJECT.text,0); return false;}
+            if(OBJECT.isNumber && isNaN(VALUE)){adm_error(OBJECT.text,1); return false;}
+            if(OBJECT.min && VALUE < OBJECT.min){adm_error(OBJECT.text,2); return false;}
+            if(OBJECT.max && VALUE > OBJECT.max){adm_error(OBJECT.text,3); return false;}
+
+            if(DETAIL == 'name')
+            {
+                text = VALUE + ': new Pokemon_list(0';
             }
+            else if(OBJECT.isMulti)
+            {
+                const VALUES = VALUE.split(',');
+                text = ",['" + VALUES[0] + "'";
+                if(VALUES.length >= 2)
+                {
+                    for(let j=1;j<VALUES.length;j++)
+                    {   
+                        text += ",'" + VALUES[j] + "'";
+                    }
+                }
+                text += ']';
+            }
+            else
+            {
+                text = ',';
+                if(OBJECT.isNumber)
+                {
+                    text += VALUE;
+                }
+                else
+                {
+                    text += "'" + VALUE + "'";
+                }
+            }
+
+            adm_createContent.value += text;
         }
-        adm_add('],');
-        
-        temp=adm_form_catchRate.value*1;
-        tt=ADMIN_POKEMON_TEXTS.catchRate;
-        if(temp==''){adm_error(tt,0); return false;}
-        if(isNaN(temp)){adm_error(tt,2); return false;}
-        if(temp<=0){adm_error(tt,1); return false;}
-        if(temp>255){adm_error(tt,1); return false;}
-        adm_add(temp+',');
-        
-        temp=adm_form_baseExp.value;
-        tt=ADMIN_POKEMON_TEXTS.baseExp;
-        if(temp==''){adm_error(tt,0); return false;}
-        if(isNaN(temp)){adm_error(tt,2); return false;}
-        if(temp<=0){adm_error(tt,1); return false;}
-        adm_add(temp+',');
 
-        temp=adm_form_growthExp.value;
-        tt=ADMIN_POKEMON_TEXTS.growthExp;
-        if(temp==''){adm_error(tt,0); return false;}
-        adm_add("'"+temp+"',");
-
-        temp=adm_form_femaleRate.value/100;
-        tt=ADMIN_POKEMON_TEXTS.femaleRate;
-        if(temp==''){adm_error(tt,0); return false;}
-        if(isNaN(temp)){adm_error(tt,2); return false;}
-        if(temp<0){adm_error(tt,1); return false;}
-        if(temp>1){adm_error(tt,1); return false;}
-        adm_add(temp+',');
-
-        temp=adm_form_eggGroup.value;
-        tt=ADMIN_POKEMON_TEXTS.eggGroup;
-        //if(temp==''){adm_error(tt,0); return false;}
-        adm_add("'"+temp+"',");
-
-        temp=adm_form_eggCycles.value;
-        tt=ADMIN_POKEMON_TEXTS.eggCycles;
-        //if(temp==''){adm_error(tt,0); return false;}
-        //if(isNaN(temp)){adm_error(tt,2); return false;}
-        //if(temp<=0){adm_error(tt,1); return false;}
-        adm_add(temp+',');
-
-        temp=adm_form_baseHP.value;
-        tt=ADMIN_POKEMON_TEXTS.baseHP;
-        if(temp==''){adm_error(tt,0); return false;}
-        if(isNaN(temp)){adm_error(tt,2); return false;}
-        if(temp<=0){adm_error(tt,1); return false;}
-        adm_add(temp+',');
-
-        temp=adm_form_baseAttack.value;
-        tt=ADMIN_POKEMON_TEXTS.baseAttack;
-        if(temp==''){adm_error(tt,0); return false;}
-        if(isNaN(temp)){adm_error(tt,2); return false;}
-        if(temp<=0){adm_error(tt,1); return false;}
-        adm_add(temp+',');
-
-        temp=adm_form_baseDefence.value;
-        tt=ADMIN_POKEMON_TEXTS.baseDefence;
-        if(temp==''){adm_error(tt,0); return false;}
-        if(isNaN(temp)){adm_error(tt,2); return false;}
-        if(temp<=0){adm_error(tt,1); return false;}
-        adm_add(temp+',');
-
-        temp=adm_form_baseSpAttack.value;
-        tt=ADMIN_POKEMON_TEXTS.baseSpAttack;
-        if(temp==''){adm_error(tt,0); return false;}
-        if(isNaN(temp)){adm_error(tt,2); return false;}
-        if(temp<=0){adm_error(tt,1); return false;}
-        adm_add(temp+',');
-
-        temp=adm_form_baseSpDefence.value;
-        tt=ADMIN_POKEMON_TEXTS.baseSpDefence;
-        if(temp==''){adm_error(tt,0); return false;}
-        if(isNaN(temp)){adm_error(tt,2); return false;}
-        if(temp<=0){adm_error(tt,1); return false;}
-        adm_add(temp+',');
-
-        temp=adm_form_baseSpeed.value;
-        tt=ADMIN_POKEMON_TEXTS.baseSpeed;
-        if(temp==''){adm_error(tt,0); return false;}
-        if(isNaN(temp)){adm_error(tt,2); return false;}
-        if(temp<=0){adm_error(tt,1); return false;}
-        adm_add(temp+',');
-        
-        temp=adm_form_preevolutionSpecie.value;
-        tt=ADMIN_POKEMON_TEXTS.preevolutionSpecie;
-        adm_add("'"+temp+"',");
-
-        temp=adm_form_preevolutionMethod.value;
-        tt=ADMIN_POKEMON_TEXTS.preevolutionMethod;
-        adm_add("'"+temp+"',");
-
-        temp=adm_form_preevolutionMethodValue.value;
-        tt=ADMIN_POKEMON_TEXTS.preevolutionMethodValue;
-        adm_add("'"+temp+"',");
-
-        temp=adm_form_weight.value;
-        tt=ADMIN_POKEMON_TEXTS.weight;
-        if(temp==''){adm_error(tt,0); return false;}
-        if(isNaN(temp)){adm_error(tt,2); return false;}
-        if(temp<=0){adm_error(tt,1); return false;}
-        adm_add(temp+',');
-
-        temp=adm_form_height.value;
-        tt=ADMIN_POKEMON_TEXTS.height;
-        if(temp==''){adm_error(tt,0); return false;}
-        if(isNaN(temp)){adm_error(tt,2); return false;}
-        if(temp<=0){adm_error(tt,1); return false;}
-        adm_add(temp+'),');
+        adm_createContent.value += '),';
     }
 
-//,'medium fast',0.125,'field',35,55,55,50,45,65,55,'','','',0.3,6.5),
     admin_content.appendChild(createButton);
-    let createContent=document.createElement('textarea');
-    createContent.id='adm_createContent';
-    createContent.rows=3;
-    createContent.cols=100;
+    let createContent = document.createElement('textarea');
+    createContent.id = 'adm_createContent';
+    createContent.rows = 3;
+    createContent.cols = 100;
     admin_content.appendChild(createContent);
-}
-
-function adm_add(_text)
-{
-    adm_createContent.value+=_text;
 }
 
 function adm_error(_text,_type)
 {
-    let text=_text[language];
-    let error='';
+    let errorText;
 
     if(language == ENGLISH)
     {
-        error='error: ';
+        errorText = 'error: ' + _text[language];
         switch(_type)
         {
-            case 0: text+=' is empty'; break;
-            case 1: text+=' is too low or too high'; break;
-            case 2: text+=' is not a number'; break;
+            case 0: errorText += ' is empty'; break;
+            case 1: errorText += ' is not a number'; break;
+            case 2: errorText += ' is too low'; break;
+            case 3: errorText += ' is too high'; break;
         }
     }
 
     if(language == POLSKI)
     {
-        error='błąd: ';
+        errorText = 'błąd: ' + _text[language];
         switch(_type)
         {
-            case 0: text+=' nic nie zawiera'; break;
-            case 1: text+=' ma zbyt małą lub zbyt dużą wartość'; break;
-            case 2: text+=' nie jest liczbą'; break;
+            case 0: errorText += ' nic nie zawiera'; break;
+            case 1: errorText += ' nie jest liczbą'; break;
+            case 2: errorText += ' ma zbyt małą wartość'; break;
+            case 3: errorText += ' ma zbyt dużą wartość'; break;
         }
     }
     
-    adm_createContent.value=error+text;
+    adm_createContent.value = errorText;
 }
 
 function adm_mapEditor()
@@ -249,6 +152,7 @@ function adm_mapEditor()
 
     adm_mapNo = document.createElement('select');
     adm_mapNo.id = 'adm_mapNo';
+    adm_mapNo.oninput = function(){adm_mapChange(this.value);}
     adm_details.appendChild(adm_mapNo);
     
     for(let i=0;i<maps.length;i++)
