@@ -1,5 +1,5 @@
-const POKEMON_TYPES = ['normal','fire','water','electric','grass','ice','fighting','poison','ground','flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy'];
-const POKEMON_STATS = ['hp','attack','defence','spAttack','spDeffence','speed'];
+const POKEMON_TYPES = ['','normal','fire','water','electric','grass','ice','fighting','poison','ground','flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy'];
+const POKEMON_STATS = ['hp','attack','defence','spAttack','spDefence','speed'];
 const POKEMON_EXP_GROWTH = ['erratic','fast','medium fast','medium slow','slow','fluctuating'];
 const ADMIN_WARNINGS =
 [
@@ -10,18 +10,18 @@ const ADMIN_WARNINGS =
 
 const MAP_ITEMS = 
 [
-    {name: 'grass', src: IMG_WAY+'trawa.png'},
-    {name: 'wayNW', src: IMG_WAY+'drogaNW.png'},
-    {name: 'wayN', src: IMG_WAY+'drogaN.png'},
-    {name: 'wayNE', src: IMG_WAY+'drogaNE.png'},
-    {name: 'wayW', src: IMG_WAY+'drogaW.png'},
-    {name: 'wayC', src: IMG_WAY+'drogaC.png'},
-    {name: 'wayE', src: IMG_WAY+'drogaE.png'},
-    {name: 'waySW', src: IMG_WAY+'drogaSW.png'},
-    {name: 'wayS', src: IMG_WAY+'drogaS.png'},
-    {name: 'waySE', src: IMG_WAY+'drogaSE.png'},
-    {name: 'tallgrass', src: IMG_WAY+'wysokatrawa.png'},
-    {name: 'water', src: IMG_WAY+'woda.gif'},
+    {name: 'grass', src: 'trawa.png'},
+    {name: 'wayNW', src: 'drogaNW.png'},
+    {name: 'wayN', src: 'drogaN.png'},
+    {name: 'wayNE', src: 'drogaNE.png'},
+    {name: 'wayW', src: 'drogaW.png'},
+    {name: 'wayC', src: 'drogaC.png'},
+    {name: 'wayE', src: 'drogaE.png'},
+    {name: 'waySW', src: 'drogaSW.png'},
+    {name: 'wayS', src: 'drogaS.png'},
+    {name: 'waySE', src: 'drogaSE.png'},
+    {name: 'tallgrass', src: 'wysokatrawa.png'},
+    {name: 'water', src: 'woda.gif'},
     
 ];
 

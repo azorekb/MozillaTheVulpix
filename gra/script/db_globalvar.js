@@ -22,3 +22,4 @@ let admin_list;
 let admin_content;
 let adm_selectedMapItem = 0;
 let adm_mapTable;
+let noErrors;

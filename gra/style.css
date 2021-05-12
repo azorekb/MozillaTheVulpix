@@ -86,6 +86,9 @@
 
 .tableButton {
   margin: 30px auto;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
 }
 
 .tableButton.moving {
@@ -93,8 +96,15 @@
 }
 
 @media screen and (min-width: 760px) {
+  .tableButton.moving {
+    margin-left: 20px;
+    margin-top: 0;
+  }
+}
+
+@media screen and (min-width: 760px) {
   .tableButton {
-    margin: 15px auto;
+    margin: 0 40px;
   }
 }
 
@@ -224,6 +234,10 @@
 
 .adminContainer .admFormTable tr td {
   border: 2px solid #000;
+}
+
+.adminContainer .admFormTable .admInput {
+  width: 100%;
 }
 
 .adminContainer .admDetails {

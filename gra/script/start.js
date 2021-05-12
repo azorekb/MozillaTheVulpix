@@ -40,8 +40,7 @@ function start()
 			tableButton.rows[i].insertCell(j);
 		}
 	}
-	if(window.innerWidth < MOBILE_WIDTH){worldMapConteiner.appendChild(tableButton);}
-	else{map_menu.appendChild(tableButton);}
+	worldMapConteiner.appendChild(tableButton);
 	
 	for(let i=0;i<4;i++)
 	{
@@ -60,7 +59,7 @@ function start()
 	okno.appendChild(worldMapConteiner);
 	
 	activeWindow = 'worldmap';
-	actualMap = maps[0];
+	actualMap = MAPS[0];
 	clickMenuButton(document.getElementById('mapMenuButton_Adventure'));
 }
 

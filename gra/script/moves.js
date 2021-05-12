@@ -85,7 +85,6 @@ function map_characterMove(_direct,_character,_position)
 		},(SIZE_OF_TD + 1) * speed);
 	}
 	
-	
 	if(typeOfMove == 1)
 	{
 		if(window.innerWidth < MOBILE_WIDTH)
@@ -94,6 +93,10 @@ function map_characterMove(_direct,_character,_position)
 			{
 				tableButton.classList.add('moving');
 			}
+		}
+		else if(_direct == 'left' || _direct == 'right')
+		{
+			tableButton.classList.add('moving');
 		}
 		if(_direct == 'left')
 		{
@@ -243,6 +246,6 @@ function endOfWalk(_position, _type)
 function mapImg(_number)
 {
 	let img = document.createElement('img');
-	img.src = MAP_ITEMS[_number].src;
+	img.src = IMG_WAY + MAP_ITEMS[_number].src;
 	return img;
 }

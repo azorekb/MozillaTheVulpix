@@ -1,16 +1,23 @@
 .tableButton
 {
     margin: 30px auto;
+    height: max-content;
 
     &.moving
     {
         margin-top: 10px;
+
+        @media screen and (min-width: $big_window)
+        {
+            margin-left: 20px;
+            margin-top: 0;
+        }
     }
 
     @media screen and (min-width: $big_window)
     {
-        margin: 15px auto;
-    }   
+        margin: 0 40px;
+    }
 
     .directButton
     {

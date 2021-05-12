@@ -50,9 +50,9 @@ class Pokemon_list
             speed:baseSpeed
         };
         this.preevolution={
-            specie:preevolutionSpecie,
-            method:preevolutionMethod,
-            value:preevolutionMethodValue
+            specie: preevolutionSpecie,
+            method: preevolutionMethod,
+            value: preevolutionMethodValue
         };
         this.height=height;
         this.weight=weight;
@@ -72,5 +72,17 @@ class AdminPokemonDetails
         this.description = description;
         this.text = text;
         this.example = example;
+        
+    }
+}
+
+class NumberArray
+{
+    constructor(min, max)
+    {
+        for(let i=0;i<=max-min;i++)
+        {
+            this[i] = min + i;
+        }
     }
 }
