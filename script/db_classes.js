@@ -86,3 +86,39 @@ class NumberArray
         }
     }
 }
+
+class PokemonMove
+{
+    power = 0;
+    accuracy = 100;
+    type = '';
+    category = '';
+    effects = [];
+    PP = 1;
+    target = 'one_opponent';
+    
+    constructor(power,accuracy,type,category,effects,PP,target)
+    {
+        this.accuracy = accuracy;
+        this.effects = effects;
+        this.power = power;
+        this.category = category;
+        this.type = type;
+        this.PP = PP;
+        this.target = target;
+    }
+}
+
+class Effect
+{
+    name = '';
+    chance = 100;
+    value = 0;
+    
+    constructor(name,chance,value)
+    {
+        this.name = name;
+        this.chance = chance;
+        this.value = value;
+    }
+}

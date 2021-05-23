@@ -1,0 +1,104 @@
+.languages
+{
+    width: auto;
+    border: $login_border;
+    border-bottom-style: none;
+    padding: 15px 0;
+
+    .languages_container
+    {
+        display: flex;
+        margin: auto;
+        width: max-content;
+
+        div
+        {
+            width: 80px;
+            height: 60px;
+            padding: 10px;
+            margin-right: 5px;
+        }
+        
+        img
+        {
+            border: 1px solid black;
+        }
+
+        .active
+        {
+            background-color: $button_colorOut_active_hover;
+        }
+    }
+    
+}
+
+.login_tabs
+
+{
+    display: flex;
+    border: $login_border;
+    width: auto;
+    border-top-style: none;
+    border-bottom-style: none;
+    padding-top: 5px;
+
+    div
+    {
+        border: $login_border;
+        border-left-style: none;
+        padding: 5px;
+    }
+
+    .empty
+    
+    {
+        width: 100%;
+        border-right-style: none;
+        border-top-style: none;
+    }
+
+    .active
+    {
+        border-bottom-style: none;
+    }
+}
+
+.login_content
+{
+    border: $login_border;
+    border-top-style: none;
+
+    div
+    {
+        display: none;
+        width: max-content;
+        margin: auto;
+        padding: 15px;
+    }
+
+    .active
+    {
+        display: block;
+    }
+
+    .none
+    {
+        display: none;
+    }
+
+    label
+    {
+        display: block;
+        margin: 3px;
+    }
+    
+    p
+    {
+        margin: 2px;
+    }
+}
+
+#login_errors
+{
+    color: red;
+}

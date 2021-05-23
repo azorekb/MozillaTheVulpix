@@ -1,3 +1,4 @@
+let logInTab = 'logIn';
 let map_menu;
 let worldMapConteiner;
 let worldmapContent;
@@ -16,6 +17,10 @@ let dex_containter;
 let dex_dataPlace;
 let dex_baseStats;
 let dex_pokemonList;
+let waitingImage = document.createElement('img');
+waitingImage.src = "img/vapi.gif";
+let activeUser = {name: '', admin: false};
+let language = POLSKI;
 
 let admin_conteiner;
 let admin_list;

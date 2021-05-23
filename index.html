@@ -1,0 +1,65 @@
+<html lang='pl'>
+<head>
+<meta charset=utf8>
+<meta name="handheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0">
+<meta name="MobileOptimized" content="240">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" href="style.css">
+<title>Mozilla Vulpix</title>
+<link rel="shortcut icon" href="../img/icon.ico" type="image/x-icon">
+</head>
+<body> 
+	<div id=pozaza>0/0</div>
+	<div id=okno>
+		<div class = 'languages'>
+			<div class='languages_container'>
+				<div id='language_polish' class = 'active'><img src='img/polski.png' onclick="login_changeLanguage('polish')"></div>
+				<div id='language_english'><img src='img/english.png'  onclick="login_changeLanguage('english')"></div>
+			</div>
+		</div>
+		<div class = 'login_tabs'>
+			<div id='login_tab_logIn' class = 'active' onclick="changeLoginTab('logIn')">Logowanie</div>
+			<div id='login_tab_register' onclick="changeLoginTab('register')">Rejestracja</div>
+			<div class = 'empty'></div>
+		</div>
+		<div class='login_content'>
+			<div id = 'login_content_logIn' class='active'>
+				<label>
+					<p id = 'login_name'>Nazwa użytkownika</p>
+					<input id = 'login_name_input'>
+				</label>
+				<label>
+					<p id = 'login_password'>Hasło</p>
+					<input id = 'login_password_input' type='password'>
+				</label>
+				<label>
+					<button id = 'login_button' onclick="login_send('login')">Wyślij</button>
+				</label>
+				<label>
+					<img src = 'img/vapi.gif' id = 'login_waiting' width = 25 class = 'none'>
+				</label>
+			</div>
+			<div id = 'login_content_register'>
+				
+			</div>
+			<div id = 'login_errors'></div>
+		</div>
+	</div>
+
+	<script src='script/db_classes.js'></script>
+	<script src='script/db_constans.js'></script>
+	<script src='script/db_globalvar.js'></script>
+	<script src='script/db_arrays.js'></script>
+	<script src='script/db_objects.js'></script>
+	<script src='script/db_pokemon.js'></script>
+	<script src='script/db_maps.js'></script>
+
+	<script src='script/login.js'></script>
+	<script src='script/start.js'></script>
+	<script src='script/moves.js'></script>
+	<script src='script/keyboard.js'></script>
+	<script src='script/menu.js'></script>
+	<script src='script/adminpanel.js'></script>
+</body>
+</html>

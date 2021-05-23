@@ -6,6 +6,7 @@ function start()
 	mapMenu_buttons.push(['Pokemony','Pokemon']);
 	mapMenu_buttons.push(['Przedmioty','Items']);
 	mapMenu_buttons.push(['Opcje','Options']);
+	if(activeUser.admin){mapMenu_buttons.push(['Panel Admina','Admin Panel']);}
 	
 	okno.innerHTML = '';
 
@@ -13,6 +14,7 @@ function start()
 	worldMapConteiner.classList.add('widnow_map');
 	map_menu = document.createElement('div');
 	map_menu.classList.add('mapMenu');
+	map_menu.id = 'map_menu';
 	worldMapConteiner.appendChild(map_menu);
 
 	for(let i=0;i<mapMenu_buttons.length;i++)

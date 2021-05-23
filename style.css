@@ -203,6 +203,100 @@
   cursor: pointer;
 }
 
+.languages {
+  width: auto;
+  border: 3px solid black;
+  border-bottom-style: none;
+  padding: 15px 0;
+}
+
+.languages .languages_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: auto;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.languages .languages_container div {
+  width: 80px;
+  height: 60px;
+  padding: 10px;
+  margin-right: 5px;
+}
+
+.languages .languages_container img {
+  border: 1px solid black;
+}
+
+.languages .languages_container .active {
+  background-color: #ee0;
+}
+
+.login_tabs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border: 3px solid black;
+  width: auto;
+  border-top-style: none;
+  border-bottom-style: none;
+  padding-top: 5px;
+}
+
+.login_tabs div {
+  border: 3px solid black;
+  border-left-style: none;
+  padding: 5px;
+}
+
+.login_tabs .empty {
+  width: 100%;
+  border-right-style: none;
+  border-top-style: none;
+}
+
+.login_tabs .active {
+  border-bottom-style: none;
+}
+
+.login_content {
+  border: 3px solid black;
+  border-top-style: none;
+}
+
+.login_content div {
+  display: none;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin: auto;
+  padding: 15px;
+}
+
+.login_content .active {
+  display: block;
+}
+
+.login_content .none {
+  display: none;
+}
+
+.login_content label {
+  display: block;
+  margin: 3px;
+}
+
+.login_content p {
+  margin: 2px;
+}
+
+#login_errors {
+  color: red;
+}
+
 .adminContainer {
   display: -webkit-box;
   display: -ms-flexbox;

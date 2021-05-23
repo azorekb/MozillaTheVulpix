@@ -94,3 +94,35 @@ const POKEMON_EVOLUTION_METHODS =
     love: ['fairy move'],
     trade: [''],
 }
+
+const POKEMON_MOVES = 
+{
+    struggle: new PokemonMove(40,100,'','physical',[new Effect('dmgBack',100,40)]),
+    surf: new PokemonMove(90,100,'water','special',[new Effect('hit_dive',100,2)],15,'everyone'),
+    energy_ball: new PokemonMove(90,100,'grass','special',[new Effect('low_target_spDefence',10,1)],10),
+    flamethrower: new PokemonMove(90,100,'fire','special',[new Effect('burn_target',10)],15),
+    tackle: new PokemonMove(40,100,'normal','physical',[],35),
+    ember: new PokemonMove(40,100,'fire','special',[new Effect('burn_target',10)],25),
+}
+
+const MAIN_TEXTS =
+{
+	logIn: {texts: ['Logowanie','Log&nbsp;In'], object: login_tab_logIn},
+	register: {texts: ['Rejestracja','Register'], object: login_tab_register},
+	name_log: {texts: ['nazwa użytkownika','user name'], object: login_name},
+	// name_reg: {texts: ['nazwa użytkownika','user name'], object: register_name},
+	password_log: {texts: ['hasło','password'], object: login_password},
+	// password_reg: {texts: ['hasło','password'], object: register_password},
+	send_log: {texts: ['wyślij','send'], object: login_button},
+	// send_reg: {texts: ['wyślij','send'], object: register_button},
+}
+
+const MAIN_ERRORS = 
+{
+    noUserName: ['nazwa użytkownika jest pusta','user name is empty'],
+    shortUserName: ['nazwa użytkownika jest zbyt krótka (min 4 liter)','user name is too short (min 4 letters)'],
+    wrongUserName: ['podana nazwa użytkownika nie istnieje','given user name doesn\'t exist'],
+    noPassword: ['hasło jest puste','password is empty'],
+    shortPassword: ['hasło jest zbyt krótkie (min 4 liter)','hasło is too short (min 4 letters)'],
+    wrongPassword: ['podane hasło jest nieprawidłowe','given password is incorrect'],
+}
