@@ -1,12 +1,14 @@
 function admin_start()
 {
-    okno.innerHTML = '';
-    admin_conteiner=document.createElement('div');
+    worldmapContent.innerHTML = '';
+    let admin_conteiner = document.createElement('div');
     admin_conteiner.classList.add('adminContainer');
-    okno.appendChild(admin_conteiner);
+    admin_conteiner.id = 'admin_conteiner';
+    worldmapContent.appendChild(admin_conteiner);
 
-    admin_list=document.createElement('div');
+    letadmin_list=document.createElement('div');
     admin_list.classList.add('adminList');
+    admin_list.id = 'admin_list';
     admin_conteiner.appendChild(admin_list);
 
     for(let i=0;i<ADMIN_LIST_OF_TASKS.length;i++)
@@ -18,7 +20,7 @@ function admin_start()
         admin_list.appendChild(task);
     }
 
-    admin_content = document.createElement('div');
+    let admin_content = document.createElement('div');
     admin_content.id = 'admin_content';
     admin_content.innerHTML = ADMIN_WARNINGS[2][language];
     admin_conteiner.appendChild(admin_content);
@@ -491,8 +493,9 @@ function adm_mapEditor()
     codeText.id = 'adm_codeText';
     admin_content.appendChild(codeText);
 
-    adm_mapTable = document.createElement('table');
+    let adm_mapTable = document.createElement('table');
     adm_mapTable.classList.add('admMapTable');
+    adm_mapTable.id = 'adm_mapTable';
     admin_content.appendChild(adm_mapTable);
 
     adm_mapChange(0);

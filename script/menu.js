@@ -6,6 +6,7 @@ function clickMenuButton(_element)
         {
             case 'mapMenuButton_Adventure': openMap(); break;
             case 'mapMenuButton_Pokedex': openPokedex(); break;
+			case 'mapMenuButton_Admin_Panel': admin_start(); break;
 
             default: return false;
         }
@@ -21,20 +22,24 @@ function openPokedex()
 {
     worldmapContent.innerHTML = '';
 
-    dex_containter = document.createElement('div');
+    let dex_containter = document.createElement('div');
     dex_containter.classList.add('dexContainer');
+	dex_containter.id = 'dex_containter';
     worldmapContent.appendChild(dex_containter);
 
-    dex_dataPlace = document.createElement('div');
+    let dex_dataPlace = document.createElement('div');
     dex_dataPlace.classList.add('dexPlace');
+	dex_dataPlace.id = 'dex_dataPlace';
     dex_containter.appendChild(dex_dataPlace);
 
-    dex_baseStats = document.createElement('div');
+    let dex_baseStats = document.createElement('div');
     dex_baseStats.classList.add('dexBaseStats');
+	dex_baseStats.id = 'dex_baseStats';
     dex_dataPlace.appendChild(dex_baseStats);
 
-	dex_pokemonList = document.createElement('div');
+	let dex_pokemonList = document.createElement('div');
 	dex_pokemonList.classList.add('dexPokemonList');
+	dex_pokemonList.id = 'dex_pokemonList';
 	dex_containter.appendChild(dex_pokemonList);
 
 	let list = Object.keys(POKEMON_LIST);
@@ -87,21 +92,23 @@ function pokedex_show(_pokemon)
 
 function openMap()
 {
-    worldmapContent.innerHTML = '';
-	worldMapWindow = document.createElement('div');
+	worldmapContent.innerHTML = '';
+	let worldMapWindow = document.createElement('div');
 	worldMapWindow.classList.add('worldMapWindow');
+	worldMapWindow.id = 'worldMapWindow';
 	
-	worldMapTable = document.createElement('table');
+	let worldMapTable = document.createElement('table');
 	worldMapTable.classList.add('worldmap');
+	worldMapTable.id = 'worldMapTable';
 	worldMapWindow.appendChild(worldMapTable);
 	
 	mainCharacter = document.createElement('img');
 	mainCharacter.style.position='absolute';
-	mainCharacter.src = '../img/joy.png';
-	resize_worldMap();
+	mainCharacter.src = 'img/joy.png';
 	worldMapWindow.appendChild(mainCharacter);
 	worldmapContent.appendChild(worldMapWindow);
-
+	
+	resize_worldMap();
 	let helpdiv = document.createElement('div');
 	helpdiv.classList.add('helpDiv');
 	helpdiv.style.height = worldMapTable.rows.length * SIZE_OF_TD;
@@ -110,9 +117,9 @@ function openMap()
 	helpdiv.style.left = -1 * SIZE_OF_TD;
 	helpdiv.style.borderWidth = SIZE_OF_TD;
 	//helpdiv.onclick=function(){worldMap_clickMove()};
-	helpdiv.id='worldmap_helpdiv';
+	helpdiv.id = 'worldmap_helpdiv';
 	worldMapWindow.appendChild(helpdiv);
-
+	
 	activeWindow = 'worldmap';
 	
 }
@@ -125,10 +132,10 @@ function resize_worldMap()
 	mapCenter.isY = 1-y_count % 2;
 	mapCenter.toX = Math.ceil(x_count / 2);
 	mapCenter.isX = 1-x_count % 2;
-
+	
 	let firstCell = {x:0, y:0};
 	let newPosition = {x:actualPosition.x, y:actualPosition.y};
-
+	
 	if(actualMap[0].length > x_count)
 	{
 		if(actualPosition.x > mapCenter.toX - mapCenter.isX && actualPosition.x < actualMap[0].length - mapCenter.toX)

@@ -1,3 +1,9 @@
+function skipLogin(_admin)
+{
+	activeUser.admin = _admin;
+	start();
+}
+
 function start()
 {
 	let mapMenu_buttons = [];
@@ -10,9 +16,12 @@ function start()
 	
 	okno.innerHTML = '';
 
-	worldMapConteiner = document.createElement('div');
+	let worldMapConteiner = document.createElement('div');
 	worldMapConteiner.classList.add('widnow_map');
-	map_menu = document.createElement('div');
+	worldMapConteiner.id = 'worldMapConteiner';
+
+
+	let map_menu = document.createElement('div');
 	map_menu.classList.add('mapMenu');
 	map_menu.id = 'map_menu';
 	worldMapConteiner.appendChild(map_menu);
@@ -21,19 +30,21 @@ function start()
 	{
 		let newbutton = document.createElement('div');
 		newbutton.classList.add('mapMenuButton');
-		newbutton.id = 'mapMenuButton_'+mapMenu_buttons[i][ENGLISH];
+		newbutton.id = ('mapMenuButton_' + mapMenu_buttons[i][ENGLISH]).replace(' ','_');
 		newbutton.innerHTML = mapMenu_buttons[i][language];
 		newbutton.onclick = function(){clickMenuButton(this);}
 		map_menu.appendChild(newbutton);
 	}
 
-	worldmapContent = document.createElement('div');
+	let worldmapContent = document.createElement('div');
+	worldmapContent.id = 'worldmapContent';
 	worldMapConteiner.appendChild(worldmapContent);
 
 	const BUTTON_PLACES = [[1,0],[0,1],[1,2],[2,1]];
 
-	tableButton = document.createElement('table');
+	let tableButton = document.createElement('table');
 	tableButton.classList='tableButton';
+	tableButton.id = 'tableButton';
 	for(let i=0;i<3;i++)
 	{
 		tableButton.insertRow(i);
