@@ -29,4 +29,5 @@ const ADMIN_LIST_OF_TASKS =
 [
     {name:['dodaj pokemona','add pokemon'], function: 'adm_formPokemon'},
     {name:['edytor map','map editor'], function: 'adm_mapEditor'},
+    {name:['edytor ruchów','move editor'], function: 'adm_moveEditor_run'}
 ];

@@ -6,7 +6,7 @@ function admin_start()
     admin_conteiner.id = 'admin_conteiner';
     worldmapContent.appendChild(admin_conteiner);
 
-    letadmin_list=document.createElement('div');
+    let admin_list=document.createElement('div');
     admin_list.classList.add('adminList');
     admin_list.id = 'admin_list';
     admin_conteiner.appendChild(admin_list);
@@ -413,11 +413,11 @@ function adm_mapEditor()
     adm_details = document.createElement('div');
     adm_details.classList.add('admDetails');
     admin_content.appendChild(adm_details);
-
+    
     let text = document.createElement('p');
     text.innerHTML = ADMIN_MAPS_DESCRIPTIONS.no[language];
     adm_details.appendChild(text);
-
+    
     adm_mapNo = document.createElement('select');
     adm_mapNo.id = 'adm_mapNo';
     adm_mapNo.oninput = function(){adm_mapChange(this.value);}
@@ -430,16 +430,16 @@ function adm_mapEditor()
         option.innerHTML = i;
         adm_mapNo.appendChild(option);
     }
-
+    
     adm_newMapButton = document.createElement('button');
     adm_newMapButton.innerHTML = '+';
     adm_newMapButton.onclick = function(){adm_addNewMap();}
     adm_details.appendChild(adm_newMapButton);
-
+    
     text = document.createElement('p');
     text.innerHTML = 'X:';
     adm_details.appendChild(text);
-
+    
     let adm_sizeX = document.createElement('input');
     adm_sizeX.type = 'number';
     adm_sizeX.min = 1;
@@ -447,11 +447,11 @@ function adm_mapEditor()
     adm_sizeX.classList.add('adm_size');
     adm_sizeX.oninput = function(){adm_changeSizeOfMap();}
     adm_details.appendChild(adm_sizeX);
-
+    
     text = document.createElement('p');
     text.innerHTML = 'Y:';
     adm_details.appendChild(text);
-
+    
     let adm_sizeY = document.createElement('input');
     adm_sizeY.type = 'number';
     adm_sizeY.min = 1;
@@ -459,11 +459,11 @@ function adm_mapEditor()
     adm_sizeY.classList.add('adm_size');
     adm_sizeY.oninput = function(){adm_changeSizeOfMap();}
     adm_details.appendChild(adm_sizeY);
-
+    
     let adm_mapItems_container = document.createElement('div');
     adm_mapItems_container.classList.add('admMapItems');
     admin_content.appendChild(adm_mapItems_container);
-
+    
     for(let i=0;i<MAP_ITEMS.length;i++)
     {
         let adm_mapItem = document.createElement('div');
@@ -474,30 +474,30 @@ function adm_mapEditor()
         adm_mapItem.onclick = function(){adm_mapItemSelect(this, i);}
         adm_mapItems_container.appendChild(adm_mapItem);
     }
-
+    
     adm_mapItems_container.childNodes[0].classList.add('active');
-
+    
     adm_infoDiv = document.createElement('div');
     adm_infoDiv.innerHTML = ADMIN_WARNINGS[1][language];
     adm_infoDiv.classList.add('admInfo');
     admin_content.appendChild(adm_infoDiv);
-
+    
     let createCode = document.createElement('button');
     createCode.innerHTML = 'twórz kod';
     createCode.onclick = function() {adm_createCode();}
     admin_content.appendChild(createCode);
-
+    
     let codeText = document.createElement('textarea');
     codeText.rows = 1;
     codeText.cols = 10;
     codeText.id = 'adm_codeText';
     admin_content.appendChild(codeText);
-
+    
     let adm_mapTable = document.createElement('table');
     adm_mapTable.classList.add('admMapTable');
     adm_mapTable.id = 'adm_mapTable';
     admin_content.appendChild(adm_mapTable);
-
+    
     adm_mapChange(0);
 }
 
@@ -511,7 +511,7 @@ function adm_mapItemSelect(_item,_index)
 function adm_mapChange(_number)
 {
     while(adm_mapTable.rows.length > 0){adm_mapTable.deleteRow(0);}
-
+    
     for(let i=0;i<MAPS[_number].length;i++)
     {
         adm_mapTable.insertRow(i);
@@ -552,19 +552,19 @@ function adm_changeSizeOfMap()
             MAPS[adm_mapNo.value][lastRow].push(adm_selectedMapItem);
         }
     }
-
+    
     while(adm_sizeY.value < MAPS[adm_mapNo.value].length)
     {
         let lastRow = adm_mapTable.rows.length;
         adm_mapTable.deleteRow(lastRow - 1);
         MAPS[adm_mapNo.value].pop();
     }
-
+    
     while(adm_sizeX.value > MAPS[adm_mapNo.value][0].length)
     {
         let lastCell = adm_mapTable.rows[0].cells.length;
         let rowsCount = adm_mapTable.rows.length;
-
+        
         for(let i=0;i<rowsCount;i++)
         {
             adm_mapTable.rows[i].insertCell(lastCell).appendChild(mapImg(adm_selectedMapItem));
@@ -578,7 +578,7 @@ function adm_changeSizeOfMap()
     {
         let lastCell = adm_mapTable.rows[0].cells.length;
         let rowsCount = adm_mapTable.rows.length;
-
+        
         for(let i=0;i<rowsCount;i++)
         {
             adm_mapTable.rows[i].deleteCell(lastCell - 1);
@@ -592,27 +592,27 @@ function adm_createCode()
 {
     adm_codeText.value = 'let MAPS =\n';
     adm_codeText.value +='[';
-
+    
     for(let i=0;i<MAPS.length;i++)
     {
         adm_codeText.value +='\n\t[';
         for(let j=0;j<MAPS[i].length;j++)
         {
             adm_codeText.value += '\n\t\t[' + MAPS[i][j][0];
-
+            
             for(let k=1;k<MAPS[i][j].length;k++)
             {
                 adm_codeText.value += ',' + MAPS[i][j][k];
             }
-
+            
             adm_codeText.value += '],';
-
+            
         }
         adm_codeText.value +='\n\t],';
     }
     
     adm_codeText.value += '\n]';
-
+    
     adm_codeText.select();
     document.execCommand("copy");
 }
@@ -626,6 +626,29 @@ function adm_addNewMap()
     option.innerHTML = newMapNo;
     option.selected = true;
     adm_mapNo.appendChild(option);
-
     adm_mapChange(newMapNo);
+}
+
+
+// ===========================================================================
+// =========================== MOVES =========================================
+// ===========================================================================
+
+
+function adm_moveEditor_run()
+{
+    admin_content.innerHTML = '';
+    let php_moves = new XMLHttpRequest();
+    php_moves.onreadystatechange = function()
+    {
+        if(this.readyState == 4 && this.status == 200)
+		{
+            console.log(this.responseText);
+	        const RES = JSON.parse(this.responseText);
+			console.log(RES);
+        }
+    }
+    
+	php_moves.open("POST", 'php/moves.php', true);
+	php_moves.send();
 }
