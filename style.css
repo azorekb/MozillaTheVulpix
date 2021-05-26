@@ -379,4 +379,33 @@
   padding: 0;
   border: 1px #000 solid;
 }
+
+.admMoveTable {
+  margin: 10px;
+  border-collapse: collapse;
+}
+
+.admMoveTable tr {
+  text-align: center;
+  background-color: #cfc;
+  border: 10px solid #fff;
+  cursor: pointer;
+}
+
+.admMoveTable tr td {
+  padding: 5px;
+}
+
+.admMoveTable tr:hover {
+  background-color: #ffc;
+}
+
+.admMoveTable tr:first-child {
+  background: none;
+  cursor: auto;
+}
+
+.admMoveTable tr:first-child:hover {
+  background: none;
+}
 /*# sourceMappingURL=style.css.map */

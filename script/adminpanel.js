@@ -638,6 +638,7 @@ function adm_addNewMap()
 function adm_moveEditor_run()
 {
     admin_content.innerHTML = '';
+    admin_content.appendChild(waitingImage);
     let php_moves = new XMLHttpRequest();
     php_moves.onreadystatechange = function()
     {
@@ -646,6 +647,29 @@ function adm_moveEditor_run()
             console.log(this.responseText);
 	        const RES = JSON.parse(this.responseText);
 			console.log(RES);
+            
+            let moveTable = document.createElement('table');
+            moveTable.id = 'adm_moveTable';
+            moveTable.classList.add('admMoveTable');
+
+            moveTable.insertRow(0);
+            for(let i=0;i<ADMIN_MOVES_PROPERTIES.length;i++)
+            {
+                moveTable.rows[0].insertCell(i).innerHTML = ADMIN_MOVES_PROPERTIES[i].description[language];
+            }
+
+            Object.keys(RES).forEach(move => {
+                let lastRow = moveTable.insertRow(moveTable.rows.length);
+                console.log(move,RES);
+                for(let i=0;i<ADMIN_MOVES_PROPERTIES.length;i++)
+                {
+
+                    lastRow.insertCell(i).innerHTML =  RES[move][ADMIN_MOVES_PROPERTIES[i].dbname];
+                }
+            })
+
+            admin_content.innerHTML = '';
+            admin_content.appendChild(moveTable);
         }
     }
     

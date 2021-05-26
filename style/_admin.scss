@@ -89,3 +89,36 @@
         }    
     }
 }
+
+.admMoveTable
+{
+    margin: 10px;
+    border-collapse: collapse;
+    tr
+    {
+        text-align: center;
+        background-color: #cfc;
+        border: 10px solid #fff;
+        cursor: pointer;
+
+        td
+        {
+            padding: 5px;
+        }
+
+        &:hover
+        {
+            background-color: #ffc;
+        }
+
+        &:first-child
+        {
+            background: none;
+            cursor: auto;
+            &:hover
+            {
+                background: none;
+            }
+        }
+    }
+}

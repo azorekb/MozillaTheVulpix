@@ -31,3 +31,17 @@ const ADMIN_LIST_OF_TASKS =
     {name:['edytor map','map editor'], function: 'adm_mapEditor'},
     {name:['edytor ruchów','move editor'], function: 'adm_moveEditor_run'}
 ];
+
+const ADMIN_MOVES_PROPERTIES = 
+[
+    {description: ['nr','no'], dbname: 'id'},
+    {description: ['nazwa angielska','english name'], dbname: 'name_eng'},
+    {description: ['nazwa polska','polish name'], dbname: 'name_pl'},
+    {description: ['moc','power'], dbname: 'power'},
+    {description: ['celność','accuracy'], dbname: 'accuracy'},
+    {description: ['typ','type'], dbname: 'type'},
+    {description: ['categoria','category'], dbname: 'category'},
+    {description: ['PP','PP'], dbname: 'PP'},
+    {description: ['cel','target'], dbname: 'target'},
+    {description: ['efeckty','effects'], dbname: 'effects'}
+];
