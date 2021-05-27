@@ -1,37 +1,34 @@
+{
 <?php
-
-    if(isset($_POST['typr']))
+    $connection = @mysql_connect('mysql1.ugu.pl', 'db699059', 'MalaRuka.037') or die(mysql_error());
+    $db = @mysql_select_db('db699059', $connection) or die(mysql_error());
+    
+    $cols;
+    $dbquery = mysql_query("show columns from mozillavulpix_pokemon_moves");
+    while($result = mysql_fetch_array($dbquery))
     {
-        echo 'a to ci niespodzianka';
+        $cols[count($cols)] = $result[0];
     }
-    else
+    $index = 0;
+    
+    $where = '';
+    
+    if(isset($_POST['move']))
     {
-        $connection = @mysql_connect('mysql1.ugu.pl', 'db699059', 'MalaRuka.037') or die(mysql_error());
-        $db = @mysql_select_db('db699059', $connection) or die(mysql_error());
-
-        $cols;
-
-        $dbquery = mysql_query("show columns from mozillavulpix_pokemon_moves");
-        while($result = mysql_fetch_array($dbquery))
+        $where = ' where id='.$_POST['move'];
+    }
+    
+    $dbquery = mysql_query("select * from mozillavulpix_pokemon_moves".$where);
+    while($result = mysql_fetch_array($dbquery))
+    {
+        if($index>0){echo ',';}
+        echo '"'.$index++.'":{';
+        for($i=0;$i<count($cols);$i++)
         {
-            $cols[count($cols)] = $result[0];
-        }
-
-        echo '{';
-        $index = 0;
-
-        $dbquery = mysql_query("select * from mozillavulpix_pokemon_moves");
-        while($result = mysql_fetch_array($dbquery))
-        {
-            if($index>0){echo ',';}
-            echo '"'.$index++.'":{';
-            for($i=0;$i<count($cols);$i++)
-            {
-                if($i>0){echo ',';}
-                echo '"'.$cols[$i].'":"'.$result[$i].'"';
-            }
-            echo '}';
+            if($i>0){echo ',';}
+            echo '"'.$cols[$i].'":"'.$result[$i].'"';
         }
         echo '}';
     }
-?>
+    ?>
+}

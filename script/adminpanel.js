@@ -660,11 +660,11 @@ function adm_moveEditor_run()
 
             Object.keys(RES).forEach(move => {
                 let lastRow = moveTable.insertRow(moveTable.rows.length);
+                lastRow.onclick = function(){adm_editMove(RES[move].id);}
                 console.log(move,RES);
                 for(let i=0;i<ADMIN_MOVES_PROPERTIES.length;i++)
                 {
-
-                    lastRow.insertCell(i).innerHTML =  RES[move][ADMIN_MOVES_PROPERTIES[i].dbname];
+                    lastRow.insertCell(i).innerHTML = RES[move][ADMIN_MOVES_PROPERTIES[i].dbname];
                 }
             })
 
@@ -675,4 +675,70 @@ function adm_moveEditor_run()
     
 	php_moves.open("POST", 'php/moves.php', true);
 	php_moves.send();
+}
+
+function adm_editMove(_move)
+{
+    admin_content.innerHTML = '';
+    admin_content.appendChild(waitingImage);
+    let php_moves = new XMLHttpRequest();
+    php_moves.onreadystatechange = function()
+    {
+        if(this.readyState == 4 && this.status == 200)
+		{
+            console.log(this.responseText);
+	        const RES = JSON.parse(this.responseText)[0];
+			console.log(RES);
+
+            let editTable = document.createElement('table');
+            for(let i=1; i<ADMIN_MOVES_PROPERTIES.length;i++)
+            {
+                editTable.insertRow(i-1).insertCell(0).innerHTML = ADMIN_MOVES_PROPERTIES[i].description[language];
+                let input;
+                switch(ADMIN_MOVES_PROPERTIES[i].input)
+                {
+                    case 'text':
+                    {
+                        input = document.createElement('input');
+                        input.type = 'text';
+                    }    
+                    break;
+
+                    case 'number':
+                    {
+                        input = document.createElement('input');
+                        input.type = 'number';
+                        input.min = ADMIN_MOVES_PROPERTIES[i].min; 
+                        input.max = ADMIN_MOVES_PROPERTIES[i].max; 
+                    }
+                    break;
+                    
+                    case 'select':
+                    {
+                        input = document.createElement('select');
+                        for(let j=0;j<ADMIN_MOVES_PROPERTIES[i].table.length;j++)
+                        {
+                            let option = document.createElement('option');
+                            option.value = ADMIN_MOVES_PROPERTIES[i].table[j];
+                            option.innerHTML = ADMIN_MOVES_PROPERTIES[i].table[j];
+                            input.appendChild(option);
+                        }
+                    }
+                    break;
+                }
+                input.value = RES[ADMIN_MOVES_PROPERTIES[i].dbname];
+                input.id = 'admin_editMove_' + ADMIN_MOVES_PROPERTIES[i].dbname;
+                editTable.rows[i-1].insertCell(1).appendChild(input);
+            }
+            
+            editTable.id = 'admin_editTable';
+            admin_content.innerHTML = '';
+            admin_content.appendChild(editTable);
+        }
+    }
+    
+    let data = new FormData();
+    data.append('move', _move);
+	php_moves.open("POST", 'php/moves.php', true);
+	php_moves.send(data);
 }

@@ -1,4 +1,4 @@
-const POKEMON_TYPES = ['','normal','fire','water','electric','grass','ice','fighting','poison','ground','flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy'];
+const POKEMON_TYPES = ['-','normal','fire','water','electric','grass','ice','fighting','poison','ground','flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy'];
 const POKEMON_STATS = ['hp','attack','defence','spAttack','spDefence','speed'];
 const POKEMON_EXP_GROWTH = ['erratic','fast','medium fast','medium slow','slow','fluctuating'];
 const ADMIN_WARNINGS =
@@ -35,13 +35,13 @@ const ADMIN_LIST_OF_TASKS =
 const ADMIN_MOVES_PROPERTIES = 
 [
     {description: ['nr','no'], dbname: 'id'},
-    {description: ['nazwa angielska','english name'], dbname: 'name_eng'},
-    {description: ['nazwa polska','polish name'], dbname: 'name_pl'},
-    {description: ['moc','power'], dbname: 'power'},
-    {description: ['celność','accuracy'], dbname: 'accuracy'},
-    {description: ['typ','type'], dbname: 'type'},
-    {description: ['categoria','category'], dbname: 'category'},
-    {description: ['PP','PP'], dbname: 'PP'},
-    {description: ['cel','target'], dbname: 'target'},
-    {description: ['efeckty','effects'], dbname: 'effects'}
+    {description: ['nazwa angielska','english name'], dbname: 'name_eng', input: 'text'},
+    {description: ['nazwa polska','polish name'], dbname: 'name_pl', input: 'text'},
+    {description: ['moc','power'], dbname: 'power', input: 'number', min: 0, max: 300},
+    {description: ['celność','accuracy'], dbname: 'accuracy', input: 'number', min: 0, max: 100},
+    {description: ['typ','type'], dbname: 'type', input: 'select', table: POKEMON_TYPES},
+    {description: ['categoria','category'], dbname: 'category',input: 'select', table: ['ph','sp','st']},
+    {description: ['PP','PP'], dbname: 'PP', input: 'number', min: 1, max: 40},
+    {description: ['cel','target'], dbname: 'target', input: 'select', table: ['one opponent','all opponent','everyone','self','one allay','all allay']},
+    {description: ['efeckty','effects'], dbname: 'effects', input: 'text'}
 ];
