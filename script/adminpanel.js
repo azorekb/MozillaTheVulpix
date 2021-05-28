@@ -638,6 +638,8 @@ function adm_addNewMap()
 function adm_moveEditor_run()
 {
     admin_content.innerHTML = '';
+    let waitingImage = document.createElement('img');
+    waitingImage.src = waitingImageUrl;
     admin_content.appendChild(waitingImage);
     let php_moves = new XMLHttpRequest();
     php_moves.onreadystatechange = function()
@@ -667,7 +669,7 @@ function adm_moveEditor_run()
                     lastRow.insertCell(i).innerHTML = RES[move][ADMIN_MOVES_PROPERTIES[i].dbname];
                 }
             })
-
+            
             admin_content.innerHTML = '';
             admin_content.appendChild(moveTable);
         }
@@ -680,6 +682,8 @@ function adm_moveEditor_run()
 function adm_editMove(_move)
 {
     admin_content.innerHTML = '';
+    let waitingImage = document.createElement('img');
+    waitingImage.src = waitingImageUrl;
     admin_content.appendChild(waitingImage);
     let php_moves = new XMLHttpRequest();
     php_moves.onreadystatechange = function()
@@ -689,21 +693,25 @@ function adm_editMove(_move)
             console.log(this.responseText);
 	        const RES = JSON.parse(this.responseText)[0];
 			console.log(RES);
-
+            
             let editTable = document.createElement('table');
             for(let i=1; i<ADMIN_MOVES_PROPERTIES.length;i++)
             {
                 editTable.insertRow(i-1).insertCell(0).innerHTML = ADMIN_MOVES_PROPERTIES[i].description[language];
+                let disable = false;
                 let input;
                 switch(ADMIN_MOVES_PROPERTIES[i].input)
                 {
+                    
+                    case 'disabled': disable = true;
                     case 'text':
                     {
                         input = document.createElement('input');
                         input.type = 'text';
-                    }    
+                    }
                     break;
-
+                    
+                    
                     case 'number':
                     {
                         input = document.createElement('input');
@@ -725,20 +733,130 @@ function adm_editMove(_move)
                         }
                     }
                     break;
+
+                    case 'chceckbox':
+                    {
+                        input = document.createElement('input');
+                        input.type = 'checkbox';
+                    }
                 }
+            
                 input.value = RES[ADMIN_MOVES_PROPERTIES[i].dbname];
                 input.id = 'admin_editMove_' + ADMIN_MOVES_PROPERTIES[i].dbname;
+                input.disabled = disable;
                 editTable.rows[i-1].insertCell(1).appendChild(input);
             }
-            
+        
             editTable.id = 'admin_editTable';
+
+            let save = document.createElement('div');
+            save.innerHTML = ADMIN_MOVE_TEXTS.save[language];
+            save.classList.add('adminButton');
+            save.id = 'adm_move_saveButton';
+            save.onclick = function(){admin_saveMove(_move);}
+            let cancel = document.createElement('div');
+
+            cancel.innerHTML = ADMIN_MOVE_TEXTS.cancel[language];
+            cancel.classList.add('adminButton');
+            cancel.id = 'adm_move_cancelButton';
+            cancel.onclick = function(){adm_moveEditor_run();}
+            
+            let waitingImage = document.createElement('img');
+            waitingImage.src = waitingImageUrl;
+            waitingImage.height = 33;
+            waitingImage.classList.add('none');
+            waitingImage.id = 'adm_move_waitingIMG';
+            
+            let buttonDiv = document.createElement('div');
+            buttonDiv.classList.add('adm_buttonContainer');
+            buttonDiv.appendChild(waitingImage);
+            buttonDiv.appendChild(save);
+            buttonDiv.appendChild(cancel);
+
+            let info = document.createElement('div');
+            info.id = 'adm_moves_info';
+
             admin_content.innerHTML = '';
             admin_content.appendChild(editTable);
+            admin_content.appendChild(buttonDiv);
+            admin_content.appendChild(info);
         }
     }
-    
+
     let data = new FormData();
     data.append('move', _move);
-	php_moves.open("POST", 'php/moves.php', true);
-	php_moves.send(data);
+    php_moves.open("POST", 'php/moves.php', true);
+    php_moves.send(data);
+}
+
+function admin_saveMove(_move)
+{
+    adm_move_waitingIMG.classList.remove('none');
+    adm_move_saveButton.classList.add('none');
+    noErrors = true;
+    adm_moves_info.innerHTML = '';
+    adm_moves_info.classList.remove('error');
+    adm_moves_info.classList.remove('success');
+
+    let data = new FormData();
+    data.append('id',_move);
+    for(let i=1;i<ADMIN_MOVES_PROPERTIES.length;i++)
+    {
+        let input = document.getElementById('admin_editMove_' + ADMIN_MOVES_PROPERTIES[i].dbname).value;
+        let property = ADMIN_MOVES_PROPERTIES[i];
+        data.append(property.dbname,input)
+        if(property.input == 'disabled'){continue;}
+        if(input == ''){admin_move_addError(i,0);}
+        if(property.input == 'number')
+        {
+            if(isNaN(input)){admin_move_addError(i,1);}
+            else
+            {
+                if(input < property.min){admin_move_addError(i,2);}
+                if(input > property.max){admin_move_addError(i,3);}
+            }
+        }
+    }
+
+    if(noErrors)
+    {
+        let php_moves = new XMLHttpRequest();
+        php_moves.onreadystatechange = function()
+        {
+            if(this.readyState == 4 && this.status == 200)
+		    {
+	            const RES = this.responseText;
+		    	console.log(RES);
+
+                if(RES == '{}')
+                {
+                    adm_moves_info.innerHTML = ADMIN_POKEMON_TEXTS.success[language];
+                    adm_moves_info.classList.add('success');
+                }
+
+                adm_move_waitingIMG.classList.add('none');
+                adm_move_saveButton.classList.remove('none');
+            }
+        }
+
+        php_moves.open("POST", 'php/moves.php', true);
+        php_moves.send(data);
+    }
+    else
+    {
+        adm_move_waitingIMG.classList.add('none');
+        adm_move_saveButton.classList.remove('none');
+    }
+    
+}
+
+function admin_move_addError(_property,_error)
+{
+    if(noErrors)
+    {
+        noErrors = false;
+        adm_moves_info.innerHTML = ADMIN_POKEMON_TEXTS.error[language];
+        adm_moves_info.classList.add('error');
+    }
+    adm_moves_info.innerHTML += '<br>' + ADMIN_MOVES_PROPERTIES[_property].description[language] + ADMIN_POKEMON_TEXTS.errors[_error][language];
 }

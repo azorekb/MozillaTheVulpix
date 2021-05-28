@@ -6,8 +6,7 @@ let activeWindow = -1;
 let speed = 10;
 let actualMap = null;
 let activeButton = null;
-let waitingImage = document.createElement('img');
-waitingImage.src = "img/vapi.gif";
+let waitingImageUrl = "img/vapi.gif";
 let activeUser = {name: '', admin: false};
 let language = POLSKI;
 

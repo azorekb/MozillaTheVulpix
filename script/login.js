@@ -94,7 +94,6 @@ function login_send(_type)
     sending_data.append('type', _type);
     sending_data.append('name', login);
     sending_data.append('pass', pass);
-    //let url = 'php/login.php?type=' + _type + '&name=' + login + '&pass=' + pass;
     const url = 'php/login.php';
 	php_login.open("POST", url, true);
 	php_login.send(sending_data);

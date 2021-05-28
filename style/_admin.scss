@@ -93,12 +93,13 @@
 .admMoveTable
 {
     margin: 10px;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0 15;
+    
     tr
     {
         text-align: center;
         background-color: #cfc;
-        border: 10px solid #fff;
         cursor: pointer;
 
         td
@@ -121,4 +122,41 @@
             }
         }
     }
+}
+
+#admin_editTable
+{
+    margin: 0 0 20px 20px;
+}
+
+.adminButton
+{
+    background-color: #fcd;
+    border: 2px outset #ebc;
+    width: max-content;
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: default;
+
+    &:active
+    {
+        border-style: inset;
+    }
+}
+
+.adm_buttonContainer
+{
+    display: flex;
+    margin: 0 auto;
+    width: max-content;
+}
+
+.error
+{
+    color: #f00;
+}
+
+.success
+{
+    color: #0a0;
 }

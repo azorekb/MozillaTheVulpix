@@ -280,10 +280,6 @@
   display: block;
 }
 
-.login_content .none {
-  display: none;
-}
-
 .login_content label {
   display: block;
   margin: 3px;
@@ -295,6 +291,10 @@
 
 #login_errors {
   color: red;
+}
+
+.none {
+  display: none;
 }
 
 .adminContainer {
@@ -382,13 +382,13 @@
 
 .admMoveTable {
   margin: 10px;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0 15;
 }
 
 .admMoveTable tr {
   text-align: center;
   background-color: #cfc;
-  border: 10px solid #fff;
   cursor: pointer;
 }
 
@@ -407,5 +407,42 @@
 
 .admMoveTable tr:first-child:hover {
   background: none;
+}
+
+#admin_editTable {
+  margin: 0 0 20px 20px;
+}
+
+.adminButton {
+  background-color: #fcd;
+  border: 2px outset #ebc;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: default;
+}
+
+.adminButton:active {
+  border-style: inset;
+}
+
+.adm_buttonContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0 auto;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.error {
+  color: #f00;
+}
+
+.success {
+  color: #0a0;
 }
 /*# sourceMappingURL=style.css.map */

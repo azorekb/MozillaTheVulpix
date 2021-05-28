@@ -74,7 +74,7 @@ const ADMIN_POKEMON_TEXTS =
         [' już istnieje',' is already exists'],
         [' zawiera błędną wartość',' includes wrong value'],
     ],
-    success: ['sukces: kod skopiowany do schowka','success: code copied to clipboard'],
+    success: ['sukces','success'],
     code: ['kod','code'],
 
 }
@@ -125,4 +125,11 @@ const MAIN_ERRORS =
     noPassword: ['hasło jest puste','password is empty'],
     shortPassword: ['hasło jest zbyt krótkie (min 4 liter)','hasło is too short (min 4 letters)'],
     wrongPassword: ['podane hasło jest nieprawidłowe','given password is incorrect'],
+}
+
+const ADMIN_MOVE_TEXTS = 
+{
+    save: ['zapisz','save'],
+    cancel: ['anuluj','cancel'],
+
 }

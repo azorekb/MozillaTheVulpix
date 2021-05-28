@@ -33,7 +33,6 @@
 }
 
 .login_tabs
-
 {
     display: flex;
     border: $login_border;
@@ -81,11 +80,6 @@
         display: block;
     }
 
-    .none
-    {
-        display: none;
-    }
-
     label
     {
         display: block;
@@ -101,4 +95,9 @@
 #login_errors
 {
     color: red;
+}
+
+.none
+{
+    display: none;
 }
