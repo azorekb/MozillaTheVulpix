@@ -8,7 +8,7 @@ let actualMap = null;
 let activeButton = null;
 let waitingImageUrl = "img/vapi.gif";
 let activeUser = {name: '', admin: false};
-let language = POLSKI;
+let language = 'polski';
 
 let adm_selectedMapItem = 0;
 let noErrors = true;

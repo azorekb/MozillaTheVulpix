@@ -7,12 +7,12 @@ function skipLogin(_admin)
 function start()
 {
 	let mapMenu_buttons = [];
-	mapMenu_buttons.push(['Przygoda','Adventure']);
-	mapMenu_buttons.push(['Pokedex','Pokedex']);
-	mapMenu_buttons.push(['Pokemony','Pokemon']);
-	mapMenu_buttons.push(['Przedmioty','Items']);
-	mapMenu_buttons.push(['Opcje','Options']);
-	if(activeUser.admin){mapMenu_buttons.push(['Panel Admina','Admin Panel']);}
+	mapMenu_buttons.push({polski: 'Przygoda', english: 'Adventure'});
+	mapMenu_buttons.push({polski: 'Pokedex', english: 'Pokedex'});
+	mapMenu_buttons.push({polski: 'Pokemony', english: 'Pokemon'});
+	mapMenu_buttons.push({polski: 'Przedmioty', english: 'Items'});
+	mapMenu_buttons.push({polski: 'Opcje', english: 'Options'});
+	if(activeUser.admin){mapMenu_buttons.push({polski: 'Panel Admina',english: 'Admin Panel'});}
 	
 	okno.innerHTML = '';
 
@@ -30,7 +30,7 @@ function start()
 	{
 		let newbutton = document.createElement('div');
 		newbutton.classList.add('mapMenuButton');
-		newbutton.id = ('mapMenuButton_' + mapMenu_buttons[i][ENGLISH]).replace(' ','_');
+		newbutton.id = ('mapMenuButton_' + mapMenu_buttons[i].english).replace(' ','_');
 		newbutton.innerHTML = mapMenu_buttons[i][language];
 		newbutton.onclick = function(){clickMenuButton(this);}
 		map_menu.appendChild(newbutton);

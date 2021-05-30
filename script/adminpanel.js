@@ -659,6 +659,10 @@ function adm_moveEditor_run()
             {
                 moveTable.rows[0].insertCell(i).innerHTML = ADMIN_MOVES_PROPERTIES[i].description[language];
             }
+            let newMoveButton = document.createElement('div');
+            newMoveButton.innerHTML = '+';
+            moveTable.rows[0].insertCell(ADMIN_MOVES_PROPERTIES.length).appendChild(newMoveButton);
+
 
             Object.keys(RES).forEach(move => {
                 let lastRow = moveTable.insertRow(moveTable.rows.length);
@@ -734,10 +738,11 @@ function adm_editMove(_move)
                     }
                     break;
 
-                    case 'chceckbox':
+                    case 'checkbox':
                     {
                         input = document.createElement('input');
                         input.type = 'checkbox';
+                        if(RES[ADMIN_MOVES_PROPERTIES[i].dbname]){input.checked = true;} 
                     }
                 }
             
@@ -803,6 +808,11 @@ function admin_saveMove(_move)
     for(let i=1;i<ADMIN_MOVES_PROPERTIES.length;i++)
     {
         let input = document.getElementById('admin_editMove_' + ADMIN_MOVES_PROPERTIES[i].dbname).value;
+        if(ADMIN_MOVES_PROPERTIES[i].dbname == 'contact')
+        {
+            if(document.getElementById('admin_editMove_' + ADMIN_MOVES_PROPERTIES[i].dbname).checked){input = 1;}
+            else{input = 0;}
+        }
         let property = ADMIN_MOVES_PROPERTIES[i];
         data.append(property.dbname,input)
         if(property.input == 'disabled'){continue;}

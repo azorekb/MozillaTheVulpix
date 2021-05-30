@@ -390,6 +390,7 @@
   text-align: center;
   background-color: #cfc;
   cursor: pointer;
+  font-size: 10px;
 }
 
 .admMoveTable tr td {
@@ -403,6 +404,7 @@
 .admMoveTable tr:first-child {
   background: none;
   cursor: auto;
+  font-size: 15px;
 }
 
 .admMoveTable tr:first-child:hover {

@@ -2,6 +2,7 @@ function clickMenuButton(_element)
 {
     if(activeWindow != 'unactive')
     {
+		tableButton.classList.add('none');
         switch(_element.id)
         {
             case 'mapMenuButton_Adventure': openMap(); break;
@@ -71,6 +72,7 @@ function openPokedex()
 	activeWindow = 'pokedex';
 
     pokedex_show('eevee');
+	tableButton.classList.remove('none');
 }
 
 function pokedex_show(_pokemon)
@@ -121,6 +123,7 @@ function openMap()
 	worldMapWindow.appendChild(helpdiv);
 	
 	activeWindow = 'worldmap';
+	tableButton.classList.remove('none');
 	
 }
 

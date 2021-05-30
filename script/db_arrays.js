@@ -4,9 +4,9 @@ const POKEMON_MOVE_TARGET = ['one opponent','all opponents','everyone','self','o
 const POKEMON_EXP_GROWTH = ['erratic','fast','medium fast','medium slow','slow','fluctuating'];
 const ADMIN_WARNINGS =
 [
-    ['używaj tylko języka <u>angielskiego</u> oraz małych liter', 'use only <u>english</u> language and small letters'],
-    ['kliknij w pole mapy aby zmienić je na wybrany wyżej element<br>użyj CTRL by móc zmienić pole najechaniem myszy<br>CTRL+Z nie działa', 'click on field to change element to selectet upper<br>use CTRL to change it with mouse over<br>CTRL+Z does not work'],
-    ['zdecydowanie łatwiej jest używać panelu administratora na komputerze', 'it is so much better to use admin panel on the computer']
+    {polski: 'używaj tylko języka <u>angielskiego</u> oraz małych liter', english: 'use only <u>english</u> language and small letters'},
+    {polski: 'kliknij w pole mapy aby zmienić je na wybrany wyżej element<br>użyj CTRL by móc zmienić pole najechaniem myszy<br>CTRL+Z nie działa', english: 'click on field to change element to selectet upper<br>use CTRL to change it with mouse over<br>CTRL+Z does not work'},
+    {polski: 'zdecydowanie łatwiej jest używać panelu administratora na komputerze', english: 'it is so much better to use admin panel on the computer'},
 ];
 
 const POKEMON_MOVE_EFFECTS = 
@@ -72,23 +72,22 @@ const MAP_ITEMS =
 
 const ADMIN_LIST_OF_TASKS =
 [
-    {name:['dodaj pokemona','add pokemon'], function: 'adm_formPokemon'},
-    {name:['edytor map','map editor'], function: 'adm_mapEditor'},
-    {name:['edytor ruchów','move editor'], function: 'adm_moveEditor_run'}
+    {name:{polski: 'dodaj pokemona', english: 'add pokemon'}, function: 'adm_formPokemon'},
+    {name:{polski: 'edytor map', english: 'map editor'}, function: 'adm_mapEditor'},
+    {name:{polski: 'edytor ruchów', english: 'move editor'}, function: 'adm_moveEditor_run'}
 ];
 
 const ADMIN_MOVES_PROPERTIES = 
 [
-    {description: ['nr','no'], dbname: 'id'},
-    {description: ['nazwa angielska','english name'], dbname: 'name_eng', input: 'text'},
-    {description: ['nazwa polska','polish name'], dbname: 'name_pl', input: 'text'},
-    {description: ['moc','power'], dbname: 'power', input: 'number', min: 0, max: 300},
-    {description: ['celność','accuracy'], dbname: 'accuracy', input: 'number', min: 0, max: 100},
-    {description: ['typ','type'], dbname: 'type', input: 'select', table: POKEMON_TYPES},
-    {description: ['categoria','category'], dbname: 'category',input: 'select', table: ['ph','sp','st']},
-    {description: ['PP','PP'], dbname: 'PP', input: 'number', min: 1, max: 40},
-    {description: ['cel','target'], dbname: 'target', input: 'select', table: POKEMON_MOVE_TARGET},
-    {description: ['priorytet','priorytet'], dbname: 'priority', input: 'number', min: -10, max: 10},
-    {description: ['kontakt','contact'], dbname: 'contact', input: 'checkbox'},
-    {description: ['efeckty','effects'], dbname: 'effects', input: 'disabled'},
+    {description: {polski: 'nr', english: 'no'}, dbname: 'id'},
+    {description: {polski: 'nazwa angielska', english: 'english name'}, dbname: 'name_eng', input: 'text'},
+    {description: {polski: 'nazwa polska', english: 'polish name'}, dbname: 'name_pl', input: 'text'},
+    {description: {polski: 'moc', english: 'power'}, dbname: 'power', input: 'number', min: -300, max: 300},
+    {description: {polski: 'celność', english: 'accuracy'}, dbname: 'accuracy', input: 'number', min: 0, max: 100},
+    {description: {polski: 'typ', english: 'type'}, dbname: 'type', input: 'select', table: POKEMON_TYPES},
+    {description: {polski: 'PP', english: 'PP'}, dbname: 'PP', input: 'number', min: 1, max: 40},
+    {description: {polski: 'cel', english: 'target'}, dbname: 'target', input: 'select', table: POKEMON_MOVE_TARGET},
+    {description: {polski: 'priorytet', english: 'priorytet'}, dbname: 'priority', input: 'number', min: -10, max: 10},
+    {description: {polski: 'kontakt', english: 'contact'}, dbname: 'contact', input: 'checkbox'},
+    {description: {polski: 'efekty', english: 'effects'}, dbname: 'effects', input: 'disabled'},
 ];
