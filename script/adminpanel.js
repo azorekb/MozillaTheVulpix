@@ -661,7 +661,16 @@ function adm_moveEditor_run()
             }
             let newMoveButton = document.createElement('div');
             newMoveButton.innerHTML = '+';
+            newMoveButton.classList.add('adminButton');
+            newMoveButton.onclick = function(){adm_addMove();};
+            newMoveButton.id = 'adm_move_newMoveButton';
+            let waitingImage = document.createElement('img');
+            waitingImage.src = waitingImageUrl;
+            waitingImage.classList.add('none');
+            waitingImage.id = 'adm_newMove_waiting';
+            waitingImage.height = 32;
             moveTable.rows[0].insertCell(ADMIN_MOVES_PROPERTIES.length).appendChild(newMoveButton);
+            moveTable.rows[0].cells[ADMIN_MOVES_PROPERTIES.length].appendChild(waitingImage);
 
 
             Object.keys(RES).forEach(move => {
@@ -816,7 +825,7 @@ function admin_saveMove(_move)
         let property = ADMIN_MOVES_PROPERTIES[i];
         data.append(property.dbname,input)
         if(property.input == 'disabled'){continue;}
-        if(input == ''){admin_move_addError(i,0);}
+        if(input == '' && property.input != 'checkbox'){admin_move_addError(i,0);}
         if(property.input == 'number')
         {
             if(isNaN(input)){admin_move_addError(i,1);}
@@ -869,4 +878,35 @@ function admin_move_addError(_property,_error)
         adm_moves_info.classList.add('error');
     }
     adm_moves_info.innerHTML += '<br>' + ADMIN_MOVES_PROPERTIES[_property].description[language] + ADMIN_POKEMON_TEXTS.errors[_error][language];
+}
+
+function adm_addMove()
+{
+    adm_move_newMoveButton.classList.add('none');
+    adm_newMove_waiting.classList.remove('none');
+
+    let data = new FormData();
+    data.append('new',true);
+    let php_moves = new XMLHttpRequest();
+    php_moves.onreadystatechange = function()
+    {
+        if(this.readyState == 4 && this.status == 200)
+	    {
+            console.log(this.responseText);
+            const RES = JSON.parse(this.responseText);
+	 	    console.log(RES);
+            if(RES.id == undefined)
+            {
+                adm_move_newMoveButton.classList.remove('none');
+                adm_newMove_waiting.classList.add('none');
+            }
+            else
+            {
+                adm_editMove(RES.id);
+            }
+        }
+    }
+
+    php_moves.open("POST", 'php/moves.php', true);
+    php_moves.send(data);
 }

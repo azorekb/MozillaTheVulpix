@@ -1,18 +1,23 @@
 {<?php
     $connection = @mysql_connect('mysql1.ugu.pl', 'db699059', 'MalaRuka.037') or die(mysql_error());
     $db = @mysql_select_db('db699059', $connection) or die(mysql_error());
+    $array = 'mozillavulpix_pokemon_moves';
     
     $cols;
     $isString;
-    $dbquery = mysql_query("show columns from mozillavulpix_pokemon_moves");
+    $dbquery = mysql_query("show columns from ".$array);
     while($result = mysql_fetch_array($dbquery))
     {
         $cols[count($cols)] = $result[0];
         if(strpos($result[1], 'varchar') === 0){$isString[count($isString)] = 1;}
         else{$isString[count($isString)] = 0;}
     }
-    
-    if(isset($_POST['id']))
+    if(isset($_POST['new']))
+    {
+        mysql_query('insert into '.$array.' () values()');
+        echo '"id":"'.mysql_insert_id().'"';
+    }
+    elseif(isset($_POST['id']))
     {
         $update = '';
         for($i=1;$i<count($cols) -1;$i++)
@@ -26,7 +31,7 @@
                 else{$update.=$_POST[$cols[$i]];}
             }
         }
-        mysql_query('update mozillavulpix_pokemon_moves set '.$update.' where id='.$_POST['id']) or die(mysql_error());
+        mysql_query('update '.$array.' set '.$update.' where id='.$_POST['id']) or die(mysql_error());
     }
     else
     {
@@ -39,7 +44,7 @@
             $where = ' where id='.$_POST['move'];
         }
 
-        $dbquery = mysql_query("select * from mozillavulpix_pokemon_moves".$where);
+        $dbquery = mysql_query("select * from ".$array.$where);
         while($result = mysql_fetch_array($dbquery))
         {
             if($index>0){echo ',';}
