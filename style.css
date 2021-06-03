@@ -297,55 +297,55 @@
   display: none;
 }
 
-.adminContainer {
+.adminList {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.adminContainer .adminTask {
+.adminTask {
   text-align: center;
   background-color: #0cc;
   width: 150;
   padding: 6px 1px;
-  margin: 4 0;
+  margin: 0 2px;
   border: 4px #0aa outset;
 }
 
-.adminContainer .adminTask:hover {
+.adminTask:hover {
   border-color: #0cc;
   background-color: #0ee;
 }
 
-.adminContainer .adminTask:active {
+.adminTask:active {
   border-style: inset;
   padding: 7px 0px 5px 2px;
 }
 
-.adminContainer .admFormTable {
+.admFormTable {
   border: 2px solid #000;
 }
 
-.adminContainer .admFormTable tr td {
+.admFormTable tr td {
   border: 2px solid #000;
 }
 
-.adminContainer .admFormTable .admInput {
+.admFormTable .admInput {
   width: 100%;
 }
 
-.adminContainer .admDetails {
+.admDetails {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   padding: 10px;
 }
 
-.adminContainer .admDetails p {
+.admDetails p {
   margin: 5px;
 }
 
-.adminContainer .admMapItems {
+.admMapItems {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -354,28 +354,28 @@
   margin: 0 10px;
 }
 
-.adminContainer .admMapItems div {
+.admMapItems div {
   padding: 2px;
   margin: 1px;
   border: 1px #000 solid;
 }
 
-.adminContainer .admMapItems .active {
+.admMapItems .active {
   border-color: #ee0;
   background-color: #ff0;
 }
 
-.adminContainer .admInfo {
+.admInfo {
   margin: 10px;
   text-align: center;
 }
 
-.adminContainer .admMapTable {
+.admMapTable {
   border-collapse: collapse;
   margin: 10px;
 }
 
-.adminContainer .admMapTable td {
+.admMapTable td {
   padding: 0;
   border: 1px #000 solid;
 }
@@ -383,14 +383,13 @@
 .admMoveTable {
   margin: 10px;
   border-collapse: separate;
-  border-spacing: 0 15;
+  border-spacing: 0 2;
 }
 
 .admMoveTable tr {
   text-align: center;
   background-color: #cfc;
   cursor: pointer;
-  font-size: 10px;
 }
 
 .admMoveTable tr td {
@@ -404,7 +403,6 @@
 .admMoveTable tr:first-child {
   background: none;
   cursor: auto;
-  font-size: 15px;
 }
 
 .admMoveTable tr:first-child:hover {
