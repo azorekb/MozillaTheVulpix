@@ -41,29 +41,101 @@ const POKEMON_MOVE_EFFECTS =
             {english: 'unable to flee', polski: 'uniemożliwienie ucieczki'},
             {english: 'hit dwo times', polski: 'uderzenie dwukrotne'},
             {english: 'hit 2-5 times', polski: 'uderzenie 2-5 krotne'},
+            {english: 'ignores attack and deffence', polski: 'ignorowanie ataku i obrony'},
+            {english: 'return', polski: 'powrót'},
+            {english: 'boost power', polski: 'bonus do mocy'},
+        ]
+    },
+    {
+        polski: 'zmiana pogody',
+        english: 'change weather',
+        types:
+        [
+            {english: 'none', polski: 'brak'},
+            {english: 'rain', polski: 'deszcz'},
+            {english: 'hail', polski: 'grad'},
+            {english: 'sunny', polski: 'słonecznie'},
+            {english: 'storm', polski: 'burza'},
+            {english: 'strong wind', polski: 'silny wiatr'},
+            {english: 'fog', polski: 'mgła'}
+        ]
+    },
+    {
+        polski: 'dwie tury', 
+        english: 'two round',
+        types:
+        [
+            {english: 'dig in hole', polski: 'pod ziemią'},
+            {english: 'fly high', polski: 'lod w górę'},
+            {english: 'under water', polski: 'pod wodą'},
+            {english: 'rest', polski: 'odpoczynek'},
+            {english: 'sun light', polski: 'światło słońca'},
+            {english: 'waiting', polski: 'czekanie'},
+        ]
+    },
+    {english: 'change cristal hit ratio', polski: 'zmiana szansy na obrażenia krytyczne'},
+    {
+        polski: 'pułapka',
+        english: 'trap',
+        types:
+        [
+            {english: 'bind', polski: 'związanie'},
+            {english: 'flame weels', polski: 'krąg ognia'},
+            {english: 'leech', polski: 'pijawka'},
+            {english: 'stealth rock', polski: 'niewidzialna skała'},
+            {english: 'spikes', polski: 'kolce'},
+            {english: 'poison spikes', polski: 'trujące kolce'},
+            {english: 'sticky web', polski: 'lepka sieć'},
+            {english: 'unable tu use status', polski: 'uniemożliwienie użycia ruchu statusowego'},
+        ]
+    },
+    {
+        english: 'shield',
+        polski: 'tarcza',
+        types: 
+        [
+            {english: 'physical', polski: 'fizyczna'},
+            {english: 'destruct physical', polski: 'zniszczenie fizycznej'},
+            {english: 'special', polski: 'specjalna'},
+            {english: 'destruct special', polski: 'zniszczenie specjalnej'},
+            {english: 'completely', polski: 'całkowita'},
+        ]
+    },
+    {
+        english: 'cxhange battlefield',
+        polski: 'zmiana pola walki',
+        types:
+        [
+            {english: 'trick room', polski: 'pokój sztuczek'},
+            {english: 'psychic terrain', polski: 'pole psychiczne'},
+            {english: 'grassy terrain ', polski: 'trawiaste pole'},
+            {english: 'electric terrain ', polski: 'elektryczne pole'},
+            {english: 'misty terrain ', polski: 'mgliste pole'},
+        ]
+    },
+    {
+        english: 'it will be another move',
+        polski: 'to będzie inny ruch',
+        types:
+        [
+            {english: 'random', polski: 'losowy'},
+            {english: 'replay targer', polski: 'powrórzenie za celem'},
+            {english: 'copy for battle', polski: 'kopiowanie na czas walki'},
+            {english: 'copy permanent', polski: 'trwałe skopiowanie ruchu'}
         ]
     }
+
     
-    // ,
+    // usuwanie itemku rywala, 
+    
     // {english: 'recover by turs', polski: 'leczenie co turę'},
-    // {english: 'change cristal hit ratio', polski: 'zmienia szansę na obrażenia krytyczne'},
-    // {english: 'hit constans value', polski: 'udeża stałą wartością'},
     // {english: 'gives protity', polski: 'daje priorytet'},
     // {english: 'change physical damage', polski: 'zmienia obrażenia fizyczne'},
     // {english: 'change damage when first', polski: 'zmienia obrażenia gdy pierwszy'},
     // {english: 'change damage when last', polski: 'zmienia obrażenia gdy ostatni'},
-    // {english: 'change pokemon', polski: 'zmienia pokemona'},
-    // {english: 'load move', polski: 'ładuje ruch'},
     // {english: 'switch item', polski: 'zamiania przedmiony'},
-    // {english: 'trap', polski: 'pułapka'},
-    // {english: 'break barrier', polski: 'niszczy bariery'},
-    // {english: 'reset stats', polski: 'resetuje cechy'},
-    // {english: 'makes weather', polski: 'powoduje pogodę'},
-    // {english: 'mimick move', polski: 'powtarza ruch'},
-    // {english: 'copy move', polski: 'kopjuje ruch'},
-    // {english: 'copy move permanent', polski: 'permanentnie kopjuje ruch'},
-    
     // gdy nie ma itemku jest mocniejszy
+    
 ]
 
 const MOVE_EFFECT_WHOM =
