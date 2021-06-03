@@ -441,6 +441,14 @@
 }
 
 .adminMoveEffectsTab {
-  display: block;
+  margin: 15 auto;
+}
+
+.adminMoveEffectsTab input {
+  width: 100px;
+}
+
+.adminMoveEffectsTab select {
+  width: 100px;
 }
 /*# sourceMappingURL=style.css.map */

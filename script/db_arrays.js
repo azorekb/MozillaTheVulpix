@@ -1,15 +1,11 @@
 const POKEMON_TYPES = ['-','normal','fire','water','electric','grass','ice','fighting','poison','ground','flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy'];
 const POKEMON_STATS = ['hp','attack','defence','spAttack','spDefence','speed'];
-const POKEMON_MOVE_TARGET = ['one opponent','all opponents','everyone','self','one allay','all allays'];
+const POKEMON_MOVE_TARGET = ['one opponent','all opponents','everyone','self','one ally','all allies'];
 const POKEMON_EXP_GROWTH = ['erratic','fast','medium fast','medium slow','slow','fluctuating'];
 
 const POKEMON_MOVE_EFFECTS = 
 [
-    {
-        polski: 'pusty',
-        english: 'empty',
-        disable: true,
-    },
+    {polski: 'pusty', english: 'empty', disable: true},
     {
         polski: 'zmiana statusu',
         english: 'change status',
@@ -26,46 +22,57 @@ const POKEMON_MOVE_EFFECTS =
             {english: 'inlove', polski: 'zauroczenie'},
         ]
     },
+    {english: 'recoil damage', polski: 'obrażenia zwrotne'},
+    {english: 'recover HP', polski: 'leczenie HP'},
+    {english: 'drain HP', polski: 'kradzież HP'},
+    {english: 'change attack', polski: 'zmiana ataku'},
+    {english: 'change defence', polski: 'zmiana obrony'},
+    {english: 'change lower sp attack', polski: 'zmiana sp ataku'},
+    {english: 'change sp defence', polski: 'zmiana sp obrony'},
+    {english: 'change speed', polski: 'zmiana szybkości'},
+    {english: 'change random stat', polski: 'zmiena losowej cechy'},
+    {english: 'change every stat', polski: 'zmiena każdej cechy'},
     {
-        english: 'recoil damage',
-        polski: 'obrażenia zwrotne',
-    },
-    {
-        english: 'recover HP',
-        polski: 'leczenie HP'
+        english: 'special event',
+        polski: 'secjalne zdarzenie',
+        types:
+        [
+            {english: 'switch place', polski: 'zmiana miesjca'},
+            {english: 'unable to flee', polski: 'uniemożliwienie ucieczki'},
+            {english: 'hit dwo times', polski: 'uderzenie dwukrotne'},
+            {english: 'hit 2-5 times', polski: 'uderzenie 2-5 krotne'},
+        ]
     }
     
     // ,
-    // ['recover by turs','leczenie co turę'],
-    // ['curse status problem','leczy zły status'],
-    // ['change attack','zmiana ataku'],
-    // ['change defence','zmiana obrony'],
-    // ['change lower sp attack','zmiana sp ataku'],
-    // ['change sp defence','zmiana sp obrony'],
-    // ['change speed','zmiana szybkości'],
-    // ['change random stat','zmiena losową cehcę'],
-    // ['change every stat','zmiena każdą cehcę'],
-    // ['change cristal hit ratio','zmienia szansę na obrażenia krytyczne'],
-    // ['switch place','zmiana miesjca'],
-    // ['unable to flee','uniemożliwienie ucieczki'],
-    // ['hit many times','uderzenie kilkakrotne'],
-    // ['hit constans value','udeża stałą wartością'],
-    // ['gives protity','daje priorytet'],
-    // ['change physical damage','zmienia obrażenia fizyczne'],
-    // ['change damage when first','zmienia obrażenia gdy pierwszy'],
-    // ['change damage when last','zmienia obrażenia gdy ostatni'],
-    // ['change pokemon','zmienia pokemona'],
-    // ['load move','ładuje ruch'],
-    // ['switch item','zamiania przedmiony'],
-    // ['trap','pułapka'],
-    // ['break barrier','niszczy bariery'],
-    // ['reset stats','resetuje cechy'],
-    // ['makes weather','powoduje pogodę'],
-    // ['mimick move','powtarza ruch'],
-    // ['copy move','kopjuje ruch'],
-    // ['copy move permanent','permanentnie kopjuje ruch'],
+    // {english: 'recover by turs', polski: 'leczenie co turę'},
+    // {english: 'change cristal hit ratio', polski: 'zmienia szansę na obrażenia krytyczne'},
+    // {english: 'hit constans value', polski: 'udeża stałą wartością'},
+    // {english: 'gives protity', polski: 'daje priorytet'},
+    // {english: 'change physical damage', polski: 'zmienia obrażenia fizyczne'},
+    // {english: 'change damage when first', polski: 'zmienia obrażenia gdy pierwszy'},
+    // {english: 'change damage when last', polski: 'zmienia obrażenia gdy ostatni'},
+    // {english: 'change pokemon', polski: 'zmienia pokemona'},
+    // {english: 'load move', polski: 'ładuje ruch'},
+    // {english: 'switch item', polski: 'zamiania przedmiony'},
+    // {english: 'trap', polski: 'pułapka'},
+    // {english: 'break barrier', polski: 'niszczy bariery'},
+    // {english: 'reset stats', polski: 'resetuje cechy'},
+    // {english: 'makes weather', polski: 'powoduje pogodę'},
+    // {english: 'mimick move', polski: 'powtarza ruch'},
+    // {english: 'copy move', polski: 'kopjuje ruch'},
+    // {english: 'copy move permanent', polski: 'permanentnie kopjuje ruch'},
     
     // gdy nie ma itemku jest mocniejszy
+]
+
+const MOVE_EFFECT_WHOM =
+[
+    {polski: 'cel', english: 'target'},
+    {polski: 'używający', english: 'user'},
+    {polski: 'przeciwnicy', english: 'opponents'},
+    {polski: 'sprzymierzeńcy', english: 'allies'},
+    {polski: 'wszyscy', english: 'everyone'}
 ]
 
 const MAP_ITEMS = 
@@ -118,7 +125,8 @@ const ADMIN_MOVES_PROPERTIES =
 
 const ADMIN_EFFECTS_COLS =
 [
-    {polski: 'efekt', english: 'effect'},
+    {polski: 'jaki', english: 'what'},
     {polski: 'wartość', english: 'value'},
-    {polski: 'szanse', english: 'chance'}
+    {polski: 'szanse', english: 'chance'},
+    {polski: 'komu', english: 'whom'}
 ]

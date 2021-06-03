@@ -155,5 +155,15 @@
 
 .adminMoveEffectsTab
 {
-    display: block;    
+    margin: 15 auto;  
+
+    input
+    {
+        width: 100px;
+    }
+
+    select
+    {
+        width: 100px;
+    }
 }

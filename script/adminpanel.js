@@ -792,9 +792,21 @@ function adm_editMove(_move)
                 let chance = document.createElement('input');
                 chance.id = 'admin_move_effect_chance_' + i;
                 chance.type = 'number';
-                chance.min = 0;
+                chance.min = 1;
                 chance.max = 100;
                 effectsTab.rows[i].insertCell(2).appendChild(chance);
+
+                let whom = document.createElement('select');
+                whom.id = 'admin_move_effect_whom_' + i;
+                for(let j=0;j<MOVE_EFFECT_WHOM.length;j++)
+                {
+                    let option = document.createElement('option');
+                    option.value = j;
+                    option.innerHTML = MOVE_EFFECT_WHOM[j][language];
+                    whom.appendChild(option);
+                }
+                effectsTab.rows[i].insertCell(3).appendChild(whom);
+
             }
             effectsTab.insertRow(0);
             for(let i=0;i<ADMIN_EFFECTS_COLS.length;i++)
@@ -838,11 +850,12 @@ function adm_editMove(_move)
             {
                 if(arrayOfEffects[i] != undefined)
                 {
-                    const VALUES = arrayOfEffects[0].split('|');
-                    document.getElementById('admin_move_effect_what_' + i).value = VALUES[0];
-                    admin_changeWhatMoveEffect(i);
-                    document.getElementById('admin_move_effect_value_' + i).value = VALUES[1];
-                    document.getElementById('admin_move_effect_chance_' + i).value = VALUES[2];
+                    const VALUES = arrayOfEffects[i].split('|');
+                    for(let j=0;j<ADMIN_EFFECTS_COLS.length;j++)
+                    {
+                        document.getElementById('admin_move_effect_'+ ADMIN_EFFECTS_COLS[j].english + '_' + i).value = VALUES[j];
+                        if(j == 0){admin_changeWhatMoveEffect(i);}
+                    }
                 }
             }
         }
@@ -895,7 +908,8 @@ function admin_saveMove(_move)
     {
         const WHAT = document.getElementById('admin_move_effect_what_' + i).value;
         const VALUE = document.getElementById('admin_move_effect_value_' + i);
-        const CHANCE = document.getElementById('admin_move_effect_chnace_' + i).value;
+        const CHANCE = document.getElementById('admin_move_effect_chance_' + i).value;
+        const WHOM = document.getElementById('admin_move_effect_whom_' + i).value;
         
         if(WHAT > 0)
         {
@@ -905,7 +919,7 @@ function admin_saveMove(_move)
             if(CHANCE > 100){admin_move_addWarning(8,i); continue;}
             
             if(value != ''){value += ',';}
-            value += WHAT + '|' + VALUE.value + '|' + CHANCE;
+            value += WHAT + '|' + VALUE.value + '|' + CHANCE + '|' + WHOM;
         }
     }
     admin_editMove_effects.value = value;
