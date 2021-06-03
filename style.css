@@ -440,11 +440,7 @@
   width: max-content;
 }
 
-.error {
-  color: #f00;
-}
-
-.success {
-  color: #0a0;
+.adminMoveEffectsTab {
+  display: block;
 }
 /*# sourceMappingURL=style.css.map */

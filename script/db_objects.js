@@ -33,7 +33,56 @@ const POKEDEX_TEXTS =
     spDefence: {polski: 'sp. obrona', english: 'sp. defence'},
     speed: {polski: 'szybkość', english: 'speed'},
 }
+
+const POKEMON_EVOLUTION_METHODS =
+{
+    lv: new NumberArray(2,100),
+    stone: ['water', 'fire', 'thunder', 'sun', 'moon', 'leaf', 'ice', 'dusk', 'dawn', 'shiny'],
+    place: ['mossy rock', 'icy rock', 'electric field'],
+    friendship: ['', 'dayime', 'nighttime'],
+    love: ['fairy move'],
+    trade: [''],
+}
+
+const POKEMON_MOVES = 
+{
+    struggle: new PokemonMove(40,100,'','physical',[new Effect('dmgBack',100,40)]),
+    surf: new PokemonMove(90,100,'water','special',[new Effect('hit_dive',100,2)],15,'everyone'),
+    energy_ball: new PokemonMove(90,100,'grass','special',[new Effect('low_target_spDefence',10,1)],10),
+    flamethrower: new PokemonMove(90,100,'fire','special',[new Effect('burn_target',10)],15),
+    tackle: new PokemonMove(40,100,'normal','physical',[],35),
+    ember: new PokemonMove(40,100,'fire','special',[new Effect('burn_target',10)],25),
+}
+
+const MAIN_TEXTS =
+{
+    logIn: {texts: {polski: 'Logowanie', english: 'Log&nbsp;In'}, object: login_tab_logIn},
+	register: {texts: {polski: 'Rejestracja', english: 'Register'}, object: login_tab_register},
+	name_log: {texts: {polski: 'nazwa użytkownika', english: 'user name'}, object: login_name},
+	// name_reg: {texts: {polski: 'nazwa użytkownika', english: 'user name'}, object: register_name},
+	password_log: {texts: {polski: 'hasło', english: 'password'}, object: login_password},
+	// password_reg: {texts: {polski: 'hasło', english: 'password'}, object: register_password},
+	send_log: {texts: {polski: 'wyślij', english: 'send'}, object: login_button},
+	// send_reg: {texts: {polski: 'wyślij', english: 'send'}, object: register_button},
+}
+
+const MAIN_ERRORS = 
+{
+    noUserName: {polski: 'nazwa użytkownika jest pusta', english: 'user name is empty'},
+    shortUserName: {polski: 'nazwa użytkownika jest zbyt krótka (min 4 liter)', english: 'user name is too short (min 4 letters)'},
+    wrongUserName: {polski: 'podana nazwa użytkownika nie istnieje', english: 'given user name doesn\'t exist'},
+    noPassword: {polski: 'hasło jest puste', english: 'password is empty'},
+    shortPassword: {polski: 'hasło jest zbyt krótkie (min 4 liter)', english: 'hasło is too short (min 4 letters)'},
+    wrongPassword: {polski: 'podane hasło jest nieprawidłowe', english: 'given password is incorrect'},
+}
+
+const ADMIN_MOVE_TEXTS = 
+{
+    save: {polski: 'zapisz', english: 'save'},
+    cancel: {polski: 'anuluj', english: 'cancel'},
     
+}
+
 const ADMIN_POKEMON_DETAILS = 
 {
     name: new AdminPokemonDetails(true,false,false,false,false,{polski: 'nie używaj spacji, nie może się powtarzać', english: 'do not use space, it can not repeat'},{polski: 'nazwa pokemona', english: 'name of pokemon'},'alolan_ninetales'),
@@ -67,12 +116,16 @@ const ADMIN_POKEMON_TEXTS =
     error: {polski: 'BŁĘDY:', english: 'ERRORS:'},
     errors: 
     [
-        {polski: ' nic nie zawiera', english: ' is empty'},
-        {polski: ' nie jest liczbą', english: ' is not a number'},
-        {polski: ' ma zbyt małą wartość', english: ' is too low'},
-        {polski: ' ma zbyt dużą wartość', english: ' is too high'},
-        {polski: ' już istnieje', english: ' is already exists'},
-        {polski: ' zawiera błędną wartość', english: ' includes wrong value'},
+        {polski: ' nic nie zawiera', english: ' is empty'}, // 0
+        {polski: ' nie jest liczbą', english: ' is not a number'}, // 1
+        {polski: ' ma zbyt małą wartość', english: ' is too low'}, // 2
+        {polski: ' ma zbyt dużą wartość', english: ' is too high'}, // 3
+        {polski: ' już istnieje', english: ' is already exists'}, // 4
+        {polski: ' zawiera błędną wartość', english: ' includes wrong value'}, //5
+        {polski: '. efekt został pominięty, gdyż warość szansy jest pusta', english: '. effect was skipped, because chance value is empty'}, // 6
+        {polski: '. efekt został pominięty, gdyż warość szansy jest zbyt mała', english: '. effect was skipped, because chance value is too low'}, // 7
+        {polski: '. efekt został pominięty, gdyż warość szansy jest zbyt duża', english: '. effect was skipped, because chance value is too high'}, // 8
+        {polski: '. efekt został pominięty, gdyż warość szansy nie jest liczbą', english: '. effect was skipped, because chance value is not a number'}, // 9
     ],
     success: {polski: 'sukces', english: 'success'},
     code: {polski: 'kod', english: 'code'},
@@ -83,53 +136,4 @@ const ADMIN_MAPS_DESCRIPTIONS =
 {
     no: {polski: 'mapa nr', english: 'map no.'},
     imgTitle: {polski: 'obiekt nr: ', english: 'object no: '},
-}
-
-const POKEMON_EVOLUTION_METHODS =
-{
-    lv: new NumberArray(2,100),
-    stone: ['water', 'fire', 'thunder', 'sun', 'moon', 'leaf', 'ice', 'dusk', 'dawn', 'shiny'],
-    place: ['mossy rock', 'icy rock', 'electric field'],
-    friendship: ['', 'dayime', 'nighttime'],
-    love: ['fairy move'],
-    trade: [''],
-}
-
-const POKEMON_MOVES = 
-{
-    struggle: new PokemonMove(40,100,'','physical',[new Effect('dmgBack',100,40)]),
-    surf: new PokemonMove(90,100,'water','special',[new Effect('hit_dive',100,2)],15,'everyone'),
-    energy_ball: new PokemonMove(90,100,'grass','special',[new Effect('low_target_spDefence',10,1)],10),
-    flamethrower: new PokemonMove(90,100,'fire','special',[new Effect('burn_target',10)],15),
-    tackle: new PokemonMove(40,100,'normal','physical',[],35),
-    ember: new PokemonMove(40,100,'fire','special',[new Effect('burn_target',10)],25),
-}
-
-const MAIN_TEXTS =
-{
-	logIn: {texts: {polski: 'Logowanie', english: 'Log&nbsp;In'}, object: login_tab_logIn},
-	register: {texts: {polski: 'Rejestracja', english: 'Register'}, object: login_tab_register},
-	name_log: {texts: {polski: 'nazwa użytkownika', english: 'user name'}, object: login_name},
-	// name_reg: {texts: {polski: 'nazwa użytkownika', english: 'user name'}, object: register_name},
-	password_log: {texts: {polski: 'hasło', english: 'password'}, object: login_password},
-	// password_reg: {texts: {polski: 'hasło', english: 'password'}, object: register_password},
-	send_log: {texts: {polski: 'wyślij', english: 'send'}, object: login_button},
-	// send_reg: {texts: {polski: 'wyślij', english: 'send'}, object: register_button},
-}
-
-const MAIN_ERRORS = 
-{
-    noUserName: {polski: 'nazwa użytkownika jest pusta', english: 'user name is empty'},
-    shortUserName: {polski: 'nazwa użytkownika jest zbyt krótka (min 4 liter)', english: 'user name is too short (min 4 letters)'},
-    wrongUserName: {polski: 'podana nazwa użytkownika nie istnieje', english: 'given user name doesn\'t exist'},
-    noPassword: {polski: 'hasło jest puste', english: 'password is empty'},
-    shortPassword: {polski: 'hasło jest zbyt krótkie (min 4 liter)', english: 'hasło is too short (min 4 letters)'},
-    wrongPassword: {polski: 'podane hasło jest nieprawidłowe', english: 'given password is incorrect'},
-}
-
-const ADMIN_MOVE_TEXTS = 
-{
-    save: {polski: 'zapisz', english: 'save'},
-    cancel: {polski: 'anuluj', english: 'cancel'},
-
 }

@@ -751,7 +751,8 @@ function adm_editMove(_move)
                     {
                         input = document.createElement('input');
                         input.type = 'checkbox';
-                        if(RES[ADMIN_MOVES_PROPERTIES[i].dbname]){input.checked = true;} 
+                        if(RES[ADMIN_MOVES_PROPERTIES[i].dbname] == 1){input.checked = true;}
+                        else{input.checked = false;}
                     }
                 }
             
@@ -760,8 +761,46 @@ function adm_editMove(_move)
                 input.disabled = disable;
                 editTable.rows[i-1].insertCell(1).appendChild(input);
             }
-        
             editTable.id = 'admin_editTable';
+            
+            let effectsTab = document.createElement('table');
+            effectsTab.classList.add('adminMoveEffectsTab');
+            effectsTab.id = 'admin_moves_effectsTable';
+
+            let arrayOfEffects = [];
+            if(RES.effects != undefined && RES.effects != '')
+            {
+                arrayOfEffects = RES.effects.split(',');
+            } 
+
+            for(let i=0; i<NUMBER_OF_EFFECTS; i++)
+            {
+                let whatEffect = document.createElement('select');
+                for(let j=0;j<POKEMON_MOVE_EFFECTS.length;j++)
+                {
+                    let option = document.createElement('option');
+                    option.value = j;
+                    option.innerHTML = POKEMON_MOVE_EFFECTS[j][language];
+                    whatEffect.appendChild(option);
+                }
+                whatEffect.id = 'admin_move_effect_what_' + i;
+                whatEffect.onchange = function(){admin_changeWhatMoveEffect(i);}
+                effectsTab.insertRow(i).insertCell(0).appendChild(whatEffect);
+                
+                effectsTab.rows[i].insertCell(1).innerHTML = '<input id=\'admin_move_effect_value_' + i + '\' disabled>';
+                
+                let chance = document.createElement('input');
+                chance.id = 'admin_move_effect_chance_' + i;
+                chance.type = 'number';
+                chance.min = 0;
+                chance.max = 100;
+                effectsTab.rows[i].insertCell(2).appendChild(chance);
+            }
+            effectsTab.insertRow(0);
+            for(let i=0;i<ADMIN_EFFECTS_COLS.length;i++)
+            {
+                effectsTab.rows[0].insertCell(i).innerHTML = ADMIN_EFFECTS_COLS[i][language];
+            }
 
             let save = document.createElement('div');
             save.innerHTML = ADMIN_MOVE_TEXTS.save[language];
@@ -792,8 +831,20 @@ function adm_editMove(_move)
 
             admin_content.innerHTML = '';
             admin_content.appendChild(editTable);
+            admin_content.appendChild(effectsTab);
             admin_content.appendChild(buttonDiv);
             admin_content.appendChild(info);
+            for(let i=0;i<NUMBER_OF_EFFECTS;i++)
+            {
+                if(arrayOfEffects[i] != undefined)
+                {
+                    const VALUES = arrayOfEffects[0].split('|');
+                    document.getElementById('admin_move_effect_what_' + i).value = VALUES[0];
+                    admin_changeWhatMoveEffect(i);
+                    document.getElementById('admin_move_effect_value_' + i).value = VALUES[1];
+                    document.getElementById('admin_move_effect_chance_' + i).value = VALUES[2];
+                }
+            }
         }
     }
 
@@ -803,17 +854,63 @@ function adm_editMove(_move)
     php_moves.send(data);
 }
 
+function admin_changeWhatMoveEffect(_number)
+{
+    let selectValue = document.getElementById('admin_move_effect_what_' + _number).value;
+    let value = '';
+    if(POKEMON_MOVE_EFFECTS[selectValue].disable)
+    {
+        value = '<input id=\'admin_move_effect_value_' + _number + '\' disabled value=\'\'>';
+    }
+    else if(POKEMON_MOVE_EFFECTS[selectValue].types == undefined)
+    {
+        value = '<input type=number id=\'admin_move_effect_value_' + _number + '\'>';
+    }
+    else
+    {
+        value = '<select id=\'admin_move_effect_value_' + _number + '\'>';
+        for(let i=0;i<POKEMON_MOVE_EFFECTS[selectValue].types.length;i++)
+        {
+            value += '<option value=' + i + '>' + POKEMON_MOVE_EFFECTS[selectValue].types[i][language] + '</option>';
+        }
+        value += '</select>';
+    }
+
+    admin_moves_effectsTable.rows[_number + 1].cells[1].innerHTML = value;
+}
+
 function admin_saveMove(_move)
 {
     adm_move_waitingIMG.classList.remove('none');
     adm_move_saveButton.classList.add('none');
     noErrors = true;
     adm_moves_info.innerHTML = '';
-    adm_moves_info.classList.remove('error');
-    adm_moves_info.classList.remove('success');
 
     let data = new FormData();
     data.append('id',_move);
+
+    let value = '';
+
+    for(let i=0;i<NUMBER_OF_EFFECTS;i++)
+    {
+        const WHAT = document.getElementById('admin_move_effect_what_' + i).value;
+        const VALUE = document.getElementById('admin_move_effect_value_' + i);
+        const CHANCE = document.getElementById('admin_move_effect_chnace_' + i).value;
+        
+        if(WHAT > 0)
+        {
+            if(CHANCE === ''){admin_move_addWarning(6,i); continue;}
+            if(isNaN(CHANCE)){admin_move_addWarning(9,i); continue;}
+            if(CHANCE < 1){admin_move_addWarning(7,i); continue;}
+            if(CHANCE > 100){admin_move_addWarning(8,i); continue;}
+            
+            if(value != ''){value += ',';}
+            value += WHAT + '|' + VALUE.value + '|' + CHANCE;
+        }
+    }
+    admin_editMove_effects.value = value;
+
+
     for(let i=1;i<ADMIN_MOVES_PROPERTIES.length;i++)
     {
         let input = document.getElementById('admin_editMove_' + ADMIN_MOVES_PROPERTIES[i].dbname).value;
@@ -849,8 +946,7 @@ function admin_saveMove(_move)
 
                 if(RES == '{}')
                 {
-                    adm_moves_info.innerHTML = ADMIN_POKEMON_TEXTS.success[language];
-                    adm_moves_info.classList.add('success');
+                    admin_move_addSuccess()
                 }
 
                 adm_move_waitingIMG.classList.add('none');
@@ -869,15 +965,26 @@ function admin_saveMove(_move)
     
 }
 
+function admin_move_addWarning(_number,_effect)
+{
+    const TEXT = (_effect + 1) + ADMIN_POKEMON_TEXTS.errors[_number][language] + '<br>';
+    adm_moves_info.innerHTML += colorText(TEXT,COLOR_WARNING);
+}
+
 function admin_move_addError(_property,_error)
 {
     if(noErrors)
     {
         noErrors = false;
-        adm_moves_info.innerHTML = ADMIN_POKEMON_TEXTS.error[language];
-        adm_moves_info.classList.add('error');
+        adm_moves_info.innerHTML += color_text(ADMIN_POKEMON_TEXTS.error[language],COLOR_ERROR);
     }
-    adm_moves_info.innerHTML += '<br>' + ADMIN_MOVES_PROPERTIES[_property].description[language] + ADMIN_POKEMON_TEXTS.errors[_error][language];
+    const TEXT = '<br>' + ADMIN_MOVES_PROPERTIES[_property].description[language] + ADMIN_POKEMON_TEXTS.errors[_error][language];
+    adm_moves_info.innerHTML +=  colorText(TEXT,COLOR_ERROR);
+}
+
+function admin_move_addSuccess()
+{
+    adm_moves_info.innerHTML += colorText(ADMIN_POKEMON_TEXTS.success[language],COLOR_SUCCESS);
 }
 
 function adm_addMove()

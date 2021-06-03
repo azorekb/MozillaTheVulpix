@@ -1,6 +1,6 @@
-{<?php
-    $connection = @mysql_connect('mysql1.ugu.pl', 'db699059', 'MalaRuka.037') or die(mysql_error());
-    $db = @mysql_select_db('db699059', $connection) or die(mysql_error());
+{<?php 
+    $connection = mysql_connect('mysql1.ugu.pl', 'db699059', 'MalaRuka.037') or die(mysql_error());
+    $db = mysql_select_db('db699059', $connection) or die(mysql_error());
     $array = 'mozillavulpix_pokemon_moves';
     
     $cols;
@@ -20,7 +20,7 @@
     elseif(isset($_POST['id']))
     {
         $update = '';
-        for($i=1;$i<count($cols) -1;$i++)
+        for($i=1;$i<count($cols);$i++)
         {
             if(isset($_POST[$cols[$i]]))
             {

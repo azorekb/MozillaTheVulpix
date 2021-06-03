@@ -89,3 +89,8 @@ function wayUnactive(_element)
 	way_comming = null;
 	_element.classList.remove('active');
 }
+
+function colorText(_text,_colour)
+{
+	return '<font color=\'' + _colour + '\'>' + _text + '</font>';
+}
