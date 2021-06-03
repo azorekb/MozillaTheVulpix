@@ -14,7 +14,7 @@ function admin_start()
     for(let i=0;i<ADMIN_LIST_OF_TASKS.length;i++)
     {
         let task = document.createElement('div');
-        task.classList.add('adminTask');
+        task.classList.add('adminTask', 'button', 'medium');
         task.innerHTML = ADMIN_LIST_OF_TASKS[i].name[language];
         task.onclick=function(){eval(ADMIN_LIST_OF_TASKS[i].function)()}
         admin_list.appendChild(task);
@@ -661,7 +661,7 @@ function adm_moveEditor_run()
             }
             let newMoveButton = document.createElement('div');
             newMoveButton.innerHTML = '+';
-            newMoveButton.classList.add('adminButton');
+            newMoveButton.classList.add('adminButton','button','small');
             newMoveButton.onclick = function(){adm_addMove();};
             newMoveButton.id = 'adm_move_newMoveButton';
             let waitingImage = document.createElement('img');
@@ -816,13 +816,13 @@ function adm_editMove(_move)
 
             let save = document.createElement('div');
             save.innerHTML = ADMIN_MOVE_TEXTS.save[language];
-            save.classList.add('adminButton');
+            save.classList.add('adminButton','button','small');
             save.id = 'adm_move_saveButton';
             save.onclick = function(){admin_saveMove(_move);}
             let cancel = document.createElement('div');
 
             cancel.innerHTML = ADMIN_MOVE_TEXTS.cancel[language];
-            cancel.classList.add('adminButton');
+            cancel.classList.add('adminButton','button','small');
             cancel.id = 'adm_move_cancelButton';
             cancel.onclick = function(){adm_moveEditor_run();}
             

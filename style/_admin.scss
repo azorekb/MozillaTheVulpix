@@ -11,28 +11,22 @@
 .adminTask
 {
     text-align: center;
-    background-color: $adm_taskColorIn;
-    width: 150;
-    padding: 6px 1px;
+    width: $adm_taskSize;
     margin: 0 2px;
-    border: 4px $adm_taskColorOut outset;
+    background-color: $adm_taskColorIn;
+    border-color: $adm_taskColorOut;
 
     &:hover
     {
         border-color: $adm_taskColorOut_active;
         background-color: $adm_taskColorIn_active;
     }
-
-    &:active
-    {
-        border-style: inset;
-        padding: 7px 0px 5px 2px; 
-    }
 }
 
 .admFormTable
 {
     border: 2px solid $adm_borderColor;
+    margin: 10px 0;
     
     tr td
     {
@@ -71,40 +65,40 @@
 
     .active
     {
-        border-color:#ee0;
-        background-color: #ff0;
+        border-color: $adm_itemsColorOut;
+        background-color: $adm_itemsColorIn;
     }
 }
 
 .admInfo
 {
-    margin: 10px;
+    margin: $adm_margin_medium;
     text-align: center;
 }
 
 .admMapTable
 {
     border-collapse: collapse;
-    margin: 10px;
+    margin: $adm_margin_medium;
     
     td
     {
         padding: 0;	
-        border: 1px $adm_borderColor solid;
+        border: $adm_mapBorder;
     }    
 }
 
 
 .admMoveTable
 {
-    margin: 10px;
+    margin: $adm_margin_medium;
     border-collapse: separate;
-    border-spacing: 0 2;
+    border-spacing: 0 2px;
     
     tr
     {
         text-align: center;
-        background-color: #cfc;
+        background-color: $adm_moveRow;
         cursor: pointer;
 
         td
@@ -114,7 +108,7 @@
 
         &:hover
         {
-            background-color: #ffc;
+            background-color: $adn_moveRow_active;
         }
 
         &:first-child
@@ -136,37 +130,31 @@
 
 .adminButton
 {
-    background-color: #fcd;
-    border: 2px outset #ebc;
+    background-color: $adm_button_colorIn;
+    border-color: $adm_button_colorOut;
     width: max-content;
-    padding: 5px 10px;
     margin: 0 5px;
-    cursor: default;
 
-    &:active
+    &:hover
     {
-        border-style: inset;
+        background-color: $adm_button_colorIn_hover;
+        border-color: $adm_button_colorOut_hover;
     }
 }
 
 .adm_buttonContainer
 {
     display: flex;
-    margin: 0 auto;
+    margin: $center_horizontal;
     width: max-content;
 }
 
 .adminMoveEffectsTab
 {
-    margin: 15 auto;  
+    margin: 15px auto;  
 
-    input
+    input,select
     {
-        width: 100px;
-    }
-
-    select
-    {
-        width: 100px;
+        width: $adm_moveInputSize;
     }
 }

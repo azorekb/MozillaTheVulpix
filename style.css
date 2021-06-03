@@ -41,6 +41,7 @@
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
+  cursor: pointer;
 }
 
 .widnow_map .mapMenu .mapMenuButton:hover {
@@ -205,7 +206,7 @@
 
 .languages {
   width: auto;
-  border: 3px solid black;
+  border: 3px #000 solid;
   border-bottom-style: none;
   padding: 15px 0;
 }
@@ -228,7 +229,7 @@
 }
 
 .languages .languages_container img {
-  border: 1px solid black;
+  border: 1px #000 solid;
 }
 
 .languages .languages_container .active {
@@ -239,7 +240,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  border: 3px solid black;
+  border: 3px #000 solid;
   width: auto;
   border-top-style: none;
   border-bottom-style: none;
@@ -247,7 +248,7 @@
 }
 
 .login_tabs div {
-  border: 3px solid black;
+  border: 3px #000 solid;
   border-left-style: none;
   padding: 5px;
 }
@@ -263,7 +264,7 @@
 }
 
 .login_content {
-  border: 3px solid black;
+  border: 3px #000 solid;
   border-top-style: none;
 }
 
@@ -297,6 +298,42 @@
   display: none;
 }
 
+.button {
+  border-style: outset;
+  cursor: pointer;
+}
+
+.button:active {
+  border-style: inset;
+}
+
+.button.small {
+  border-width: 2px;
+  padding: 5px 10px;
+}
+
+.button.small:active {
+  padding: 6px 9px 4px 11px;
+}
+
+.button.medium {
+  border-width: 4px;
+  padding: 6px 1px;
+}
+
+.button.medium:active {
+  padding: 7px 0 5px 2px;
+}
+
+.button.big {
+  border-width: 6px;
+  padding: 6px 1px;
+}
+
+.button.big:active {
+  padding: 7px 0 5px 2px;
+}
+
 .adminList {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -305,11 +342,10 @@
 
 .adminTask {
   text-align: center;
-  background-color: #0cc;
-  width: 150;
-  padding: 6px 1px;
+  width: 150px;
   margin: 0 2px;
-  border: 4px #0aa outset;
+  background-color: #0cc;
+  border-color: #0aa;
 }
 
 .adminTask:hover {
@@ -317,13 +353,9 @@
   background-color: #0ee;
 }
 
-.adminTask:active {
-  border-style: inset;
-  padding: 7px 0px 5px 2px;
-}
-
 .admFormTable {
   border: 2px solid #000;
+  margin: 10px 0;
 }
 
 .admFormTable tr td {
@@ -383,7 +415,7 @@
 .admMoveTable {
   margin: 10px;
   border-collapse: separate;
-  border-spacing: 0 2;
+  border-spacing: 0 2px;
 }
 
 .admMoveTable tr {
@@ -415,17 +447,16 @@
 
 .adminButton {
   background-color: #fcd;
-  border: 2px outset #ebc;
+  border-color: #ebc;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
-  padding: 5px 10px;
   margin: 0 5px;
-  cursor: default;
 }
 
-.adminButton:active {
-  border-style: inset;
+.adminButton:hover {
+  background-color: #fde;
+  border-color: #fcd;
 }
 
 .adm_buttonContainer {
@@ -439,14 +470,10 @@
 }
 
 .adminMoveEffectsTab {
-  margin: 15 auto;
+  margin: 15px auto;
 }
 
-.adminMoveEffectsTab input {
-  width: 100px;
-}
-
-.adminMoveEffectsTab select {
+.adminMoveEffectsTab input, .adminMoveEffectsTab select {
   width: 100px;
 }
 /*# sourceMappingURL=style.css.map */

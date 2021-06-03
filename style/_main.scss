@@ -21,7 +21,7 @@
         
         img
         {
-            border: 1px solid black;
+            border: $imageBorder;
         }
 
         .active
@@ -100,4 +100,48 @@
 .none
 {
     display: none;
+}
+
+.button
+{
+    border-style: outset;
+    cursor: $buttonCursor;
+
+    &:active
+    {
+        border-style: inset;
+    }
+
+    &.small
+    {
+        border-width: $buttonBorderSize_small;
+        padding: $buttonPadding_small;
+
+        &:active
+        {
+            padding: $buttonPadding_small_active;
+        }
+    }
+
+    &.medium
+    {
+        border-width: $buttonBorderSize_medium;
+        padding: $buttonPadding_medium;
+
+        &:active
+        {
+            padding: $buttonPadding_medium_active;
+        }
+    }
+
+    &.big
+    {
+        border-width: $buttonBorderSize_big;
+        padding: $buttonPadding_big;
+
+        &:active
+        {
+            padding: $buttonPadding_big_active;
+        }
+    }
 }

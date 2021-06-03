@@ -1,6 +1,7 @@
-$big_window: 760px;
-$login_border: 3px solid black;
+$loginBorderColor: #000;
+$imageBorderColor: #000;
 $map_borderColor: #0a0;
+
 $button_colorIn: #0c0;
 $button_colorOut: #0a0;
 $button_colorIn_hover: #0e0;
@@ -9,18 +10,18 @@ $button_colorIn_active: #cc0;
 $button_colorOut_active: #aa0;
 $button_colorIn_active_hover: #cc0;
 $button_colorOut_active_hover: #ee0;
+
 $directButtons_colorIn: #0c0;
 $directButtons_colorOut: #0a0;
 $directButtons_colorIn_active: #cc0;
 $directButtons_colorOut_active: #aa0;
-$directButtons_radius: 15px;
-$directButtons_size: 30px;
+
 $dex_outsideColor: #05f;
 $dexPlace_colorOut: #0ae;
 $dexPlace_colorIn: #039;
 $dexStats_colorIn: #0ae;
 $dexStats_text: #0ae;
-$dex_pokemon_size: 20px;
+
 $dex_pokemon_colorIn: #000;
 $dex_pokemon_colorOut: #fff;
 $dex_pokemon_text_have: #0c0;
@@ -32,3 +33,9 @@ $adm_taskColorOut_active: #0cc;
 $adm_borderColor: #000;
 $adm_itemsColorIn: #ff0;
 $adm_itemsColorOut: #ee0;
+$adm_moveRow: #cfc;
+$adn_moveRow_active: #ffc;
+$adm_button_colorIn: #fcd;
+$adm_button_colorOut: #ebc;
+$adm_button_colorIn_hover: #fde;
+$adm_button_colorOut_hover: #fcd;
