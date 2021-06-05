@@ -1,3 +1,11 @@
+function insertWaitingImage(_object)
+{
+    _object.innerHTML = '';
+    let waitingImage = document.createElement('img');
+    waitingImage.src = waitingImageUrl;
+    _object.appendChild(waitingImage);
+}
+
 function admin_start()
 {
     worldmapContent.innerHTML = '';
@@ -30,10 +38,7 @@ function admin_start()
 
 function admin_show_database(_db)
 {
-    admin_content.innerHTML = '';
-    let waitingImage = document.createElement('img');
-    waitingImage.src = waitingImageUrl;
-    admin_content.appendChild(waitingImage);
+    insertWaitingImage(admin_content);
 
     let php_database = new XMLHttpRequest();
     php_database.onreadystatechange = function()
@@ -53,60 +58,40 @@ function admin_show_database(_db)
 
 }
 
-function admin_database_list(_base,_res)
+function admin_database_list(_db,_res)
 {
     let databaseTable = document.createElement('table');
-    databaseTable.id = 'adm_' + _base +'Table';
-    databaseTable.classList.add('admResponseTable');
+    databaseTable.id = 'adm_databaseTable';
+    databaseTable.classList.add('admdatabaseTable');
     
     databaseTable.insertRow(0);
-
-    let details,array;
-    switch(_base)
-    {
-        case 'moves': 
-        {
-            array = ADMIN_MOVES_PROPERTIES;
-            details = array;
-            iterator = 'i';
-            text = 'description';
-        }
-        break;
-        case 'pokemon':
-        {
-            array = ADMIN_POKEMON_DETAILS;
-            details = Object.keys(array);
-            iterator = 'details[i]';
-            text = 'text';
-        }
-        break;
-    }
+    const details = ADMIN_DATABASE_COLS[_db];
 
     for(let i=0;i<details.length;i++)
     {
-        databaseTable.rows[0].insertCell(i).innerHTML = array[eval(iterator)][text][language];
+        databaseTable.rows[0].insertCell(i).innerHTML = details[i].description[language];
     }
     
     let newElementButton = document.createElement('div');
     newElementButton.innerHTML = '+';
     newElementButton.classList.add('adminButton','button','small');
-    newElementButton.onclick = function(){adm_add_dbElement(_base);};
-    newElementButton.id = 'adm_' + _base + '_newElementButton';
+    newElementButton.onclick = function(){adm_add_dbElement(_db);};
+    newElementButton.id = 'adm_database_newElementButton';
 
     let waitingImage = document.createElement('img');
     waitingImage.src = waitingImageUrl;
     waitingImage.classList.add('none');
-    waitingImage.id = 'adm_' + _base + '_newElement_waiting';
+    waitingImage.id = 'adm_database_newElement_waiting';
     waitingImage.height = 32;
     databaseTable.rows[0].insertCell(details.length).appendChild(newElementButton);
     databaseTable.rows[0].cells[details.length].appendChild(waitingImage);
 
     Object.keys(_res).forEach(element => {
         let lastRow = databaseTable.insertRow(databaseTable.rows.length);
-        lastRow.onclick = function(){adm_edit_dbElement(_base,_res[element].id);}
+        lastRow.onclick = function(){adm_edit_dbElement(_db,_res[element].id);}
         for(let i=0;i<details.length;i++)
         {
-            lastRow.insertCell(i).innerHTML = _res[element][details[i]];
+            lastRow.insertCell(i).innerHTML = _res[element][details[i].dbname];
         }
     })
             
@@ -116,61 +101,50 @@ function admin_database_list(_base,_res)
 
 function adm_edit_dbElement(_db,_id)
 {
-    
+    insertWaitingImage(admin_content);
+    admin_content.innerHTML = '<img src=\'img/vapi_juggle.gif\'>';
 }
 
 function adm_add_dbElement(_db)
 {
-    adm_move_newMoveButton.classList.add('none');
-    adm_newMove_waiting.classList.remove('none');
+    adm_database_newElementButton.classList.add('none');
+    adm_database_newElement_waiting.classList.remove('none');
 
     let data = new FormData();
     data.append('new',true);
-    let php_moves = new XMLHttpRequest();
-    php_moves.onreadystatechange = function()
+
+    let php_database = new XMLHttpRequest();
+    php_database.onreadystatechange = function()
     {
         if(this.readyState == 4 && this.status == 200)
 	    {
             console.log(this.responseText);
             const RES = JSON.parse(this.responseText);
 	 	    console.log(RES);
+            
             if(RES.id == undefined)
             {
-                adm_move_newMoveButton.classList.remove('none');
-                adm_newMove_waiting.classList.add('none');
+                adm_database_newElementButton.classList.remove('none');
+                adm_database_newElement_waiting.classList.add('none');
             }
             else
             {
-                adm_editMove(RES.id);
+                adm_edit_dbElement(_db,RES.id);
             }
         }
     }
 
-    php_moves.open("POST", 'php/moves.php', true);
-    php_moves.send(data);
+    php_database.open("POST", 'php/database.php?base=' + _db, true);
+    php_database.send(data);
 }
 
 // ===========================================================================
 // =========================== POKEMON =======================================
 // ===========================================================================
-
-
-
-
-
-
 function adm_editPokemon(_id)
 {
 
 }
-
-
-
-
-
-
-
-
 
 function adm_formPokemon()
 {
@@ -1061,13 +1035,13 @@ function admin_saveMove(_move)
     
 }
 
-function admin_move_addWarning(_number,_effect)
+function admin_addWarning(_number,_effect)
 {
     const TEXT = (_effect + 1) + ADMIN_POKEMON_TEXTS.errors[_number][language] + '<br>';
     adm_moves_info.innerHTML += colorText(TEXT,COLOR_WARNING);
 }
 
-function admin_move_addError(_property,_error)
+function admin_addError(_property,_error)
 {
     if(noErrors)
     {
@@ -1078,7 +1052,7 @@ function admin_move_addError(_property,_error)
     adm_moves_info.innerHTML +=  colorText(TEXT,COLOR_ERROR);
 }
 
-function admin_move_addSuccess()
+function admin_addSuccess()
 {
     adm_moves_info.innerHTML += colorText(ADMIN_POKEMON_TEXTS.success[language],COLOR_SUCCESS);
 }

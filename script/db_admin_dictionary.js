@@ -1,92 +1,79 @@
-const RESISTANCE =
-{
-    normal: new Resistance(1,1,1,1,1,1,2,1,1,1,1,1,1,0,1,1,1,1),
-    fire: new Resistance(1,0.5,2,1,0.5,0.5,1,1,2,1,1,0.5,2,1,1,1,0.5,0.5),
-    water: new Resistance(1,0.5,0.5,2,2,0.5,1,1,1,1,1,1,1,1,1,1,0.5,1),
-    electric: new Resistance(1,1,1,0.5,1,1,1,1,2,0.5,1,1,1,1,1,1,0.5,1),
-    grass: new Resistance(1,2,0.5,0.5,0.5,2,1,2,0.5,2,1,2,1,1,1,1,1,1),
-    ice: new Resistance(1,2,1,1,1,0.5,2,1,1,1,1,1,2,1,1,1,2,1),
-    fighting: new Resistance(1,1,1,1,1,1,1,1,1,2,2,0.5,0.5,1,1,0.5,1,2),
-    poison: new Resistance(1,1,1,1,0.5,1,0.5,0.5,2,1,2,0.5,1,1,1,1,1,0.5),
-    ground: new Resistance(1,1,2,0,2,2,1,0.5,1,1,1,1,0.5,1,1,1,1,1),
-    flying: new Resistance(1,1,1,2,0.5,2,0.5,1,0,1,1,0.5,2,1,1,1,1,1),
-    psychic: new Resistance(1,1,1,1,1,1,0.5,1,1,1,0.5,2,1,2,1,2,1,1),
-    bug: new Resistance(1,2,1,1,0.5,1,0.5,1,0.5,2,1,1,2,1,1,1,1,1),
-    rock: new Resistance(0.5,0.5,2,1,2,1,2,0.5,2,0.5,1,1,1,1,1,1,2,1),
-    ghost: new Resistance(0,1,1,1,1,1,0,0.5,1,1,1,0.5,1,2,1,2,1,1),
-    dragon: new Resistance(1,0.5,0.5,0.5,0.5,2,1,1,1,1,1,1,1,1,2,1,1,2),
-    dark: new Resistance(1,1,1,1,1,1,2,1,1,1,0,2,1,0.5,1,0.5,1,2),
-    steel: new Resistance(0.5,2,1,1,0.5,0.5,2,0,2,0.5,0.5,0.5,0.5,1,0.5,1,0.5,0.5),
-    fairy: new Resistance(1,1,1,1,1,1,0.5,2,1,1,1,0.5,1,1,0,0.5,2,1)
-}
-    
-const POKEDEX_TEXTS = 
-{
-    no: {polski: 'nr', english: 'no.'},
-    types: {polski: 'typy', english: 'types'},
-    ability: {polski: 'umiejętności', english: 'abilities'},
-    baseStats: {polski: 'bazowe statystyki', english: 'base stats'},
-    hp: {polski: 'życie', english: 'hit points'},
-    attack: {polski: 'atak', english: 'attack'},
-    defence: {polski: 'obrona', english: 'defence'},
-    spAttack: {polski: 'sp. atak', english: 'sp. attack'},
-    spDefence: {polski: 'sp. obrona', english: 'sp. defence'},
-    speed: {polski: 'szybkość', english: 'speed'},
-}
+const ADMIN_WARNINGS =
+[
+    {polski: 'używaj tylko języka <u>angielskiego</u> oraz małych liter', english: 'use only <u>english</u> language and small letters'},
+    {polski: 'kliknij w pole mapy aby zmienić je na wybrany wyżej element<br>użyj CTRL by móc zmienić pole najechaniem myszy<br>CTRL+Z nie działa', english: 'click on field to change element to selectet upper<br>use CTRL to change it with mouse over<br>CTRL+Z does not work'},
+    {polski: 'zdecydowanie łatwiej jest używać panelu administratora na komputerze', english: 'it is so much better to use admin panel on the computer'},
+];
 
-const POKEMON_EVOLUTION_METHODS =
-{
-    lv: new NumberArray(2,100),
-    stone: ['water', 'fire', 'thunder', 'sun', 'moon', 'leaf', 'ice', 'dusk', 'dawn', 'shiny'],
-    place: ['mossy rock', 'icy rock', 'electric field'],
-    friendship: ['', 'dayime', 'nighttime'],
-    love: ['fairy move'],
-    trade: [''],
-}
+const ADMIN_LIST_OF_TASKS =
+[
+    {polski: 'pokemony', english: 'pokemon'},
+    {polski: 'mapy', english: 'maps'}, 
+    {polski: 'ruchy', english: 'moves'},
+];
 
-const POKEMON_MOVES = 
+const ADMIN_DATABASE_COLS = 
 {
-    struggle: new PokemonMove(40,100,'','physical',[new Effect('dmgBack',100,40)]),
-    surf: new PokemonMove(90,100,'water','special',[new Effect('hit_dive',100,2)],15,'everyone'),
-    energy_ball: new PokemonMove(90,100,'grass','special',[new Effect('low_target_spDefence',10,1)],10),
-    flamethrower: new PokemonMove(90,100,'fire','special',[new Effect('burn_target',10)],15),
-    tackle: new PokemonMove(40,100,'normal','physical',[],35),
-    ember: new PokemonMove(40,100,'fire','special',[new Effect('burn_target',10)],25),
-}
+    moves:
+    [
+        {description: {polski: 'nr', english: 'no'}, dbname: 'id'},
+        {description: {polski: 'nazwa angielska', english: 'english name'}, dbname: 'name_eng', input: 'text'},
+        {description: {polski: 'nazwa polska', english: 'polish name'}, dbname: 'name_pl', input: 'text'},
+        {description: {polski: 'moc', english: 'power'}, dbname: 'power', input: 'number', min: -300, max: 300},
+        {description: {polski: 'celność', english: 'accuracy'}, dbname: 'accuracy', input: 'number', min: 0, max: 100},
+        {description: {polski: 'typ', english: 'type'}, dbname: 'type', input: 'select', table: POKEMON_TYPES},
+        {description: {polski: 'PP', english: 'PP'}, dbname: 'PP', input: 'number', min: 1, max: 40},
+        {description: {polski: 'cel', english: 'target'}, dbname: 'target', input: 'select', table: POKEMON_MOVE_TARGET},
+        {description: {polski: 'priorytet', english: 'priorytet'}, dbname: 'priority', input: 'number', min: -10, max: 10},
+        {description: {polski: 'kontakt', english: 'contact'}, dbname: 'contact', input: 'checkbox'},
+        {description: {polski: 'efekty', english: 'effects'}, dbname: 'effects', input: 'disabled'},
+    ],
+    pokemon:
+    [
+        {description: {polski: 'nr', english: 'no'}, dbname: 'id'},
+        {description: {polski: 'nr dex', english: 'dex no'}, dbname: 'no', input: 'number', min: 0, max: 500},
+        {description: {polski: 'nazwa', english: 'name'}, dbname: 'name', input: 'text'},
+        {description: {polski: 'typy', english: 'types'}, dbname: 'types', input: 'selects', numOfInput: 2, table: POKEMON_TYPES},
+        {description: {polski: 'umiejętności', english: 'abilities'}, dbname: 'abilities', input: 'selects', numOfInput: 3, table: POKEMON_ABILITIES},
+        {description: {polski: 'EVYeld', english: 'EVYeld'}, dbname: 'EVYeld', input: 'sellects', numOfInput: 3, table: POKEMON_STATS},
+        {description: {polski: 'szanse złapania', english: 'catch rate'}, dbname: 'catchRate', input: 'number', min: 1, max: 255},
+        {description: {polski: 'bazowe doświadczenie', english: 'base expirience'}, dbname: 'baseExp', input: 'number', min: 1, max: 300},
+        {description: {polski: 'wzrost doświadczenia', english: 'expirience growth'}, dbname: 'growthExp', input: 'select', table: POKEMON_EXP_GROWTH},
+        {description: {polski: 'szanse na samiczkę', english: 'female rate'}, dbname: 'eggGroup', input: 'number', min: 0, max: 100},
+        {description: {polski: 'grupa jajek', english: 'egg group'}, dbname: 'eggGroup', input: 'select', table: POKEMON_EGG_GROUP},
+        {description: {polski: 'cykle do wyklucia', english: 'egg cycles'}, dbname: 'eggCycles', input: 'number', min: 1, max: 100},
+        {description: {polski: 'bazowe życie', english: 'base HP'}, dbname: 'baseStats_hp', input: 'number', min: 1, max: 500},
+        {description: {polski: 'bazowy atak', english: 'base attack'}, dbname: 'baseStats_attack', input: 'number', min: 1, max: 500},
+        {description: {polski: 'bazowa obrona', english: 'base defence'}, dbname: 'baseStats_defence', input: 'number', min: 1, max: 500},
+        {description: {polski: 'bazowy sp. atak', english: 'base sp. attack'}, dbname: 'baseStats_spAttack', input: 'number', min: 1, max: 500},
+        {description: {polski: 'bazowa sp. obrona', english: 'base sp. deffence'}, dbname: 'baseStats_spDefence', input: 'number', min: 1, max: 500},
+        {description: {polski: 'bazowa szybkość', english: 'base speed'}, dbname: 'baseStats_speed', input: 'number', min: 1, max: 500},
+        {description: {polisk: 'gatunek preewolucji', english: 'preevolution specie'}, dbname: 'preevolution_specie', input: 'select', table: ['',...POKEMON_LIST]},
+        {description: {polisk: 'metoda ewolucji', english: 'preevolution method'}, dbname: 'preevolution_method', input: 'text'}, //'select', table: []},
+        {description: {polisk: 'wartość metody ewolucji', english: 'preevolution value '}, dbname: 'preevolution_value ', input: 'text'}, //'select', table: []},
+        {description: {polski: 'wysokość', english: 'height'}, dbname: 'height', input: 'number', min: 0.1, max: 500},
+        {description: {polski: 'waga', english: 'weight'}, dbname: 'weight', input: 'number', min: 0.1, max: 500},
+    ],
+};
 
-const MAIN_TEXTS =
-{
-    logIn: {texts: {polski: 'Logowanie', english: 'Log&nbsp;In'}, object: login_tab_logIn},
-	register: {texts: {polski: 'Rejestracja', english: 'Register'}, object: login_tab_register},
-	name_log: {texts: {polski: 'nazwa użytkownika', english: 'user name'}, object: login_name},
-	// name_reg: {texts: {polski: 'nazwa użytkownika', english: 'user name'}, object: register_name},
-	password_log: {texts: {polski: 'hasło', english: 'password'}, object: login_password},
-	// password_reg: {texts: {polski: 'hasło', english: 'password'}, object: register_password},
-	send_log: {texts: {polski: 'wyślij', english: 'send'}, object: login_button},
-	// send_reg: {texts: {polski: 'wyślij', english: 'send'}, object: register_button},
-}
-
-const MAIN_ERRORS = 
-{
-    noUserName: {polski: 'nazwa użytkownika jest pusta', english: 'user name is empty'},
-    shortUserName: {polski: 'nazwa użytkownika jest zbyt krótka (min 4 liter)', english: 'user name is too short (min 4 letters)'},
-    wrongUserName: {polski: 'podana nazwa użytkownika nie istnieje', english: 'given user name doesn\'t exist'},
-    noPassword: {polski: 'hasło jest puste', english: 'password is empty'},
-    shortPassword: {polski: 'hasło jest zbyt krótkie (min 4 liter)', english: 'hasło is too short (min 4 letters)'},
-    wrongPassword: {polski: 'podane hasło jest nieprawidłowe', english: 'given password is incorrect'},
-}
+const ADMIN_EFFECTS_COLS =
+[
+    {polski: 'jaki', english: 'what'},
+    {polski: 'wartość', english: 'value'},
+    {polski: 'szanse', english: 'chance'},
+    {polski: 'komu', english: 'whom'}
+];
 
 const ADMIN_MOVE_TEXTS = 
 {
     save: {polski: 'zapisz', english: 'save'},
     cancel: {polski: 'anuluj', english: 'cancel'},
     
-}
+};
 
 const ADMIN_POKEMON_DETAILS = 
 {
     name: new AdminPokemonDetails(true,false,false,false,false,{polski: 'nie używaj spacji, nie może się powtarzać', english: 'do not use space, it can not repeat'},{polski: 'nazwa pokemona', english: 'name of pokemon'},'alolan_ninetales'),
-    no: new AdminPokemonDetails(false,false,true,0,false,{polski: '0 - nie wyświetla się w pokedexie, nie może się powtarzać', english: '0 - does not show up in pokedex, it can not repeat'},{polski: 'ID', english: 'ID'},0),
     types: new AdminPokemonDetails(true,true,false,false,false,{polski: 'w przypadku dwu wypisz po przecinku bez spacji', english: 'in the case of two write out after "," without space'},{polski: 'typy', english: 'types'},'ice,fairy'),
     abilities: new AdminPokemonDetails(true,true,false,false,false,{polski: 'w przypadku dwu lub trzech (trzecia to zawsze ukryta) wypisz po przecinku bez spacji, jeśli ma być jedna umiejętność + ukryta wypisz drugą jako pustą', english: 'in the case of two or three (third is always hidden) write out after "," without space, in the case if there is only one ability plus hidden write second as empty'},{polski: 'umiejętności', english: 'abilities'},'snow cloak,,snow warning'),
     EVYeld: new AdminPokemonDetails(true,true,false,false,false,{polski: '1 atak = attack, 2 atak = attack,attack (hp,attack,defence,spAttack,spDeffence,speed)', english: '1 attack = attack, 2 attack = attack,attack (hp,attack,defence,spAttack,spDeffence,speed)'},{polski: 'EV Yeld', english: 'EV Yeld'},'speed,speed'),
@@ -107,7 +94,7 @@ const ADMIN_POKEMON_DETAILS =
     preevolution_value: new AdminPokemonDetails(false,false,false,false,false,{polski: 'przykłady: fire stone, lucarionite, 52, night, icy rock, fairy move, metal coath..', english: 'examples: fire stone, lucarionite, 52, night, icy rock, fairy move, metal coath...'},{polski: 'podtyp lub wartość metody', english: 'subtype or value od method'},'ice stone'),
     height:  new AdminPokemonDetails(true,false,true,0.1,false,{polski: 'zamiast przecinka użyj kropki', english: 'use dot insted of comma'},{polski: 'wysokość', english: 'height'},1.1),
     weight:  new AdminPokemonDetails(true,false,true,0.1,false,{polski: 'zamiast przecinka użyj kropki', english: 'use dot insted of comma'},{polski: 'waga', english: 'weight'},19.9),
-}
+};
 
 const ADMIN_POKEMON_TEXTS = 
 {
@@ -130,10 +117,10 @@ const ADMIN_POKEMON_TEXTS =
     success: {polski: 'sukces', english: 'success'},
     code: {polski: 'kod', english: 'code'},
 
-}
+};
 
 const ADMIN_MAPS_DESCRIPTIONS =
 {
     no: {polski: 'mapa nr', english: 'map no.'},
     imgTitle: {polski: 'obiekt nr: ', english: 'object no: '},
-}
+};

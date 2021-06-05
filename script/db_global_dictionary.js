@@ -23,13 +23,60 @@ const POKEMON_TYPES =
 
 const POKEMON_STATS = 
 [
-    'hp',
-    'attack',
-    'defence',
-    'spAttack',
-    'spDefence',
-    'speed'
+    {english: 'hp', polski: ''},
+    {english: 'attack', polski: ''},
+    {english: 'defence', polski: ''},
+    {english: 'spAttack', polski: ''},
+    {english: 'spDefence', polski: ''},
+    {english: 'speed', polski: ''},
 ];
+
+const POKEMON_ABILITIES = 
+[
+    {english: 'run away', polski: 'ucieczka'},
+    {english: 'adaptability', polski: ''},
+    {english: 'anticipation', polski: ''},
+    {english: 'flash fire', polski: ''},
+    {english: 'guts', polski: ''},
+    {english: 'volt absorb', polski: ''},
+    {english: 'quick feet', polski: ''},
+    {english: 'water absorb', polski: ''},
+    {english: 'hydration', polski: ''},
+    {english: 'leaf guard', polski: ''},
+    {english: 'chlorophyll', polski: ''},
+    {english: 'snow cloak', polski: ''},
+    {english: 'ice body', polski: ''},
+    {english: 'synchronize', polski: ''},
+    {english: 'magic bounce', polski: ''},
+    {english: 'inner focus', polski: ''},
+    {english: 'cute charm', polski: ''},
+    {english: 'pixilate', polski: ''},
+    {english: 'simple', polski: ''},
+    {english: 'unaware', polski: ''},
+    {english: 'moody', polski: ''},
+    {english: 'keen eye', polski: ''},
+    {english: 'sheer force', polski: ''},
+    {english: 'hustle', polski: ''},
+    {english: 'defiant', polski: ''},
+    {english: 'drought', polski: ''},
+    {english: 'swift swim', polski: ''},
+    {english: 'water veil', polski: ''},
+    {english: 'dry skin', polski: ''},
+    {english: 'sand veil', polski: ''},
+    {english: 'solar power', polski: ''},
+    {english: 'big pecks', polski: ''},
+    {english: 'gale wings', polski: ''},
+    {english: 'flame body', polski: ''},
+    {english: 'rivalry', polski: ''},
+    {english: 'intimidate', polski: ''},
+    {english: 'hyper cutter', polski: ''},
+    {english: 'mold breaker', polski: ''},
+    {english: 'moxie', polski: ''},
+    {english: 'steadfast', polski: ''},
+    {english: 'prankster', polski: ''},
+    {english: 'justtified', polski: ''},
+];
+
 const POKEMON_MOVE_TARGET = 
 [
     {english: 'one opponent',   polski: 'jeden przeciwnik'},
@@ -39,7 +86,25 @@ const POKEMON_MOVE_TARGET =
     {english: 'one ally', polski: 'jeden sprzymierzeniec'},
     {english: 'all allies', polski: 'każdy sprzymierzeniec'}
 ];
-const POKEMON_EXP_GROWTH = ['erratic','fast','medium fast','medium slow','slow','fluctuating'];
+
+const POKEMON_EXP_GROWTH = 
+[
+    {english: 'erratic', polski: ''},
+    {english: 'fast', polski: ''},
+    {english: 'medium fast', polski: ''},
+    {english: 'medium slow', polski: ''},
+    {english: 'slow', polski: ''},
+    {english: 'fluctuating', polski: ''},
+];
+
+const POKEMON_EGG_GROUP = 
+[
+    {english: 'field', polski: ''},
+    {english: 'flying', polski: ''},
+    {english: 'dragon', polski: ''},
+    {english: 'monster', polski: ''},
+    {english: 'undiscovered', polski: ''},
+]
 
 const POKEMON_MOVE_EFFECTS = 
 [
@@ -174,7 +239,7 @@ const POKEMON_MOVE_EFFECTS =
     // {english: 'switch item', polski: 'zamiania przedmiony'},
     // gdy nie ma itemku jest mocniejszy
     
-]
+];
 
 const MOVE_EFFECT_WHOM =
 [
@@ -183,7 +248,7 @@ const MOVE_EFFECT_WHOM =
     {polski: 'przeciwnicy', english: 'opponents'},
     {polski: 'sprzymierzeńcy', english: 'allies'},
     {polski: 'wszyscy', english: 'everyone'}
-]
+];
 
 const MAP_ITEMS = 
 [
@@ -202,41 +267,80 @@ const MAP_ITEMS =
     
 ];
 
-//============================ ADMIN =============================================
+const RESISTANCE =
+{
+    normal: new Resistance(1,1,1,1,1,1,2,1,1,1,1,1,1,0,1,1,1,1),
+    fire: new Resistance(1,0.5,2,1,0.5,0.5,1,1,2,1,1,0.5,2,1,1,1,0.5,0.5),
+    water: new Resistance(1,0.5,0.5,2,2,0.5,1,1,1,1,1,1,1,1,1,1,0.5,1),
+    electric: new Resistance(1,1,1,0.5,1,1,1,1,2,0.5,1,1,1,1,1,1,0.5,1),
+    grass: new Resistance(1,2,0.5,0.5,0.5,2,1,2,0.5,2,1,2,1,1,1,1,1,1),
+    ice: new Resistance(1,2,1,1,1,0.5,2,1,1,1,1,1,2,1,1,1,2,1),
+    fighting: new Resistance(1,1,1,1,1,1,1,1,1,2,2,0.5,0.5,1,1,0.5,1,2),
+    poison: new Resistance(1,1,1,1,0.5,1,0.5,0.5,2,1,2,0.5,1,1,1,1,1,0.5),
+    ground: new Resistance(1,1,2,0,2,2,1,0.5,1,1,1,1,0.5,1,1,1,1,1),
+    flying: new Resistance(1,1,1,2,0.5,2,0.5,1,0,1,1,0.5,2,1,1,1,1,1),
+    psychic: new Resistance(1,1,1,1,1,1,0.5,1,1,1,0.5,2,1,2,1,2,1,1),
+    bug: new Resistance(1,2,1,1,0.5,1,0.5,1,0.5,2,1,1,2,1,1,1,1,1),
+    rock: new Resistance(0.5,0.5,2,1,2,1,2,0.5,2,0.5,1,1,1,1,1,1,2,1),
+    ghost: new Resistance(0,1,1,1,1,1,0,0.5,1,1,1,0.5,1,2,1,2,1,1),
+    dragon: new Resistance(1,0.5,0.5,0.5,0.5,2,1,1,1,1,1,1,1,1,2,1,1,2),
+    dark: new Resistance(1,1,1,1,1,1,2,1,1,1,0,2,1,0.5,1,0.5,1,2),
+    steel: new Resistance(0.5,2,1,1,0.5,0.5,2,0,2,0.5,0.5,0.5,0.5,1,0.5,1,0.5,0.5),
+    fairy: new Resistance(1,1,1,1,1,1,0.5,2,1,1,1,0.5,1,1,0,0.5,2,1)
+};
+    
+const POKEDEX_TEXTS = 
+{
+    no: {polski: 'nr', english: 'no.'},
+    types: {polski: 'typy', english: 'types'},
+    ability: {polski: 'umiejętności', english: 'abilities'},
+    baseStats: {polski: 'bazowe statystyki', english: 'base stats'},
+    hp: {polski: 'życie', english: 'hit points'},
+    attack: {polski: 'atak', english: 'attack'},
+    defence: {polski: 'obrona', english: 'defence'},
+    spAttack: {polski: 'sp. atak', english: 'sp. attack'},
+    spDefence: {polski: 'sp. obrona', english: 'sp. defence'},
+    speed: {polski: 'szybkość', english: 'speed'},
+};
 
-const ADMIN_WARNINGS =
-[
-    {polski: 'używaj tylko języka <u>angielskiego</u> oraz małych liter', english: 'use only <u>english</u> language and small letters'},
-    {polski: 'kliknij w pole mapy aby zmienić je na wybrany wyżej element<br>użyj CTRL by móc zmienić pole najechaniem myszy<br>CTRL+Z nie działa', english: 'click on field to change element to selectet upper<br>use CTRL to change it with mouse over<br>CTRL+Z does not work'},
-    {polski: 'zdecydowanie łatwiej jest używać panelu administratora na komputerze', english: 'it is so much better to use admin panel on the computer'},
-];
+const POKEMON_EVOLUTION_METHODS =
+{
+    lv: new NumberArray(2,100),
+    stone: ['water', 'fire', 'thunder', 'sun', 'moon', 'leaf', 'ice', 'dusk', 'dawn', 'shiny'],
+    place: ['mossy rock', 'icy rock', 'electric field'],
+    friendship: ['', 'dayime', 'nighttime'],
+    love: ['fairy move'],
+    trade: [''],
+};
 
-const ADMIN_LIST_OF_TASKS =
-[
-    {polski: 'pokemony', english: 'pokemon'},
-    {polski: 'mapy', english: 'maps'}, 
-    {polski: 'ruchy', english: 'moves'},
-];
+const POKEMON_MOVES = 
+{
+    struggle: new PokemonMove(40,100,'','physical',[new Effect('dmgBack',100,40)]),
+    surf: new PokemonMove(90,100,'water','special',[new Effect('hit_dive',100,2)],15,'everyone'),
+    energy_ball: new PokemonMove(90,100,'grass','special',[new Effect('low_target_spDefence',10,1)],10),
+    flamethrower: new PokemonMove(90,100,'fire','special',[new Effect('burn_target',10)],15),
+    tackle: new PokemonMove(40,100,'normal','physical',[],35),
+    ember: new PokemonMove(40,100,'fire','special',[new Effect('burn_target',10)],25),
+};
 
-const ADMIN_MOVES_PROPERTIES = 
-[
-    {description: {polski: 'nr', english: 'no'}, dbname: 'id'},
-    {description: {polski: 'nazwa angielska', english: 'english name'}, dbname: 'name_eng', input: 'text'},
-    {description: {polski: 'nazwa polska', english: 'polish name'}, dbname: 'name_pl', input: 'text'},
-    {description: {polski: 'moc', english: 'power'}, dbname: 'power', input: 'number', min: -300, max: 300},
-    {description: {polski: 'celność', english: 'accuracy'}, dbname: 'accuracy', input: 'number', min: 0, max: 100},
-    {description: {polski: 'typ', english: 'type'}, dbname: 'type', input: 'select', table: POKEMON_TYPES},
-    {description: {polski: 'PP', english: 'PP'}, dbname: 'PP', input: 'number', min: 1, max: 40},
-    {description: {polski: 'cel', english: 'target'}, dbname: 'target', input: 'select', table: POKEMON_MOVE_TARGET},
-    {description: {polski: 'priorytet', english: 'priorytet'}, dbname: 'priority', input: 'number', min: -10, max: 10},
-    {description: {polski: 'kontakt', english: 'contact'}, dbname: 'contact', input: 'checkbox'},
-    {description: {polski: 'efekty', english: 'effects'}, dbname: 'effects', input: 'disabled'},
-];
+const MAIN_TEXTS =
+{
+    logIn: {texts: {polski: 'Logowanie', english: 'Log&nbsp;In'}, object: login_tab_logIn},
+	register: {texts: {polski: 'Rejestracja', english: 'Register'}, object: login_tab_register},
+	name_log: {texts: {polski: 'nazwa użytkownika', english: 'user name'}, object: login_name},
+	// name_reg: {texts: {polski: 'nazwa użytkownika', english: 'user name'}, object: register_name},
+	password_log: {texts: {polski: 'hasło', english: 'password'}, object: login_password},
+	// password_reg: {texts: {polski: 'hasło', english: 'password'}, object: register_password},
+	send_log: {texts: {polski: 'wyślij', english: 'send'}, object: login_button},
+	// send_reg: {texts: {polski: 'wyślij', english: 'send'}, object: register_button},
+};
 
-const ADMIN_EFFECTS_COLS =
-[
-    {polski: 'jaki', english: 'what'},
-    {polski: 'wartość', english: 'value'},
-    {polski: 'szanse', english: 'chance'},
-    {polski: 'komu', english: 'whom'}
-]
+const MAIN_ERRORS = 
+{
+    noUserName: {polski: 'nazwa użytkownika jest pusta', english: 'user name is empty'},
+    shortUserName: {polski: 'nazwa użytkownika jest zbyt krótka (min 4 liter)', english: 'user name is too short (min 4 letters)'},
+    wrongUserName: {polski: 'podana nazwa użytkownika nie istnieje', english: 'given user name doesn\'t exist'},
+    noPassword: {polski: 'hasło jest puste', english: 'password is empty'},
+    shortPassword: {polski: 'hasło jest zbyt krótkie (min 4 liter)', english: 'hasło is too short (min 4 letters)'},
+    wrongPassword: {polski: 'podane hasło jest nieprawidłowe', english: 'given password is incorrect'},
+};
