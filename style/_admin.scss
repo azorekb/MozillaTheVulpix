@@ -89,7 +89,7 @@
 }
 
 
-.admMoveTable
+.admResponseTable
 {
     margin: $adm_margin_medium;
     border-collapse: separate;
@@ -98,7 +98,7 @@
     tr
     {
         text-align: center;
-        background-color: $adm_moveRow;
+        background-color: $adm_responseRow;
         cursor: pointer;
 
         td
@@ -108,7 +108,7 @@
 
         &:hover
         {
-            background-color: $adn_moveRow_active;
+            background-color: $adn_responseRow_active;
         }
 
         &:first-child

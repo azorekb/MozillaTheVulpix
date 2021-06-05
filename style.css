@@ -412,32 +412,32 @@
   border: 1px #000 solid;
 }
 
-.admMoveTable {
+.admResponseTable {
   margin: 10px;
   border-collapse: separate;
   border-spacing: 0 2px;
 }
 
-.admMoveTable tr {
+.admResponseTable tr {
   text-align: center;
   background-color: #cfc;
   cursor: pointer;
 }
 
-.admMoveTable tr td {
+.admResponseTable tr td {
   padding: 5px;
 }
 
-.admMoveTable tr:hover {
+.admResponseTable tr:hover {
   background-color: #ffc;
 }
 
-.admMoveTable tr:first-child {
+.admResponseTable tr:first-child {
   background: none;
   cursor: auto;
 }
 
-.admMoveTable tr:first-child:hover {
+.admResponseTable tr:first-child:hover {
   background: none;
 }
 

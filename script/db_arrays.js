@@ -1,6 +1,44 @@
-const POKEMON_TYPES = ['-','normal','fire','water','electric','grass','ice','fighting','poison','ground','flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy'];
-const POKEMON_STATS = ['hp','attack','defence','spAttack','spDefence','speed'];
-const POKEMON_MOVE_TARGET = ['one opponent','all opponents','everyone','self','one ally','all allies'];
+const POKEMON_TYPES =
+[
+    {english: '-', polski: '-'},
+    {english: 'normal', polski: 'normalny'},
+    {english: 'fire', polski: 'ogognisty'},
+    {english: 'water', polski: 'wodny'},
+    {english: 'electric', polski: 'elekrtyczny'},
+    {english: 'grass', polski: 'trawiasty'},
+    {english: 'ice', polski: 'lowody'},
+    {english: 'fighting', polski: 'walczący'},
+    {english: 'poison', polski: 'trujący'},
+    {english: 'ground', polski: 'ziemny'},
+    {english: 'flying', polski: 'latający'},
+    {english: 'psychic', polski: 'psychiczny'},
+    {english: 'bug', polski: 'robaczy'},
+    {english: 'rock', polski: 'kamienny'},
+    {english: 'ghost', polski: 'duchowy'},
+    {english: 'dragon', polski: 'smoczy'},
+    {english: 'dark', polski: 'mroczny'},
+    {english: 'steel', polski: 'stalowy'},
+    {english: 'fairy', polski: 'wróżkowy'}
+];
+
+const POKEMON_STATS = 
+[
+    'hp',
+    'attack',
+    'defence',
+    'spAttack',
+    'spDefence',
+    'speed'
+];
+const POKEMON_MOVE_TARGET = 
+[
+    {english: 'one opponent',   polski: 'jeden przeciwnik'},
+    {english: 'all opponents', polski: 'każdy przeciwnik'},
+    {english: 'everyone', polski: 'wyszyscy'},
+    {english: 'self', polski: 'na siebie'},
+    {english: 'one ally', polski: 'jeden sprzymierzeniec'},
+    {english: 'all allies', polski: 'każdy sprzymierzeniec'}
+];
 const POKEMON_EXP_GROWTH = ['erratic','fast','medium fast','medium slow','slow','fluctuating'];
 
 const POKEMON_MOVE_EFFECTS = 
@@ -175,9 +213,9 @@ const ADMIN_WARNINGS =
 
 const ADMIN_LIST_OF_TASKS =
 [
-    {name:{polski: 'dodaj pokemona', english: 'add pokemon'}, function: 'adm_formPokemon'},
-    {name:{polski: 'edytor map', english: 'map editor'}, function: 'adm_mapEditor'},
-    {name:{polski: 'edytor ruchów', english: 'move editor'}, function: 'adm_moveEditor_run'}
+    {polski: 'pokemony', english: 'pokemon'},
+    {polski: 'mapy', english: 'maps'}, 
+    {polski: 'ruchy', english: 'moves'},
 ];
 
 const ADMIN_MOVES_PROPERTIES = 

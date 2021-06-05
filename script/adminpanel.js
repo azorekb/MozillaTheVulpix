@@ -15,8 +15,8 @@ function admin_start()
     {
         let task = document.createElement('div');
         task.classList.add('adminTask', 'button', 'medium');
-        task.innerHTML = ADMIN_LIST_OF_TASKS[i].name[language];
-        task.onclick=function(){eval(ADMIN_LIST_OF_TASKS[i].function)()}
+        task.innerHTML = ADMIN_LIST_OF_TASKS[i][language];
+        task.onclick=function(){admin_show_database(ADMIN_LIST_OF_TASKS[i].english)}
         admin_list.appendChild(task);
     }
 
@@ -28,9 +28,149 @@ function admin_start()
     activeWindow = 'admin';
 }
 
+function admin_show_database(_db)
+{
+    admin_content.innerHTML = '';
+    let waitingImage = document.createElement('img');
+    waitingImage.src = waitingImageUrl;
+    admin_content.appendChild(waitingImage);
+
+    let php_database = new XMLHttpRequest();
+    php_database.onreadystatechange = function()
+    {
+        if(this.readyState == 4 && this.status == 200)
+		{
+            console.log(this.responseText);
+	        const RES = JSON.parse(this.responseText);
+			console.log(RES);
+            
+            admin_database_list(_db,RES);
+        }
+    }
+    
+	php_database.open("POST", 'php/database.php?base=' + _db, true);
+	php_database.send();
+
+}
+
+function admin_database_list(_base,_res)
+{
+    let databaseTable = document.createElement('table');
+    databaseTable.id = 'adm_' + _base +'Table';
+    databaseTable.classList.add('admResponseTable');
+    
+    databaseTable.insertRow(0);
+
+    let details,array;
+    switch(_base)
+    {
+        case 'moves': 
+        {
+            array = ADMIN_MOVES_PROPERTIES;
+            details = array;
+            iterator = 'i';
+            text = 'description';
+        }
+        break;
+        case 'pokemon':
+        {
+            array = ADMIN_POKEMON_DETAILS;
+            details = Object.keys(array);
+            iterator = 'details[i]';
+            text = 'text';
+        }
+        break;
+    }
+
+    for(let i=0;i<details.length;i++)
+    {
+        databaseTable.rows[0].insertCell(i).innerHTML = array[eval(iterator)][text][language];
+    }
+    
+    let newElementButton = document.createElement('div');
+    newElementButton.innerHTML = '+';
+    newElementButton.classList.add('adminButton','button','small');
+    newElementButton.onclick = function(){adm_add_dbElement(_base);};
+    newElementButton.id = 'adm_' + _base + '_newElementButton';
+
+    let waitingImage = document.createElement('img');
+    waitingImage.src = waitingImageUrl;
+    waitingImage.classList.add('none');
+    waitingImage.id = 'adm_' + _base + '_newElement_waiting';
+    waitingImage.height = 32;
+    databaseTable.rows[0].insertCell(details.length).appendChild(newElementButton);
+    databaseTable.rows[0].cells[details.length].appendChild(waitingImage);
+
+    Object.keys(_res).forEach(element => {
+        let lastRow = databaseTable.insertRow(databaseTable.rows.length);
+        lastRow.onclick = function(){adm_edit_dbElement(_base,_res[element].id);}
+        for(let i=0;i<details.length;i++)
+        {
+            lastRow.insertCell(i).innerHTML = _res[element][details[i]];
+        }
+    })
+            
+    admin_content.innerHTML = '';
+    admin_content.appendChild(databaseTable);
+}
+
+function adm_edit_dbElement(_db,_id)
+{
+    
+}
+
+function adm_add_dbElement(_db)
+{
+    adm_move_newMoveButton.classList.add('none');
+    adm_newMove_waiting.classList.remove('none');
+
+    let data = new FormData();
+    data.append('new',true);
+    let php_moves = new XMLHttpRequest();
+    php_moves.onreadystatechange = function()
+    {
+        if(this.readyState == 4 && this.status == 200)
+	    {
+            console.log(this.responseText);
+            const RES = JSON.parse(this.responseText);
+	 	    console.log(RES);
+            if(RES.id == undefined)
+            {
+                adm_move_newMoveButton.classList.remove('none');
+                adm_newMove_waiting.classList.add('none');
+            }
+            else
+            {
+                adm_editMove(RES.id);
+            }
+        }
+    }
+
+    php_moves.open("POST", 'php/moves.php', true);
+    php_moves.send(data);
+}
+
 // ===========================================================================
 // =========================== POKEMON =======================================
 // ===========================================================================
+
+
+
+
+
+
+function adm_editPokemon(_id)
+{
+
+}
+
+
+
+
+
+
+
+
 
 function adm_formPokemon()
 {
@@ -585,7 +725,6 @@ function adm_changeSizeOfMap()
             MAPS[adm_mapNo.value][i].pop();
         }
     }
-    
 }
 
 function adm_createCode()
@@ -635,63 +774,6 @@ function adm_addNewMap()
 // ===========================================================================
 
 
-function adm_moveEditor_run()
-{
-    admin_content.innerHTML = '';
-    let waitingImage = document.createElement('img');
-    waitingImage.src = waitingImageUrl;
-    admin_content.appendChild(waitingImage);
-    let php_moves = new XMLHttpRequest();
-    php_moves.onreadystatechange = function()
-    {
-        if(this.readyState == 4 && this.status == 200)
-		{
-            console.log(this.responseText);
-	        const RES = JSON.parse(this.responseText);
-			console.log(RES);
-            
-            let moveTable = document.createElement('table');
-            moveTable.id = 'adm_moveTable';
-            moveTable.classList.add('admMoveTable');
-
-            moveTable.insertRow(0);
-            for(let i=0;i<ADMIN_MOVES_PROPERTIES.length;i++)
-            {
-                moveTable.rows[0].insertCell(i).innerHTML = ADMIN_MOVES_PROPERTIES[i].description[language];
-            }
-            let newMoveButton = document.createElement('div');
-            newMoveButton.innerHTML = '+';
-            newMoveButton.classList.add('adminButton','button','small');
-            newMoveButton.onclick = function(){adm_addMove();};
-            newMoveButton.id = 'adm_move_newMoveButton';
-            let waitingImage = document.createElement('img');
-            waitingImage.src = waitingImageUrl;
-            waitingImage.classList.add('none');
-            waitingImage.id = 'adm_newMove_waiting';
-            waitingImage.height = 32;
-            moveTable.rows[0].insertCell(ADMIN_MOVES_PROPERTIES.length).appendChild(newMoveButton);
-            moveTable.rows[0].cells[ADMIN_MOVES_PROPERTIES.length].appendChild(waitingImage);
-
-
-            Object.keys(RES).forEach(move => {
-                let lastRow = moveTable.insertRow(moveTable.rows.length);
-                lastRow.onclick = function(){adm_editMove(RES[move].id);}
-                console.log(move,RES);
-                for(let i=0;i<ADMIN_MOVES_PROPERTIES.length;i++)
-                {
-                    lastRow.insertCell(i).innerHTML = RES[move][ADMIN_MOVES_PROPERTIES[i].dbname];
-                }
-            })
-            
-            admin_content.innerHTML = '';
-            admin_content.appendChild(moveTable);
-        }
-    }
-    
-	php_moves.open("POST", 'php/moves.php', true);
-	php_moves.send();
-}
-
 function adm_editMove(_move)
 {
     admin_content.innerHTML = '';
@@ -740,8 +822,8 @@ function adm_editMove(_move)
                         for(let j=0;j<ADMIN_MOVES_PROPERTIES[i].table.length;j++)
                         {
                             let option = document.createElement('option');
-                            option.value = ADMIN_MOVES_PROPERTIES[i].table[j];
-                            option.innerHTML = ADMIN_MOVES_PROPERTIES[i].table[j];
+                            option.value = ADMIN_MOVES_PROPERTIES[i].table[j].english;
+                            option.innerHTML = ADMIN_MOVES_PROPERTIES[i].table[j][language];
                             input.appendChild(option);
                         }
                     }
@@ -862,8 +944,8 @@ function adm_editMove(_move)
     }
 
     let data = new FormData();
-    data.append('move', _move);
-    php_moves.open("POST", 'php/moves.php', true);
+    data.append('which', _move);
+    php_moves.open("POST", 'php/database.php?base=moves', true);
     php_moves.send(data);
 }
 
@@ -999,35 +1081,4 @@ function admin_move_addError(_property,_error)
 function admin_move_addSuccess()
 {
     adm_moves_info.innerHTML += colorText(ADMIN_POKEMON_TEXTS.success[language],COLOR_SUCCESS);
-}
-
-function adm_addMove()
-{
-    adm_move_newMoveButton.classList.add('none');
-    adm_newMove_waiting.classList.remove('none');
-
-    let data = new FormData();
-    data.append('new',true);
-    let php_moves = new XMLHttpRequest();
-    php_moves.onreadystatechange = function()
-    {
-        if(this.readyState == 4 && this.status == 200)
-	    {
-            console.log(this.responseText);
-            const RES = JSON.parse(this.responseText);
-	 	    console.log(RES);
-            if(RES.id == undefined)
-            {
-                adm_move_newMoveButton.classList.remove('none');
-                adm_newMove_waiting.classList.add('none');
-            }
-            else
-            {
-                adm_editMove(RES.id);
-            }
-        }
-    }
-
-    php_moves.open("POST", 'php/moves.php', true);
-    php_moves.send(data);
 }
