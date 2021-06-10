@@ -29,7 +29,7 @@
             $update = '';
             for($i=1;$i<count($cols);$i++)
             {
-                if(isset($_POST[$cols[$i]]))
+                if(isset($_POST[$cols[$i]]) && $_POST[$cols[$i]] != '')
                 {
                     if($update != ''){$update.= ',';}
 

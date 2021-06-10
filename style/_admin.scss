@@ -21,6 +21,25 @@
         border-color: $adm_taskColorOut_active;
         background-color: $adm_taskColorIn_active;
     }
+
+    &.disabled
+    {
+        cursor: not-allowed;
+        background-color: $button_colorIn_disabled;
+        border-color: $button_colorOut_disabled;
+
+        &:hover
+        {
+            background-color: $button_colorIn_disabled;
+            border-color: $button_colorOut_disabled;
+        }
+
+        &:active
+        {
+            border-style: outset;
+            padding: $buttonPadding_medium;
+        }
+    }
 }
 
 .admFormTable

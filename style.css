@@ -353,6 +353,22 @@
   background-color: #0ee;
 }
 
+.adminTask.disabled {
+  cursor: not-allowed;
+  background-color: #aaa;
+  border-color: #999;
+}
+
+.adminTask.disabled:hover {
+  background-color: #aaa;
+  border-color: #999;
+}
+
+.adminTask.disabled:active {
+  border-style: outset;
+  padding: 6px 1px;
+}
+
 .admFormTable {
   border: 2px solid #000;
   margin: 10px 0;

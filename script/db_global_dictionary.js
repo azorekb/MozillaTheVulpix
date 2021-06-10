@@ -2,7 +2,7 @@ const POKEMON_TYPES =
 [
     {english: '-', polski: '-'},
     {english: 'normal', polski: 'normalny'},
-    {english: 'fire', polski: 'ogognisty'},
+    {english: 'fire', polski: 'ognisty'},
     {english: 'water', polski: 'wodny'},
     {english: 'electric', polski: 'elekrtyczny'},
     {english: 'grass', polski: 'trawiasty'},
@@ -23,16 +23,18 @@ const POKEMON_TYPES =
 
 const POKEMON_STATS = 
 [
-    {english: 'hp', polski: ''},
-    {english: 'attack', polski: ''},
-    {english: 'defence', polski: ''},
-    {english: 'spAttack', polski: ''},
-    {english: 'spDefence', polski: ''},
-    {english: 'speed', polski: ''},
+    {english: '-', polski: '-'},
+    {english: 'hp', polski: 'życie'},
+    {english: 'attack', polski: 'atak'},
+    {english: 'defence', polski: 'obrona'},
+    {english: 'spAttack', polski: 'sp. atak'},
+    {english: 'spDefence', polski: 'sp. obrona'},
+    {english: 'speed', polski: 'szybkość'},
 ];
 
 const POKEMON_ABILITIES = 
 [
+    {english: '-', polski: '-'},
     {english: 'run away', polski: 'ucieczka'},
     {english: 'adaptability', polski: ''},
     {english: 'anticipation', polski: ''},
@@ -89,12 +91,12 @@ const POKEMON_MOVE_TARGET =
 
 const POKEMON_EXP_GROWTH = 
 [
-    {english: 'erratic', polski: ''},
-    {english: 'fast', polski: ''},
-    {english: 'medium fast', polski: ''},
-    {english: 'medium slow', polski: ''},
-    {english: 'slow', polski: ''},
-    {english: 'fluctuating', polski: ''},
+    {english: 'erratic', polski: 'niekonsekwentnie'},
+    {english: 'fast', polski: 'szybko'},
+    {english: 'medium fast', polski: 'średnio szybko'},
+    {english: 'medium slow', polski: 'średnio wolno'},
+    {english: 'slow', polski: 'wolno'},
+    {english: 'fluctuating', polski: 'wachająco'},
 ];
 
 const POKEMON_EGG_GROUP = 

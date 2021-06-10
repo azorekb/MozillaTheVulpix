@@ -7,9 +7,9 @@ const ADMIN_WARNINGS =
 
 const ADMIN_LIST_OF_TASKS =
 [
-    {polski: 'pokemony', english: 'pokemon'},
-    {polski: 'mapy', english: 'maps'}, 
-    {polski: 'ruchy', english: 'moves'},
+    {polski: 'pokemony', english: 'pokemon', disabled: false},
+    {polski: 'mapy', english: 'maps', disabled: true}, 
+    {polski: 'ruchy', english: 'moves', disabled: false},
 ];
 
 const ADMIN_DATABASE_COLS = 
@@ -28,6 +28,7 @@ const ADMIN_DATABASE_COLS =
         {description: {polski: 'kontakt', english: 'contact'}, dbname: 'contact', input: 'checkbox'},
         {description: {polski: 'efekty', english: 'effects'}, dbname: 'effects', input: 'disabled'},
     ],
+
     pokemon:
     [
         {description: {polski: 'nr', english: 'no'}, dbname: 'id'},
@@ -35,11 +36,11 @@ const ADMIN_DATABASE_COLS =
         {description: {polski: 'nazwa', english: 'name'}, dbname: 'name', input: 'text'},
         {description: {polski: 'typy', english: 'types'}, dbname: 'types', input: 'selects', numOfInput: 2, table: POKEMON_TYPES},
         {description: {polski: 'umiejętności', english: 'abilities'}, dbname: 'abilities', input: 'selects', numOfInput: 3, table: POKEMON_ABILITIES},
-        {description: {polski: 'EVYeld', english: 'EVYeld'}, dbname: 'EVYeld', input: 'sellects', numOfInput: 3, table: POKEMON_STATS},
+        {description: {polski: 'EVYeld', english: 'EVYeld'}, dbname: 'EVYeld', input: 'selects', numOfInput: 3, table: POKEMON_STATS},
         {description: {polski: 'szanse złapania', english: 'catch rate'}, dbname: 'catchRate', input: 'number', min: 1, max: 255},
         {description: {polski: 'bazowe doświadczenie', english: 'base expirience'}, dbname: 'baseExp', input: 'number', min: 1, max: 300},
         {description: {polski: 'wzrost doświadczenia', english: 'expirience growth'}, dbname: 'growthExp', input: 'select', table: POKEMON_EXP_GROWTH},
-        {description: {polski: 'szanse na samiczkę', english: 'female rate'}, dbname: 'eggGroup', input: 'number', min: 0, max: 100},
+        {description: {polski: 'szanse na samiczkę', english: 'female rate'}, dbname: 'femaleRate', input: 'number', min: 0, max: 100},
         {description: {polski: 'grupa jajek', english: 'egg group'}, dbname: 'eggGroup', input: 'select', table: POKEMON_EGG_GROUP},
         {description: {polski: 'cykle do wyklucia', english: 'egg cycles'}, dbname: 'eggCycles', input: 'number', min: 1, max: 100},
         {description: {polski: 'bazowe życie', english: 'base HP'}, dbname: 'baseStats_hp', input: 'number', min: 1, max: 500},
@@ -48,9 +49,9 @@ const ADMIN_DATABASE_COLS =
         {description: {polski: 'bazowy sp. atak', english: 'base sp. attack'}, dbname: 'baseStats_spAttack', input: 'number', min: 1, max: 500},
         {description: {polski: 'bazowa sp. obrona', english: 'base sp. deffence'}, dbname: 'baseStats_spDefence', input: 'number', min: 1, max: 500},
         {description: {polski: 'bazowa szybkość', english: 'base speed'}, dbname: 'baseStats_speed', input: 'number', min: 1, max: 500},
-        {description: {polisk: 'gatunek preewolucji', english: 'preevolution specie'}, dbname: 'preevolution_specie', input: 'select', table: ['',...POKEMON_LIST]},
-        {description: {polisk: 'metoda ewolucji', english: 'preevolution method'}, dbname: 'preevolution_method', input: 'text'}, //'select', table: []},
-        {description: {polisk: 'wartość metody ewolucji', english: 'preevolution value '}, dbname: 'preevolution_value ', input: 'text'}, //'select', table: []},
+        {description: {polski: 'gatunek preewolucji', english: 'preevolution specie'}, dbname: 'preevolution_specie', input: 'text', notImportant: true},
+        {description: {polski: 'metoda ewolucji', english: 'preevolution method'}, dbname: 'preevolution_method', input: 'text', notImportant: true}, //'select', table: []},
+        {description: {polski: 'wartość metody ewolucji', english: 'preevolution value '}, dbname: 'preevolution_value', input: 'text', notImportant: true}, //'select', table: []},
         {description: {polski: 'wysokość', english: 'height'}, dbname: 'height', input: 'number', min: 0.1, max: 500},
         {description: {polski: 'waga', english: 'weight'}, dbname: 'weight', input: 'number', min: 0.1, max: 500},
     ],
@@ -64,7 +65,7 @@ const ADMIN_EFFECTS_COLS =
     {polski: 'komu', english: 'whom'}
 ];
 
-const ADMIN_MOVE_TEXTS = 
+const ADMIN_EDIT_TEXTS = 
 {
     save: {polski: 'zapisz', english: 'save'},
     cancel: {polski: 'anuluj', english: 'cancel'},
