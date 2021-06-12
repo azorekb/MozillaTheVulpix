@@ -1,29 +1,29 @@
 const POKEMON_TYPES =
 [
-    {english: '-', polski: '-'},
-    {english: 'normal', polski: 'normalny'},
-    {english: 'fire', polski: 'ognisty'},
-    {english: 'water', polski: 'wodny'},
-    {english: 'electric', polski: 'elekrtyczny'},
-    {english: 'grass', polski: 'trawiasty'},
-    {english: 'ice', polski: 'lowody'},
-    {english: 'fighting', polski: 'walczący'},
-    {english: 'poison', polski: 'trujący'},
-    {english: 'ground', polski: 'ziemny'},
-    {english: 'flying', polski: 'latający'},
-    {english: 'psychic', polski: 'psychiczny'},
-    {english: 'bug', polski: 'robaczy'},
-    {english: 'rock', polski: 'kamienny'},
-    {english: 'ghost', polski: 'duchowy'},
-    {english: 'dragon', polski: 'smoczy'},
-    {english: 'dark', polski: 'mroczny'},
-    {english: 'steel', polski: 'stalowy'},
-    {english: 'fairy', polski: 'wróżkowy'}
+    {english: '-', resistance: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},
+    {english: 'normal', polski: 'normalny', resistance: [1,1,1,1,1,1,2,1,1,1,1,1,1,0,1,1,1,1]},
+    {english: 'fire', polski: 'ognisty', resistance: [1,0.5,2,1,0.5,0.5,1,1,2,1,1,0.5,2,1,1,1,0.5,0.5]},
+    {english: 'water', polski: 'wodny', resistance: [1,0.5,0.5,2,2,0.5,1,1,1,1,1,1,1,1,1,1,0.5,1]},
+    {english: 'electric', polski: 'elekrtyczny', resistance: [1,1,1,0.5,1,1,1,1,2,0.5,1,1,1,1,1,1,0.5,1]},
+    {english: 'grass', polski: 'trawiasty', resistance: [1,2,0.5,0.5,0.5,2,1,2,0.5,2,1,2,1,1,1,1,1,1]},
+    {english: 'ice', polski: 'lowody', resistance: [1,2,1,1,1,0.5,2,1,1,1,1,1,2,1,1,1,2,1]},
+    {english: 'fighting', polski: 'walczący', resistance: [1,1,1,1,1,1,1,1,1,2,2,0.5,0.5,1,1,0.5,1,2]},
+    {english: 'poison', polski: 'trujący', resistance: [1,1,1,1,0.5,1,0.5,0.5,2,1,2,0.5,1,1,1,1,1,0.5]},
+    {english: 'ground', polski: 'ziemny', resistance: [1,1,2,0,2,2,1,0.5,1,1,1,1,0.5,1,1,1,1,1]},
+    {english: 'flying', polski: 'latający', resistance: [1,1,1,2,0.5,2,0.5,1,0,1,1,0.5,2,1,1,1,1,1]},
+    {english: 'psychic', polski: 'psychiczny', resistance: [1,1,1,1,1,1,0.5,1,1,1,0.5,2,1,2,1,2,1,1]},
+    {english: 'bug', polski: 'robaczy', resistance: [1,2,1,1,0.5,1,0.5,1,0.5,2,1,1,2,1,1,1,1,1]},
+    {english: 'rock', polski: 'kamienny', resistance: [0.5,0.5,2,1,2,1,2,0.5,2,0.5,1,1,1,1,1,1,2,1]},
+    {english: 'ghost', polski: 'duchowy', resistance: [0,1,1,1,1,1,0,0.5,1,1,1,0.5,1,2,1,2,1,1]},
+    {english: 'dragon', polski: 'smoczy', resistance: [1,0.5,0.5,0.5,0.5,2,1,1,1,1,1,1,1,1,2,1,1,2]},
+    {english: 'dark', polski: 'mroczny', resistance: [1,1,1,1,1,1,2,1,1,1,0,2,1,0.5,1,0.5,1,2]},
+    {english: 'steel', polski: 'stalowy', resistance: [0.5,2,1,1,0.5,0.5,2,0,2,0.5,0.5,0.5,0.5,1,0.5,1,0.5,0.5]},
+    {english: 'fairy', polski: 'wróżkowy', resistance: [1,1,1,1,1,1,0.5,2,1,1,1,0.5,1,1,0,0.5,2,1]},
 ];
 
 const POKEMON_STATS = 
 [
-    {english: '-', polski: '-'},
+    {english: '-',},
     {english: 'hp', polski: 'życie'},
     {english: 'attack', polski: 'atak'},
     {english: 'defence', polski: 'obrona'},
@@ -34,49 +34,49 @@ const POKEMON_STATS =
 
 const POKEMON_ABILITIES = 
 [
-    {english: '-', polski: '-'},
+    {english: '-'},
     {english: 'run away', polski: 'ucieczka'},
-    {english: 'adaptability', polski: ''},
-    {english: 'anticipation', polski: ''},
-    {english: 'flash fire', polski: ''},
-    {english: 'guts', polski: ''},
-    {english: 'volt absorb', polski: ''},
-    {english: 'quick feet', polski: ''},
-    {english: 'water absorb', polski: ''},
-    {english: 'hydration', polski: ''},
-    {english: 'leaf guard', polski: ''},
-    {english: 'chlorophyll', polski: ''},
-    {english: 'snow cloak', polski: ''},
-    {english: 'ice body', polski: ''},
-    {english: 'synchronize', polski: ''},
-    {english: 'magic bounce', polski: ''},
-    {english: 'inner focus', polski: ''},
-    {english: 'cute charm', polski: ''},
-    {english: 'pixilate', polski: ''},
-    {english: 'simple', polski: ''},
-    {english: 'unaware', polski: ''},
-    {english: 'moody', polski: ''},
-    {english: 'keen eye', polski: ''},
-    {english: 'sheer force', polski: ''},
-    {english: 'hustle', polski: ''},
-    {english: 'defiant', polski: ''},
-    {english: 'drought', polski: ''},
-    {english: 'swift swim', polski: ''},
-    {english: 'water veil', polski: ''},
-    {english: 'dry skin', polski: ''},
-    {english: 'sand veil', polski: ''},
-    {english: 'solar power', polski: ''},
-    {english: 'big pecks', polski: ''},
-    {english: 'gale wings', polski: ''},
-    {english: 'flame body', polski: ''},
-    {english: 'rivalry', polski: ''},
-    {english: 'intimidate', polski: ''},
-    {english: 'hyper cutter', polski: ''},
-    {english: 'mold breaker', polski: ''},
-    {english: 'moxie', polski: ''},
-    {english: 'steadfast', polski: ''},
-    {english: 'prankster', polski: ''},
-    {english: 'justtified', polski: ''},
+    {english: 'adaptability'},
+    {english: 'anticipation'},
+    {english: 'flash fire'},
+    {english: 'guts'},
+    {english: 'volt absorb'},
+    {english: 'quick feet'},
+    {english: 'water absorb'},
+    {english: 'hydration'},
+    {english: 'leaf guard'},
+    {english: 'chlorophyll'},
+    {english: 'snow cloak'},
+    {english: 'ice body'},
+    {english: 'synchronize'},
+    {english: 'magic bounce'},
+    {english: 'inner focus'},
+    {english: 'cute charm'},
+    {english: 'pixilate'},
+    {english: 'simple'},
+    {english: 'unaware'},
+    {english: 'moody'},
+    {english: 'keen eye'},
+    {english: 'sheer force'},
+    {english: 'hustle'},
+    {english: 'defiant'},
+    {english: 'drought'},
+    {english: 'swift swim'},
+    {english: 'water veil'},
+    {english: 'dry skin'},
+    {english: 'sand veil'},
+    {english: 'solar power'},
+    {english: 'big pecks'},
+    {english: 'gale wings'},
+    {english: 'flame body'},
+    {english: 'rivalry'},
+    {english: 'intimidate'},
+    {english: 'hyper cutter'},
+    {english: 'mold breaker'},
+    {english: 'moxie'},
+    {english: 'steadfast'},
+    {english: 'prankster'},
+    {english: 'justtified'},
 ];
 
 const POKEMON_MOVE_TARGET = 
@@ -101,11 +101,11 @@ const POKEMON_EXP_GROWTH =
 
 const POKEMON_EGG_GROUP = 
 [
-    {english: 'field', polski: ''},
-    {english: 'flying', polski: ''},
-    {english: 'dragon', polski: ''},
-    {english: 'monster', polski: ''},
-    {english: 'undiscovered', polski: ''},
+    {english: 'field'},
+    {english: 'flying'},
+    {english: 'dragon'},
+    {english: 'monster'},
+    {english: 'undiscovered'},
 ]
 
 const POKEMON_MOVE_EFFECTS = 
@@ -253,42 +253,23 @@ const MOVE_EFFECT_WHOM =
 ];
 
 const MAP_ITEMS = 
-[
-    {name: 'grass', src: 'trawa.png'},
-    {name: 'wayNW', src: 'drogaNW.png'},
-    {name: 'wayN', src: 'drogaN.png'},
-    {name: 'wayNE', src: 'drogaNE.png'},
-    {name: 'wayW', src: 'drogaW.png'},
-    {name: 'wayC', src: 'drogaC.png'},
-    {name: 'wayE', src: 'drogaE.png'},
-    {name: 'waySW', src: 'drogaSW.png'},
-    {name: 'wayS', src: 'drogaS.png'},
-    {name: 'waySE', src: 'drogaSE.png'},
-    {name: 'tallgrass', src: 'wysokatrawa.png'},
-    {name: 'water', src: 'woda.gif'},
-    
-];
-
-const RESISTANCE =
 {
-    normal: new Resistance(1,1,1,1,1,1,2,1,1,1,1,1,1,0,1,1,1,1),
-    fire: new Resistance(1,0.5,2,1,0.5,0.5,1,1,2,1,1,0.5,2,1,1,1,0.5,0.5),
-    water: new Resistance(1,0.5,0.5,2,2,0.5,1,1,1,1,1,1,1,1,1,1,0.5,1),
-    electric: new Resistance(1,1,1,0.5,1,1,1,1,2,0.5,1,1,1,1,1,1,0.5,1),
-    grass: new Resistance(1,2,0.5,0.5,0.5,2,1,2,0.5,2,1,2,1,1,1,1,1,1),
-    ice: new Resistance(1,2,1,1,1,0.5,2,1,1,1,1,1,2,1,1,1,2,1),
-    fighting: new Resistance(1,1,1,1,1,1,1,1,1,2,2,0.5,0.5,1,1,0.5,1,2),
-    poison: new Resistance(1,1,1,1,0.5,1,0.5,0.5,2,1,2,0.5,1,1,1,1,1,0.5),
-    ground: new Resistance(1,1,2,0,2,2,1,0.5,1,1,1,1,0.5,1,1,1,1,1),
-    flying: new Resistance(1,1,1,2,0.5,2,0.5,1,0,1,1,0.5,2,1,1,1,1,1),
-    psychic: new Resistance(1,1,1,1,1,1,0.5,1,1,1,0.5,2,1,2,1,2,1,1),
-    bug: new Resistance(1,2,1,1,0.5,1,0.5,1,0.5,2,1,1,2,1,1,1,1,1),
-    rock: new Resistance(0.5,0.5,2,1,2,1,2,0.5,2,0.5,1,1,1,1,1,1,2,1),
-    ghost: new Resistance(0,1,1,1,1,1,0,0.5,1,1,1,0.5,1,2,1,2,1,1),
-    dragon: new Resistance(1,0.5,0.5,0.5,0.5,2,1,1,1,1,1,1,1,1,2,1,1,2),
-    dark: new Resistance(1,1,1,1,1,1,2,1,1,1,0,2,1,0.5,1,0.5,1,2),
-    steel: new Resistance(0.5,2,1,1,0.5,0.5,2,0,2,0.5,0.5,0.5,0.5,1,0.5,1,0.5,0.5),
-    fairy: new Resistance(1,1,1,1,1,1,0.5,2,1,1,1,0.5,1,1,0,0.5,2,1)
+    background:
+    [
+        {name: 'grass', src: 'trawa.png'},
+        {name: 'wayNW', src: 'drogaNW.png'},
+        {name: 'wayN', src: 'drogaN.png'},
+        {name: 'wayNE', src: 'drogaNE.png'},
+        {name: 'wayW', src: 'drogaW.png'},
+        {name: 'wayC', src: 'drogaC.png'},
+        {name: 'wayE', src: 'drogaE.png'},
+        {name: 'waySW', src: 'drogaSW.png'},
+        {name: 'wayS', src: 'drogaS.png'},
+        {name: 'waySE', src: 'drogaSE.png'},
+        {name: 'tallgrass', src: 'wysokatrawa.png'},
+        {name: 'water', src: 'woda.gif'},
+    ]
+    
 };
     
 const POKEDEX_TEXTS = 
@@ -313,16 +294,6 @@ const POKEMON_EVOLUTION_METHODS =
     friendship: ['', 'dayime', 'nighttime'],
     love: ['fairy move'],
     trade: [''],
-};
-
-const POKEMON_MOVES = 
-{
-    struggle: new PokemonMove(40,100,'','physical',[new Effect('dmgBack',100,40)]),
-    surf: new PokemonMove(90,100,'water','special',[new Effect('hit_dive',100,2)],15,'everyone'),
-    energy_ball: new PokemonMove(90,100,'grass','special',[new Effect('low_target_spDefence',10,1)],10),
-    flamethrower: new PokemonMove(90,100,'fire','special',[new Effect('burn_target',10)],15),
-    tackle: new PokemonMove(40,100,'normal','physical',[],35),
-    ember: new PokemonMove(40,100,'fire','special',[new Effect('burn_target',10)],25),
 };
 
 const MAIN_TEXTS =

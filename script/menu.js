@@ -59,7 +59,7 @@ function openPokedex()
 	let rows = ['no','types','ability','baseStats','hp','attack','defence','spAttack','spDefence','speed'];
 	for(let i=0;i<rows.length;i++)
 	{
-		table.insertRow(i).insertCell(0).innerHTML = POKEDEX_TEXTS[rows[i]][language];
+		table.insertRow(i).insertCell(0).innerHTML = POKEDEX_TEXTS[rows[i]].language();
 		if(i == 2 || i == 3){table.rows[i].cells[0].colSpan = 2;}
 		else{table.rows[i].insertCell(1).style.textAlign = 'right';}
 	}
@@ -80,7 +80,7 @@ function pokedex_show(_pokemon)
     let type_text = POKEMON_LIST[_pokemon].types.first;
     if(POKEMON_LIST[_pokemon].types.second != ''){type_text += '/' + POKEMON_LIST[_pokemon].types.second;}
 	
-	pokedex_tableOfStats.rows[0].cells[0].innerHTML = POKEDEX_TEXTS.no[language] + ' ' + POKEMON_LIST[_pokemon].no;
+	pokedex_tableOfStats.rows[0].cells[0].innerHTML = POKEDEX_TEXTS.no.language() + ' ' + POKEMON_LIST[_pokemon].no;
 	pokedex_tableOfStats.rows[0].cells[1].innerHTML = _pokemon;
 	pokedex_tableOfStats.rows[1].cells[1].innerHTML = type_text;
 	pokedex_tableOfStats.rows[3].cells[0].innerHTML = POKEMON_LIST[_pokemon].abilities.first + '<br>' + POKEMON_LIST[_pokemon].abilities.second + '<br><i>' + POKEMON_LIST[_pokemon].abilities.hidden + '</i>';

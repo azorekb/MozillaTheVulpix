@@ -4,6 +4,81 @@ function skipLogin(_admin)
 	start();
 }
 
+function addLanguageFunction()
+{
+	let listOfObjects =
+	[
+		{object: POKEMON_TYPES},
+		{object: POKEMON_STATS},
+		{object: POKEMON_ABILITIES},
+		{object: POKEMON_MOVE_TARGET},
+		{object: POKEMON_EXP_GROWTH},
+		{object: POKEMON_EGG_GROUP},
+		{object: POKEMON_MOVE_EFFECTS},
+		{object: MOVE_EFFECT_WHOM},
+		{object: POKEDEX_TEXTS, noArray: true},
+		{object: MAIN_TEXTS, noArray: true, parametr: 'texts'},
+		{object: MAIN_ERRORS, noArray: true},
+		{object: ADMIN_WARNINGS},
+		{object: ADMIN_LIST_OF_TASKS},
+		{object: ADMIN_DATABASE_COLS.moves, parametr: 'description'},
+		{object: ADMIN_DATABASE_COLS.pokemon, parametr: 'description'},
+		{object: ADMIN_EFFECTS_COLS},
+		{object: ADMIN_EDIT_TEXTS, noArray: true},
+		{object: ADMIN_POKEMON_TEXTS, noArray: true, skip: 'errors'},
+		{object: ADMIN_POKEMON_TEXTS.errors},
+		{object: ADMIN_MAPS_DESCRIPTIONS, noArray: true},
+	];
+
+	for(let i=0;i<POKEMON_MOVE_EFFECTS.length;i++)
+	{
+		if(POKEMON_MOVE_EFFECTS[i].types !== undefined)
+		{
+			listOfObjects[listOfObjects.length] = {object: POKEMON_MOVE_EFFECTS[i].types};
+		}
+	}
+
+	for(let i=0;i<listOfObjects.length;i++)
+	{
+		const OBJ = listOfObjects[i];
+		let parametr = '';
+		let end = 0;
+		let help = '';
+
+		if(OBJ.noArray == undefined)
+		{
+			parametr = '[j]';
+			end = OBJ.object.length;
+		}
+		else
+		{
+			help = Object.keys(OBJ.object);
+			end = help.length;
+			parametr = '[help[j]]';
+		}
+
+		if(OBJ.parametr != undefined)
+		{
+			parametr += '.' + OBJ.parametr;
+			console.log(parametr);
+		}
+
+		for(let j=0;j<end;j++)
+		{
+			if(OBJ.skip != undefined)
+			{
+				if(help[j] == OBJ.skip){continue;}
+			}
+			console.log(j, help[j], OBJ.object);
+			eval('OBJ.object' + parametr).language = function()
+			{
+				if(this[language] == undefined){return this.english}
+				return this[language];
+			}
+		}
+	}
+} addLanguageFunction();
+
 function start()
 {
 	let mapMenu_buttons = [];

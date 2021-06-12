@@ -36,7 +36,7 @@ const ADMIN_DATABASE_COLS =
         {description: {polski: 'nazwa', english: 'name'}, dbname: 'name', input: 'text'},
         {description: {polski: 'typy', english: 'types'}, dbname: 'types', input: 'selects', numOfInput: 2, table: POKEMON_TYPES},
         {description: {polski: 'umiejętności', english: 'abilities'}, dbname: 'abilities', input: 'selects', numOfInput: 3, table: POKEMON_ABILITIES},
-        {description: {polski: 'EVYeld', english: 'EVYeld'}, dbname: 'EVYeld', input: 'selects', numOfInput: 3, table: POKEMON_STATS},
+        {description: {english: 'EVYeld'}, dbname: 'EVYeld', input: 'selects', numOfInput: 3, table: POKEMON_STATS},
         {description: {polski: 'szanse złapania', english: 'catch rate'}, dbname: 'catchRate', input: 'number', min: 1, max: 255},
         {description: {polski: 'bazowe doświadczenie', english: 'base expirience'}, dbname: 'baseExp', input: 'number', min: 1, max: 300},
         {description: {polski: 'wzrost doświadczenia', english: 'expirience growth'}, dbname: 'growthExp', input: 'select', table: POKEMON_EXP_GROWTH},
@@ -70,31 +70,6 @@ const ADMIN_EDIT_TEXTS =
     save: {polski: 'zapisz', english: 'save'},
     cancel: {polski: 'anuluj', english: 'cancel'},
     
-};
-
-const ADMIN_POKEMON_DETAILS = 
-{
-    name: new AdminPokemonDetails(true,false,false,false,false,{polski: 'nie używaj spacji, nie może się powtarzać', english: 'do not use space, it can not repeat'},{polski: 'nazwa pokemona', english: 'name of pokemon'},'alolan_ninetales'),
-    types: new AdminPokemonDetails(true,true,false,false,false,{polski: 'w przypadku dwu wypisz po przecinku bez spacji', english: 'in the case of two write out after "," without space'},{polski: 'typy', english: 'types'},'ice,fairy'),
-    abilities: new AdminPokemonDetails(true,true,false,false,false,{polski: 'w przypadku dwu lub trzech (trzecia to zawsze ukryta) wypisz po przecinku bez spacji, jeśli ma być jedna umiejętność + ukryta wypisz drugą jako pustą', english: 'in the case of two or three (third is always hidden) write out after "," without space, in the case if there is only one ability plus hidden write second as empty'},{polski: 'umiejętności', english: 'abilities'},'snow cloak,,snow warning'),
-    EVYeld: new AdminPokemonDetails(true,true,false,false,false,{polski: '1 atak = attack, 2 atak = attack,attack (hp,attack,defence,spAttack,spDeffence,speed)', english: '1 attack = attack, 2 attack = attack,attack (hp,attack,defence,spAttack,spDeffence,speed)'},{polski: 'EV Yeld', english: 'EV Yeld'},'speed,speed'),
-    catchRate: new AdminPokemonDetails(true,false,true,1,255,{polski: '1-255, 255-pewne złapanie', english: '1-255, 255-sure catch'},{polski: 'szanse złapania', english: 'catch rate'},75),
-    baseExp: new AdminPokemonDetails(true,false,true,1,false,{polski: '',  english: ''},{polski: 'bazowe doświadczenie', english: 'base expirience'},177),
-    growthExp: new AdminPokemonDetails(true,false,false,false,false,{polski: 'erratic,fast,medium fast,medium slow,slow,fluctuating', english: 'erratic,fast,medium fast,medium slow,slow,fluctuating'},{polski: 'wzrost doświadczenia', english: 'growth of expirience'},'medium fast'),
-    femaleRate: new AdminPokemonDetails(true,false,true,0,100,{polski: 'sama liczba 0-100, zamiast przecinka użyj kropki', english: 'only number 0-100, use dot insted of comma'},{polski: 'szanse na samiczkę', english: 'female rate'},75),
-    eggGroup: new AdminPokemonDetails(false,false,false,false,false,{polski: '', english: ''},{polski: 'grupa jajek', english: 'egg group'},'field'),
-    eggCycles: new AdminPokemonDetails(false,false,true,false,false,{polski: '', english: ''},{polski: 'cykle do wyklucia', english: 'egg cycles'},20),
-    baseStats_hp: new AdminPokemonDetails(true,false,true,1,false,{polski: '', english: ''},{polski: 'bazowe życie', english: 'base hit points'},75),
-    baseStats_attack: new AdminPokemonDetails(true,false,true,1,false,{polski: '', english: ''},{polski: 'bazowy atak', english: 'base attack'},80),
-    baseStats_defence: new AdminPokemonDetails(true,false,true,1,false,{polski: '', english: ''},{polski: 'bazowa obrona', english: 'base defence'},85),
-    baseStats_spAttack: new AdminPokemonDetails(true,false,true,1,false,{polski: '', english: ''},{polski: 'bazowy specjalny atak', english: 'base special attack'},90),
-    baseStats_spDefence: new AdminPokemonDetails(true,false,true,1,false,{polski: '', english: ''},{polski: 'bazowa specjalna obrona', english: 'base special defence'},95),
-    baseStats_speed: new AdminPokemonDetails(true,false,true,1,false,{polski: '', english: ''},{polski: 'bazowa szybkość', english: 'base speed'},100),
-    preevolution_specie: new AdminPokemonDetails(false,false,false,false,false,{polski: '',  english: ''},{polski: 'gatunek preewolucji', english: 'preevolution specie'},'alolan_vulpix'),
-    preevolution_method: new AdminPokemonDetails(false,false,false,false,false,{polski: 'przykłady: stone, mega stone, level, friendship, place, love, move, trade...', english: 'examples: stone, mega stone, level, friendship, place, love, move, trade...'},{polski: 'metoda ewolucji preewolucji', english: 'evolution method of preevolution'},'stone'),
-    preevolution_value: new AdminPokemonDetails(false,false,false,false,false,{polski: 'przykłady: fire stone, lucarionite, 52, night, icy rock, fairy move, metal coath..', english: 'examples: fire stone, lucarionite, 52, night, icy rock, fairy move, metal coath...'},{polski: 'podtyp lub wartość metody', english: 'subtype or value od method'},'ice stone'),
-    height:  new AdminPokemonDetails(true,false,true,0.1,false,{polski: 'zamiast przecinka użyj kropki', english: 'use dot insted of comma'},{polski: 'wysokość', english: 'height'},1.1),
-    weight:  new AdminPokemonDetails(true,false,true,0.1,false,{polski: 'zamiast przecinka użyj kropki', english: 'use dot insted of comma'},{polski: 'waga', english: 'weight'},19.9),
 };
 
 const ADMIN_POKEMON_TEXTS = 

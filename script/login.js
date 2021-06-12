@@ -2,7 +2,7 @@ function login_changeLanguage(_language)
 {
 	switch(language)
 	{
-		case 'polish': language_polish.classList.remove('active'); break;
+		case 'polski': language_polish.classList.remove('active'); break;
 		case 'english': language_english.classList.remove('active'); break;
 	}
 
@@ -13,7 +13,7 @@ function login_changeLanguage(_language)
 	}
 
 	Object.keys(MAIN_TEXTS).forEach(text =>{
-		MAIN_TEXTS[text].object.innerHTML = MAIN_TEXTS[text].texts[language];
+		MAIN_TEXTS[text].object.innerHTML = MAIN_TEXTS[text].texts.language();
 		}
 	)
 
@@ -109,6 +109,6 @@ function login_addError(_error)
     }
     else
     {
-        object.innerHTML +=  MAIN_ERRORS[_error][language] + '<br>';
+        object.innerHTML +=  MAIN_ERRORS[_error].language() + '<br>';
     }
 }

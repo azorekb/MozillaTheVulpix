@@ -59,23 +59,6 @@ class Pokemon_list
     }
 }
 
-class AdminPokemonDetails
-{
-    isImportant; isMulti; isNumber; min; max; description; text; example;
-    constructor(isImportant, isMulti, isNumber, min, max, description, text, example)
-    {
-        this.isImportant = isImportant; 
-        this.isMulti = isMulti;
-        this.isNumber = isNumber; 
-        this.min = min; 
-        this.max = max; 
-        this.description = description;
-        this.text = text;
-        this.example = example;
-        
-    }
-}
-
 class NumberArray
 {
     constructor(min, max)

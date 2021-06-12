@@ -23,7 +23,7 @@ function admin_start()
     {
         let task = document.createElement('div');
         task.classList.add('adminTask', 'button', 'medium');
-        task.innerHTML = ADMIN_LIST_OF_TASKS[i][language];
+        task.innerHTML = ADMIN_LIST_OF_TASKS[i].language();
         if(ADMIN_LIST_OF_TASKS[i].disabled)
         {
             task.classList.add('disabled');
@@ -37,7 +37,7 @@ function admin_start()
 
     let admin_content = document.createElement('div');
     admin_content.id = 'admin_content';
-    admin_content.innerHTML = ADMIN_WARNINGS[2][language];
+    admin_content.innerHTML = ADMIN_WARNINGS[2].language();
     admin_conteiner.appendChild(admin_content);
 
     activeWindow = 'admin';
@@ -76,7 +76,7 @@ function admin_database_list(_db,_res)
 
     for(let i=0;i<details.length;i++)
     {
-        databaseTable.rows[0].insertCell(i).innerHTML = details[i].description[language];
+        databaseTable.rows[0].insertCell(i).innerHTML = details[i].description.language();
     }
     
     let newElementButton = document.createElement('div');
@@ -125,7 +125,7 @@ function adm_edit_dbElement(_db,_id)
 
             for(let i=1; i<array.length;i++)
             {
-                editTable.insertRow(i-1).insertCell(0).innerHTML = array[i].description[language];
+                editTable.insertRow(i-1).insertCell(0).innerHTML = array[i].description.language();
 
                 let disable = false;
                 let input;
@@ -157,7 +157,7 @@ function adm_edit_dbElement(_db,_id)
                         {
                             let option = document.createElement('option');
                             option.value = array[i].table[j].english;
-                            option.innerHTML = array[i].table[j][language];
+                            option.innerHTML = array[i].table[j].language();
                             input.appendChild(option);
                         }
                     }
@@ -173,7 +173,7 @@ function adm_edit_dbElement(_db,_id)
                             {
                                 let option = document.createElement('option');
                                 option.value = j;
-                                option.innerHTML = array[i].table[j][language];
+                                option.innerHTML = array[i].table[j].language();
                                 input[k].appendChild(option);
                             }
                         }
@@ -215,13 +215,13 @@ function adm_edit_dbElement(_db,_id)
             if(_db == 'moves'){effectsTab = adm_moves_addition();}
 
             let save = document.createElement('div');
-            save.innerHTML = ADMIN_EDIT_TEXTS.save[language];
+            save.innerHTML = ADMIN_EDIT_TEXTS.save.language();
             save.classList.add('adminButton','button','small');
             save.id = 'adm_edit_saveButton';
             save.onclick = function(){admin_saveDBElement(_db,_id);}
             let cancel = document.createElement('div');
 
-            cancel.innerHTML = ADMIN_EDIT_TEXTS.cancel[language];
+            cancel.innerHTML = ADMIN_EDIT_TEXTS.cancel.language();
             cancel.classList.add('adminButton','button','small');
             cancel.id = 'adm_edit_cancelButton';
             cancel.onclick = function(){admin_show_database(_db);}
@@ -420,7 +420,7 @@ function admin_saveDBElement(_db,_id)
 
 function admin_addWarning(_number,_effect)
 {
-    const TEXT = (_effect + 1) + ADMIN_POKEMON_TEXTS.errors[_number][language] + '<br>';
+    const TEXT = (_effect + 1) + ADMIN_POKEMON_TEXTS.errors[_number].language() + '<br>';
     adm_edit_info.innerHTML += colorText(TEXT,COLOR_WARNING);
 }
 
@@ -429,15 +429,15 @@ function admin_addError(_property,_error,_db)
     if(noErrors)
     {
         noErrors = false;
-        adm_edit_info.innerHTML += colorText(ADMIN_POKEMON_TEXTS.error[language],COLOR_ERROR);
+        adm_edit_info.innerHTML += colorText(ADMIN_POKEMON_TEXTS.error.language(),COLOR_ERROR);
     }
-    const TEXT = '<br>' + ADMIN_DATABASE_COLS[_db][_property].description[language] + ADMIN_POKEMON_TEXTS.errors[_error][language];
+    const TEXT = '<br>' + ADMIN_DATABASE_COLS[_db][_property].description.language() + ADMIN_POKEMON_TEXTS.errors[_error].language();
     adm_edit_info.innerHTML +=  colorText(TEXT,COLOR_ERROR);
 }
 
 function admin_addSuccess()
 {
-    adm_edit_info.innerHTML += colorText(ADMIN_POKEMON_TEXTS.success[language],COLOR_SUCCESS);
+    adm_edit_info.innerHTML += colorText(ADMIN_POKEMON_TEXTS.success.language(),COLOR_SUCCESS);
 }
 
 // ===========================================================================
@@ -457,7 +457,7 @@ function adm_moves_addition()
         {
             let option = document.createElement('option');
             option.value = j;
-            option.innerHTML = POKEMON_MOVE_EFFECTS[j][language];
+            option.innerHTML = POKEMON_MOVE_EFFECTS[j].language();
             whatEffect.appendChild(option);
         }
         whatEffect.id = 'admin_move_effect_what_' + i;
@@ -479,7 +479,7 @@ function adm_moves_addition()
     {
         let option = document.createElement('option');
         option.value = j;
-        option.innerHTML = MOVE_EFFECT_WHOM[j][language];
+        option.innerHTML = MOVE_EFFECT_WHOM[j].language();
         whom.appendChild(option);
     }
     effectsTab.rows[i].insertCell(3).appendChild(whom);
@@ -488,7 +488,7 @@ function adm_moves_addition()
     effectsTab.insertRow(0);
     for(let i=0;i<ADMIN_EFFECTS_COLS.length;i++)
     {
-        effectsTab.rows[0].insertCell(i).innerHTML = ADMIN_EFFECTS_COLS[i][language];
+        effectsTab.rows[0].insertCell(i).innerHTML = ADMIN_EFFECTS_COLS[i].language();
     }
 
     return effectsTab;
@@ -511,7 +511,7 @@ function admin_changeWhatMoveEffect(_number)
         value = '<select id=\'admin_move_effect_value_' + _number + '\'>';
         for(let i=0;i<POKEMON_MOVE_EFFECTS[selectValue].types.length;i++)
         {
-            value += '<option value=' + i + '>' + POKEMON_MOVE_EFFECTS[selectValue].types[i][language] + '</option>';
+            value += '<option value=' + i + '>' + POKEMON_MOVE_EFFECTS[selectValue].types[i].language() + '</option>';
         }
         value += '</select>';
     }
@@ -533,7 +533,7 @@ function adm_mapEditor()
     admin_content.appendChild(adm_details);
     
     let text = document.createElement('p');
-    text.innerHTML = ADMIN_MAPS_DESCRIPTIONS.no[language];
+    text.innerHTML = ADMIN_MAPS_DESCRIPTIONS.no.language();
     adm_details.appendChild(text);
     
     adm_mapNo = document.createElement('select');
@@ -587,7 +587,7 @@ function adm_mapEditor()
         let adm_mapItem = document.createElement('div');
         let img = document.createElement('img');
         img.src = IMG_WAY + MAP_ITEMS[i].src;
-        img.title = ADMIN_MAPS_DESCRIPTIONS.imgTitle[language] + i;
+        img.title = ADMIN_MAPS_DESCRIPTIONS.imgTitle.language() + i;
         adm_mapItem.appendChild(img);
         adm_mapItem.onclick = function(){adm_mapItemSelect(this, i);}
         adm_mapItems_container.appendChild(adm_mapItem);
@@ -596,7 +596,7 @@ function adm_mapEditor()
     adm_mapItems_container.childNodes[0].classList.add('active');
     
     adm_infoDiv = document.createElement('div');
-    adm_infoDiv.innerHTML = ADMIN_WARNINGS[1][language];
+    adm_infoDiv.innerHTML = ADMIN_WARNINGS[1].language();
     adm_infoDiv.classList.add('admInfo');
     admin_content.appendChild(adm_infoDiv);
     
