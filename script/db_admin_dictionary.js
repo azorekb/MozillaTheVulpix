@@ -55,6 +55,14 @@ const ADMIN_DATABASE_COLS =
         {description: {polski: 'wysokość', english: 'height'}, dbname: 'height', input: 'number', min: 0.1, max: 500},
         {description: {polski: 'waga', english: 'weight'}, dbname: 'weight', input: 'number', min: 0.1, max: 500},
     ],
+
+    maps:
+    [
+        {description: {polski: 'nr', english: 'no'}, dbname: 'id'},
+        {description: {polski: 'nazwa polska', english: 'polish name'}, dbname: 'name_pl', input: 'text'},
+        {description: {polski: 'nazwa angielska', english: 'english name'}, dbname: 'name_eng', input: 'text'},
+        {description: {polski: 'kod mapy', english: 'map code'}, dbname: 'cells', input: 'disabled', hidden: true}
+    ]
 };
 
 const ADMIN_EFFECTS_COLS =
@@ -69,7 +77,10 @@ const ADMIN_EDIT_TEXTS =
 {
     save: {polski: 'zapisz', english: 'save'},
     cancel: {polski: 'anuluj', english: 'cancel'},
-    
+    object: {polski: 'obiekty', english: 'objects'},
+    bg: {polski: 'tła', english: 'backgrounds'},
+    edit: {polski: 'wybierz co edytować:', english: 'choose what to edit:'},
+    both: {polski: 'tła i obiekty', english: 'backgrounds and objects'}
 };
 
 const ADMIN_POKEMON_TEXTS = 
@@ -99,4 +110,5 @@ const ADMIN_MAPS_DESCRIPTIONS =
 {
     no: {polski: 'mapa nr', english: 'map no.'},
     imgTitle: {polski: 'obiekt nr: ', english: 'object no: '},
+    bgTitle: {polski: 'tło nr: ', english: 'background no: '}
 };

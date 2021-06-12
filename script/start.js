@@ -21,8 +21,6 @@ function addLanguageFunction()
 		{object: MAIN_ERRORS, noArray: true},
 		{object: ADMIN_WARNINGS},
 		{object: ADMIN_LIST_OF_TASKS},
-		{object: ADMIN_DATABASE_COLS.moves, parametr: 'description'},
-		{object: ADMIN_DATABASE_COLS.pokemon, parametr: 'description'},
 		{object: ADMIN_EFFECTS_COLS},
 		{object: ADMIN_EDIT_TEXTS, noArray: true},
 		{object: ADMIN_POKEMON_TEXTS, noArray: true, skip: 'errors'},
@@ -30,6 +28,11 @@ function addLanguageFunction()
 		{object: ADMIN_MAPS_DESCRIPTIONS, noArray: true},
 	];
 
+	Object.keys(ADMIN_DATABASE_COLS).forEach(database => {
+
+		listOfObjects[listOfObjects.length] = {object: ADMIN_DATABASE_COLS[database], parametr: 'description'};
+	});
+	
 	for(let i=0;i<POKEMON_MOVE_EFFECTS.length;i++)
 	{
 		if(POKEMON_MOVE_EFFECTS[i].types !== undefined)

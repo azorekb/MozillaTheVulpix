@@ -106,7 +106,7 @@ function map_characterMove(_direct,_character,_position)
 			for(let i=0;i<worldMapTable.rows.length;i++)
 			{
 				const imgNo = actualMap[_position[1] - positionY + i][newElement];
-				mapImg(worldMapTable.rows[i].insertCell(0),imgNo);
+				mapImg(worldMapTable.rows[i].insertCell(0),imgNo,'both');
 			}
 			worldMapTable.style.left = -1 * SIZE_OF_TD;
 			
@@ -138,7 +138,7 @@ function map_characterMove(_direct,_character,_position)
 			for(let i=0;i<worldMapTable.rows.length;i++)
 			{
 				const imgNo = actualMap[_position[1] - positionY + i][newElement];
-				mapImg(worldMapTable.rows[i].insertCell(lastCell),imgNo);
+				mapImg(worldMapTable.rows[i].insertCell(lastCell),imgNo,'both');
 			}
 			
 			for(let i=1;i<=SIZE_OF_TD;i++)
@@ -172,7 +172,7 @@ function map_characterMove(_direct,_character,_position)
 			for(let i=0;i<worldMapTable.rows[1].cells.length;i++)
 			{
 				const imgNo = actualMap[newElement][_position[0] - positionX + i];
-				mapImg(worldMapTable.rows[0].insertCell(i),imgNo);
+				mapImg(worldMapTable.rows[0].insertCell(i),imgNo,'both');
 			}
 			
 			for(let i=1;i<(SIZE_OF_TD+1);i++)
@@ -201,7 +201,7 @@ function map_characterMove(_direct,_character,_position)
 			for(let i=0;i<worldMapTable.rows[0].cells.length;i++)
 			{
 				const imgNo = actualMap[newElement][_position[0] - positionX + i];
-				mapImg(worldMapTable.rows[lastRow].insertCell(i),imgNo);
+				mapImg(worldMapTable.rows[lastRow].insertCell(i),imgNo,'both');
 			}
 			
 			for(let i=1;i<=SIZE_OF_TD;i++)
@@ -243,13 +243,19 @@ function endOfWalk(_position, _type)
 	pozaza.innerHTML = actualPosition.x + '/' + actualPosition.y;
 }
 
-function mapImg(_object,_imgs)
+function mapImg(_object,_imgs,_choose)
 {
-	// let img = document.createElement('img');
-	// img.src = _imgs[0] ? IMG_WAY + MAP_ITEMS.object[_imgs[0]].src : '';
-	// _object.appendChild(img);
+	if(_choose == 'object' || _choose == 'both')
+	{
+		let img = document.createElement('img');
+		img.src = _imgs[1] > 0 ? IMG_WAY + MAP_ITEMS.object[_imgs[1]].src : '';
+		_object.innerHTML = '';
+		_object.appendChild(img);
+	}
 
-	// let backGround = 'url(\''+ IMG_WAY + MAP_ITEMS.background[_imgs[1]].src +'\')';
-	let backGround = 'url(\''+ IMG_WAY + MAP_ITEMS.background[_imgs].src +'\')';
-	_object.style.backgroundImage = backGround;
+	if(_choose == 'bg' || _choose == 'both')
+	{
+		let backGround = 'url(\''+ IMG_WAY + MAP_ITEMS.background[_imgs[0]].src +'\')';
+		_object.style.backgroundImage = backGround;
+	}
 }

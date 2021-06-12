@@ -268,8 +268,13 @@ const MAP_ITEMS =
         {name: 'waySE', src: 'drogaSE.png'},
         {name: 'tallgrass', src: 'wysokatrawa.png'},
         {name: 'water', src: 'woda.gif'},
-    ]
+    ],
     
+    object:
+    [
+        {name: 'none', src: 'nic.gif'},
+        {name: 'sis Joy', src: 'joy.png'},
+    ]
 };
     
 const POKEDEX_TEXTS = 

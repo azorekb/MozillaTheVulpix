@@ -1,4 +1,4 @@
-let not_POKEMON_LIST =
+let POKEMON_LIST =
 {
 	eevee: new Pokemon_list(1,'normal','','run away','adaptability','anticipation',['spDefence'],45,65,'medium fast',12.5,'field',35,55,55,50,45,65,55,'','','',0.3,6.5),
 	vaporeon: new Pokemon_list(2,'water','','water absorb','','hydration',['hp','hp'],45,184,'medium fast',12.5,'field',35,130,65,60,110,95,65,'eevee','stone','water',1,29),

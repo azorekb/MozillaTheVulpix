@@ -8,6 +8,10 @@
     display: flex;
 }
 
+#admin_content {
+    padding-top: 15px;
+}
+
 .adminTask
 {
     text-align: center;
@@ -104,6 +108,8 @@
     {
         padding: 0;	
         border: $adm_mapBorder;
+        min-width: 20px;
+        height: 20px;
     }    
 }
 

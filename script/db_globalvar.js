@@ -21,9 +21,11 @@ let activeButton = null;
 let activeUser = {name: '', admin: false};
 let language = 'polski';
 
-let adm_selectedMapItem = 0;
+let adm_selectedMapObject = 0;
+let adm_selectedMapBG = 0;
 let noErrors = true;
+let adm_thisMap = [];
 
 // tables from server db
-let POKEMON_LIST = [];
+// let POKEMON_LIST = [];
 //let MAPS;

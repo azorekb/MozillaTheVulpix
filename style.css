@@ -342,6 +342,10 @@
   display: flex;
 }
 
+#admin_content {
+  padding-top: 15px;
+}
+
 .adminTask {
   text-align: center;
   width: 150px;
@@ -428,6 +432,8 @@
 .admMapTable td {
   padding: 0;
   border: 1px #000 solid;
+  min-width: 20px;
+  height: 20px;
 }
 
 .admdatabaseTable {
