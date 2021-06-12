@@ -77,6 +77,8 @@
 
 .worldMapWindow .worldmap td {
   padding: 0;
+  min-width: 20px;
+  height: 20px;
 }
 
 .worldMapWindow .helpDiv {

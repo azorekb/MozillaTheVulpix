@@ -106,7 +106,7 @@ function map_characterMove(_direct,_character,_position)
 			for(let i=0;i<worldMapTable.rows.length;i++)
 			{
 				const imgNo = actualMap[_position[1] - positionY + i][newElement];
-				worldMapTable.rows[i].insertCell(0).appendChild(mapImg(imgNo));
+				mapImg(worldMapTable.rows[i].insertCell(0),imgNo);
 			}
 			worldMapTable.style.left = -1 * SIZE_OF_TD;
 			
@@ -138,7 +138,7 @@ function map_characterMove(_direct,_character,_position)
 			for(let i=0;i<worldMapTable.rows.length;i++)
 			{
 				const imgNo = actualMap[_position[1] - positionY + i][newElement];
-				worldMapTable.rows[i].insertCell(lastCell).appendChild(mapImg(imgNo));
+				mapImg(worldMapTable.rows[i].insertCell(lastCell),imgNo);
 			}
 			
 			for(let i=1;i<=SIZE_OF_TD;i++)
@@ -172,7 +172,7 @@ function map_characterMove(_direct,_character,_position)
 			for(let i=0;i<worldMapTable.rows[1].cells.length;i++)
 			{
 				const imgNo = actualMap[newElement][_position[0] - positionX + i];
-				worldMapTable.rows[0].insertCell(i).appendChild(mapImg(imgNo));
+				mapImg(worldMapTable.rows[0].insertCell(i),imgNo);
 			}
 			
 			for(let i=1;i<(SIZE_OF_TD+1);i++)
@@ -201,7 +201,7 @@ function map_characterMove(_direct,_character,_position)
 			for(let i=0;i<worldMapTable.rows[0].cells.length;i++)
 			{
 				const imgNo = actualMap[newElement][_position[0] - positionX + i];
-				worldMapTable.rows[lastRow].insertCell(i).appendChild(mapImg(imgNo));
+				mapImg(worldMapTable.rows[lastRow].insertCell(i),imgNo);
 			}
 			
 			for(let i=1;i<=SIZE_OF_TD;i++)
@@ -243,9 +243,13 @@ function endOfWalk(_position, _type)
 	pozaza.innerHTML = actualPosition.x + '/' + actualPosition.y;
 }
 
-function mapImg(_number)
+function mapImg(_object,_imgs)
 {
-	let img = document.createElement('img');
-	img.src = IMG_WAY + MAP_ITEMS[_number].src;
-	return img;
+	// let img = document.createElement('img');
+	// img.src = _imgs[0] ? IMG_WAY + MAP_ITEMS.object[_imgs[0]].src : '';
+	// _object.appendChild(img);
+
+	// let backGround = 'url(\''+ IMG_WAY + MAP_ITEMS.background[_imgs[1]].src +'\')';
+	let backGround = 'url(\''+ IMG_WAY + MAP_ITEMS.background[_imgs].src +'\')';
+	_object.style.backgroundImage = backGround;
 }

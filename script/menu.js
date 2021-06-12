@@ -178,7 +178,7 @@ function resize_worldMap()
 		for(let j=0;j<x_count;j++)
 		{
 			const imgNo = actualMap[i + firstCell.y][j + firstCell.x];
-			worldMapTable.rows[i].insertCell(j).appendChild(mapImg(imgNo));
+			mapImg(worldMapTable.rows[i].insertCell(j),imgNo);
 		}
 	}
 	

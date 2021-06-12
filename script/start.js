@@ -60,7 +60,6 @@ function addLanguageFunction()
 		if(OBJ.parametr != undefined)
 		{
 			parametr += '.' + OBJ.parametr;
-			console.log(parametr);
 		}
 
 		for(let j=0;j<end;j++)
@@ -69,7 +68,6 @@ function addLanguageFunction()
 			{
 				if(help[j] == OBJ.skip){continue;}
 			}
-			console.log(j, help[j], OBJ.object);
 			eval('OBJ.object' + parametr).language = function()
 			{
 				if(this[language] == undefined){return this.english}
