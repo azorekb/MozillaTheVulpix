@@ -354,6 +354,22 @@ function admin_saveDBElement(_db,_id)
         admin_editDBElement_effects.value = value;
     }
 
+    if(_db == 'maps')
+    {
+        let value ='';
+        for(let i=0;i<adm_thisMap.length;i++)
+        {
+            if(i > 0){value += '/';}
+            for(let j=0;j<adm_thisMap[i].length;j++)
+            {
+                if(j > 0){value += '|';}
+                value += adm_thisMap[i][j][0] + ',' + adm_thisMap[i][j][1];
+            }
+        }
+
+        admin_editDBElement_cells.value = value;
+    }
+
     for(let i=1;i<ADMIN_DATABASE_COLS[_db].length;i++)
     {
         let input;
@@ -680,11 +696,15 @@ function adm_changeMapField(_y,_x)
         if(document.getElementById('adm_chooseEditInMap' + tempArray[i]).checked){choose = tempArray[i];}
     }
     mapImg(adm_mapTable.rows[_y].cells[_x],img,choose);
-    adm_thisMap[_y][_x] = adm_selectedMapBG;
+    if(choose == 'bg' || choose == 'both'){adm_thisMap[_y][_x][0] = adm_selectedMapBG;}
+    if(choose == 'object' || choose == 'both'){adm_thisMap[_y][_x][1] = adm_selectedMapObject;}
 }
 
 function adm_changeSizeOfMap()
 {
+    if(adm_mapSizeY.value > 50 || adm_mapSizeY.value < 1){return false;}
+    if(adm_mapSizeX.value > 50 || adm_mapSizeX.value < 1){return false;}
+
     while(adm_mapSizeY.value > adm_thisMap.length)
     {
         let lastRow = adm_mapTable.rows.length;

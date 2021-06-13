@@ -8,7 +8,7 @@ const ADMIN_WARNINGS =
 const ADMIN_LIST_OF_TASKS =
 [
     {polski: 'pokemony', english: 'pokemon', disabled: false},
-    {polski: 'mapy', english: 'maps', disabled: true}, 
+    {polski: 'mapy', english: 'maps', disabled: false}, 
     {polski: 'ruchy', english: 'moves', disabled: false},
 ];
 
