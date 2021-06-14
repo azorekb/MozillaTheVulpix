@@ -266,7 +266,6 @@ const MAP_ITEMS =
         {name: 'waySW', src: 'drogaSW.png'},
         {name: 'wayS', src: 'drogaS.png'},
         {name: 'waySE', src: 'drogaSE.png'},
-        {name: 'tallgrass', src: 'wysokatrawa.png'},
         {name: 'water', src: 'woda.gif'},
     ],
     
@@ -274,6 +273,7 @@ const MAP_ITEMS =
     [
         {name: 'none', src: 'nic.gif'},
         {name: 'sis Joy', src: 'joy.png'},
+        {name: 'tallgrass', src: 'wysokatrawa.png'},
     ]
 };
     

@@ -16,7 +16,8 @@ let way_comming = null;
 let actualPosition = {x:0, y:0};
 let activeWindow = -1;
 let speed = 10;
-let actualMap = null;
+let actualMap = [];
+let actualMapData = {title: {english: null}, no: 0};
 let activeButton = null;
 let activeUser = {name: '', admin: false};
 let language = 'polski';
@@ -28,4 +29,3 @@ let adm_thisMap = [];
 
 // tables from server db
 // let POKEMON_LIST = [];
-//let MAPS;

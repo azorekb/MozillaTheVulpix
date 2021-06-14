@@ -1,6 +1,7 @@
 function skipLogin(_admin)
 {
 	activeUser.admin = _admin;
+	activeUser.name = 'skipLogin';
 	start();
 }
 
@@ -26,6 +27,7 @@ function addLanguageFunction()
 		{object: ADMIN_POKEMON_TEXTS, noArray: true, skip: 'errors'},
 		{object: ADMIN_POKEMON_TEXTS.errors},
 		{object: ADMIN_MAPS_DESCRIPTIONS, noArray: true},
+		{object: actualMapData.title, onlyOne: true}
 	];
 
 	Object.keys(ADMIN_DATABASE_COLS).forEach(database => {
@@ -50,8 +52,16 @@ function addLanguageFunction()
 
 		if(OBJ.noArray == undefined)
 		{
-			parametr = '[j]';
-			end = OBJ.object.length;
+			if(OBJ.onlyOne == undefined)
+			{
+				parametr = '[j]';
+				end = OBJ.object.length;
+			}
+			else
+			{
+				parametr = '';
+				end = 1;
+			}
 		}
 		else
 		{
@@ -114,6 +124,7 @@ function start()
 
 	let worldmapContent = document.createElement('div');
 	worldmapContent.id = 'worldmapContent';
+	worldmapContent.innerHTML = '<img src=\'' + waitingImageUrl + '\'><br><b>downloading map...</b>';
 	worldMapConteiner.appendChild(worldmapContent);
 
 	const BUTTON_PLACES = [[1,0],[0,1],[1,2],[2,1]];
@@ -147,9 +158,44 @@ function start()
 
 	okno.appendChild(worldMapConteiner);
 	
-	activeWindow = 'worldmap';
-	actualMap = MAPS[0];
-	clickMenuButton(document.getElementById('mapMenuButton_Adventure'));
+	activeWindow = 'unactive';
+	
+	let phpMap = new XMLHttpRequest();
+	phpMap.onreadystatechange = function()
+	{
+		if(this.readyState == 4 && this.status == 200)
+		{
+			console.log(this.responseText);
+	        const RES = JSON.parse(this.responseText)[0];
+			console.log(RES);
+
+			actualMapData.title.english = RES.name_eng;
+			actualMapData.title.polski = RES.name_pl;
+			actualMapData.no = RES.id;
+
+			actualMap = RES.cells.split('/');
+			for(let i=0;i<actualMap.length;i++)
+			{
+				actualMap[i] = actualMap[i].split('|');
+				for(let j=0;j<actualMap[i].length;j++)
+				{
+					actualMap[i][j] = actualMap[i][j].split(',');
+					for(let k=0;k<actualMap[i][j].length;k++)
+					{
+						actualMap[i][j][k] *= 1;
+					}
+				}
+			}
+			activeWindow = true;
+			clickMenuButton(document.getElementById('mapMenuButton_Adventure'));
+		}
+	}
+
+	
+	let data = new FormData();
+    data.append('which', 1);
+    phpMap.open("POST", 'php/database.php?base=maps', true);
+    phpMap.send(data);
 }
 
 function wayActive(_event, _element, _direct)
