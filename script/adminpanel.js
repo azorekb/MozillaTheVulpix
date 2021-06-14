@@ -356,6 +356,10 @@ function admin_saveDBElement(_db,_id)
 
     if(_db == 'maps')
     {
+        if(actualMapData.no == _id)
+        {
+            actualMap = adm_thisMap;
+        }
         let value ='';
         for(let i=0;i<adm_thisMap.length;i++)
         {
@@ -626,6 +630,7 @@ function adm_maps_addition(_cells)
     let tempArray = ['bg','object','both'];
     for(let i=0;i<tempArray.length;i++)
     {
+        let label = document.createElement('label');
         let radio = document.createElement('input');
         radio.type = 'radio';
         radio.name = 'adm_chooseEditInMap';
@@ -636,8 +641,9 @@ function adm_maps_addition(_cells)
         text = document.createElement('b');
         text.innerHTML = ADMIN_EDIT_TEXTS[tempArray[i]].language() + ' ';
 
-        choose.appendChild(radio);
-        choose.appendChild(text);
+        label.appendChild(radio);
+        label.appendChild(text);
+        choose.appendChild(label);
     }
     content.appendChild(choose);
     

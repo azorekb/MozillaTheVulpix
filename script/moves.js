@@ -7,14 +7,23 @@ function map_actionOfCharacter(_direct)
 	if(_direct == 'left'){newX--;}
 	if(_direct == 'right'){newX++;}
 	if(newY == -1 || newX == -1 || newY == actualMap.length || newX == actualMap[0].length){return false;}
-	
 
-	//przeszkoda=actualMap[newX+1][newY][0];
-	//teren=actualMap[newX+1][newY][1];
-	map_characterMove(_direct,mainCharacter,[newX,newY]);
+	const terrain = actualMap[newY][newX][0]*1;
+	const object = actualMap[newY][newX][1]*1;
+	const area = MAP_ITEMS.background[terrain].area;
+
+	switch(object)
+	{
+		case 2: map_characterMove(_direct,mainCharacter,[newX,newY],'DrawAPokemonBattle'); break;
+		case 1: console.log('rozmwa z sis joy'); break;
+		case 0: switch(area)
+		{
+			case 'land': map_characterMove(_direct,mainCharacter,[newX,newY]);
+		}
+	}
 }
 
-function map_characterMove(_direct,_character,_position)
+function map_characterMove(_direct,_character,_position, inTheEnd = '')
 {
 	let j = 0;
 	let typeOfMove = 0;
@@ -81,7 +90,7 @@ function map_characterMove(_direct,_character,_position)
 		{
 			_character.style.top = positionY * SIZE_OF_TD;
 			_character.style.left = positionX * SIZE_OF_TD;
-			endOfWalk(_position, typeOfMove);
+			endOfWalk(_position, typeOfMove, inTheEnd);
 		},(SIZE_OF_TD + 1) * speed);
 	}
 	
@@ -125,7 +134,7 @@ function map_characterMove(_direct,_character,_position)
 				{
 					worldMapTable.rows[i].deleteCell(lastCell);
 				}
-				endOfWalk(_position, typeOfMove);
+				endOfWalk(_position, typeOfMove, inTheEnd);
 				
 			},(SIZE_OF_TD + 1) * speed);
 		}
@@ -156,7 +165,7 @@ function map_characterMove(_direct,_character,_position)
 				{
 					worldMapTable.rows[i].deleteCell(0);
 				}
-				endOfWalk(_position, typeOfMove);
+				endOfWalk(_position, typeOfMove, inTheEnd);
 				
 			},(SIZE_OF_TD + 1) * speed);
 		}
@@ -187,7 +196,7 @@ function map_characterMove(_direct,_character,_position)
 			setTimeout(function()
 			{
 				worldMapTable.deleteRow(lastRow);
-				endOfWalk(_position, typeOfMove);
+				endOfWalk(_position, typeOfMove, inTheEnd);
 				
 			},(SIZE_OF_TD + 1) * speed);
 		}
@@ -216,7 +225,7 @@ function map_characterMove(_direct,_character,_position)
 			setTimeout(function()
 			{
 				worldMapTable.deleteRow(0);
-				endOfWalk(_position, typeOfMove);
+				endOfWalk(_position, typeOfMove, inTheEnd);
 				
 			},(SIZE_OF_TD + 1) * speed);
 		}
@@ -224,7 +233,7 @@ function map_characterMove(_direct,_character,_position)
 	
 }
 
-function endOfWalk(_position, _type)
+function endOfWalk(_position, _type, _end)
 {
 	if(_type == 1)
 	{
@@ -236,6 +245,12 @@ function endOfWalk(_position, _type)
 	actualPosition.y = _position[1];
 
 	activeWindow = 'worldmap';
+
+	switch(_end)
+	{
+		case 'DrawAPokemonBattle': console.log('losowanko xD'); break;
+	}
+
 	if(way_comming != null)
 	{
 		map_actionOfCharacter(way_comming);

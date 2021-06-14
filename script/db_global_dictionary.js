@@ -256,17 +256,17 @@ const MAP_ITEMS =
 {
     background:
     [
-        {name: 'grass', src: 'trawa.png'},
-        {name: 'wayNW', src: 'drogaNW.png'},
-        {name: 'wayN', src: 'drogaN.png'},
-        {name: 'wayNE', src: 'drogaNE.png'},
-        {name: 'wayW', src: 'drogaW.png'},
-        {name: 'wayC', src: 'drogaC.png'},
-        {name: 'wayE', src: 'drogaE.png'},
-        {name: 'waySW', src: 'drogaSW.png'},
-        {name: 'wayS', src: 'drogaS.png'},
-        {name: 'waySE', src: 'drogaSE.png'},
-        {name: 'water', src: 'woda.gif'},
+        {name: 'grass', src: 'trawa.png', area: 'land'},
+        {name: 'wayNW', src: 'drogaNW.png', area: 'land'},
+        {name: 'wayN', src: 'drogaN.png', area: 'land'},
+        {name: 'wayNE', src: 'drogaNE.png', area: 'land'},
+        {name: 'wayW', src: 'drogaW.png', area: 'land'},
+        {name: 'wayC', src: 'drogaC.png', area: 'land'},
+        {name: 'wayE', src: 'drogaE.png', area: 'land'},
+        {name: 'waySW', src: 'drogaSW.png', area: 'land'},
+        {name: 'wayS', src: 'drogaS.png', area: 'land'},
+        {name: 'waySE', src: 'drogaSE.png', area: 'land'},
+        {name: 'water', src: 'woda.gif', area: 'water'},
     ],
     
     object:
