@@ -97,9 +97,17 @@ function admin_database_list(_db,_res)
     databaseTable.rows[0].insertCell(lastCell).appendChild(newElementButton);
     databaseTable.rows[0].cells[lastCell].appendChild(waitingImage);
 
+    if(_db == 'pokemon'){pokemonList = [''];}
+    
     Object.keys(_res).forEach(element => {
+        if(_db == 'pokemon')
+        {
+            pokemonList[element*1 +1] = _res[element].name;
+        }
+        
         let lastRow = databaseTable.insertRow(databaseTable.rows.length);
         lastRow.onclick = function(){adm_edit_dbElement(_db,_res[element].id);}
+        
         for(let i=0;i<details.length;i++)
         {
             if(details[i].hidden === undefined)
@@ -108,6 +116,9 @@ function admin_database_list(_db,_res)
             }
         }
     })
+    
+    if(_db == 'pokemon'){ADMIN_DATABASE_COLS.pokemon[18].table = pokemonList;}
+
             
     admin_content.innerHTML = '';
     admin_content.appendChild(databaseTable);
@@ -160,11 +171,20 @@ function adm_edit_dbElement(_db,_id)
                     case 'select':
                     {
                         input = document.createElement('select');
+                        console.log(array[i].table);
                         for(let j=0;j<array[i].table.length;j++)
                         {
                             let option = document.createElement('option');
-                            option.value = array[i].table[j].english;
-                            option.innerHTML = array[i].table[j].language();
+                            if(array[i].noLanguage === undefined)
+                            {
+                                option.value = array[i].table[j].english;
+                                option.innerHTML = array[i].table[j].language();
+                            }
+                            else
+                            {
+                                option.value = array[i].table[j];
+                                option.innerHTML = array[i].table[j];
+                            }
                             input.appendChild(option);
                         }
                     }
@@ -194,6 +214,11 @@ function adm_edit_dbElement(_db,_id)
                         if(RES[array[i].dbname] == 1){input.checked = true;}
                         else{input.checked = false;}
                     }
+                }
+
+                if(array[i].onchange != undefined)
+                {
+                    input.onchange = array[i].onchange;
                 }
                 
                 if(array[i].numOfInput == undefined)
@@ -276,6 +301,12 @@ function adm_edit_dbElement(_db,_id)
                         }
                     }
                 }
+            }
+
+            if(_db == 'pokemon')
+            {
+                admin_editDBElement_preevolution_method.onchange();
+                admin_editDBElement_preevolution_value.value = RES.preevolution_value;
             }
         }
     }

@@ -1,30 +1,3 @@
-class Resistance
-{
-    normal; fire; water; electric; grass; ice; fighting; poison; ground; flying; psychic; bug; rock; ghost; dragon; dark; steel; fairy;
- 
-    constructor(normal, fire, water, electric, grass, ice, fighting, poison, ground, flying, psychic, bug, rock, ghost, dragon, dark, steel, fairy)
-    {
-        this.normal=normal;
-        this.fire=fire;
-        this.water=water;
-        this.electric=electric;
-        this.grass=grass;
-        this.ice=ice;
-        this.fighting=fighting;
-        this.poison=poison
-        this.ground=ground;
-        this.flying=flying;
-        this.psychic=psychic;
-        this.bug=bug;
-        this.rock=rock;
-        this.ghost=ghost;
-        this.dragon=dragon;
-        this.dark=dark;
-        this.steel=steel;
-        this.fairy=fairy;
-    }
-}
-
 class Pokemon_list
 {
     no; types; abilities; EVYeld; catchRate; baseExp; growthExp; femaleRate; eggGroup; eggCycles; baseStats; preevolution; height; weight;

@@ -49,9 +49,39 @@ const ADMIN_DATABASE_COLS =
         {description: {polski: 'bazowy sp. atak', english: 'base sp. attack'}, dbname: 'baseStats_spAttack', input: 'number', min: 1, max: 500},
         {description: {polski: 'bazowa sp. obrona', english: 'base sp. deffence'}, dbname: 'baseStats_spDefence', input: 'number', min: 1, max: 500},
         {description: {polski: 'bazowa szybkość', english: 'base speed'}, dbname: 'baseStats_speed', input: 'number', min: 1, max: 500},
-        {description: {polski: 'gatunek preewolucji', english: 'preevolution specie'}, dbname: 'preevolution_specie', input: 'text', notImportant: true},
-        {description: {polski: 'metoda ewolucji', english: 'preevolution method'}, dbname: 'preevolution_method', input: 'text', notImportant: true}, //'select', table: []},
-        {description: {polski: 'wartość metody ewolucji', english: 'preevolution value '}, dbname: 'preevolution_value', input: 'text', notImportant: true}, //'select', table: []},
+        {description: {polski: 'gatunek preewolucji', english: 'preevolution specie'}, dbname: 'preevolution_specie', input: 'select', notImportant: true, table: pokemonList, noLanguage: true},
+        {description: {polski: 'metoda ewolucji', english: 'preevolution method'}, dbname: 'preevolution_method', input: 'select', table: POKEMON_EVOLUTION_METHODS,
+        onchange: function()
+        {
+            let method = admin_editDBElement_preevolution_method;
+            let value = admin_editDBElement_preevolution_value;
+            while(value.childNodes != undefined && value.childNodes.length > 0){value.remove(0)}
+
+            let helparray =[];
+            for(let i=0;i<method.childNodes.length;i++)
+            {
+                helparray[i] = method.childNodes.item(i).value;
+            }
+            methodValue = helparray.indexOf(method.value);
+            let end = 0;
+            if(Array.isArray(POKEMON_EVOLUTION_METHODS[methodValue].subtype))
+            {
+                end = POKEMON_EVOLUTION_METHODS[methodValue].subtype.length;
+            }
+            else
+            {
+                end = Object.keys(POKEMON_EVOLUTION_METHODS[methodValue].subtype).length;
+            }
+
+            for(let i=0;i<end;i++)
+            {
+                let option = document.createElement('option');
+                option.value = POKEMON_EVOLUTION_METHODS[methodValue].subtype[i];
+                option.innerHTML = POKEMON_EVOLUTION_METHODS[methodValue].subtype[i];
+                value.appendChild(option);
+            }
+        }, notImportant: true}, //'select', table: []},
+        {description: {polski: 'wartość metody ewolucji', english: 'preevolution value '}, dbname: 'preevolution_value', input: 'select', table: [{english: '', language: function(){return this.english}}], notImportant: true}, //'select', table: []},
         {description: {polski: 'wysokość', english: 'height'}, dbname: 'height', input: 'number', min: 0.1, max: 500},
         {description: {polski: 'waga', english: 'weight'}, dbname: 'weight', input: 'number', min: 0.1, max: 500},
     ],

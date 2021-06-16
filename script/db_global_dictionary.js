@@ -292,14 +292,15 @@ const POKEDEX_TEXTS =
 };
 
 const POKEMON_EVOLUTION_METHODS =
-{
-    lv: new NumberArray(2,100),
-    stone: ['water', 'fire', 'thunder', 'sun', 'moon', 'leaf', 'ice', 'dusk', 'dawn', 'shiny'],
-    place: ['mossy rock', 'icy rock', 'electric field'],
-    friendship: ['', 'dayime', 'nighttime'],
-    love: ['fairy move'],
-    trade: [''],
-};
+[
+    {english: '', subtype: ['']},
+    {english: 'level', subtype: new NumberArray(2,100)},
+    {english: 'stone', subtype: ['water', 'fire', 'thunder', 'sun', 'moon', 'leaf', 'ice', 'dusk', 'dawn', 'shiny']},
+    {english: 'place', subtype: ['mossy rock', 'icy rock', 'electric field']},
+    {english: 'friendship', subtype: ['', 'daytime', 'nighttime']},
+    {english: 'love', subtype: ['fairy move']},
+    {english: 'trade', subtype: ['']},
+];
 
 const MAIN_TEXTS =
 {

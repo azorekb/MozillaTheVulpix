@@ -28,4 +28,4 @@ let noErrors = true;
 let adm_thisMap = [];
 
 // tables from server db
-// let POKEMON_LIST = [];
+let pokemonList = [];

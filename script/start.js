@@ -27,7 +27,8 @@ function addLanguageFunction()
 		{object: ADMIN_POKEMON_TEXTS, noArray: true, skip: 'errors'},
 		{object: ADMIN_POKEMON_TEXTS.errors},
 		{object: ADMIN_MAPS_DESCRIPTIONS, noArray: true},
-		{object: actualMapData.title, onlyOne: true}
+		{object: actualMapData.title, onlyOne: true},
+		{object: POKEMON_EVOLUTION_METHODS}
 	];
 
 	Object.keys(ADMIN_DATABASE_COLS).forEach(database => {
