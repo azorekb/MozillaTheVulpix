@@ -10,6 +10,18 @@
 
 #admin_content {
     padding-top: 15px;
+
+    option
+    {
+        color: #fff;
+        background-color: #223;
+    }
+
+    option.notReady
+    {
+        color: #f00;
+        background-color: #223;
+    }
 }
 
 .adminTask

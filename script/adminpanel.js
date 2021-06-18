@@ -171,7 +171,6 @@ function adm_edit_dbElement(_db,_id)
                     case 'select':
                     {
                         input = document.createElement('select');
-                        console.log(array[i].table);
                         for(let j=0;j<array[i].table.length;j++)
                         {
                             let option = document.createElement('option');
@@ -201,6 +200,7 @@ function adm_edit_dbElement(_db,_id)
                                 let option = document.createElement('option');
                                 option.value = j;
                                 option.innerHTML = array[i].table[j].language();
+                                if(array[i].dbname == 'abilities' && POKEMON_ABILITIES[j].done == undefined){option.classList.add('notReady');}
                                 input[k].appendChild(option);
                             }
                         }
@@ -518,6 +518,7 @@ function adm_moves_addition()
             let option = document.createElement('option');
             option.value = j;
             option.innerHTML = POKEMON_MOVE_EFFECTS[j].language();
+            if(POKEMON_MOVE_EFFECTS[j].done == undefined){option.classList.add('notReady');}
             whatEffect.appendChild(option);
         }
         whatEffect.id = 'admin_move_effect_what_' + i;
@@ -571,7 +572,9 @@ function admin_changeWhatMoveEffect(_number)
         value = '<select id=\'admin_move_effect_value_' + _number + '\'>';
         for(let i=0;i<POKEMON_MOVE_EFFECTS[selectValue].types.length;i++)
         {
-            value += '<option value=' + i + '>' + POKEMON_MOVE_EFFECTS[selectValue].types[i].language() + '</option>';
+            let optClass = '';
+            if(POKEMON_MOVE_EFFECTS[selectValue].types[i].done == undefined){optClass = ' class =\'notReady\'';}
+            value += '<option value=' + i + optClass + '>' + POKEMON_MOVE_EFFECTS[selectValue].types[i].language() + '</option>';
         }
         value += '</select>';
     }

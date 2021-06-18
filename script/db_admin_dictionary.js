@@ -38,11 +38,11 @@ const ADMIN_DATABASE_COLS =
         {description: {polski: 'umiejętności', english: 'abilities'}, dbname: 'abilities', input: 'selects', numOfInput: 3, table: POKEMON_ABILITIES},
         {description: {english: 'EVYeld'}, dbname: 'EVYeld', input: 'selects', numOfInput: 3, table: POKEMON_STATS},
         {description: {polski: 'szanse złapania', english: 'catch rate'}, dbname: 'catchRate', input: 'number', min: 1, max: 255},
-        {description: {polski: 'bazowe doświadczenie', english: 'base expirience'}, dbname: 'baseExp', input: 'number', min: 1, max: 300},
+        {description: {polski: 'bazowe doświadczenie', english: 'base expirience'}, dbname: 'baseExp', input: 'number', min: 1, max: 500},
         {description: {polski: 'wzrost doświadczenia', english: 'expirience growth'}, dbname: 'growthExp', input: 'select', table: POKEMON_EXP_GROWTH},
-        {description: {polski: 'szanse na samiczkę', english: 'female rate'}, dbname: 'femaleRate', input: 'number', min: 0, max: 100},
+        {description: {polski: 'szanse na samiczkę', english: 'female rate'}, dbname: 'femaleRate', input: 'number', min: -1, max: 100},
         {description: {polski: 'grupa jajek', english: 'egg group'}, dbname: 'eggGroup', input: 'select', table: POKEMON_EGG_GROUP},
-        {description: {polski: 'cykle do wyklucia', english: 'egg cycles'}, dbname: 'eggCycles', input: 'number', min: 1, max: 100},
+        {description: {polski: 'cykle do wyklucia', english: 'egg cycles'}, dbname: 'eggCycles', input: 'number', min: 1, max: 120},
         {description: {polski: 'bazowe życie', english: 'base HP'}, dbname: 'baseStats_hp', input: 'number', min: 1, max: 500},
         {description: {polski: 'bazowy atak', english: 'base attack'}, dbname: 'baseStats_attack', input: 'number', min: 1, max: 500},
         {description: {polski: 'bazowa obrona', english: 'base defence'}, dbname: 'baseStats_defence', input: 'number', min: 1, max: 500},
@@ -83,7 +83,7 @@ const ADMIN_DATABASE_COLS =
         }, notImportant: true}, //'select', table: []},
         {description: {polski: 'wartość metody ewolucji', english: 'preevolution value '}, dbname: 'preevolution_value', input: 'select', table: [{english: '', language: function(){return this.english}}], notImportant: true}, //'select', table: []},
         {description: {polski: 'wysokość', english: 'height'}, dbname: 'height', input: 'number', min: 0.1, max: 500},
-        {description: {polski: 'waga', english: 'weight'}, dbname: 'weight', input: 'number', min: 0.1, max: 500},
+        {description: {polski: 'waga', english: 'weight'}, dbname: 'weight', input: 'number', min: 0.1, max: 1000},
     ],
 
     maps:

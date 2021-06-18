@@ -346,6 +346,16 @@
   padding-top: 15px;
 }
 
+#admin_content option {
+  color: #fff;
+  background-color: #223;
+}
+
+#admin_content option.notReady {
+  color: #f00;
+  background-color: #223;
+}
+
 .adminTask {
   text-align: center;
   width: 150px;

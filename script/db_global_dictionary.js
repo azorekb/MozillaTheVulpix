@@ -34,7 +34,7 @@ const POKEMON_STATS =
 
 const POKEMON_ABILITIES = 
 [
-    {english: '-'},
+    {english: '-', done: true},
     {english: 'run away', polski: 'ucieczka'},
     {english: 'adaptability'},
     {english: 'anticipation'},
@@ -77,6 +77,50 @@ const POKEMON_ABILITIES =
     {english: 'steadfast'},
     {english: 'prankster'},
     {english: 'justtified'},
+    {english: 'regenerator'},
+    {english: 'reckless'},
+    {english: 'vital spirit'},
+    {english: 'poison point'},
+    {english: 'poison touch'},
+    {english: 'static'},
+    {english: 'lightning rod'},
+    {english: 'compound eyes'},
+    {english: 'tinted lens'},
+    {english: 'shield dust'},
+    {english: 'wonder skin'},
+    {english: 'rock head'},
+    {english: 'overcoat'},
+    {english: 'aerilate'},
+    {english: 'early bird'},
+    {english: 'unnerve'},
+    {english: 'own tempo'},
+    {english: 's9tamina'},
+    {english: 'anger point'},
+    {english: 'thick fat'},
+    {english: 'scrappy'},
+    {english: 'sap sipper'},
+    {english: 'multitype'},
+
+    {english: 'new 1'},
+    {english: 'new 2'},
+    {english: 'new 3'},
+    {english: 'new 4'},
+    {english: 'new 5'},
+    {english: 'new 6'},
+    {english: 'new 7'},
+    {english: 'new 8'},
+    {english: 'new 9'},
+    {english: 'new 10'},
+    {english: 'new 11'},
+    {english: 'new 12'},
+    {english: 'new 13'},
+    {english: 'new 14'},
+    {english: 'new 15'},
+    {english: 'new 16'},
+    {english: 'new 17'},
+    {english: 'new 18'},
+    {english: 'new 19'},
+    {english: 'new 20'},
 ];
 
 const POKEMON_MOVE_TARGET = 
@@ -101,16 +145,25 @@ const POKEMON_EXP_GROWTH =
 
 const POKEMON_EGG_GROUP = 
 [
+    {english: 'amprphus'},
+    {english: 'bug'},
+    {english: 'dragon'},
+    {english: 'fairy'},
     {english: 'field'},
     {english: 'flying'},
-    {english: 'dragon'},
+    {english: 'gress'},
+    {english: 'human-like'},
+    {english: 'mineral'},
     {english: 'monster'},
+    {english: 'water'},
+    {english: 'ditto'},
     {english: 'undiscovered'},
+
 ]
 
 const POKEMON_MOVE_EFFECTS = 
 [
-    {polski: 'pusty', english: 'empty', disable: true},
+    {english: '-', disable: true, done: true},
     {
         polski: 'zmiana statusu',
         english: 'change status',
@@ -274,6 +327,10 @@ const MAP_ITEMS =
         {name: 'none', src: 'nic.gif'},
         {name: 'sis Joy', src: 'joy.png'},
         {name: 'tallgrass', src: 'wysokatrawa.png'},
+        {name: 'statue', src: 'statua.png'},
+        {name: 'statue base', src: 'statua_podstawa.png'},
+        {name: 'plate', src: 'tabliczka.png'},
+        {name: 'bush', src: 'krzaczek.png'},
     ]
 };
     
@@ -295,7 +352,7 @@ const POKEMON_EVOLUTION_METHODS =
 [
     {english: '', subtype: ['']},
     {english: 'level', subtype: new NumberArray(2,100)},
-    {english: 'stone', subtype: ['water', 'fire', 'thunder', 'sun', 'moon', 'leaf', 'ice', 'dusk', 'dawn', 'shiny']},
+    {english: 'stone', subtype: ['water', 'fire', 'thunder', 'sun', 'moon', 'leaf', 'ice', 'dusk', 'dawn', 'shiny','mega']},
     {english: 'place', subtype: ['mossy rock', 'icy rock', 'electric field']},
     {english: 'friendship', subtype: ['', 'daytime', 'nighttime']},
     {english: 'love', subtype: ['fairy move']},
