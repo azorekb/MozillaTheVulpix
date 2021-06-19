@@ -41,31 +41,17 @@ function admin_start()
     admin_conteiner.appendChild(admin_content);
 
     activeWindow = 'admin';
+
+    adm_updateArrays();
 }
 
 function admin_show_database(_db)
 {
     insertWaitingImage(admin_content);
-
-    let php_database = new XMLHttpRequest();
-    php_database.onreadystatechange = function()
-    {
-        if(this.readyState == 4 && this.status == 200)
-		{
-            console.log(this.responseText);
-	        const RES = JSON.parse(this.responseText);
-			console.log(RES);
-            
-            admin_database_list(_db,RES);
-        }
-    }
-    
-	php_database.open("POST", 'php/database.php?base=' + _db, true);
-	php_database.send();
-
+    sendRequest(admin_database_list, 'php/database.php?base=' + _db, null, _db);
 }
 
-function admin_database_list(_db,_res)
+function admin_database_list(_res,_db)
 {
     let databaseTable = document.createElement('table');
     databaseTable.id = 'adm_databaseTable';
@@ -116,9 +102,7 @@ function admin_database_list(_db,_res)
             }
         }
     })
-    
-    if(_db == 'pokemon'){ADMIN_DATABASE_COLS.pokemon[18].table = pokemonList;}
-
+    adm_updateArrays();
             
     admin_content.innerHTML = '';
     admin_content.appendChild(databaseTable);
@@ -126,195 +110,184 @@ function admin_database_list(_db,_res)
 
 function adm_edit_dbElement(_db,_id)
 {
-    insertWaitingImage(admin_content);
+    insertWaitingImage(admin_content);    
+    let data = new FormData();
+    data.append('which', _id);
+    sendRequest(adm_edit_dbElement_ready, 'php/database.php?base=' + _db, data, [_db,_id]);
+}
+
+function adm_edit_dbElement_ready(_res,[_db,_id])
+{
+    const RES = _res[0];
+    let array = ADMIN_DATABASE_COLS[_db];
     
-    let php_database = new XMLHttpRequest();
-    php_database.onreadystatechange = function()
+    let editTable = document.createElement('table');
+    for(let i=1; i<array.length;i++)
     {
-        if(this.readyState == 4 && this.status == 200)
-		{
-            console.log(this.responseText);
-	        const RES = JSON.parse(this.responseText)[0];
-			console.log(RES);
-
-            let array = ADMIN_DATABASE_COLS[_db];
+        editTable.insertRow(i-1).insertCell(0).innerHTML = array[i].description.language();
+        let disable = false;
+        let input;
+        
+        switch(array[i].input)
+        {
             
-            let editTable = document.createElement('table');
-
-            for(let i=1; i<array.length;i++)
+            case 'disabled': disable = true;
+            case 'text':
             {
-                editTable.insertRow(i-1).insertCell(0).innerHTML = array[i].description.language();
-
-                let disable = false;
-                let input;
-
-                switch(array[i].input)
-                {
-                    
-                    case 'disabled': disable = true;
-                    case 'text':
-                    {
-                        input = document.createElement('input');
-                        input.type = 'text';
-                    }
-                    break;
-                    
-                    case 'number':
-                    {
-                        input = document.createElement('input');
-                        input.type = 'number';
-                        input.min = array[i].min; 
-                        input.max = array[i].max; 
-                    }
-                    break;
-                    
-                    case 'select':
-                    {
-                        input = document.createElement('select');
-                        for(let j=0;j<array[i].table.length;j++)
-                        {
-                            let option = document.createElement('option');
-                            if(array[i].noLanguage === undefined)
-                            {
-                                option.value = array[i].table[j].english;
-                                option.innerHTML = array[i].table[j].language();
-                            }
-                            else
-                            {
-                                option.value = array[i].table[j];
-                                option.innerHTML = array[i].table[j];
-                            }
-                            input.appendChild(option);
-                        }
-                    }
-                    break;
-                    
-                    case 'selects':
-                    {
-                        input = [];
-                        for(let k=0;k<array[i].numOfInput;k++)
-                        {
-                            input[k] = document.createElement('select');
-                            for(let j=0;j<array[i].table.length;j++)
-                            {
-                                let option = document.createElement('option');
-                                option.value = j;
-                                option.innerHTML = array[i].table[j].language();
-                                if(array[i].dbname == 'abilities' && POKEMON_ABILITIES[j].done == undefined){option.classList.add('notReady');}
-                                input[k].appendChild(option);
-                            }
-                        }
-                    }
-                    break;
-
-                    case 'checkbox':
-                    {
-                        input = document.createElement('input');
-                        input.type = 'checkbox';
-                        if(RES[array[i].dbname] == 1){input.checked = true;}
-                        else{input.checked = false;}
-                    }
-                }
-
-                if(array[i].onchange != undefined)
-                {
-                    input.onchange = array[i].onchange;
-                }
+                input = document.createElement('input');
+                input.type = 'text';
+            }
+            break;
                 
-                if(array[i].numOfInput == undefined)
-                {
-                    input.value = RES[array[i].dbname];
-                    input.id = 'admin_editDBElement_' + array[i].dbname;
-                    input.disabled = disable;
-                    editTable.rows[i-1].insertCell(1).appendChild(input);
-                }
-                else
-                {
-                    const dbvalue = RES[array[i].dbname].split(',');
-                    console.log(RES[array[i].dbname], dbvalue);
-                    let cell = editTable.rows[i-1].insertCell(1);
-                    for(let j=0;j<array[i].numOfInput;j++)
-                    {
-                        input[j].value = dbvalue[j];
-                        input[j].id = 'admin_editDBElement_' + array[i].dbname + '_' + j;
-                        cell.appendChild(input[j]);
-                    }
-                }
-
-            }
-            editTable.id = 'admin_editTable';
-            
-            if(_db == 'moves'){effectsTab = adm_moves_addition();}
-            if(_db == 'maps'){mapsHelps = adm_maps_addition(RES.cells);}
-
-            let save = document.createElement('div');
-            save.innerHTML = ADMIN_EDIT_TEXTS.save.language();
-            save.classList.add('adminButton','button','small');
-            save.id = 'adm_edit_saveButton';
-            save.onclick = function(){admin_saveDBElement(_db,_id);}
-            let cancel = document.createElement('div');
-
-            cancel.innerHTML = ADMIN_EDIT_TEXTS.cancel.language();
-            cancel.classList.add('adminButton','button','small');
-            cancel.id = 'adm_edit_cancelButton';
-            cancel.onclick = function(){admin_show_database(_db);}
-            
-            let waitingImage = document.createElement('img');
-            waitingImage.src = waitingImageUrl;
-            waitingImage.height = 33;
-            waitingImage.classList.add('none');
-            waitingImage.id = 'adm_edit_waitingIMG';
-            
-            let buttonDiv = document.createElement('div');
-            buttonDiv.classList.add('adm_buttonContainer');
-            buttonDiv.appendChild(waitingImage);
-            buttonDiv.appendChild(save);
-            buttonDiv.appendChild(cancel);
-
-            let info = document.createElement('div');
-            info.id = 'adm_edit_info';
-
-            admin_content.innerHTML = '';
-            admin_content.appendChild(editTable);
-            if(_db == 'moves'){admin_content.appendChild(effectsTab);}
-            if(_db == 'maps'){admin_content.appendChild(mapsHelps);}
-            admin_content.appendChild(info);
-            admin_content.appendChild(buttonDiv);
-
-            if(_db == 'moves')
+            case 'number':
             {
-                let arrayOfEffects = [];
-                if(RES.effects != undefined && RES.effects != '')
+                input = document.createElement('input');
+                input.type = 'number';
+                input.min = array[i].min; 
+                input.max = array[i].max; 
+            }
+            break;
+                    
+            case 'select':
+            {
+                input = document.createElement('select');
+                for(let j=0;j<array[i].table.length;j++)
                 {
-                    arrayOfEffects = RES.effects.split(',');
-                }
-
-                for(let i=0;i<NUMBER_OF_EFFECTS;i++)
-                {
-                    if(arrayOfEffects[i] != undefined)
+                    let option = document.createElement('option');
+                    if(array[i].noLanguage === undefined)
                     {
-                        const VALUES = arrayOfEffects[i].split('|');
-                        for(let j=0;j<ADMIN_EFFECTS_COLS.length;j++)
-                        {
-                            document.getElementById('admin_move_effect_'+ ADMIN_EFFECTS_COLS[j].english + '_' + i).value = VALUES[j];
-                            if(j == 0){admin_changeWhatMoveEffect(i);}
-                        }
+                        option.value = array[i].table[j].english;
+                        option.innerHTML = array[i].table[j].language();
                     }
+                    else
+                    {
+                        option.value = array[i].table[j];
+                        option.innerHTML = array[i].table[j];
+                    }
+                    input.appendChild(option);
                 }
             }
-
-            if(_db == 'pokemon')
+            break;
+                        
+            case 'selects':
             {
-                admin_editDBElement_preevolution_method.onchange();
-                admin_editDBElement_preevolution_value.value = RES.preevolution_value;
+                input = [];
+                for(let k=0;k<array[i].numOfInput;k++)
+                {
+                    input[k] = document.createElement('select');
+                    for(let j=0;j<array[i].table.length;j++)
+                    {
+                        let option = document.createElement('option');
+                        option.value = j;
+                        option.innerHTML = array[i].table[j].language();
+                        if(array[i].dbname == 'abilities' && POKEMON_ABILITIES[j].done == undefined){option.classList.add('notReady');}
+                        input[k].appendChild(option);
+                    }
+                            
+                }
+            }
+            break;
+
+            case 'checkbox':
+            {
+                input = document.createElement('input');
+                input.type = 'checkbox';
+                if(RES[array[i].dbname] == 1){input.checked = true;}
+                else{input.checked = false;}
+            }
+        }
+        
+        if(array[i].onchange != undefined)
+        {
+            input.onchange = array[i].onchange;
+        }
+        
+        if(array[i].numOfInput == undefined)
+        {
+            input.value = RES[array[i].dbname];
+            input.id = 'admin_editDBElement_' + array[i].dbname;
+            input.disabled = disable;
+            editTable.rows[i-1].insertCell(1).appendChild(input);
+        }
+        else
+        {
+            const dbvalue = RES[array[i].dbname].split(',');
+            console.log(RES[array[i].dbname], dbvalue);
+            let cell = editTable.rows[i-1].insertCell(1);
+            for(let j=0;j<array[i].numOfInput;j++)
+            {
+                input[j].value = dbvalue[j];
+                input[j].id = 'admin_editDBElement_' + array[i].dbname + '_' + j;
+                cell.appendChild(input[j]);
+            }
+        }
+        
+    }
+    editTable.id = 'admin_editTable';
+    if(_db == 'moves'){effectsTab = adm_moves_addition();}
+    if(_db == 'maps'){mapsHelps = adm_maps_addition(RES.cells);}
+    
+    let save = document.createElement('div');
+    save.innerHTML = ADMIN_EDIT_TEXTS.save.language();
+    save.classList.add('adminButton','button','small');
+    save.id = 'adm_edit_saveButton';
+    save.onclick = function(){admin_saveDBElement(_db,_id);}
+    let cancel = document.createElement('div');
+    
+    cancel.innerHTML = ADMIN_EDIT_TEXTS.cancel.language();
+    cancel.classList.add('adminButton','button','small');
+    cancel.id = 'adm_edit_cancelButton';
+    cancel.onclick = function(){admin_show_database(_db);}
+    
+    let waitingImage = document.createElement('img');
+    waitingImage.src = waitingImageUrl;
+    waitingImage.height = 33;
+    waitingImage.classList.add('none');
+    waitingImage.id = 'adm_edit_waitingIMG';
+    
+    let buttonDiv = document.createElement('div');
+    buttonDiv.classList.add('adm_buttonContainer');
+    buttonDiv.appendChild(waitingImage);
+    buttonDiv.appendChild(save);
+    buttonDiv.appendChild(cancel);
+    
+    let info = document.createElement('div');
+    info.id = 'adm_edit_info';
+    
+    admin_content.innerHTML = '';
+    admin_content.appendChild(editTable);
+    if(_db == 'moves'){admin_content.appendChild(effectsTab);}
+    if(_db == 'maps'){admin_content.appendChild(mapsHelps);}
+    admin_content.appendChild(info);
+    admin_content.appendChild(buttonDiv);
+    
+    if(_db == 'moves')
+    {
+        let arrayOfEffects = [];
+        if(RES.effects != undefined && RES.effects != '')
+        {
+            arrayOfEffects = RES.effects.split(',');
+        }
+        
+        for(let i=0;i<NUMBER_OF_EFFECTS;i++)
+        {
+            if(arrayOfEffects[i] != undefined)
+            {
+                const VALUES = arrayOfEffects[i].split('|');
+                for(let j=0;j<ADMIN_EFFECTS_COLS.length;j++)
+                {
+                    document.getElementById('admin_move_effect_'+ ADMIN_EFFECTS_COLS[j].english + '_' + i).value = VALUES[j];
+                    if(j == 0){admin_changeWhatMoveEffect(i);}
+                }
             }
         }
     }
-
-    let data = new FormData();
-    data.append('which', _id);
-    php_database.open("POST", 'php/database.php?base=' + _db, true);
-    php_database.send(data);
+    
+    if(_db == 'pokemon')
+    {
+        admin_editDBElement_preevolution_method.onchange();
+        admin_editDBElement_preevolution_value.value = RES.preevolution_value;
+    }
 }
 
 function adm_add_dbElement(_db)
@@ -325,29 +298,20 @@ function adm_add_dbElement(_db)
     let data = new FormData();
     data.append('new',true);
 
-    let php_database = new XMLHttpRequest();
-    php_database.onreadystatechange = function()
-    {
-        if(this.readyState == 4 && this.status == 200)
-	    {
-            console.log(this.responseText);
-            const RES = JSON.parse(this.responseText);
-	 	    console.log(RES);
-            
-            if(RES.id == undefined)
-            {
-                adm_database_newElementButton.classList.remove('none');
-                adm_database_newElement_waiting.classList.add('none');
-            }
-            else
-            {
-                adm_edit_dbElement(_db,RES.id);
-            }
-        }
-    }
+    sendRequest(adm_add_dbElement_ready, 'php/database.php?base=' + _db, data, _db);
+}
 
-    php_database.open("POST", 'php/database.php?base=' + _db, true);
-    php_database.send(data);
+function adm_add_dbElement_ready(_RES,_db)
+{
+    if(_RES.id == undefined)
+    {
+        adm_database_newElementButton.classList.remove('none');
+        adm_database_newElement_waiting.classList.add('none');
+    }
+    else
+    {
+        adm_edit_dbElement(_db,_RES.id);
+    }
 }
 
 function admin_saveDBElement(_db,_id)
@@ -449,26 +413,7 @@ function admin_saveDBElement(_db,_id)
 
     if(noErrors)
     {
-        let php_database = new XMLHttpRequest();
-        php_database.onreadystatechange = function()
-        {
-            if(this.readyState == 4 && this.status == 200)
-		    {
-	            const RES = this.responseText;
-		    	console.log(RES);
-
-                if(RES == '{}')
-                {
-                    admin_addSuccess()
-                }
-
-                adm_edit_waitingIMG.classList.add('none');
-                adm_edit_saveButton.classList.remove('none');
-            }
-        }
-
-        php_database.open("POST", 'php/database.php?base=' + _db, true);
-        php_database.send(data);
+        sendRequest(adm_edit_success,'php/database.php?base=' + _db, data, 'giveMeResText');
     }
     else
     {
@@ -477,6 +422,16 @@ function admin_saveDBElement(_db,_id)
     }
 }
 
+function adm_edit_success(_RES,_resText)
+{
+    if(_resText == '{}')
+    {
+        admin_addSuccess();
+    }
+
+    adm_edit_waitingIMG.classList.add('none');
+    adm_edit_saveButton.classList.remove('none');
+}
 
 function admin_addWarning(_number,_effect)
 {
@@ -500,6 +455,12 @@ function admin_addSuccess()
     adm_edit_info.innerHTML += colorText(ADMIN_POKEMON_TEXTS.success.language(),COLOR_SUCCESS);
 }
 
+function adm_updateArrays()
+{
+    ADMIN_DATABASE_COLS.pokemon[18].table = pokemonList;
+    ADMIN_DATABASE_COLS.pokemon_moves[1].table = pokemonList;
+    ADMIN_DATABASE_COLS.pokemon_moves[2].table = moveList;
+}
 // ===========================================================================
 // =========================== MOVES =========================================
 // ===========================================================================

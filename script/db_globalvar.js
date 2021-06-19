@@ -22,11 +22,17 @@ let activeButton = null;
 let activeUser = {name: '', admin: false};
 let language = 'polski';
 
-let adm_selectedMapObject = 0;
-let adm_selectedMapBG = 0;
-let noErrors = true;
-let adm_thisMap = [];
+//HTTP Request
+let php_request = new XMLHttpRequest();
+let requestInterval;
+let numberOfTries = 0;
 
 // tables from server db
 let pokemonList = [];
 let moveList = [];
+
+//admin vars
+let adm_selectedMapObject = 0;
+let adm_selectedMapBG = 0;
+let noErrors = true;
+let adm_thisMap = [];

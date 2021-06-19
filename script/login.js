@@ -60,43 +60,32 @@ function login_send(_type)
 
         return false;
     }
-
-    let php_login = new XMLHttpRequest();
-    let login = document.getElementById(_type + '_name_input').value;
-    let pass = document.getElementById(_type + '_password_input').value;
-	
-	php_login.onreadystatechange = function() 
-	{
-        if(this.readyState == 4 && this.status == 200)
-		{
-            console.log(this.responseText);
-	        const RES = JSON.parse(this.responseText);
-			console.log(RES);
-            
-	        if(RES.error == '')
-            {
-                activeUser.name = RES.name;
-                activeUser.admin = RES.admin;
-                start();
-            }
-            else
-            {
-                login_addError(RES.error);
-                document.getElementById(_type + '_waiting').classList.add('none');
-                obj = document.getElementById(_type + '_button');
-                obj.classList.remove('none');
-                obj.disabled = false;
-            }
-	    }
-	};
     
     let sending_data = new FormData();
     sending_data.append('type', _type);
-    sending_data.append('name', login);
-    sending_data.append('pass', pass);
-    const url = 'php/login.php';
-	php_login.open("POST", url, true);
-	php_login.send(sending_data);
+    sending_data.append('name', document.getElementById(_type + '_name_input').value);
+    sending_data.append('pass', document.getElementById(_type + '_password_input').value);
+    const URL = 'php/login.php';
+
+    sendRequest(login_send_ready,URL,sending_data,null)
+}
+
+function login_send_ready(_RES)
+{
+    if(_RES.error == '')
+    {
+        activeUser.name = _RES.name;
+        activeUser.admin = _RES.admin;
+        start();
+    }
+    else
+    {
+        login_addError(_RES.error);
+        document.getElementById(_type + '_waiting').classList.add('none');
+        let obj = document.getElementById(_type + '_button');
+        obj.classList.remove('none');
+        obj.disabled = false;
+    }
 }
 
 function login_addError(_error)

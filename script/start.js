@@ -126,7 +126,7 @@ function start()
 
 	let worldmapContent = document.createElement('div');
 	worldmapContent.id = 'worldmapContent';
-	worldmapContent.innerHTML = '<img src=\'' + waitingImageUrl + '\'><br><b>downloading map...</b>';
+	worldmapContent.innerHTML = '<img src=\'' + waitingImageUrl + '\'><br><br><b>downloading map...</b>';
 	worldMapConteiner.appendChild(worldmapContent);
 
 	const BUTTON_PLACES = [[1,0],[0,1],[1,2],[2,1]];
@@ -162,15 +162,24 @@ function start()
 	
 	activeWindow = 'unactive';
 	
-	let phpMap = new XMLHttpRequest();
-	phpMap.onreadystatechange = function()
-	{
-		if(this.readyState == 4 && this.status == 200)
-		{
-			console.log(this.responseText);
-	        const RES = JSON.parse(this.responseText)[0];
-			console.log(RES);
+	downloadDataBases(null,0);
+}
 
+function downloadDataBases(_RES,_number)
+{
+	switch(_number)
+	{
+		case 0:
+		{
+			let data = new FormData();
+    		data.append('which', 1);
+			sendRequest(downloadDataBases,'php/database.php?base=maps',data,1);
+		} 
+		break;
+
+		case 1:
+		{
+			const RES = _RES[0];
 			actualMapData.title.english = RES.name_eng;
 			actualMapData.title.polski = RES.name_pl;
 			actualMapData.no = RES.id;
@@ -188,16 +197,29 @@ function start()
 					}
 				}
 			}
+			worldmapContent.innerHTML = '<img src=\'' + waitingImageUrl + '\'><br><br><b>downloading pokemon...</b>';
+			sendRequest(downloadDataBases,'php/database.php?base=pokemon',null,2);
+		}
+		break;
+
+		case 2:
+		{
+			Object.keys(_RES).forEach(element => {pokemonList[element*1] = _RES[element].name;})
+			worldmapContent.innerHTML = '<img src=\'' + waitingImageUrl + '\'><br><br><b>downloading moves...</b>';
+
+			sendRequest(downloadDataBases,'php/database.php?base=moves',null,3);
+		}
+		break;
+
+		case 3:
+		{
+			Object.keys(_RES).forEach(element => {moveList[element*1] = _RES[element].name_eng;})
+
 			activeWindow = true;
 			clickMenuButton(document.getElementById('mapMenuButton_Adventure'));
 		}
+		break;
 	}
-
-	
-	let data = new FormData();
-    data.append('which', 1);
-    phpMap.open("POST", 'php/database.php?base=maps', true);
-    phpMap.send(data);
 }
 
 function wayActive(_event, _element, _direct)
@@ -217,4 +239,49 @@ function wayUnactive(_element)
 function colorText(_text,_colour)
 {
 	return '<font color=\'' + _colour + '\'>' + _text + '</font>';
+}
+
+function sendRequest(_onReadyFunction,_url,_sendingData,_functionData)
+{
+	php_request.abort();
+
+	php_request.onreadystatechange = function() 
+	{
+        if(this.readyState == 4 && this.status == 200)
+		{
+			clearInterval(requestInterval);
+
+            console.log(this.responseText);
+	        const RES = JSON.parse(this.responseText);
+			console.log(RES);
+            
+	        if(_functionData == 'giveMeResText'){_functionData = this.responseText;}
+			_onReadyFunction(RES,_functionData);
+	    }
+	};
+    
+	php_request.open("POST", _url, true);
+	php_request.send(_sendingData);
+
+	numberOfTries = 0;
+
+	requestInterval = window.setInterval(function()
+	{
+		console.log('próba numer ' + ++numberOfTries + ' - niepowodzenie');
+
+		php_request.abort();
+
+		if(numberOfTries < 3)
+		{
+			php_request.open("POST", _url, true);
+			php_request.send(_sendingData);
+		}
+		else
+		{
+			console.log('dupa z tego będzie, reset');
+			clearInterval(requestInterval);
+		}
+
+	},3000)
+	//abort()
 }
