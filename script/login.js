@@ -76,7 +76,8 @@ function login_send_ready(_RES)
     {
         activeUser.name = _RES.name;
         activeUser.admin = _RES.admin;
-        start();
+        okno.innerHTML = '<img src=\'' + waitingImageUrl + '\'><br><br><b>downloading map...</b>';
+        downloadDataBases(null,0);
     }
     else
     {

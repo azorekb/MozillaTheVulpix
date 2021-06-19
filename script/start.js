@@ -126,7 +126,6 @@ function start()
 
 	let worldmapContent = document.createElement('div');
 	worldmapContent.id = 'worldmapContent';
-	worldmapContent.innerHTML = '<img src=\'' + waitingImageUrl + '\'><br><br><b>downloading map...</b>';
 	worldMapConteiner.appendChild(worldmapContent);
 
 	const BUTTON_PLACES = [[1,0],[0,1],[1,2],[2,1]];
@@ -162,7 +161,8 @@ function start()
 	
 	activeWindow = 'unactive';
 	
-	downloadDataBases(null,0);
+	activeWindow = true;
+	clickMenuButton(document.getElementById('mapMenuButton_Adventure'));
 }
 
 function downloadDataBases(_RES,_number)
@@ -197,7 +197,7 @@ function downloadDataBases(_RES,_number)
 					}
 				}
 			}
-			worldmapContent.innerHTML = '<img src=\'' + waitingImageUrl + '\'><br><br><b>downloading pokemon...</b>';
+			okno.innerHTML = '<img src=\'' + waitingImageUrl + '\'><br><br><b>downloading pokemon...</b>';
 			sendRequest(downloadDataBases,'php/database.php?base=pokemon',null,2);
 		}
 		break;
@@ -205,7 +205,7 @@ function downloadDataBases(_RES,_number)
 		case 2:
 		{
 			Object.keys(_RES).forEach(element => {pokemonList[element*1] = _RES[element].name;})
-			worldmapContent.innerHTML = '<img src=\'' + waitingImageUrl + '\'><br><br><b>downloading moves...</b>';
+			okno.innerHTML = '<img src=\'' + waitingImageUrl + '\'><br><br><b>downloading moves...</b>';
 
 			sendRequest(downloadDataBases,'php/database.php?base=moves',null,3);
 		}
@@ -215,8 +215,7 @@ function downloadDataBases(_RES,_number)
 		{
 			Object.keys(_RES).forEach(element => {moveList[element*1] = _RES[element].name_eng;})
 
-			activeWindow = true;
-			clickMenuButton(document.getElementById('mapMenuButton_Adventure'));
+			start();
 		}
 		break;
 	}
