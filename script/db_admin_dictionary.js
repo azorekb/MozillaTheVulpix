@@ -10,6 +10,7 @@ const ADMIN_LIST_OF_TASKS =
     {polski: 'pokemony', english: 'pokemon', disabled: false},
     {polski: 'mapy', english: 'maps', disabled: false}, 
     {polski: 'ruchy', english: 'moves', disabled: false},
+    {polski: 'ruchy pokemonów', english: 'pokemon moves', disabled: true}
 ];
 
 const ADMIN_DATABASE_COLS = 
@@ -92,6 +93,14 @@ const ADMIN_DATABASE_COLS =
         {description: {polski: 'nazwa polska', english: 'polish name'}, dbname: 'name_pl', input: 'text'},
         {description: {polski: 'nazwa angielska', english: 'english name'}, dbname: 'name_eng', input: 'text'},
         {description: {polski: 'kod mapy', english: 'map code'}, dbname: 'cells', input: 'disabled', hidden: true}
+    ],
+
+    pokemon_moves:
+    [
+        {description: {polski: 'nr', english: 'no'}, dbname: 'id'},
+        {description: {english: 'pokemon'}, dbname: 'pokemon', input: 'select', table: pokemonList, noLanguage: true},
+        {description: {english: 'move', polski: 'ruch'}, dbname: 'move', input: 'select', table: moveList, noLanguage: true},
+        {description: {polski: 'metoda', english: 'method'}, dbname: 'how', input: 'select', table: POKEMON_MOVES_METHODS}
     ]
 };
 

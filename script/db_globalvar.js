@@ -29,3 +29,4 @@ let adm_thisMap = [];
 
 // tables from server db
 let pokemonList = [];
+let moveList = [];

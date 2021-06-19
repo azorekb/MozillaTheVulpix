@@ -6,7 +6,8 @@
             case 'moves': $array = 'mozillavulpix_pokemon_moves'; break;
             case 'pokemon': $array = 'mozillavulpix_pokemon'; break;
             case 'maps': $array = 'mozillavulpix_maps'; break;
-        }       
+            case 'pokemon_moves': $array = 'mozillavulpix_movesForPokemon'; break;
+        }
 
         $connection = mysql_connect('mysql1.ugu.pl', 'db699059', 'MalaRuka.037') or die(mysql_error());
         $db = mysql_select_db('db699059', $connection) or die(mysql_error());

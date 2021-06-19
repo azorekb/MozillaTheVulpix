@@ -30,7 +30,7 @@ function admin_start()
         }
         else
         {
-            task.onclick=function(){admin_show_database(ADMIN_LIST_OF_TASKS[i].english)}
+            task.onclick=function(){admin_show_database(ADMIN_LIST_OF_TASKS[i].english.replace(' ', '_'))}
         }
         admin_list.appendChild(task);
     }

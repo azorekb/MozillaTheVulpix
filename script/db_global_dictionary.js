@@ -281,6 +281,19 @@ const POKEMON_MOVE_EFFECTS =
             {english: 'copy for battle', polski: 'kopiowanie na czas walki'},
             {english: 'copy permanent', polski: 'trwałe skopiowanie ruchu'}
         ]
+    },
+    {
+        english: 'items',
+        types:
+        [
+            {english: 'steal'},
+            {english: 'swap'},
+            {english: 'deactive'},
+            {english: 'reactive'},
+            {english: 'give'},
+            {english: 'use (user\'s)'},
+            {english: 'use (target\'s)'},
+        ]
     }
 
     
@@ -380,3 +393,23 @@ const MAIN_ERRORS =
     shortPassword: {polski: 'hasło jest zbyt krótkie (min 4 liter)', english: 'hasło is too short (min 4 letters)'},
     wrongPassword: {polski: 'podane hasło jest nieprawidłowe', english: 'given password is incorrect'},
 };
+
+let temporaryArray = [];
+for(let i = 1; i <= 100; i++)
+{
+    temporaryArray[i-1] = {english: i + ' level', polski: i + ' poziom'};
+}
+
+const POKEMON_MOVES_METHODS =
+[
+    {english: 'egg moves'},
+    {english: 'evolution'},
+    {english: 'TM/TR/HM'},
+    {english: 'tutor'},
+    ...temporaryArray
+]
+
+const DOWNLOAD_DATABASES =
+[
+    
+]
