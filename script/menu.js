@@ -6,7 +6,7 @@ function clickMenuButton(_element)
         switch(_element.id)
         {
             case 'mapMenuButton_Adventure': openMap(); break;
-            case 'mapMenuButton_Pokedex': openPokedex(); break;
+            // case 'mapMenuButton_Pokedex': openPokedex(); break;
 			case 'mapMenuButton_Admin_Panel': admin_start(); break;
 
             default: return false;

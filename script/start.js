@@ -161,6 +161,15 @@ function start()
 	
 	activeWindow = 'unactive';
 	
+	TEST_TEAM =
+	[
+		new Pokemon(0,5,'female',0,0,'adamant',[1,4,0,0]),
+		new Pokemon(11,5,'female',0,0,'modest',[22,0,0,0]),
+		0,0,0,0
+	]
+	
+	activeUser.team = TEST_TEAM;
+
 	activeWindow = true;
 	clickMenuButton(document.getElementById('mapMenuButton_Adventure'));
 }
@@ -169,15 +178,15 @@ function downloadDataBases(_RES,_number)
 {
 	switch(_number)
 	{
-		case 0:
+		case 'maps':
 		{
 			let data = new FormData();
     		data.append('which', 1);
-			sendRequest(downloadDataBases,'php/database.php?base=maps',data,1);
+			sendRequest(downloadDataBases,'php/database.php?base=maps',data,'maps-pokemon');
 		} 
 		break;
 
-		case 1:
+		case 'maps-pokemon':
 		{
 			const RES = _RES[0];
 			actualMapData.title.english = RES.name_eng;
@@ -198,20 +207,27 @@ function downloadDataBases(_RES,_number)
 				}
 			}
 			okno.innerHTML = '<img src=\'' + waitingImageUrl + '\'><br><br><b>downloading pokemon...</b>';
-			sendRequest(downloadDataBases,'php/database.php?base=pokemon',null,2);
+			sendRequest(downloadDataBases,'php/database.php?base=pokemon',null,'pokemon-moves');
 		}
 		break;
 
-		case 2:
+		case 'pokemon-moves':
 		{
-			Object.keys(_RES).forEach(element => {pokemonList[element*1] = _RES[element].name;})
+			Object.keys(_RES).forEach(element => 
+			{
+				const E = _RES[element];
+				pokemonList[element*1] = new Pokemon_list(E.name,E.no,E.types,E.abilities,E.EVYeld,E.catchRate,
+					E.baseExp,E.growthExp,E.femaleRate,E.eggGroup,E.eggCycles,E.baseStats_hp,E.baseStats_attack,
+					E.baseStats_defence,E.baseStats_spAttack,E.baseStats_spDefence,E.baseStats_speed,E.preevolution_specie,
+					E.preevolution_method,E.preevolution_value,E.height,E.weight);
+			})
 			okno.innerHTML = '<img src=\'' + waitingImageUrl + '\'><br><br><b>downloading moves...</b>';
 
-			sendRequest(downloadDataBases,'php/database.php?base=moves',null,3);
+			sendRequest(downloadDataBases,'php/database.php?base=moves',null,'moves-start');
 		}
 		break;
 
-		case 3:
+		case 'moves-start':
 		{
 			Object.keys(_RES).forEach(element => {moveList[element*1] = _RES[element].name_eng;})
 

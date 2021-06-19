@@ -1,34 +1,41 @@
 class Pokemon_list
 {
-    no; types; abilities; EVYeld; catchRate; baseExp; growthExp; femaleRate; eggGroup; eggCycles; baseStats; preevolution; height; weight;
+    name; no; types; abilities; EVYeld; catchRate; baseExp; growthExp; femaleRate; eggGroup; eggCycles; baseStats; preevolution; height; weight;
 
-    constructor(no,type1,type2,ability1,ability2,hiddenAbility,EVYeld,catchRate,baseExp,growthExp,femaleRate, eggGroup, eggCycles, baseHP, baseAttack, baseDefence, baseSpAttack, baseSpDefence, baseSpeed, preevolutionSpecie, preevolutionMethod, preevolutionMethodValue, height, weight)
+    constructor(name,no,types,abilities,EVYeld,catchRate,baseExp,growthExp,femaleRate, eggGroup, eggCycles, baseHP, baseAttack, baseDefence, baseSpAttack, baseSpDefence, baseSpeed, preevolutionSpecie, preevolutionMethod, preevolutionMethodValue, height, weight)
     {
-        this.no=no;
-        this.types={first:type1, second:type2};
-        this.abilities={first:ability1, second:ability2, hidden:hiddenAbility};
-        this.EVYeld=EVYeld;
-        this.catchRate=catchRate;
-        this.baseExp=baseExp;
-        this.growthExp=growthExp;
-        this.femaleRate=femaleRate;
-        this.eggGroup=eggGroup;
-        this.eggCycles=eggCycles;
-        this.baseStats={
-            hp:baseHP,
-            attack:baseAttack,
-            defence:baseDefence,
-            spAttack:baseSpAttack,
-            spDefence:baseSpDefence,
-            speed:baseSpeed
+        this.name = name;
+        this.no = no;
+        console.log(name,types);
+        let text = typeof(types) == "string" ? types.split(','): types;
+        this.types = [text[0]*1, text[1]*1];
+        text = typeof(abilities) == "string" ? abilities.split(','): abilities;
+        this.abilities = [text[0]*1, text[1]*1, text[2]*1];
+        text = typeof(EVYeld) == "string" ? EVYeld.split(','): EVYeld;
+        this.EVYeld = [text[0]*1, text[1]*1, text[2]*1];
+        this.catchRate = catchRate;
+        this.baseExp = baseExp;
+        this.growthExp = growthExp;
+        this.femaleRate = femaleRate;
+        this.eggGroup = eggGroup;
+        this.eggCycles = eggCycles;
+        this.baseStats = 
+        {
+            hp: baseHP,
+            attack: baseAttack,
+            defence: baseDefence,
+            spAttack: baseSpAttack,
+            spDefence: baseSpDefence,
+            speed: baseSpeed
         };
-        this.preevolution={
+        this.preevolution = 
+        {
             specie: preevolutionSpecie,
             method: preevolutionMethod,
             value: preevolutionMethodValue
         };
-        this.height=height;
-        this.weight=weight;
+        this.height = height;
+        this.weight = weight;
     }
 }
 
@@ -76,5 +83,36 @@ class Effect
         this.name = name;
         this.chance = chance;
         this.value = value;
+    }
+}
+
+class Pokemon extends Pokemon_list
+{
+
+    constructor(specie,level,gender,friednship,expirience,nature,moves,nickname = '',IV = [0,0,0,0,0,0],EV = [0,0,0,0,0,0],OT = 'Trener')
+    {
+        const E = pokemonList[specie];
+        super(E.name,E.no,E.types,E.abilities,E.EVYeld,E.catchRate,E.baseExp,E.growthExp,E.femaleRate,E.eggGroup,
+        E.eggCycles,E.baseStats.hp,E.baseStats.attack,E.baseStats.defence,E.baseStats.spAttack,
+        E.baseStats.spDefence,E.baseStats.speed,E.preevolution.specie,E.preevolution.method,E.preevolution.value,
+        E.height,E.weight);
+            
+        this.OT = OT;
+        this.nick = nickname;
+        this.level = level;
+        this.gender = gender;
+        this.expirience = expirience;
+        this.friednship = friednship;
+        this.IV = IV;
+        this.EV = EV
+        this.nature = nature;
+        this.moves = 
+        [
+            moveList[moves[0]],
+            moveList[moves[1]],
+            moveList[moves[2]],
+            moveList[moves[3]]
+        ];
+        
     }
 }

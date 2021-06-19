@@ -9,7 +9,6 @@ const COLOR_WARNING = '#0000ff';
 const waitingImageUrl = "img/vapi.gif";
 
 //variable
-
 let logInTab = 'logIn';
 let mapCenter = {toX: 0, isX: 0, toY: 0, isY: 0,};
 let way_comming = null;
@@ -36,3 +35,7 @@ let adm_selectedMapObject = 0;
 let adm_selectedMapBG = 0;
 let noErrors = true;
 let adm_thisMap = [];
+
+//test
+
+let TEST_TEAM = [];

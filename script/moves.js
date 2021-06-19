@@ -15,7 +15,7 @@ function map_actionOfCharacter(_direct)
 	switch(object)
 	{
 		case 2: map_characterMove(_direct,mainCharacter,[newX,newY],'DrawAPokemonBattle'); break;
-		case 1: console.log('rozmwa z sis joy'); break;
+		case 1: battle_start(TEST_TEAM); break;
 		case 0: switch(area)
 		{
 			case 'land': map_characterMove(_direct,mainCharacter,[newX,newY]);
