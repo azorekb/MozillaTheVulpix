@@ -100,6 +100,11 @@ const POKEMON_ABILITIES =
     {english: 'scrappy'},
     {english: 'sap sipper'},
     {english: 'multitype'},
+    {english: 'storm drain'},
+    {english: 'magic drain'},
+    {english: 'refigerate'},
+    {english: 'zephyr boost'},
+    {english: 'huge power'},
 
     {english: 'new 1'},
     {english: 'new 2'},
@@ -409,7 +414,31 @@ const POKEMON_MOVES_METHODS =
     ...temporaryArray
 ]
 
-const DOWNLOAD_DATABASES =
+const POKEMON_NATURE =
 [
-    
+    {english: 'Hardy', statUp: 2, statDown: 2},
+    {english: 'Lonely', statUp: 2, statDown: 3},
+    {english: 'Adamant', statUp: 2, statDown: 4},
+    {english: 'Naughty', statUp: 2, statDown: 5},
+    {english: 'Brave', statUp: 2, statDown: 6},
+    {english: 'Bold', statUp: 3, statDown: 2},
+    {english: 'Docile', statUp: 3, statDown: 3},
+    {english: 'Impish', statUp: 3, statDown: 4},
+    {english: 'Lax', statUp: 3, statDown: 5},
+    {english: 'Relaxed', statUp: 3, statDown: 6},
+    {english: 'Modest', statUp: 4, statDown: 2},
+    {english: 'Mild', statUp: 4, statDown: 3},
+    {english: 'Bashful', statUp: 4, statDown: 4},
+    {english: 'Rash', statUp: 4, statDown: 5},
+    {english: 'Quiet', statUp: 4, statDown: 6},
+    {english: 'Calm', statUp: 5, statDown: 2},
+    {english: 'Gentle', statUp: 5, statDown: 3},
+    {english: 'Careful', statUp: 5, statDown: 4},
+    {english: 'Quirky', statUp: 5, statDown: 5},
+    {english: 'Sassy', statUp: 5, statDown: 6},
+    {english: 'Timid', statUp: 6, statDown: 2},
+    {english: 'Hasty', statUp: 6, statDown: 3},
+    {english: 'Jolly', statUp: 6, statDown: 4},
+    {english: 'Naive', statUp: 6, statDown: 5},
+    {english: 'Serious', statUp: 6, statDown: 6},
 ]

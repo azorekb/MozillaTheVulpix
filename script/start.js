@@ -161,14 +161,12 @@ function start()
 	
 	activeWindow = 'unactive';
 	
-	TEST_TEAM =
+	activeUser.team =
 	[
-		new Pokemon(0,5,'female',0,0,'adamant',[1,4,0,0]),
-		new Pokemon(11,5,'female',0,0,'modest',[22,0,0,0]),
-		0,0,0,0
+		new Pokemon(randomInt(pokemonList.length -1),2,-1,0,0,-1,[1,0,0,0],'Test',-1,-1,'Szibi Snowpix',0,[0,0,0,0]),
+		new Pokemon(randomInt(pokemonList.length -1),2,-1,0,0,-1,[1,0,0,0],'Test',-1,-1,'Szibi Snowpix',0,[0,0,0,0]),
+		null,null,null,null
 	]
-	
-	activeUser.team = TEST_TEAM;
 
 	activeWindow = true;
 	clickMenuButton(document.getElementById('mapMenuButton_Adventure'));
@@ -299,4 +297,13 @@ function sendRequest(_onReadyFunction,_url,_sendingData,_functionData)
 
 	},3000)
 	//abort()
+}
+
+function randomInt(_arg1 = 1, _arg2 = 0)
+{
+	let min,max;
+	if(_arg1 == _arg2){return _arg1;}
+	if(_arg1 > _arg2){min = _arg2; max = _arg1;}
+	else{min = _arg1; max = _arg2;}
+	return min + Math.floor(Math.random() * (max - min + 1))
 }

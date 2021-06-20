@@ -15,7 +15,7 @@ function map_actionOfCharacter(_direct)
 	switch(object)
 	{
 		case 2: map_characterMove(_direct,mainCharacter,[newX,newY],'DrawAPokemonBattle'); break;
-		case 1: battle_start(TEST_TEAM); break;
+		case 1: console.log('zaczepianie sii joy'); break;
 		case 0: switch(area)
 		{
 			case 'land': map_characterMove(_direct,mainCharacter,[newX,newY]);
@@ -248,7 +248,16 @@ function endOfWalk(_position, _type, _end)
 
 	switch(_end)
 	{
-		case 'DrawAPokemonBattle': console.log('losowanko xD'); break;
+		case 'DrawAPokemonBattle':
+		{
+			let chance = Math.random();
+			console.log(chance);
+			if(chance < 0.3)
+			{
+				battle_start(null, 1);
+			}
+		}
+		break;
 	}
 
 	if(way_comming != null)

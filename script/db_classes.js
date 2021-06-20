@@ -1,3 +1,4 @@
+// POKEMON
 class Pokemon_list
 {
     name; no; types; abilities; EVYeld; catchRate; baseExp; growthExp; femaleRate; eggGroup; eggCycles; baseStats; preevolution; height; weight;
@@ -6,7 +7,6 @@ class Pokemon_list
     {
         this.name = name;
         this.no = no;
-        console.log(name,types);
         let text = typeof(types) == "string" ? types.split(','): types;
         this.types = [text[0]*1, text[1]*1];
         text = typeof(abilities) == "string" ? abilities.split(','): abilities;
@@ -39,27 +39,125 @@ class Pokemon_list
     }
 }
 
-class NumberArray
+class Pokemon extends Pokemon_list
 {
-    constructor(min, max)
+    sumStat(_stat)
     {
-        for(let i=0;i<=max-min;i++)
+        const base = this.baseStats[POKEMON_STATS[_stat +1].english]*1; //base value
+        if(base == 1){return 1;}
+        const iv = this.IV[_stat]; //IV
+        const ev = Math.floor(this.EV[_stat] / 4); //EV
+        const lv = this.level; //level
+        const NATURE = POKEMON_NATURE[this.nature];
+        let n = 0;
+        if(NATURE.statUp != NATURE.statDown) //nature changes
         {
-            this[i] = min + i;
+            if(NATURE.statUp == _stat){n = NATURE_CHANGE}
+            if(NATURE.statDown == _stat){n = -1 * NATURE_CHANGE}
         }
+        const nature = 1 + n;
+        
+        if(POKEMON_STATS[_stat + 1].english == 'hp')
+            return Math.floor((2 * base + iv + ev) * lv / 100) + lv + 10;
+        return Math.floor((Math.floor((2 * base + iv + ev) * lv / 100) + 5) * nature);
     }
+
+    constructor(specie,level,gender,friednship,expirience,nature,moves,nick,IV,EV,OT,damage,ppUsed,status = 0,item = 0)
+    {
+        const E = pokemonList[specie];
+        super(E.name,E.no,E.types,E.abilities,E.EVYeld,E.catchRate,E.baseExp,E.growthExp,E.femaleRate,E.eggGroup,
+        E.eggCycles,E.baseStats.hp,E.baseStats.attack,E.baseStats.defence,E.baseStats.spAttack,
+        E.baseStats.spDefence,E.baseStats.speed,E.preevolution.specie,E.preevolution.method,E.preevolution.value,
+        E.height,E.weight);
+        
+        this.OT = OT;
+        this.nick = nick;
+        this.level = level;
+        this.expirience = expirience;
+        this.friednship = friednship;
+        this.status = status
+        this.item = item;
+        this.damage = damage;
+
+        if(gender == -1)
+        {
+            if(this.femaleRate == -1){this.gender = 'genderless';}
+            else
+            {
+                const draw = randomInt(100);
+                if(draw < this.femaleRate){this.gender = 'female';}
+                else{this.gender = 'male';}
+            }
+        }
+        else{this.gender = gender;}
+
+        if(IV == -1)
+        {
+            IV = [];
+            for(let i=1;i<POKEMON_STATS.length;i++)
+            {
+                IV.push(randomInt(31));
+            }
+        }
+        this.IV = IV;
+        
+        if(EV == -1)
+        {
+            EV = [];
+            for(let i=1;i<POKEMON_STATS.length;i++)
+            {
+                EV.push(0);
+            }
+        }
+        this.EV = EV;
+        if(nature == -1){nature = randomInt(POKEMON_NATURE.length - 1)}
+        this.nature = nature;
+        this.moves = 
+        [
+            moveList[moves[0]],
+            moveList[moves[1]],
+            moveList[moves[2]],
+            moveList[moves[3]]
+        ];
+        if(ppUsed == 0){ppUsed = [0,0,0,0];}
+        this.ppUsed = ppUsed;
+        
+    }
+}
+
+class BattlePokemon extends Pokemon
+{
+    battle_sumStat(_stat)
+    {
+        return Math.round(this.sumStat(_stat) * (1 + this.statchanges[_stat] / 100));
+    }
+
+    constructor(pokemon)
+    {
+        let monNum;
+        for(let i=0;i<pokemonList.length;i++){if(pokemon.name == pokemonList[i].name){monNum = i;}}
+        super(monNum,pokemon.level,pokemon.gender,pokemon.friednship,pokemon.expirience,pokemon.nature,pokemon.moves,
+        pokemon.nick,pokemon.IV,pokemon.EV,pokemon.OT,pokemon.hpLeft,pokemon.ppLeft,pokemon.status,pokemon.item);
+        
+        this.statchanges = [];
+        for(let i=1;i<POKEMON_STATS.length;i++){this.statchanges.push(0);}
+        this.temporaryStatus = [];
+        this.mega = false;
+    }
+}
+
+class BattleField
+{
+    weather = null;
+    weatherTime = 0;
+    field = null;
+    fieldTime = 0;
+    megaUsed = [false, false];
+
 }
 
 class PokemonMove
 {
-    power = 0;
-    accuracy = 100;
-    type = '';
-    category = '';
-    effects = [];
-    PP = 1;
-    target = 'one_opponent';
-    
     constructor(power,accuracy,type,category,effects,PP,target)
     {
         this.accuracy = accuracy;
@@ -86,33 +184,13 @@ class Effect
     }
 }
 
-class Pokemon extends Pokemon_list
+class NumberArray
 {
-
-    constructor(specie,level,gender,friednship,expirience,nature,moves,nickname = '',IV = [0,0,0,0,0,0],EV = [0,0,0,0,0,0],OT = 'Trener')
+    constructor(min, max)
     {
-        const E = pokemonList[specie];
-        super(E.name,E.no,E.types,E.abilities,E.EVYeld,E.catchRate,E.baseExp,E.growthExp,E.femaleRate,E.eggGroup,
-        E.eggCycles,E.baseStats.hp,E.baseStats.attack,E.baseStats.defence,E.baseStats.spAttack,
-        E.baseStats.spDefence,E.baseStats.speed,E.preevolution.specie,E.preevolution.method,E.preevolution.value,
-        E.height,E.weight);
-            
-        this.OT = OT;
-        this.nick = nickname;
-        this.level = level;
-        this.gender = gender;
-        this.expirience = expirience;
-        this.friednship = friednship;
-        this.IV = IV;
-        this.EV = EV
-        this.nature = nature;
-        this.moves = 
-        [
-            moveList[moves[0]],
-            moveList[moves[1]],
-            moveList[moves[2]],
-            moveList[moves[3]]
-        ];
-        
+        for(let i=0;i<=max-min;i++)
+        {
+            this[i] = min + i;
+        }
     }
 }

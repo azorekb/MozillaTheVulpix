@@ -10,7 +10,7 @@ const ADMIN_LIST_OF_TASKS =
     {polski: 'pokemony', english: 'pokemon', disabled: false},
     {polski: 'mapy', english: 'maps', disabled: false}, 
     {polski: 'ruchy', english: 'moves', disabled: false},
-    {polski: 'ruchy pokemonów', english: 'pokemon moves', disabled: true}
+    {polski: 'ruchy pokemonów', english: 'pokemon moves', disabled: false}
 ];
 
 const ADMIN_DATABASE_COLS = 

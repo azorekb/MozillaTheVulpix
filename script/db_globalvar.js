@@ -7,6 +7,7 @@ const COLOR_SUCCESS = '#008000';
 const COLOR_ERROR = '#ff0000';
 const COLOR_WARNING = '#0000ff';
 const waitingImageUrl = "img/vapi.gif";
+const NATURE_CHANGE = 0.1;
 
 //variable
 let logInTab = 'logIn';
@@ -20,6 +21,7 @@ let actualMapData = {title: {english: null}, no: 0};
 let activeButton = null;
 let activeUser = {name: '', admin: false};
 let language = 'polski';
+let battleField = new BattleField();
 
 //HTTP Request
 let php_request = new XMLHttpRequest();
@@ -37,5 +39,3 @@ let noErrors = true;
 let adm_thisMap = [];
 
 //test
-
-let TEST_TEAM = [];
