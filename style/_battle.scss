@@ -1,0 +1,52 @@
+#battleWindow_container
+{
+    .pokemonTeam
+    {
+        width: max-content;
+
+        > div 
+        {
+            width: 100%;
+            border: 2px solid;
+            padding: 5px;
+            margin-bottom: 5;
+            border-radius: 10px;
+        }
+
+    }
+
+    .pokemonData
+    {
+        display: flex;
+
+        .image
+        {
+            border: 1px black solid;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            margin: 2px;
+        }
+
+        p
+        {
+            display: block;
+            width: max-content;
+            margin: 2px;
+        }
+    }
+
+    .lifebar
+    {
+        width: $battle_lifebar_width;
+        height: $battle_lifebar_height;
+
+        div
+        {
+            background-color: $battle_lifebar_color;
+            color: $battle_lifebar_textColor;
+            height: 100%;
+            border: 1px solid black;
+        }
+    }
+}

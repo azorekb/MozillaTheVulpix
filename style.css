@@ -336,6 +336,54 @@
   padding: 7px 0 5px 2px;
 }
 
+#battleWindow_container .pokemonTeam {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+#battleWindow_container .pokemonTeam > div {
+  width: 100%;
+  border: 2px solid;
+  padding: 5px;
+  margin-bottom: 5;
+  border-radius: 10px;
+}
+
+#battleWindow_container .pokemonData {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#battleWindow_container .pokemonData .image {
+  border: 1px black solid;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  margin: 2px;
+}
+
+#battleWindow_container .pokemonData p {
+  display: block;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin: 2px;
+}
+
+#battleWindow_container .lifebar {
+  width: 100%;
+  height: 5px;
+}
+
+#battleWindow_container .lifebar div {
+  background-color: #f00;
+  color: #fff;
+  height: 100%;
+  border: 1px solid black;
+}
+
 .adminList {
   display: -webkit-box;
   display: -ms-flexbox;

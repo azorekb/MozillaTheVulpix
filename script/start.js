@@ -163,8 +163,8 @@ function start()
 	
 	activeUser.team =
 	[
-		new Pokemon(randomInt(pokemonList.length -1),2,-1,0,0,-1,[1,0,0,0],'Test',-1,-1,'Szibi Snowpix',0,[0,0,0,0]),
-		new Pokemon(randomInt(pokemonList.length -1),2,-1,0,0,-1,[1,0,0,0],'Test',-1,-1,'Szibi Snowpix',0,[0,0,0,0]),
+		new Pokemon(randomInt(pokemonList.length -1),2,-1,-1,0,0,-1,[1,0,0,0],'Test',-1,-1,'Szibi Snowpix',0,[0,0,0,0]),
+		new Pokemon(randomInt(pokemonList.length -1),2,-1,-1,0,0,-1,[1,0,0,0],'Test',-1,-1,'Szibi Snowpix',0,[0,0,0,0]),
 		null,null,null,null
 	]
 
@@ -306,4 +306,23 @@ function randomInt(_arg1 = 1, _arg2 = 0)
 	if(_arg1 > _arg2){min = _arg2; max = _arg1;}
 	else{min = _arg1; max = _arg2;}
 	return min + Math.floor(Math.random() * (max - min + 1))
+}
+
+function pokemonImage(_pokemon)
+{
+	let object = document.createElement('div');
+	object.innerHTML = 'X';
+	object.classList.add('image');
+	return object;
+}
+
+function getPokemonNumberByName(_name)
+{
+	for(let i=0;i<pokemonList.length;i++)
+	{
+		if(_name == pokemonList[i].name)
+		{
+			return i;
+		}
+	}
 }

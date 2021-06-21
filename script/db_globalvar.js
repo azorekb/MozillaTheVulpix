@@ -19,9 +19,11 @@ let speed = 10;
 let actualMap = [];
 let actualMapData = {title: {english: null}, no: 0};
 let activeButton = null;
-let activeUser = {name: '', admin: false};
+let activeUser = {name: '', admin: false, team: []};
 let language = 'polski';
 let battleField = new BattleField();
+let battle_opponentTeam = [];
+let battle_allyTeam = [];
 
 //HTTP Request
 let php_request = new XMLHttpRequest();

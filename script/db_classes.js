@@ -1,8 +1,6 @@
 // POKEMON
 class Pokemon_list
 {
-    name; no; types; abilities; EVYeld; catchRate; baseExp; growthExp; femaleRate; eggGroup; eggCycles; baseStats; preevolution; height; weight;
-
     constructor(name,no,types,abilities,EVYeld,catchRate,baseExp,growthExp,femaleRate, eggGroup, eggCycles, baseHP, baseAttack, baseDefence, baseSpAttack, baseSpDefence, baseSpeed, preevolutionSpecie, preevolutionMethod, preevolutionMethodValue, height, weight)
     {
         this.name = name;
@@ -62,7 +60,57 @@ class Pokemon extends Pokemon_list
         return Math.floor((Math.floor((2 * base + iv + ev) * lv / 100) + 5) * nature);
     }
 
-    constructor(specie,level,gender,friednship,expirience,nature,moves,nick,IV,EV,OT,damage,ppUsed,status = 0,item = 0)
+    actualHP(_type)
+    {
+        switch(_type)
+        {
+            case 'number': return this.sumStat(0) - this.damage;
+            case 'percent': return Math.ceil((1 - this.damage / this.sumStat(0)) * 100);
+            case 'percent %': return Math.ceil((1 - this.damage / this.sumStat(0)) * 100) + '%';
+            case 'fraction': return (this.sumStat(0) - this.damage) + ' / ' + this.sumStat(0);
+        }
+    }
+
+    showGender()
+    {
+        switch(this.gender)
+        {
+            case 'genderless': return '';
+            case 'female': return '<font color=pink>&female;</font>';
+            case 'male': return '<font color=blue>&male;</font>';
+        }
+    }
+
+    whemNextLevel()
+    {
+        let lv = this.level;
+        let lv2 = Math.pow(lv,2);
+        let lv3 = Math.pow(lv,3);
+        switch(this.growthExp)
+        {
+            case 'erratic':
+            {
+                if(lv < 50) return lv3 * (100 = lv) / 50;
+                if(lv < 68) return lv3 * (150 - lv) / 100;
+                if(lv < 98) return lv3 * Math.floor((1911 - 10 * lv) / 3) / 500;
+                return lv3 * (160 - lv) / 100;
+            }
+            case 'fast': return 4 * lv3 / 5;
+            case 'medium fast': return lv3;
+            case 'medium slow': return 6/5 * lv3 - 15 * lv2 + 100 * lv - 140;
+            case 'slow': return 5/4 * lv3;
+            case 'fluctuating':
+            {
+                if(lv < 15) return lv3 * (Math.floor((lv + 1) / 3) + 24) / 50;
+                if(lv < 36) return lv3 * (n + 14) / 50;
+                return lv3 (Math.floor(lv / 2) + 32) / 50;
+            }
+            
+        }
+    }
+
+
+    constructor(specie,level,gender,ability,friednship,expirience,nature,moves,nick,IV,EV,OT,damage,ppUsed,status = 0,item = 0)
     {
         const E = pokemonList[specie];
         super(E.name,E.no,E.types,E.abilities,E.EVYeld,E.catchRate,E.baseExp,E.growthExp,E.femaleRate,E.eggGroup,
@@ -79,17 +127,24 @@ class Pokemon extends Pokemon_list
         this.item = item;
         this.damage = damage;
 
+        if(ability == -1)
+        {
+            ability = this.abilities[randomInt()];
+            if(ability == 0){ability = this.abilities[0];}
+        }
+        this.ability = ability;
+
         if(gender == -1)
         {
-            if(this.femaleRate == -1){this.gender = 'genderless';}
+            if(this.femaleRate == -1){gender = 'genderless';}
             else
             {
                 const draw = randomInt(100);
-                if(draw < this.femaleRate){this.gender = 'female';}
-                else{this.gender = 'male';}
+                if(draw < this.femaleRate){gender = 'female';}
+                else{gender = 'male';}
             }
         }
-        else{this.gender = gender;}
+        this.gender = gender;
 
         if(IV == -1)
         {
@@ -127,16 +182,17 @@ class Pokemon extends Pokemon_list
 
 class BattlePokemon extends Pokemon
 {
-    battle_sumStat(_stat)
+    battle_sumStat(_stat){return Math.round(this.sumStat(_stat) * (1 + this.statchanges[_stat] / 100));}
+
+    objects =
     {
-        return Math.round(this.sumStat(_stat) * (1 + this.statchanges[_stat] / 100));
+        lifeBar: null,
     }
 
     constructor(pokemon)
     {
-        let monNum;
-        for(let i=0;i<pokemonList.length;i++){if(pokemon.name == pokemonList[i].name){monNum = i;}}
-        super(monNum,pokemon.level,pokemon.gender,pokemon.friednship,pokemon.expirience,pokemon.nature,pokemon.moves,
+        let monNum = getPokemonNumberByName(pokemon.name);
+        super(monNum,pokemon.level,pokemon.gender,pokemon.ability,pokemon.friednship,pokemon.expirience,pokemon.nature,pokemon.moves,
         pokemon.nick,pokemon.IV,pokemon.EV,pokemon.OT,pokemon.hpLeft,pokemon.ppLeft,pokemon.status,pokemon.item);
         
         this.statchanges = [];
