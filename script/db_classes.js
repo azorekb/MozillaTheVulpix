@@ -90,7 +90,7 @@ class Pokemon extends Pokemon_list
         {
             case 'erratic':
             {
-                if(lv < 50) return lv3 * (100 = lv) / 50;
+                if(lv < 50) return lv3 * (100 - lv) / 50;
                 if(lv < 68) return lv3 * (150 - lv) / 100;
                 if(lv < 98) return lv3 * Math.floor((1911 - 10 * lv) / 3) / 500;
                 return lv3 * (160 - lv) / 100;
@@ -106,6 +106,32 @@ class Pokemon extends Pokemon_list
                 return lv3 (Math.floor(lv / 2) + 32) / 50;
             }
             
+        }
+    }
+
+    showName()
+    {
+        if(this.nick == '') return this.name;
+        else return this.nick;
+    }
+
+    actualPP(_which, _type)
+    {
+        let max = this.moves[_which].maxPP;
+        let used = this.ppUsed[_which];
+
+        if(max == 0)
+        {
+            max = 1;
+            used = 1;
+        }
+
+        switch(_type)
+        {
+            case 'number': return max - used;
+            case 'percent': return Math.ceil((1 - used / max) * 100);
+            case 'percent %': return Math.ceil((1 - used / max) * 100) + '%';
+            case 'fraction': return (max - used) + ' / ' + max;
         }
     }
 
@@ -167,14 +193,24 @@ class Pokemon extends Pokemon_list
         this.EV = EV;
         if(nature == -1){nature = randomInt(POKEMON_NATURE.length - 1)}
         this.nature = nature;
-        this.moves = 
-        [
-            moveList[moves[0]],
-            moveList[moves[1]],
-            moveList[moves[2]],
-            moveList[moves[3]]
-        ];
+
+        if(typeof(moves) == 'string')
+        {
+            moves = moves.split(',')
+            
+            for(let i=0;i<moves.length;i++)
+            {
+                moves[i] = moveList[moves[i]];
+            }
+        }
+        this.moves = moves;
+
+        console.log(ppUsed);
         if(ppUsed == 0){ppUsed = [0,0,0,0];}
+        if(typeof(ppUsed) == 'string')
+        {
+            ppUsed = ppUsed.split(',')
+        }
         this.ppUsed = ppUsed;
         
     }
@@ -193,7 +229,7 @@ class BattlePokemon extends Pokemon
     {
         let monNum = getPokemonNumberByName(pokemon.name);
         super(monNum,pokemon.level,pokemon.gender,pokemon.ability,pokemon.friednship,pokemon.expirience,pokemon.nature,pokemon.moves,
-        pokemon.nick,pokemon.IV,pokemon.EV,pokemon.OT,pokemon.hpLeft,pokemon.ppLeft,pokemon.status,pokemon.item);
+        pokemon.nick,pokemon.IV,pokemon.EV,pokemon.OT,pokemon.hpLeft,pokemon.ppUsed,pokemon.status,pokemon.item);
         
         this.statchanges = [];
         for(let i=1;i<POKEMON_STATS.length;i++){this.statchanges.push(0);}
@@ -214,29 +250,51 @@ class BattleField
 
 class PokemonMove
 {
-    constructor(power,accuracy,type,category,effects,PP,target)
+    constructor(name,power,accuracy,type,maxPP,target,priority,contact,effects)
     {
+        this.name = name;
         this.accuracy = accuracy;
-        this.effects = effects;
-        this.power = power;
-        this.category = category;
-        this.type = type;
-        this.PP = PP;
+        this.maxPP = maxPP;
         this.target = target;
+        this.priority = priority;
+        
+        this.type = getTypeNumberByName(type);
+
+        if(contact === 1){contact = true;}else{contact = false;}
+        this.contact = contact;
+
+        if(power == 0){this.category = 'status';}
+        else if(power < 0){this.category = 'special', power *= -1;}
+        else{this.category = 'physical'}
+        this.power = power;
+
+        effects = effects.split(',');
+        for(let i=0;i<effects.length;i++)
+        {
+            effects[i] = new Effect(effects[i].split('|'));
+
+        }
+        this.effects = effects;
     }
 }
 
 class Effect
 {
-    name = '';
-    chance = 100;
-    value = 0;
-    
-    constructor(name,chance,value)
+    constructor(_array)
     {
+        let name =  POKEMON_MOVE_EFFECTS[_array[0] *1];
+        let value = _array[1] *1;
+        let chance = _array[2] *1;
+        let whom = _array[3] *1;
+
         this.name = name;
         this.chance = chance;
+        if(name.types != undefined)
+        {
+            value = this.name.types[value];
+        }
         this.value = value;
+        this.whom = MOVE_EFFECT_WHOM[whom];
     }
 }
 

@@ -49,7 +49,7 @@ function battle_start(_opponentTeam, _numberOfPokemon)
             data.appendChild(pokemonImage(team[i].name));
 
             let name = document.createElement('p');
-            name.innerHTML = team[i].name + ' ' + team[i].showGender();
+            name.innerHTML = team[i].showName() + ' ' + team[i].showGender();
             data.appendChild(name);
 
             let lifebar_container = document.createElement('div');
@@ -61,6 +61,21 @@ function battle_start(_opponentTeam, _numberOfPokemon)
             // lifebar.innerHTML = team[i].actualHP('fraction');
             battle_allyTeam[i].objects.lifebar = lifebar;
             lifebar_container.appendChild(lifebar);
+
+            let moveBars = document.createElement('div');
+            moveBars.classList.add('moveBarsContainer');
+            pokemon.appendChild(moveBars);
+
+            for(let j=0;j<4;j++)
+            {
+                let moveBar = document.createElement('div');
+                moveBar.classList.add('moveBar');
+                moveBars.appendChild(moveBar);
+
+                let moveBar_value = document.createElement('div');
+                moveBar_value.style.width = battle_allyTeam[i].actualPP(j,'percent %');
+                moveBar.appendChild(moveBar_value);
+            }
 
         }
         else

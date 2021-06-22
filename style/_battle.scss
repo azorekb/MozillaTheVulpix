@@ -40,13 +40,14 @@
     {
         width: $battle_lifebar_width;
         height: $battle_lifebar_height;
+        margin: 5px 0;
+        border: 1px solid black;
 
         div
         {
             background-color: $battle_lifebar_color;
             color: $battle_lifebar_textColor;
             height: 100%;
-            border: 1px solid black;
         }
     }
 }

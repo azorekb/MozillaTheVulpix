@@ -163,8 +163,8 @@ function start()
 	
 	activeUser.team =
 	[
-		new Pokemon(randomInt(pokemonList.length -1),2,-1,-1,0,0,-1,[1,0,0,0],'Test',-1,-1,'Szibi Snowpix',0,[0,0,0,0]),
-		new Pokemon(randomInt(pokemonList.length -1),2,-1,-1,0,0,-1,[1,0,0,0],'Test',-1,-1,'Szibi Snowpix',0,[0,0,0,0]),
+		new Pokemon(randomInt(pokemonList.length -1),2,-1,-1,0,0,-1,[3,2,1,0],'Test',-1,-1,'Szibi Snowpix',0,0),
+		new Pokemon(randomInt(pokemonList.length -1),2,-1,-1,0,0,-1,[7,6,5,4],'Test',-1,-1,'Szibi Snowpix',0,0),
 		null,null,null,null
 	]
 
@@ -227,7 +227,13 @@ function downloadDataBases(_RES,_number)
 
 		case 'moves-start':
 		{
-			Object.keys(_RES).forEach(element => {moveList[element*1] = _RES[element].name_eng;})
+			Object.keys(_RES).forEach(element => 
+			{
+				let el = _RES[element];
+
+				moveList[element*1] = new PokemonMove({english: el.name_eng, polski: el.name_pl}, el.power, 
+				el.accurancy, el.type, el.PP, el.target, el.priority, el.contact, el.effects);
+			})
 
 			start();
 		}
@@ -321,6 +327,17 @@ function getPokemonNumberByName(_name)
 	for(let i=0;i<pokemonList.length;i++)
 	{
 		if(_name == pokemonList[i].name)
+		{
+			return i;
+		}
+	}
+}
+
+function getTypeNumberByName(_name)
+{
+	for(let i=0;i<pokemonList.length;i++)
+	{
+		if(_name == POKEMON_TYPES[i].english)
 		{
 			return i;
 		}
