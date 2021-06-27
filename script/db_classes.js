@@ -117,13 +117,16 @@ class Pokemon extends Pokemon_list
 
     actualPP(_which, _type)
     {
-        let max = this.moves[_which].maxPP;
-        let used = this.ppUsed[_which];
-
-        if(max == 0)
+        let max,used;
+        if(this.moves[_which] == 0)
         {
             max = 1;
             used = 1;
+        }
+        else
+        {
+            max = this.moves[_which].maxPP;
+            used = this.ppUsed[_which];
         }
 
         switch(_type)
@@ -197,15 +200,18 @@ class Pokemon extends Pokemon_list
         if(typeof(moves) == 'string')
         {
             moves = moves.split(',')
-            
-            for(let i=0;i<moves.length;i++)
+        }
+
+        for(let i=0;i<moves.length;i++)
+        {
+            if(typeof(moves[i]) == 'number')
             {
-                moves[i] = moveList[moves[i]];
+                if(moves[i] > 0){moves[i] = moveList[moves[i]]};
             }
         }
+        
         this.moves = moves;
 
-        console.log(ppUsed);
         if(ppUsed == 0){ppUsed = [0,0,0,0];}
         if(typeof(ppUsed) == 'string')
         {
@@ -245,7 +251,11 @@ class BattleField
     field = null;
     fieldTime = 0;
     megaUsed = [false, false];
-
+    activeFighter = 
+    {
+        ally: {pokemon: -1, lifeBar: null, level: null, name: null, gender: null, status: null},
+        opponent: {pokemon: -1, lifeBar: null, level: null, name: null, gender: null, status: null}
+    }
 }
 
 class PokemonMove

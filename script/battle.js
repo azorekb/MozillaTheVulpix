@@ -21,73 +21,64 @@ function battle_start(_opponentTeam, _numberOfPokemon)
     for(let i=0;i<6;i++){battle_opponentTeam[i] = _opponentTeam[i];}
     
     okno.innerHTML = '';
-    let container = document.createElement('div');
-    okno.appendChild(container);
     
-    let battleWindow_container = document.createElement('div');
-    battleWindow_container.id = 'battleWindow_container';
-    container.appendChild(battleWindow_container);
-
-    let pokemonTeam = document.createElement('div');
-    pokemonTeam.classList.add('pokemonTeam');
-    battleWindow_container.appendChild(pokemonTeam);
-
+    let battleWindow_container = newElement('div',okno,'','battleWindow_container');
+    let pokemonTeam = newElement('div',battleWindow_container,'pokemonTeam');
+    
     let team = activeUser.team;
     for(let i=0;i<6;i++)
     {
-        
-        let pokemon = document.createElement('div');
-        pokemon.id = 'pokemonTeam_' + i;
+        let pokemon = newElement('div',pokemonTeam, '', 'pokemonTeam_' + i);
+
         if(team[i] != null)
         {
             battle_allyTeam[i] = new BattlePokemon(team[i]);
-
-            let data = document.createElement('div');
-            data.classList.add('pokemonData');
-            pokemon.appendChild(data);
-
+            
+            let data = newElement('div',pokemon,'pokemonData');            
             data.appendChild(pokemonImage(team[i].name));
-
-            let name = document.createElement('p');
+            
+            let name = newElement('p',data);
             name.innerHTML = team[i].showName() + ' ' + team[i].showGender();
-            data.appendChild(name);
-
-            let lifebar_container = document.createElement('div');
-            lifebar_container.classList.add('lifeBar');
-            pokemon.appendChild(lifebar_container);
-
-            let lifebar = document.createElement('div');
+            
+            let lifebar_container = newElement('div',pokemon, 'lifeBar')
+            let lifebar = newElement('div',lifebar_container);
             lifebar.style.width = team[i].actualHP('percent %');
             // lifebar.innerHTML = team[i].actualHP('fraction');
             battle_allyTeam[i].objects.lifebar = lifebar;
-            lifebar_container.appendChild(lifebar);
-
-            let moveBars = document.createElement('div');
-            moveBars.classList.add('moveBarsContainer');
-            pokemon.appendChild(moveBars);
+            
+            let moveBars = newElement('div',pokemon,'moveBarsContainer');
 
             for(let j=0;j<4;j++)
             {
-                let moveBar = document.createElement('div');
-                moveBar.classList.add('moveBar');
-                moveBars.appendChild(moveBar);
-
-                let moveBar_value = document.createElement('div');
+                let moveBar = newElement('div',moveBars,'moveBar');
+                let moveBar_value = newElement('div',moveBar);
                 moveBar_value.style.width = battle_allyTeam[i].actualPP(j,'percent %');
-                moveBar.appendChild(moveBar_value);
             }
-
+            
         }
         else
         {
             battle_allyTeam[i] = null;
         }
-
-        pokemonTeam.appendChild(pokemon);
     }
+    
+    let container = newElement('div',battleWindow_container);
+    let battleField = newElement('div',container,'battleField');
+    let infoBar = newElement('div',battleField,'infoBar')
+    let allyInfo = newElement('div',infoBar,'info');
+    let dataRow = newElement('div',allyInfo, 'data');
 
+    let ally_level = newElement('div',dataRow);
+    battle_battleField.activeFighter.ally.level = ally_level;
 
+    let ally_name = newElement('div',dataRow);
+    battle_battleField.activeFighter.ally.name = ally_name;
 
+    let ally_gender = newElement('div',dataRow);
+    battle_battleField.activeFighter.ally.gender = ally_gender;
+
+    let ally_status = newElement('div',dataRow);
+    battle_battleField.activeFighter.ally.status = ally_status;
 
 }
 

@@ -104,35 +104,21 @@ function start()
 	
 	okno.innerHTML = '';
 
-	let worldMapConteiner = document.createElement('div');
-	worldMapConteiner.classList.add('widnow_map');
-	worldMapConteiner.id = 'worldMapConteiner';
-
-
-	let map_menu = document.createElement('div');
-	map_menu.classList.add('mapMenu');
-	map_menu.id = 'map_menu';
-	worldMapConteiner.appendChild(map_menu);
+	let worldMapConteiner = newElement('div',okno,'widnow_map','worldMapConteiner');
+	let map_menu = newElement('div',worldMapConteiner,'mapMenu','map_menu');
 
 	for(let i=0;i<mapMenu_buttons.length;i++)
 	{
-		let newbutton = document.createElement('div');
-		newbutton.classList.add('mapMenuButton');
-		newbutton.id = ('mapMenuButton_' + mapMenu_buttons[i].english).replace(' ','_');
+		let newbutton = newElement('div',map_menu,('mapMenuButton', 'mapMenuButton_' + mapMenu_buttons[i].english).replace(' ','_'));
 		newbutton.innerHTML = mapMenu_buttons[i][language];
 		newbutton.onclick = function(){clickMenuButton(this);}
-		map_menu.appendChild(newbutton);
 	}
 
-	let worldmapContent = document.createElement('div');
-	worldmapContent.id = 'worldmapContent';
-	worldMapConteiner.appendChild(worldmapContent);
+	newElement('div',worldMapConteiner,'','worldmapContent');
 
 	const BUTTON_PLACES = [[1,0],[0,1],[1,2],[2,1]];
 
-	let tableButton = document.createElement('table');
-	tableButton.classList='tableButton';
-	tableButton.id = 'tableButton';
+	let tableButton = newElement('table',worldMapConteiner,'tableButton','tableButton');
 	for(let i=0;i<3;i++)
 	{
 		tableButton.insertRow(i);
@@ -141,30 +127,24 @@ function start()
 			tableButton.rows[i].insertCell(j);
 		}
 	}
-	worldMapConteiner.appendChild(tableButton);
 	
 	for(let i=0;i<4;i++)
 	{
 		const BUTTONS=['left','up','right','down'];
-		let buttondiv = document.createElement('div');
-		buttondiv.classList.add('directButton');
-		buttondiv.classList.add('button'+i);
+		let buttondiv = newElement('div',tableButton.rows[BUTTON_PLACES[i][0]].cells[BUTTON_PLACES[i][1]],['directButton','button'+i]);
 		buttondiv.onmousedown = function(event){wayActive(event, this, BUTTONS[i]);}
 		buttondiv.onmouseup = function(){wayUnactive(this);}
 		buttondiv.onmouseout = function(){wayUnactive(this);}
 		buttondiv.ontouchstart = function(event){wayActive(event, this, BUTTONS[i]);}
 		buttondiv.ontouchend = function(){wayUnactive(this);}
-		tableButton.rows[BUTTON_PLACES[i][0]].cells[BUTTON_PLACES[i][1]].appendChild(buttondiv);
 	}
-
-	okno.appendChild(worldMapConteiner);
 	
 	activeWindow = 'unactive';
 	
 	activeUser.team =
 	[
-		new Pokemon(randomInt(pokemonList.length -1),2,-1,-1,0,0,-1,[3,2,1,0],'Test',-1,-1,'Szibi Snowpix',0,0),
-		new Pokemon(randomInt(pokemonList.length -1),2,-1,-1,0,0,-1,[7,6,5,4],'Test',-1,-1,'Szibi Snowpix',0,0),
+		new Pokemon(randomInt(pokemonList.length -1),2,-1,-1,0,0,-1,[3,2,1,0],'Test 1',-1,-1,'Szibi Snowpix',0,0),
+		new Pokemon(randomInt(pokemonList.length -1),2,-1,-1,0,0,-1,[7,6,5,4],'Test 2',-1,-1,'Szibi Snowpix',0,0),
 		null,null,null,null
 	]
 
@@ -342,4 +322,23 @@ function getTypeNumberByName(_name)
 			return i;
 		}
 	}
+}
+
+function newElement(_what,_where, _class = '', _id = '')
+{
+	let div = document.createElement(_what);
+	if(_class != '')
+	{
+		if(typeof(_class == string)){div.classList.add(_class);}
+		else
+		{
+			for(let i=0;i<_class.length;i++)
+			{
+				div.classList.add(_class[i]);
+			}
+		}
+	}
+	if(_id != ''){div.id = _id;}
+	_where.appendChild(div);
+	return div;
 }

@@ -9,20 +9,12 @@ function insertWaitingImage(_object)
 function admin_start()
 {
     worldmapContent.innerHTML = '';
-    let admin_conteiner = document.createElement('div');
-    admin_conteiner.classList.add('adminContainer');
-    admin_conteiner.id = 'admin_conteiner';
-    worldmapContent.appendChild(admin_conteiner);
-
-    let admin_list=document.createElement('div');
-    admin_list.classList.add('adminList');
-    admin_list.id = 'admin_list';
-    admin_conteiner.appendChild(admin_list);
+    let admin_conteiner = newElement('div',worldmapContent,'adminContainer','admin_conteiner');
+    let admin_list = newElement('div',admin_conteiner,'adminList','admin_list');
 
     for(let i=0;i<ADMIN_LIST_OF_TASKS.length;i++)
     {
-        let task = document.createElement('div');
-        task.classList.add('adminTask', 'button', 'medium');
+        let task = newElement('div',admin_list,['adminTask', 'button', 'medium']);
         task.innerHTML = ADMIN_LIST_OF_TASKS[i].language();
         if(ADMIN_LIST_OF_TASKS[i].disabled)
         {
@@ -32,13 +24,10 @@ function admin_start()
         {
             task.onclick=function(){admin_show_database(ADMIN_LIST_OF_TASKS[i].english.replace(' ', '_'))}
         }
-        admin_list.appendChild(task);
     }
 
-    let admin_content = document.createElement('div');
-    admin_content.id = 'admin_content';
+    let admin_content = newElement('div',admin_conteiner,'','admin_content');
     admin_content.innerHTML = ADMIN_WARNINGS[2].language();
-    admin_conteiner.appendChild(admin_content);
 
     activeWindow = 'admin';
 
@@ -53,9 +42,9 @@ function admin_show_database(_db)
 
 function admin_database_list(_res,_db)
 {
-    let databaseTable = document.createElement('table');
-    databaseTable.id = 'adm_databaseTable';
-    databaseTable.classList.add('admdatabaseTable');
+    admin_content.innerHTML = '';
+    
+    let databaseTable = newElement('table',admin_content,'admdatabaseTable','adm_databaseTable');
     
     databaseTable.insertRow(0);
     const details = ADMIN_DATABASE_COLS[_db];
@@ -68,20 +57,15 @@ function admin_database_list(_res,_db)
         }
     }
     
-    let newElementButton = document.createElement('div');
-    newElementButton.innerHTML = '+';
-    newElementButton.classList.add('adminButton','button','small');
-    newElementButton.onclick = function(){adm_add_dbElement(_db);};
-    newElementButton.id = 'adm_database_newElementButton';
+    let lastCell = databaseTable.rows[0].insertCell(databaseTable.rows[0].cells.length);
 
-    let waitingImage = document.createElement('img');
+    let newElementButton = newElement('div',lastCell,['adminButton','button','small'],adm_database_newElementButton);
+    newElementButton.innerHTML = '+';
+    newElementButton.onclick = function(){adm_add_dbElement(_db);};
+
+    let waitingImage = newElement('img',lastCell,'none','adm_database_newElement_waiting');
     waitingImage.src = waitingImageUrl;
-    waitingImage.classList.add('none');
-    waitingImage.id = 'adm_database_newElement_waiting';
     waitingImage.height = 32;
-    let lastCell = databaseTable.rows[0].cells.length;
-    databaseTable.rows[0].insertCell(lastCell).appendChild(newElementButton);
-    databaseTable.rows[0].cells[lastCell].appendChild(waitingImage);
 
     if(_db == 'pokemon'){pokemonList = [''];}
     
@@ -104,8 +88,7 @@ function admin_database_list(_res,_db)
     })
     adm_updateArrays();
             
-    admin_content.innerHTML = '';
-    admin_content.appendChild(databaseTable);
+    
 }
 
 function adm_edit_dbElement(_db,_id)
@@ -121,7 +104,9 @@ function adm_edit_dbElement_ready(_res,[_db,_id])
     const RES = _res[0];
     let array = ADMIN_DATABASE_COLS[_db];
     
-    let editTable = document.createElement('table');
+    admin_content.innerHTML = '';
+
+    let editTable = newElement('table',admin_content,'','admin_editTable');
     for(let i=1; i<array.length;i++)
     {
         editTable.insertRow(i-1).insertCell(0).innerHTML = array[i].description.language();
@@ -223,44 +208,32 @@ function adm_edit_dbElement_ready(_res,[_db,_id])
         }
         
     }
-    editTable.id = 'admin_editTable';
-    if(_db == 'moves'){effectsTab = adm_moves_addition();}
-    if(_db == 'maps'){mapsHelps = adm_maps_addition(RES.cells);}
+    if(_db == 'moves')
+    {
+        effectsTab = adm_moves_addition();
+        admin_content.appendChild(effectsTab);
+    }
+    if(_db == 'maps')
+    {
+        mapsHelps = adm_maps_addition(RES.cells);
+        admin_content.appendChild(mapsHelps);
+    }
     
-    let save = document.createElement('div');
-    save.innerHTML = ADMIN_EDIT_TEXTS.save.language();
-    save.classList.add('adminButton','button','small');
-    save.id = 'adm_edit_saveButton';
+    let buttonDiv = newElement('div',admin_content,'adm_buttonContainer');
+
+    let save = newElement('div',buttonDiv,['adminButton','button','small'],'adm_edit_saveButton');
     save.onclick = function(){admin_saveDBElement(_db,_id);}
-    let cancel = document.createElement('div');
-    
-    cancel.innerHTML = ADMIN_EDIT_TEXTS.cancel.language();
-    cancel.classList.add('adminButton','button','small');
-    cancel.id = 'adm_edit_cancelButton';
-    cancel.onclick = function(){admin_show_database(_db);}
-    
-    let waitingImage = document.createElement('img');
+
+    let waitingImage = newElement('img',buttonDiv,'none','adm_edit_waitingIMG');
     waitingImage.src = waitingImageUrl;
     waitingImage.height = 33;
-    waitingImage.classList.add('none');
-    waitingImage.id = 'adm_edit_waitingIMG';
+
+    let cancel = newElement('div',buttonDiv,['adminButton','button','small'],'adm_edit_cancelButton');
+    cancel.innerHTML = ADMIN_EDIT_TEXTS.cancel.language();
+    cancel.onclick = function(){admin_show_database(_db);}
     
-    let buttonDiv = document.createElement('div');
-    buttonDiv.classList.add('adm_buttonContainer');
-    buttonDiv.appendChild(waitingImage);
-    buttonDiv.appendChild(save);
-    buttonDiv.appendChild(cancel);
-    
-    let info = document.createElement('div');
-    info.id = 'adm_edit_info';
-    
-    admin_content.innerHTML = '';
-    admin_content.appendChild(editTable);
-    if(_db == 'moves'){admin_content.appendChild(effectsTab);}
-    if(_db == 'maps'){admin_content.appendChild(mapsHelps);}
-    admin_content.appendChild(info);
-    admin_content.appendChild(buttonDiv);
-    
+    newElement('div',admin_content,'','adm_edit_info');
+
     if(_db == 'moves')
     {
         let arrayOfEffects = [];
@@ -550,107 +523,78 @@ function adm_maps_addition(_cells)
 {
     let content = document.createElement('div');
 
-    let adm_details = document.createElement('div');
-    adm_details.classList.add('admDetails');
-    content.appendChild(adm_details);
-    
-    let text = document.createElement('p');
+    let adm_details = newElement('div',content,'admDetails');    
+    let text = newElement('p',adm_details);
     text.innerHTML = 'X:';
-    adm_details.appendChild(text);
     
-    let adm_sizeX = document.createElement('input');
+    let adm_sizeX = document.createElement('input',adm_details,'adm_mapSize','adm_mapSizeX');
     adm_sizeX.type = 'number';
     adm_sizeX.min = 1;
     adm_sizeX.max = 50;
-    adm_sizeX.id = 'adm_mapSizeX';
-    adm_sizeX.classList.add('adm_mapSize');
     adm_sizeX.oninput = function(){adm_changeSizeOfMap();}
-    adm_details.appendChild(adm_sizeX);
     
-    text = document.createElement('p');
+    text = newElement('p',adm_details);
     text.innerHTML = 'Y:';
-    adm_details.appendChild(text);
     
-    let adm_sizeY = document.createElement('input');
+    let adm_sizeY = document.createElement('input',adm_details,'adm_mapSize','adm_mapSizeY');
     adm_sizeY.type = 'number';
     adm_sizeY.min = 1;
     adm_sizeY.max = 50;
-    adm_sizeY.id = 'adm_mapSizeY';
-    adm_sizeY.classList.add('adm_mapSize');
     adm_sizeY.oninput = function(){adm_changeSizeOfMap();}
-    adm_details.appendChild(adm_sizeY);
     
-    text = document.createElement('p');
+    text = newElement('p',content);
     text.innerHTML = ADMIN_EDIT_TEXTS.bg.language() + '<br>';
-    content.appendChild(text);
     
-    let adm_mapBG_container = document.createElement('div');
-    adm_mapBG_container.classList.add('admMapItems');
-    content.appendChild(adm_mapBG_container);
+    let adm_mapBG_container = newElement('div',content,'admMapItems');
     
     for(let i=0;i<MAP_ITEMS.background.length;i++)
     {
-        let adm_mapItem = document.createElement('div');
-        let img = document.createElement('img');
+        let adm_mapItem = newElement('div',adm_mapBG_container);
+        let img = newElement('img',adm_mapItem);
         img.src = IMG_WAY + MAP_ITEMS.background[i].src;
         img.title = ADMIN_MAPS_DESCRIPTIONS.bgTitle.language() + i;
-        adm_mapItem.appendChild(img);
         adm_mapItem.onclick = function(){adm_mapBGSelect(this, i);}
         if(i == 0){adm_mapItem.classList.add('active');}
-        adm_mapBG_container.appendChild(adm_mapItem);
     }
 
-    text = document.createElement('p');
+    text = newElement('p',content);
     text.innerHTML = ADMIN_EDIT_TEXTS.object.language() + '<br>';
-    content.appendChild(text);
     
-    let adm_mapObject_container = document.createElement('div');
-    adm_mapObject_container.classList.add('admMapItems');
-    content.appendChild(adm_mapObject_container);
+    let adm_mapObject_container = newElement('div',content,'admMapItems');
     
     for(let i=0;i<MAP_ITEMS.object.length;i++)
     {
-        let adm_mapItem = document.createElement('div');
-        let img = document.createElement('img');
-        img.src = IMG_WAY + MAP_ITEMS.object[i].src;
-        img.title = ADMIN_MAPS_DESCRIPTIONS.imgTitle.language() + i;
-        adm_mapItem.appendChild(img);
+        let adm_mapItem = document.createElement('div',adm_mapObject_container);
         adm_mapItem.onclick = function(){adm_mapObjectSelect(this, i);}
         if(i == 0){adm_mapItem.classList.add('active');}
-        adm_mapObject_container.appendChild(adm_mapItem);
+
+        let img = newElement('img',adm_mapItem);
+        img.src = IMG_WAY + MAP_ITEMS.object[i].src;
+        img.title = ADMIN_MAPS_DESCRIPTIONS.imgTitle.language() + i;
     }
 
-    let choose = document.createElement('div');
+    let choose = newElement('div',content);
     choose.innerHTML = ADMIN_EDIT_TEXTS.edit.language() + '<br>';
     let tempArray = ['bg','object','both'];
     for(let i=0;i<tempArray.length;i++)
     {
-        let label = document.createElement('label');
-        let radio = document.createElement('input');
+        let label = newElement('label',choose);
+
+        let radio = newElement('input',label);
         radio.type = 'radio';
         radio.name = 'adm_chooseEditInMap';
         radio.id = 'adm_chooseEditInMap' + tempArray[i];
         radio.value = tempArray[i];
         if(i == 0){radio.checked = true;}
 
-        text = document.createElement('b');
+        text = newElement('b',label);
         text.innerHTML = ADMIN_EDIT_TEXTS[tempArray[i]].language() + ' ';
-
-        label.appendChild(radio);
-        label.appendChild(text);
-        choose.appendChild(label);
     }
-    content.appendChild(choose);
     
-    let adm_infoDiv = document.createElement('div');
+    let adm_infoDiv = newElement('div',content,'admInfo');
     adm_infoDiv.innerHTML = ADMIN_WARNINGS[1].language();
-    adm_infoDiv.classList.add('admInfo');
-    content.appendChild(adm_infoDiv);
     
-    let adm_mapTable = document.createElement('table');
-    adm_mapTable.classList.add('admMapTable');
-    adm_mapTable.id = 'adm_mapTable';
-    content.appendChild(adm_mapTable);
+    let adm_mapTable = newElement('table',content,'admMapTable','adm_mapTable');
     
     adm_thisMap = _cells.split('/');
     
