@@ -109,7 +109,7 @@ function start()
 
 	for(let i=0;i<mapMenu_buttons.length;i++)
 	{
-		let newbutton = newElement('div',map_menu,('mapMenuButton', 'mapMenuButton_' + mapMenu_buttons[i].english).replace(' ','_'));
+		let newbutton = newElement('div',map_menu,'mapMenuButton', ('mapMenuButton_' + mapMenu_buttons[i].english).replace(' ','_'));
 		newbutton.innerHTML = mapMenu_buttons[i][language];
 		newbutton.onclick = function(){clickMenuButton(this);}
 	}
@@ -131,7 +131,7 @@ function start()
 	for(let i=0;i<4;i++)
 	{
 		const BUTTONS=['left','up','right','down'];
-		let buttondiv = newElement('div',tableButton.rows[BUTTON_PLACES[i][0]].cells[BUTTON_PLACES[i][1]],['directButton','button'+i]);
+		let buttondiv = newElement('div',tableButton.rows[BUTTON_PLACES[i][0]].cells[BUTTON_PLACES[i][1]],'directButton button' + i);
 		buttondiv.onmousedown = function(event){wayActive(event, this, BUTTONS[i]);}
 		buttondiv.onmouseup = function(){wayUnactive(this);}
 		buttondiv.onmouseout = function(){wayUnactive(this);}
@@ -329,13 +329,11 @@ function newElement(_what,_where, _class = '', _id = '')
 	let div = document.createElement(_what);
 	if(_class != '')
 	{
-		if(typeof(_class == string)){div.classList.add(_class);}
-		else
+		console.log('what: ', _what, 'where: ', _where, 'class: ', _class, 'id: ', _id);
+		_class = _class.split(' ');
+		for(let i=0;i<_class.length;i++)
 		{
-			for(let i=0;i<_class.length;i++)
-			{
-				div.classList.add(_class[i]);
-			}
+			div.classList.add(_class[i]);
 		}
 	}
 	if(_id != ''){div.id = _id;}

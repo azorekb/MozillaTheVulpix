@@ -14,7 +14,7 @@ function admin_start()
 
     for(let i=0;i<ADMIN_LIST_OF_TASKS.length;i++)
     {
-        let task = newElement('div',admin_list,['adminTask', 'button', 'medium']);
+        let task = newElement('div',admin_list,'adminTask button medium');
         task.innerHTML = ADMIN_LIST_OF_TASKS[i].language();
         if(ADMIN_LIST_OF_TASKS[i].disabled)
         {
@@ -59,7 +59,7 @@ function admin_database_list(_res,_db)
     
     let lastCell = databaseTable.rows[0].insertCell(databaseTable.rows[0].cells.length);
 
-    let newElementButton = newElement('div',lastCell,['adminButton','button','small'],adm_database_newElementButton);
+    let newElementButton = newElement('div',lastCell,'adminButton button small','adm_database_newElementButton');
     newElementButton.innerHTML = '+';
     newElementButton.onclick = function(){adm_add_dbElement(_db);};
 
@@ -221,14 +221,15 @@ function adm_edit_dbElement_ready(_res,[_db,_id])
     
     let buttonDiv = newElement('div',admin_content,'adm_buttonContainer');
 
-    let save = newElement('div',buttonDiv,['adminButton','button','small'],'adm_edit_saveButton');
+    let save = newElement('div',buttonDiv,'adminButton button small','adm_edit_saveButton');
+    save.innerHTML = ADMIN_EDIT_TEXTS.save.language();
     save.onclick = function(){admin_saveDBElement(_db,_id);}
 
     let waitingImage = newElement('img',buttonDiv,'none','adm_edit_waitingIMG');
     waitingImage.src = waitingImageUrl;
     waitingImage.height = 33;
 
-    let cancel = newElement('div',buttonDiv,['adminButton','button','small'],'adm_edit_cancelButton');
+    let cancel = newElement('div',buttonDiv,'adminButton button small','adm_edit_cancelButton');
     cancel.innerHTML = ADMIN_EDIT_TEXTS.cancel.language();
     cancel.onclick = function(){admin_show_database(_db);}
     
