@@ -3,7 +3,6 @@ function battle_start(_opponentTeam, _numberOfPokemon)
     activeWindow = 'unactive';
     
     //(...) efekty przejścia i takie tam
-    
     if(_opponentTeam == null)
     {
         _opponentTeam = [0,0,0,0,0,0];
@@ -69,20 +68,106 @@ function battle_start(_opponentTeam, _numberOfPokemon)
     let dataRow = newElement('div',allyInfo, 'data');
 
     let ally_level = newElement('div',dataRow);
-    battle_battleField.activeFighter.ally.level = ally_level;
+    battle.activeFighter.ally.level = ally_level;
 
     let ally_name = newElement('div',dataRow);
-    battle_battleField.activeFighter.ally.name = ally_name;
+    battle.activeFighter.ally.name = ally_name;
 
     let ally_gender = newElement('div',dataRow);
-    battle_battleField.activeFighter.ally.gender = ally_gender;
+    battle.activeFighter.ally.gender = ally_gender;
 
     let ally_status = newElement('div',dataRow);
-    battle_battleField.activeFighter.ally.status = ally_status;
+    battle.activeFighter.ally.status = ally_status;
 
+    let ally_lifebar = newElement('div',allyInfo,'lifebar');
+    let ally_livebar_value = newElement('div',ally_lifebar);
+    battle.activeFighter.ally.lifeBar = ally_livebar_value;
+
+    let runSpace = newElement('div',infoBar, 'runSpace');
+    let runButton = newElement('div',runSpace,'button medium runButton');
+    runButton.onclick = function(){start();}
+    runButton.innerHTML = 'RUN forest RUN';
+
+    let opponentInfo = newElement('div',infoBar,'info');
+    dataRow = newElement('div',opponentInfo, 'data');
+
+    let opponent_level = newElement('div',dataRow);
+    battle.activeFighter.opponent.level = opponent_level;
+
+    let opponent_name = newElement('div',dataRow);
+    battle.activeFighter.opponent.name = opponent_name;
+
+    let opponent_gender = newElement('div',dataRow);
+    battle.activeFighter.opponent.gender = opponent_gender;
+
+    let opponent_status = newElement('div',dataRow);
+    battle.activeFighter.opponent.status = opponent_status;
+
+    let opponent_lifebar = newElement('div',opponentInfo,'lifebar');
+    let opponent_livebar_value = newElement('div',opponent_lifebar);
+    battle.activeFighter.opponent.lifeBar = opponent_livebar_value;
+
+    let places = newElement('div', battleField, 'battlePlace');
+
+    let ally_place = newElement('div', places, 'battleSidePlace');
+    let ally_image = newElement('div', ally_place);
+    battle.activeFighter.ally.image = ally_image;
+
+    battle.neutralSpace = newElement('div',places,'battleSpace');
+
+    let opponent_place = newElement('div', places, 'battleSidePlace');
+    let opponent_image = newElement('div', opponent_place);
+    battle.activeFighter.opponent.image = opponent_image;
+
+    let movesPlace = newElement('div', container, 'movesPlace');
+    battle.movePlace = movesPlace;
+
+    for(let i=0;i<4;i++)
+    {
+        let moveButton = newElement('div', movesPlace, 'button big');
+        moveButton.onclick = function(){battle_useMove(i);}
+        battle.movesButtons[i] = moveButton;
+    }
+
+    let items_containter = newElement('div', container);
+    items_containter.innerHTML = 'Tu będą itemki ... ';
+
+    battle_changeFighter('ally');
+    battle_changeFighter('opponent');
 }
 
 function randomWildPokemon(level)
 {
     return new Pokemon(randomInt(pokemonList.length - 1), level, -1, -1, 0, 0, -1, [1,0,0,0],'',-1,-1,'wild',0,0,0,0);
+}
+
+function battle_changeFighter(_side, _who)
+{
+    if(_who == undefined){_who = 0}
+
+    const F = battle.activeFighter[_side];
+    F.pokemon = _who;
+    const DATA = eval('battle_' + _side + 'Team')[_who];
+    console.log('battle_' + _side + 'Team', DATA);
+    F.lifeBar.style.width = DATA.actualHP('percent %');
+    F.level.innerHTML = DATA.level;
+    F.name.innerHTML = DATA.showName();
+    F.gender.innerHTML = DATA.showGender();
+    F.status.innerHTML = DATA.status;
+    F.image.innerHTML = _who;
+
+    if(_side == 'ally')
+    {
+        for(i=0;i<4;i++)
+        {
+            if(DATA.actualPP(i,'number') == 0)
+            {
+                battle.movesButtons[i].innerHTML = moveList[0].name[language];
+            }
+            else
+            {
+                battle.movesButtons[i].innerHTML = DATA.moves[i].name[language] + ' ' + DATA.actualPP(i,'fraction');
+            }
+        }
+    }
 }

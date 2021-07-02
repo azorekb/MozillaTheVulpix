@@ -21,7 +21,7 @@ let actualMapData = {title: {english: null}, no: 0};
 let activeButton = null;
 let activeUser = {name: '', admin: false, team: []};
 let language = 'polski';
-let battle_battleField = new BattleField();
+let battle = new BattleField();
 let battle_opponentTeam = [];
 let battle_allyTeam = [];
 

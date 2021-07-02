@@ -329,7 +329,6 @@ function newElement(_what,_where, _class = '', _id = '')
 	let div = document.createElement(_what);
 	if(_class != '')
 	{
-		console.log('what: ', _what, 'where: ', _where, 'class: ', _class, 'id: ', _id);
 		_class = _class.split(' ');
 		for(let i=0;i<_class.length;i++)
 		{

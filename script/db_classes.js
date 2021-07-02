@@ -250,12 +250,15 @@ class BattleField
     weatherTime = 0;
     field = null;
     fieldTime = 0;
-    megaUsed = [false, false];
+    canMega = [true, true];
     activeFighter = 
     {
-        ally: {pokemon: -1, lifeBar: null, level: null, name: null, gender: null, status: null},
-        opponent: {pokemon: -1, lifeBar: null, level: null, name: null, gender: null, status: null}
+        ally: {pokemon: -1, lifeBar: null, level: null, name: null, gender: null, status: null, image: null},
+        opponent: {pokemon: -1, lifeBar: null, level: null, name: null, gender: null, status: null, image: null}
     }
+    neutralSpace = null;
+    movePlace = null;
+    movesButtons = [null,null,null,null];
 }
 
 class PokemonMove

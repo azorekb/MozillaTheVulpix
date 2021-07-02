@@ -6,7 +6,7 @@ function clickMenuButton(_element)
         switch(_element.id)
         {
             case 'mapMenuButton_Adventure': openMap(); break;
-            // case 'mapMenuButton_Pokedex': openPokedex(); break;
+            case 'mapMenuButton_Pokedex': openPokedex(); break;
 			case 'mapMenuButton_Admin_Panel': admin_start(); break;
 
             default: return false;
@@ -23,17 +23,17 @@ function openPokedex()
 {
     worldmapContent.innerHTML = '';
 
-    let dex_containter = newDiv(worldmapContent,'dexContainer','dex_containter');
-    let dex_dataPlace = newDiv(dex_containter,'dexPlace','dex_dataPlace');
-    let dex_baseStats = newDiv(dex_dataPlace,'dexBaseStats','dex_baseStats');
-	let dex_pokemonList = newDiv(dex_containter,'dexPokemonList','dex_pokemonList');
+    let dex_containter = newElement('div',worldmapContent,'dexContainer','dex_containter');
+    let dex_dataPlace = newElement('div',dex_containter,'dexPlace','dex_dataPlace');
+    let dex_baseStats = newElement('div',dex_dataPlace,'dexBaseStats','dex_baseStats');
+	let dex_pokemonList = newElement('div',dex_containter,'dexPokemonList','dex_pokemonList');
 
 	for(let i=0;i<pokemonList.length;i++)
 	{
 		const pokemon = pokemonList[i];
 		if(pokemon.no == 0){continue;}
 
-		let newPokemon = newDiv(dex_pokemonList,'pokedexPokemon');
+		let newPokemon = newElement('div',dex_pokemonList,'pokedexPokemon');
 		newPokemon.innerHTML = pokemon.no;
 		newPokemon.onclick=function(){pokedex_show(i);}
 	}

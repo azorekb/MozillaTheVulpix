@@ -70,19 +70,23 @@ function admin_database_list(_res,_db)
     if(_db == 'pokemon'){pokemonList = [''];}
     
     Object.keys(_res).forEach(element => {
+        const p = _res[element];
         if(_db == 'pokemon')
         {
-            pokemonList[element*1 +1] = _res[element].name;
+            pokemonList[element*1 +1] = new Pokemon_list(p.name,p.no,p.types,p.abilities,p.EVYeld,p.catchRate,p.baseExp,
+            p.growthExp,p.femaleRate,p.eggGroup,p.eggCycles,p.baseStats_hp,p.baseStats_attack,p.baseStats_defence,
+            p.baseStats_spAttack,p.baseStats_spDefence,p.baseStats_speed,p.preevolution_specie,p.preevolution_method,
+            p.preevolution_value,p.height,p.weight);
         }
         
         let lastRow = databaseTable.insertRow(databaseTable.rows.length);
-        lastRow.onclick = function(){adm_edit_dbElement(_db,_res[element].id);}
+        lastRow.onclick = function(){adm_edit_dbElement(_db,p.id);}
         
         for(let i=0;i<details.length;i++)
         {
             if(details[i].hidden === undefined)
             {
-                lastRow.insertCell(i).innerHTML = _res[element][details[i].dbname];
+                lastRow.insertCell(i).innerHTML = p[details[i].dbname];
             }
         }
     })
