@@ -455,5 +455,20 @@ const BATTLE_TEXTS =
     inBattle: {english: 'this pokemon is in the battle', polski: 'ten pokemon jest w trakcie walki'},
     switch: {english: 'switch pokemon to ', polski: 'zmień pokemona na '},
     level: {english: ', level: ', polski: ', poziom: '},
-    moves: {english: ', moves: ', polski: ', ruchy: ',},
+    moves: {english: ', moves: ', polski: ', ruchy: '},
+    runSuccess: {english: 'you got away safety', polski: 'udało sie bezpiecznie uciec'},
+    comeBack: {english: ', come back!', polski: ', wracaj!'},
+    go: {english: ', i choose you!', polski: ', wybieram cię!'}
 }
+
+const BATTLE_COPY_PROPERTIES = 
+[
+    {what: 'level', array: false},
+    {what: 'expirience', array: false},
+    {what: 'moves', array: true},
+    {what: 'EV', array: true},
+    {what: 'damage', array: false},
+    {what: 'ppUsed', array: true},
+    {what: 'status', array: false},
+    {what: 'item', array: false}
+];

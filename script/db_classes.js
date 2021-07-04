@@ -224,7 +224,21 @@ class Pokemon extends Pokemon_list
 
 class BattlePokemon extends Pokemon
 {
-    battle_sumStat(_stat){return Math.round(this.sumStat(_stat) * (1 + this.statchanges[_stat] / 100));}
+    battle_sumStat(_stat)
+    {
+        switch(_stat)
+        {
+            case 0: case 'hp': _stat = 0; break;
+            case 1: case 'attack': _stat = 1; break;
+            case 2: case 'defence': _stat = 2; break;
+            case 3: case 'spAttack': _stat = 3; break;
+            case 4: case 'spDefence': _stat = 4; break;
+            case 5: case 'speed': _stat = 5; break;
+
+            default: return false;
+        }
+        return Math.round(this.sumStat(_stat) * (1 + this.statchanges[_stat] / 100));
+    }
 
     objects =
     {
@@ -265,6 +279,7 @@ class BattleField
     info = null;
     infoBackup = '';
     decision = {ally: '', opponent: ''}
+    order = [];
 
     changeStatus(_status)
     {
@@ -294,8 +309,38 @@ class BattleField
                 {
                     document.getElementById('pokemonTeam_' + i).classList.remove('activeButton');
                 }
+
+                battle_tactic();
+            } break;
+            case 'who first':
+            {
+                const A = this.decision.ally.split(' ');
+                const O = this.decision.opponent.split(' ');
+                if(A[0] == 'run' || A[0] == 'changeAlly' || A[0] == 'useItem'){this.order = ['ally','opponent'];}
+                else if(O[0] = 'useMove')
+                {
+                    const activeA = battle_allyTeam[this.activeFighter.ally.pokemon]
+                    const activeO = battle_opponentTeam[this.activeFighter.opponent.pokemon]
+                    if(activeA.moves[A[1]].priority > activeO.moves[O[1]].priority){this.order = ['ally','opponent'];}
+                    else if(activeA.moves[A[1]].priority < activeO.moves[O[1]].priority){this.order = ['opponent','ally'];}
+                    else
+                    {
+                        if(activeA.battle_sumStat('speed') > activeO.battle_sumStat('speed')){this.order = ['ally','opponent'];}
+                        else if(activeA.battle_sumStat('speed') < activeO.battle_sumStat('speed')){this.order = ['opponent','ally'];}
+                        else
+                        {
+                            const R = randomInt();
+                            if(R){this.order = ['opponent','ally'];}
+                            else{this.order = ['ally','opponent'];}
+                        }
+                    }
+                }
+                else{this.order = ['opponent','ally'];}
+
+                battle_action(0);
             }
         }
+
         this.status = _status;
     }
 }

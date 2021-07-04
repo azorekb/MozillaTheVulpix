@@ -1,5 +1,7 @@
 function battle_start(_opponentTeam, _numberOfPokemon)
 {
+    battle = new BattleField();
+
     activeWindow = 'unactive';
     
     //(...) efekty przejścia i takie tam
@@ -196,6 +198,8 @@ function battle_changeFighter(_side, _who)
             }
         }
     }
+
+    battle.info.innerHTML = F.name.innerHTML + BATTLE_TEXTS.go.language();
 }
 
 function battle_info(_what)
@@ -271,4 +275,73 @@ function battle_decide(_what)
     }
 
     battle.changeStatus('opponent move');
+}
+
+function battle_tactic()
+{
+    const PKMN = battle_opponentTeam[battle.activeFighter.opponent.pokemon];
+    let moves = [];
+    for(let i=0;i<4;i++)
+    {
+        if(PKMN.moves[i] == 0){continue;}
+        if(PKMN.actualPP(i,'number') <= 0){continue;}
+        moves.push(i);
+    }
+
+    if(moves.length == 0){battle.decision.opponent = 'useMove -1';}
+    if(moves.length == 1){battle.decision.opponent = 'useMove ' + moves[0];}
+    if(moves.length > 1){battle.decision.opponent = 'useMove ' + randomInt(moves.length);}
+
+    battle.changeStatus('who first');
+}
+
+function battle_action(_whoNow)
+{
+    if(battle.order[_whoNow] == undefined){battle.changeStatus('doSth'); return false;}
+
+    const who = battle.order[_whoNow];
+
+    const DECISIONS = battle.decision[who].split(' ');
+
+    switch(DECISIONS[0])
+    {
+        case 'run':
+            battle.info.innerHTML = BATTLE_TEXTS.runSuccess.language();
+            setTimeout(function(){battle_end()},1000);
+        break;
+        case 'changeAlly':
+            battle.info.innerHTML = eval('battle_' + who + 'Team')[battle.activeFighter[who].pokemon].name + BATTLE_TEXTS.comeBack.language();
+            setTimeout(function(){battle_changeFighter(who,DECISIONS[1]);},1000);
+            setTimeout(function(){battle_action(_whoNow + 1)},2000);
+        break;
+
+    }
+}
+
+function battle_end()
+{
+    for(let i=0;i<6;i++)
+    {
+        if(battle_allyTeam[i] != null)
+        {
+            for(let j=0;j<BATTLE_COPY_PROPERTIES.length;j++)
+            {
+                const p = BATTLE_COPY_PROPERTIES[j];
+                if(p.array)
+                {
+                    for(let k=0;k<activeUser.team[i][p.what].length;k++)
+                    {
+                        activeUser.team[i][p.what][k] = battle_allyTeam[i][p.what][k];
+                    }
+                }
+                else
+                {
+                    activeUser.team[i][p.what] = battle_allyTeam[i][p.what];
+                }
+            }
+        }
+    }
+
+    battle = null;
+    start();
 }

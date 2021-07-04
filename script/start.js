@@ -147,7 +147,7 @@ function start()
 		new Pokemon(randomInt(pokemonList.length -1),2,-1,-1,0,0,-1,[3,2,1,0],'Test 1',-1,-1,'Szibi Snowpix',0,0),
 		new Pokemon(randomInt(pokemonList.length -1),2,-1,-1,0,0,-1,[7,6,5,4],'Test 2',-1,-1,'Szibi Snowpix',0,0),
 		null,null,null,null
-	]
+	];
 
 	activeWindow = true;
 	clickMenuButton(document.getElementById('mapMenuButton_Adventure'));
