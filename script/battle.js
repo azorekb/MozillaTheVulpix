@@ -64,7 +64,7 @@ function battle_start(_opponentTeam, _numberOfPokemon)
         }
     }
     
-    let container = newElement('div',battleWindow_container);
+    let container = newElement('div',battleWindow_container,'battleFieldAction');
     let battleField = newElement('div',container,'battleField');
     let infoBar = newElement('div',battleField,'infoBar')
     let allyInfo = newElement('div',infoBar,'info');
@@ -207,22 +207,42 @@ function battle_info(_what)
     if(_what == '')
     {
         battle.info.innerHTML = battle.infoBackup;
+        return true;
     }
     
     battle.infoBackup = battle.info.innerHTML;
-    
-    if(whats[0] == 'move')
+    let info = '';
+
+    switch(whats[0])
     {
-        let move = P.moves[whats[1]];
-        if(P.actualPP(whats[1],'number') <= 0){move = moveList[0];}
-        battle.info.innerHTML = BATTLE_TEXTS.use.language() + move.name[language] + BATTLE_TEXTS.type.language()
-        + POKEMON_TYPES[move.type].language() + BATTLE_TEXTS.power.language() + move.power + BATTLE_TEXTS.acc.language()
-        + move.accuracy;
+        case 'move':
+        {
+            let move = P.moves[whats[1]];
+            if(P.actualPP(whats[1],'number') <= 0){move = moveList[0];}
+            info = BATTLE_TEXTS.use.language() + move.name[language] + BATTLE_TEXTS.type.language();
+            info += POKEMON_TYPES[move.type].language() + BATTLE_TEXTS.power.language() + move.power;
+            info += BATTLE_TEXTS.acc.language() + move.accuracy;
+        } break;
+        case 'run': info = BATTLE_TEXTS.run.language(); break;
+        case 'team':
+        {
+            if(battle.activeFighter.ally.pokemon == whats[1]){info = BATTLE_TEXTS.inBattle.language()}
+            else
+            {
+                const pokemon = battle_allyTeam[whats[1]];
+                info = BATTLE_TEXTS.switch.language() + pokemon.name + BATTLE_TEXTS.level.language() + pokemon.level;
+                info += BATTLE_TEXTS.type.language() + POKEMON_TYPES[pokemon.types[0]].language();
+                if(pokemon.types[1] > 0){info += '/' + POKEMON_TYPES[pokemon.types[1]].language();}
+                info += BATTLE_TEXTS.moves.language();
+                for(let i=0;i<4;i++)
+                {
+                    if(pokemon.moves[i] != 0){info += pokemon.moves[i].name[language] + ', ';}
+                }
+            }
+        }
     }
-    if(_what == 'run')
-    {
-        battle.info.innerHTML = BATTLE_TEXTS.run.language();
-    }
+
+    battle.info.innerHTML = info;
 }
 
 function battle_decide(_what)

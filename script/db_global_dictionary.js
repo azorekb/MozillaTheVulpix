@@ -451,6 +451,9 @@ const BATTLE_TEXTS =
     power: {english: ', power: ', polski: ', moc: '},
     acc: {english: ', accuracy: ', polski: ', celność: '},
     run: {english: 'run from battle with wild pokemon', polski: 'ucieknij z walki z dzikim pokemonem'},
-    oppmove: {english: 'waiting for opponent decision...', polski: 'czekanie na decyzję przeciwnika...'}
-
+    oppmove: {english: 'waiting for opponent decision...', polski: 'czekanie na decyzję przeciwnika...'},
+    inBattle: {english: 'this pokemon is in the battle', polski: 'ten pokemon jest w trakcie walki'},
+    switch: {english: 'switch pokemon to ', polski: 'zmień pokemona na '},
+    level: {english: ', level: ', polski: ', poziom: '},
+    moves: {english: ', moves: ', polski: ', ruchy: ',},
 }

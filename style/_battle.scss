@@ -80,6 +80,18 @@
     }
 }
 
+.battleFieldAction
+{
+    width: 100%;
+
+    
+    .statusInfo
+    {
+        text-align: center;
+        min-height: 60;
+    }
+}
+
 .battleField
 {
     .infoBar
@@ -140,10 +152,11 @@
         {
             width: 100%;
             height: 200px;
+            display: flex;
 
             div
             {
-                margin: 40% auto;
+                margin: auto;
                 width: max-content;
             }
         }
@@ -165,7 +178,7 @@
         background-color: $battle_moveButton_colourIn;
         border-color: $battle_moveButton_colourOut;
         margin: 2px;
-        flex-basis: 49%;
+        width: 200px;
         box-sizing: border-box;
         text-align: center;
         border-radius: 10px;
