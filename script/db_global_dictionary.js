@@ -442,3 +442,15 @@ const POKEMON_NATURE =
     {english: 'Naive', statUp: 6, statDown: 5},
     {english: 'Serious', statUp: 6, statDown: 6},
 ]
+
+const BATTLE_TEXTS =
+{
+    doSth: {english: 'choose what to do...', polski: 'wybierz co zrobić...'},
+    use: {english: 'use ', polski: 'użyj '},
+    type: {english: ', type: ', polski: ', typ: '},
+    power: {english: ', power: ', polski: ', moc: '},
+    acc: {english: ', accuracy: ', polski: ', celność: '},
+    run: {english: 'run from battle with wild pokemon', polski: 'ucieknij z walki z dzikim pokemonem'},
+    oppmove: {english: 'waiting for opponent decision...', polski: 'czekanie na decyzję przeciwnika...'}
+
+}

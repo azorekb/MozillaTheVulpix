@@ -29,7 +29,8 @@ function addLanguageFunction()
 		{object: ADMIN_MAPS_DESCRIPTIONS, noArray: true},
 		{object: actualMapData.title, onlyOne: true},
 		{object: POKEMON_EVOLUTION_METHODS},
-		{object: POKEMON_MOVES_METHODS}
+		{object: POKEMON_MOVES_METHODS},
+		{object: BATTLE_TEXTS, noArray: true}
 	];
 
 	Object.keys(ADMIN_DATABASE_COLS).forEach(database => {
@@ -212,7 +213,7 @@ function downloadDataBases(_RES,_number)
 				let el = _RES[element];
 
 				moveList[element*1] = new PokemonMove({english: el.name_eng, polski: el.name_pl}, el.power, 
-				el.accurancy, el.type, el.PP, el.target, el.priority, el.contact, el.effects);
+				el.accuracy, el.type, el.PP, el.target, el.priority, el.contact, el.effects);
 			})
 
 			start();

@@ -235,7 +235,7 @@ class BattlePokemon extends Pokemon
     {
         let monNum = getPokemonNumberByName(pokemon.name);
         super(monNum,pokemon.level,pokemon.gender,pokemon.ability,pokemon.friednship,pokemon.expirience,pokemon.nature,pokemon.moves,
-        pokemon.nick,pokemon.IV,pokemon.EV,pokemon.OT,pokemon.hpLeft,pokemon.ppUsed,pokemon.status,pokemon.item);
+        pokemon.nick,pokemon.IV,pokemon.EV,pokemon.OT,pokemon.damage,pokemon.ppUsed,pokemon.status,pokemon.item);
         
         this.statchanges = [];
         for(let i=1;i<POKEMON_STATS.length;i++){this.statchanges.push(0);}
@@ -251,6 +251,7 @@ class BattleField
     field = null;
     fieldTime = 0;
     canMega = [true, true];
+    status = 'begining';
     activeFighter = 
     {
         ally: {pokemon: -1, lifeBar: null, level: null, name: null, gender: null, status: null, image: null},
@@ -259,6 +260,44 @@ class BattleField
     neutralSpace = null;
     movePlace = null;
     movesButtons = [null,null,null,null];
+    runButton = null;
+    itemsPlace = null;
+    info = null;
+    infoBackup = '';
+    decision = {ally: '', opponent: ''}
+
+    changeStatus(_status)
+    {
+        switch(_status)
+        {
+            case 'doSth':
+            {
+                this.info.innerHTML = BATTLE_TEXTS.doSth.language();
+                this.runButton.classList.remove('none');
+                this.movePlace.classList.remove('none');
+                this.itemsPlace.classList.remove('none');
+                for(let i=0;i<6;i++)
+                {
+                    if(battle_allyTeam[i] == null){continue;}
+                    if(battle_allyTeam[i].actualHP('number') <= 0){continue;}
+                    if(battle.activeFighter.ally.pokemon == i){continue;}
+                    document.getElementById('pokemonTeam_' + i).classList.add('activeButton');
+                }
+            } break;
+            case 'opponent move':
+            {
+                this.info.innerHTML = BATTLE_TEXTS.oppmove.language();
+                this.runButton.classList.add('none');
+                this.movePlace.classList.add('none');
+                this.itemsPlace.classList.add('none');
+                for(let i=0;i<6;i++)
+                {
+                    document.getElementById('pokemonTeam_' + i).classList.remove('activeButton');
+                }
+            }
+        }
+        this.status = _status;
+    }
 }
 
 class PokemonMove

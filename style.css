@@ -298,6 +298,7 @@
 
 .none {
   display: none;
+  visibility: hidden;
 }
 
 .button {

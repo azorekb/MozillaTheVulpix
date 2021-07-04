@@ -8,12 +8,12 @@ function battle_start(_opponentTeam, _numberOfPokemon)
         _opponentTeam = [0,0,0,0,0,0];
         switch(_numberOfPokemon)
         {
-            case 6: _opponentTeam[5] = new BattlePokemon(randomWildPokemon(1));
-            case 5: _opponentTeam[4] = new BattlePokemon(randomWildPokemon(1));
-            case 4: _opponentTeam[3] = new BattlePokemon(randomWildPokemon(1));
-            case 3: _opponentTeam[2] = new BattlePokemon(randomWildPokemon(1));
-            case 2: _opponentTeam[1] = new BattlePokemon(randomWildPokemon(1));
-            case 1: _opponentTeam[0] = new BattlePokemon(randomWildPokemon(1));
+            case 6: _opponentTeam[5] = new BattlePokemon(randomWildPokemon());
+            case 5: _opponentTeam[4] = new BattlePokemon(randomWildPokemon());
+            case 4: _opponentTeam[3] = new BattlePokemon(randomWildPokemon());
+            case 3: _opponentTeam[2] = new BattlePokemon(randomWildPokemon());
+            case 2: _opponentTeam[1] = new BattlePokemon(randomWildPokemon());
+            case 1: _opponentTeam[0] = new BattlePokemon(randomWildPokemon());
         }
     }
 
@@ -29,7 +29,11 @@ function battle_start(_opponentTeam, _numberOfPokemon)
     {
         let pokemon = newElement('div',pokemonTeam, '', 'pokemonTeam_' + i);
 
-        if(team[i] != null)
+        if(team[i] == null)
+        {
+            battle_allyTeam[i] = null;
+        }
+        else
         {
             battle_allyTeam[i] = new BattlePokemon(team[i]);
             
@@ -54,10 +58,9 @@ function battle_start(_opponentTeam, _numberOfPokemon)
                 moveBar_value.style.width = battle_allyTeam[i].actualPP(j,'percent %');
             }
             
-        }
-        else
-        {
-            battle_allyTeam[i] = null;
+            pokemon.onmouseover = function(){if(battle.activeFighter.ally.pokemon != i){battle_info('team ' + i)}};
+            pokemon.onmouseout = function(){if(battle.activeFighter.ally.pokemon != i){battle_info('')}};
+            pokemon.onclick = function(){battle_decide('changeAlly ' + i)};
         }
     }
     
@@ -85,8 +88,11 @@ function battle_start(_opponentTeam, _numberOfPokemon)
 
     let runSpace = newElement('div',infoBar, 'runSpace');
     let runButton = newElement('div',runSpace,'button medium runButton');
-    runButton.onclick = function(){start();}
+    runButton.onclick = function(){battle_decide('run');}
+    runButton.onmouseover = function(){battle_info('run');}
+    runButton.onmouseout = function(){battle_info('');}
     runButton.innerHTML = 'RUN forest RUN';
+    battle.runButton = runButton;
 
     let opponentInfo = newElement('div',infoBar,'info');
     dataRow = newElement('div',opponentInfo, 'data');
@@ -119,31 +125,51 @@ function battle_start(_opponentTeam, _numberOfPokemon)
     let opponent_image = newElement('div', opponent_place);
     battle.activeFighter.opponent.image = opponent_image;
 
+    let statusInfo = newElement('div',container,'statusInfo');
+    battle.info = statusInfo;
+
     let movesPlace = newElement('div', container, 'movesPlace');
     battle.movePlace = movesPlace;
 
     for(let i=0;i<4;i++)
     {
         let moveButton = newElement('div', movesPlace, 'button big');
-        moveButton.onclick = function(){battle_useMove(i);}
+        moveButton.onclick = function(){battle_decide('useMove ' + i);}
+        moveButton.onmouseover = function(){battle_info('move ' + i);}
+        moveButton.onmouseout = function(){battle_info('');}
         battle.movesButtons[i] = moveButton;
     }
 
     let items_containter = newElement('div', container);
     items_containter.innerHTML = 'Tu będą itemki ... ';
+    battle.itemsPlace = items_containter;
 
     battle_changeFighter('ally');
     battle_changeFighter('opponent');
+
+    battle.changeStatus('doSth');
 }
 
-function randomWildPokemon(level)
+function randomWildPokemon()
 {
-    return new Pokemon(randomInt(pokemonList.length - 1), level, -1, -1, 0, 0, -1, [1,0,0,0],'',-1,-1,'wild',0,0,0,0);
+    return new Pokemon(randomInt(pokemonList.length - 1), 1, -1, -1, 0, 0, -1, [1,0,0,0],'',-1,-1,'wild',0,0,0,0);
 }
 
 function battle_changeFighter(_side, _who)
 {
-    if(_who == undefined){_who = 0}
+    if(_who == undefined)
+    {
+        if(_side == 'opponent'){_who = 0;}
+        else
+        {
+            for(let i=0;i<6;i++)
+            {
+                console.log('team ' + i,)
+                console.log(battle_allyTeam[i].actualHP('number'));
+                if(battle_allyTeam[i].actualHP('number') > 0){_who = i; break;}
+            }
+        } 
+    }
 
     const F = battle.activeFighter[_side];
     F.pokemon = _who;
@@ -170,4 +196,59 @@ function battle_changeFighter(_side, _who)
             }
         }
     }
+}
+
+function battle_info(_what)
+{
+    if(battle.status != 'doSth'){return false;}
+    const whats = _what.split(' ');
+    const P = battle_allyTeam[battle.activeFighter.ally.pokemon];
+    
+    if(_what == '')
+    {
+        battle.info.innerHTML = battle.infoBackup;
+    }
+    
+    battle.infoBackup = battle.info.innerHTML;
+    
+    if(whats[0] == 'move')
+    {
+        let move = P.moves[whats[1]];
+        if(P.actualPP(whats[1],'number') <= 0){move = moveList[0];}
+        battle.info.innerHTML = BATTLE_TEXTS.use.language() + move.name[language] + BATTLE_TEXTS.type.language()
+        + POKEMON_TYPES[move.type].language() + BATTLE_TEXTS.power.language() + move.power + BATTLE_TEXTS.acc.language()
+        + move.accuracy;
+    }
+    if(_what == 'run')
+    {
+        battle.info.innerHTML = BATTLE_TEXTS.run.language();
+    }
+}
+
+function battle_decide(_what)
+{
+    if(battle.status != 'doSth'){return false;}
+    
+    const WHATS = _what.split(' ');
+    const active = battle.activeFighter.ally.pokemon;
+    switch(WHATS[0])
+    {
+        case 'run': battle.decision.ally = _what; break;
+        case 'useMove':
+        {
+            const pokemon = battle_allyTeam[active];
+            if(pokemon.moves[WHATS[1]] == 0){battle.decision.ally = 'useMove -1';}
+            else if(pokemon.actualPP(WHATS[1],'number') <= 0){battle.decision.ally = 'useMove -1';}
+            else{battle.decision.ally = _what;}
+        } break;
+        case 'changeAlly':
+        {
+            const pokemon = battle_allyTeam[WHATS[1]];
+            if(WHATS[1] == active){return false;}
+            if(pokemon.actualHP('number') <= 0){return false;}
+            battle.decision.ally = _what;
+        } break;
+    }
+
+    battle.changeStatus('opponent move');
 }
