@@ -81,7 +81,7 @@ class Pokemon extends Pokemon_list
         }
     }
 
-    whemNextLevel()
+    whenNextLevel()
     {
         let lv = this.level;
         let lv2 = Math.pow(lv,2);
@@ -103,7 +103,7 @@ class Pokemon extends Pokemon_list
             {
                 if(lv < 15) return lv3 * (Math.floor((lv + 1) / 3) + 24) / 50;
                 if(lv < 36) return lv3 * (n + 14) / 50;
-                return lv3 (Math.floor(lv / 2) + 32) / 50;
+                return lv3 * (Math.floor(lv / 2) + 32) / 50;
             }
             
         }
@@ -243,6 +243,7 @@ class BattlePokemon extends Pokemon
     objects =
     {
         lifeBar: null,
+        moveBars: [null,null,null,null],
     }
 
     constructor(pokemon)
@@ -319,10 +320,13 @@ class BattleField
                 if(A[0] == 'run' || A[0] == 'changeAlly' || A[0] == 'useItem'){this.order = ['ally','opponent'];}
                 else if(O[0] = 'useMove')
                 {
-                    const activeA = battle_allyTeam[this.activeFighter.ally.pokemon]
-                    const activeO = battle_opponentTeam[this.activeFighter.opponent.pokemon]
-                    if(activeA.moves[A[1]].priority > activeO.moves[O[1]].priority){this.order = ['ally','opponent'];}
-                    else if(activeA.moves[A[1]].priority < activeO.moves[O[1]].priority){this.order = ['opponent','ally'];}
+                    const activeA = battle_allyTeam[this.activeFighter.ally.pokemon];
+                    const activeO = battle_opponentTeam[this.activeFighter.opponent.pokemon];
+                    const moveA = A[1] == -1 ? moveList[0]: activeA.moves[A[1]];
+                    const moveO = O[1] == -1 ? moveList[0]: activeA.moves[O[1]];
+
+                    if(moveA.priority > moveO.priority){this.order = ['ally','opponent'];}
+                    else if(moveA.priority < moveO.priority){this.order = ['opponent','ally'];}
                     else
                     {
                         if(activeA.battle_sumStat('speed') > activeO.battle_sumStat('speed')){this.order = ['ally','opponent'];}
@@ -338,7 +342,24 @@ class BattleField
                 else{this.order = ['opponent','ally'];}
 
                 battle_action(0);
-            }
+            } break;
+            case 'level up':
+            {
+                const P = battle_allyTeam[battle.activeFighter.ally.pokemon];
+                P.level += 1;
+                this.info.innerHTML = P.name + BATTLE_TEXTS.promote.language() + P.level;
+                setTimeout(function()
+                {
+                    if(P.expirience >=  P.whenNextLevel())
+                    {
+                        battle.changeStatus('level up');
+                    }
+                    else
+                    {
+                        battle_end();
+                    }
+                },1000);
+            } break;
         }
 
         this.status = _status;

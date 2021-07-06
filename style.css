@@ -398,6 +398,8 @@
   background-color: #f00;
   color: #fff;
   height: 100%;
+  -webkit-transition: width 1s ease;
+  transition: width 1s ease;
 }
 
 #battleWindow_container .moveBarsContainer {

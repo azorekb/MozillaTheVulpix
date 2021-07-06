@@ -40,7 +40,7 @@ function battle_start(_opponentTeam, _numberOfPokemon)
             battle_allyTeam[i] = new BattlePokemon(team[i]);
             
             let data = newElement('div',pokemon,'pokemonData');            
-            data.appendChild(pokemonImage(team[i].name));
+            data.appendChild(pokemonImage(team[i].name,20));
             
             let name = newElement('p',data);
             name.innerHTML = team[i].showName() + ' ' + team[i].showGender();
@@ -49,7 +49,7 @@ function battle_start(_opponentTeam, _numberOfPokemon)
             let lifebar = newElement('div',lifebar_container);
             lifebar.style.width = team[i].actualHP('percent %');
             // lifebar.innerHTML = team[i].actualHP('fraction');
-            battle_allyTeam[i].objects.lifebar = lifebar;
+            battle_allyTeam[i].objects.lifeBar = lifebar;
             
             let moveBars = newElement('div',pokemon,'moveBarsContainer');
 
@@ -58,6 +58,7 @@ function battle_start(_opponentTeam, _numberOfPokemon)
                 let moveBar = newElement('div',moveBars,'moveBar');
                 let moveBar_value = newElement('div',moveBar);
                 moveBar_value.style.width = battle_allyTeam[i].actualPP(j,'percent %');
+                battle_allyTeam[i].objects.moveBars[j] = moveBar;
             }
             
             pokemon.onmouseover = function(){if(battle.activeFighter.ally.pokemon != i){battle_info('team ' + i)}};
@@ -176,13 +177,12 @@ function battle_changeFighter(_side, _who)
     const F = battle.activeFighter[_side];
     F.pokemon = _who;
     const DATA = eval('battle_' + _side + 'Team')[_who];
-    console.log('battle_' + _side + 'Team', DATA);
     F.lifeBar.style.width = DATA.actualHP('percent %');
     F.level.innerHTML = DATA.level;
     F.name.innerHTML = DATA.showName();
     F.gender.innerHTML = DATA.showGender();
     F.status.innerHTML = DATA.status;
-    F.image.innerHTML = _who;
+    F.image.appendChild(pokemonImage(DATA.name));
 
     if(_side == 'ally')
     {
@@ -300,9 +300,11 @@ function battle_action(_whoNow)
     if(battle.order[_whoNow] == undefined){battle.changeStatus('doSth'); return false;}
 
     const who = battle.order[_whoNow];
-
+    const user = eval('battle_' + who + 'Team')[battle.activeFighter[who].pokemon];
+    const secondSide = who == 'ally' ? battle_opponentTeam[battle.activeFighter.opponent.pokemon] : battle_allyTeam[battle.activeFighter.ally.pokemon];
+    const sideTwo = who == 'ally' ? 'opponent' : 'ally';
     const DECISIONS = battle.decision[who].split(' ');
-
+    
     switch(DECISIONS[0])
     {
         case 'run':
@@ -310,11 +312,28 @@ function battle_action(_whoNow)
             setTimeout(function(){battle_end()},1000);
         break;
         case 'changeAlly':
-            battle.info.innerHTML = eval('battle_' + who + 'Team')[battle.activeFighter[who].pokemon].name + BATTLE_TEXTS.comeBack.language();
-            setTimeout(function(){battle_changeFighter(who,DECISIONS[1]);},1000);
-            setTimeout(function(){battle_action(_whoNow + 1)},2000);
+                battle.info.innerHTML = user.name + BATTLE_TEXTS.comeBack.language();
+                setTimeout(function(){battle_changeFighter(who,DECISIONS[1]);},1000);
+                setTimeout(function(){battle_action(_whoNow + 1)},2000);
         break;
-
+        case 'useMove':
+            const move = DECISIONS[1] == -1 ? moveList[0] : user.moves[parseInt(DECISIONS[1])];
+            if(DECISIONS[1]*1 >= 0)
+            {
+                user.ppUsed[DECISIONS[1]*1]++;
+                if(who == 'ally'){user.objects.moveBars[[DECISIONS[1]*1]].style.width = user.actualPP([DECISIONS[1] * 1],'percent %');}
+            }
+            battle.info.innerHTML = user.name + BATTLE_TEXTS.used.language() + move.name[language];
+            let target, targetside;
+            if(move.target == 'one opponent'){target = secondSide; targetside = sideTwo;}
+            if(move.target == 'all opponents'){target = secondSide; targetside = sideTwo;}
+            if(move.target == 'everyone'){target = secondSide; targetside = sideTwo;}
+            if(move.target == 'self'){target = user; targetside = who;}
+            if(move.target == 'one ally'){target = null; targetside = null;}
+            if(move.target == 'all allies'){target = user; targetside = who;}
+            
+            setTimeout(function(){battle_useMove(move,user,target,who,targetside,_whoNow)},1000)
+        break;
     }
 }
 
@@ -344,4 +363,94 @@ function battle_end()
 
     battle = null;
     start();
+}
+
+function battle_useMove(_move,_user,_target,_userSide,_targetSide,_whoNow)
+{
+    let dmg = 0;
+    if(_move.power > 0)
+    {
+        //dmg = (2 * _user.level / 5) + 2
+        dmg = 2;
+        dmg *= _move.power / 50;
+        if(_move.category == 'physical'){dmg *= _user.battle_sumStat('attack') / _target.battle_sumStat('defence');}
+        else{dmg *= _user.battle_sumStat('spAttack') / _target.battle_sumStat('spDefence');}
+        //targets...
+        if(_user.types[0] == 2 || _user.types[1] == 2) //fire
+        {
+            if(battle.weather == 'rain'){dmg *= 0.5;}
+            if(battle.weather == 'sun'){dmg *= 1.5;}
+        }
+        if(_user.types[0] == 3 || _user.types[1] == 3) // water
+        {
+            if(battle.weather == 'rain'){dmg *= 1.5;}
+            if(battle.weather == 'sun'){dmg *= 0.5;}
+        }
+        //critical hit zostawię sobie na potem....
+        if(_user.types[0] == _move.type || _user.types[1] == _move.type)
+        {
+            dmg *= 1.5; //stab
+        }
+    }
+    
+    let e = POKEMON_TYPES[_target.types[0]].resistance[_move.type];
+    console.log(e);
+    e *= POKEMON_TYPES[_target.types[1]].resistance[_move.type];
+    console.log(e);
+    dmg *= e;
+    
+    dmg = Math.ceil(dmg);
+    
+    //effectysy które bendooooom
+    if(e == 0){battle.info.innerHTML = BATTLE_TEXTS.noeffect.language();}
+
+    if(dmg > 0)
+    {
+        if(e < 1 && e > 0){battle.info.innerHTML = BATTLE_TEXTS.weakeffect.language();}
+        if(e == 1){battle.info.innerHTML = '';}
+        if(e > 1){battle.info.innerHTML = BATTLE_TEXTS.supereffect.language();}
+        if(dmg > _target.actualHP('number')){dmg = _target.actualHP('number');}
+    
+        _target.damage += dmg;
+        if(_targetSide == 'ally'){_target.objects.lifeBar.style.width = _target.actualHP('percent %');}
+        battle.activeFighter[_targetSide].lifeBar.style.width = _target.actualHP('percent %');
+    }
+
+    setTimeout(() => {battle_laterEffects(_move,_user,_target,_userSide,_targetSide,_whoNow)}, 1500);
+}
+
+function battle_laterEffects(_move,_user,_target,_userSide,_targetSide,_whoNow)
+{
+    if(_target.actualHP('number') <= 0)
+    {
+        battle.info.innerHTML = _target.showName() + BATTLE_TEXTS.fainted.language();
+        console.log(_targetSide);
+        if(_targetSide == 'opponent')
+        {
+            const P = battle_allyTeam[battle.activeFighter.ally.pokemon];
+            let exp = _target.baseExp * _target.level / 7;
+            //if trainer battle x1.5
+            //if pokemon nie jest mój x1.5
+            //if mamy lucky egg x1.5
+            //if affection x1.2
+
+            P.expirience += Math.ceil(exp);
+            
+            setTimeout(function()
+            {
+                if(P.expirience >=  P.whenNextLevel())
+                {
+                    battle.changeStatus('level up');
+                }
+                else
+                {
+                    battle_end();
+                }
+            },1000);
+        }
+    }
+    else
+    {
+        setTimeout(() => {battle_action(_whoNow + 1)}, 1000);
+    }
 }

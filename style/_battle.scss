@@ -57,6 +57,7 @@
             background-color: $battle_lifebar_color;
             color: $battle_lifebar_textColor;
             height: 100%;
+            transition: width 1s ease;
         }
     }
 

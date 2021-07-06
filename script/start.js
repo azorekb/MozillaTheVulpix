@@ -141,13 +141,6 @@ function start()
 	}
 	
 	activeWindow = 'unactive';
-	
-	activeUser.team =
-	[
-		new Pokemon(randomInt(pokemonList.length -1),2,-1,-1,0,0,-1,[3,2,1,0],'Test 1',-1,-1,'Szibi Snowpix',0,0),
-		new Pokemon(randomInt(pokemonList.length -1),2,-1,-1,0,0,-1,[7,6,5,4],'Test 2',-1,-1,'Szibi Snowpix',0,0),
-		null,null,null,null
-	];
 
 	activeWindow = true;
 	clickMenuButton(document.getElementById('mapMenuButton_Adventure'));
@@ -212,10 +205,16 @@ function downloadDataBases(_RES,_number)
 			{
 				let el = _RES[element];
 
-				moveList[element*1] = new PokemonMove({english: el.name_eng, polski: el.name_pl}, el.power, 
-				el.accuracy, el.type, el.PP, el.target, el.priority, el.contact, el.effects);
+				moveList[element*1] = new PokemonMove({english: el.name_eng, polski: el.name_pl}, el.power*1, 
+				el.accuracy*1, el.type, el.PP, el.target, el.priority*1, el.contact, el.effects);
 			})
 
+			activeUser.team =
+			[
+				new Pokemon(randomInt(pokemonList.length -1),2,-1,-1,0,0,-1,[3,2,1,0],'Test 1',-1,-1,'Szibi Snowpix',0,0),
+				new Pokemon(randomInt(pokemonList.length -1),2,-1,-1,0,0,-1,[7,6,5,4],'Test 2',-1,-1,'Szibi Snowpix',0,0),
+				null,null,null,null
+			];
 			start();
 		}
 		break;
@@ -295,11 +294,12 @@ function randomInt(_arg1 = 1, _arg2 = 0)
 	return min + Math.floor(Math.random() * (max - min + 1))
 }
 
-function pokemonImage(_pokemon)
+function pokemonImage(_pokemon,_size = 0)
 {
-	let object = document.createElement('div');
-	object.innerHTML = 'X';
+	let object = document.createElement('img');
+	object.src = 'img/sprite/' + _pokemon + '.gif';
 	object.classList.add('image');
+	if(_size > 0){object.style.width = _size;}
 	return object;
 }
 
@@ -316,7 +316,7 @@ function getPokemonNumberByName(_name)
 
 function getTypeNumberByName(_name)
 {
-	for(let i=0;i<pokemonList.length;i++)
+	for(let i=0;i<POKEMON_TYPES.length;i++)
 	{
 		if(_name == POKEMON_TYPES[i].english)
 		{

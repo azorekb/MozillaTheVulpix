@@ -1,24 +1,24 @@
 const POKEMON_TYPES =
 [
-    {english: '-', resistance: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},
-    {english: 'normal', polski: 'normalny', resistance: [1,1,1,1,1,1,2,1,1,1,1,1,1,0,1,1,1,1]},
-    {english: 'fire', polski: 'ognisty', resistance: [1,0.5,2,1,0.5,0.5,1,1,2,1,1,0.5,2,1,1,1,0.5,0.5]},
-    {english: 'water', polski: 'wodny', resistance: [1,0.5,0.5,2,2,0.5,1,1,1,1,1,1,1,1,1,1,0.5,1]},
-    {english: 'electric', polski: 'elekrtyczny', resistance: [1,1,1,0.5,1,1,1,1,2,0.5,1,1,1,1,1,1,0.5,1]},
-    {english: 'grass', polski: 'trawiasty', resistance: [1,2,0.5,0.5,0.5,2,1,2,0.5,2,1,2,1,1,1,1,1,1]},
-    {english: 'ice', polski: 'lowody', resistance: [1,2,1,1,1,0.5,2,1,1,1,1,1,2,1,1,1,2,1]},
-    {english: 'fighting', polski: 'walczący', resistance: [1,1,1,1,1,1,1,1,1,2,2,0.5,0.5,1,1,0.5,1,2]},
-    {english: 'poison', polski: 'trujący', resistance: [1,1,1,1,0.5,1,0.5,0.5,2,1,2,0.5,1,1,1,1,1,0.5]},
-    {english: 'ground', polski: 'ziemny', resistance: [1,1,2,0,2,2,1,0.5,1,1,1,1,0.5,1,1,1,1,1]},
-    {english: 'flying', polski: 'latający', resistance: [1,1,1,2,0.5,2,0.5,1,0,1,1,0.5,2,1,1,1,1,1]},
-    {english: 'psychic', polski: 'psychiczny', resistance: [1,1,1,1,1,1,0.5,1,1,1,0.5,2,1,2,1,2,1,1]},
-    {english: 'bug', polski: 'robaczy', resistance: [1,2,1,1,0.5,1,0.5,1,0.5,2,1,1,2,1,1,1,1,1]},
-    {english: 'rock', polski: 'kamienny', resistance: [0.5,0.5,2,1,2,1,2,0.5,2,0.5,1,1,1,1,1,1,2,1]},
-    {english: 'ghost', polski: 'duchowy', resistance: [0,1,1,1,1,1,0,0.5,1,1,1,0.5,1,2,1,2,1,1]},
-    {english: 'dragon', polski: 'smoczy', resistance: [1,0.5,0.5,0.5,0.5,2,1,1,1,1,1,1,1,1,2,1,1,2]},
-    {english: 'dark', polski: 'mroczny', resistance: [1,1,1,1,1,1,2,1,1,1,0,2,1,0.5,1,0.5,1,2]},
-    {english: 'steel', polski: 'stalowy', resistance: [0.5,2,1,1,0.5,0.5,2,0,2,0.5,0.5,0.5,0.5,1,0.5,1,0.5,0.5]},
-    {english: 'fairy', polski: 'wróżkowy', resistance: [1,1,1,1,1,1,0.5,2,1,1,1,0.5,1,1,0,0.5,2,1]},
+    {english: '-', resistance: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]},
+    {english: 'normal', polski: 'normalny', resistance: [1,1,1,1,1,1,1,2,1,1,1,1,1,1,0,1,1,1,1]},
+    {english: 'fire', polski: 'ognisty', resistance: [1,1,0.5,2,1,0.5,0.5,1,1,2,1,1,0.5,2,1,1,1,0.5,0.5]},
+    {english: 'water', polski: 'wodny', resistance: [1,1,0.5,0.5,2,2,0.5,1,1,1,1,1,1,1,1,1,1,0.5,1]},
+    {english: 'electric', polski: 'elekrtyczny', resistance: [1,1,1,1,0.5,1,1,1,1,2,0.5,1,1,1,1,1,1,0.5,1]},
+    {english: 'grass', polski: 'trawiasty', resistance: [1,1,2,0.5,0.5,0.5,2,1,2,0.5,2,1,2,1,1,1,1,1,1]},
+    {english: 'ice', polski: 'lowody', resistance: [1,1,2,1,1,1,0.5,2,1,1,1,1,1,2,1,1,1,2,1]},
+    {english: 'fighting', polski: 'walczący', resistance: [1,1,1,1,1,1,1,1,1,1,2,2,0.5,0.5,1,1,0.5,1,2]},
+    {english: 'poison', polski: 'trujący', resistance: [1,1,1,1,1,0.5,1,0.5,0.5,2,1,2,0.5,1,1,1,1,1,0.5]},
+    {english: 'ground', polski: 'ziemny', resistance: [1,1,1,2,0,2,2,1,0.5,1,1,1,1,0.5,1,1,1,1,1]},
+    {english: 'flying', polski: 'latający', resistance: [1,1,1,1,2,0.5,2,0.5,1,0,1,1,0.5,2,1,1,1,1,1]},
+    {english: 'psychic', polski: 'psychiczny', resistance: [1,1,1,1,1,1,1,0.5,1,1,1,0.5,2,1,2,1,2,1,1]},
+    {english: 'bug', polski: 'robaczy', resistance: [1,1,2,1,1,0.5,1,0.5,1,0.5,2,1,1,2,1,1,1,1,1]},
+    {english: 'rock', polski: 'kamienny', resistance: [1,0.5,0.5,2,1,2,1,2,0.5,2,0.5,1,1,1,1,1,1,2,1]},
+    {english: 'ghost', polski: 'duchowy', resistance: [1,0,1,1,1,1,1,0,0.5,1,1,1,0.5,1,2,1,2,1,1]},
+    {english: 'dragon', polski: 'smoczy', resistance: [1,1,0.5,0.5,0.5,0.5,2,1,1,1,1,1,1,1,1,2,1,1,2]},
+    {english: 'dark', polski: 'mroczny', resistance: [1,1,1,1,1,1,1,2,1,1,1,0,2,1,0.5,1,0.5,1,2]},
+    {english: 'steel', polski: 'stalowy', resistance: [1,0.5,2,1,1,0.5,0.5,2,0,2,0.5,0.5,0.5,0.5,1,0.5,1,0.5,0.5]},
+    {english: 'fairy', polski: 'wróżkowy', resistance: [1,1,1,1,1,1,1,0.5,2,1,1,1,0.5,1,1,0,0.5,2,1]},
 ];
 
 const POKEMON_STATS = 
@@ -458,7 +458,13 @@ const BATTLE_TEXTS =
     moves: {english: ', moves: ', polski: ', ruchy: '},
     runSuccess: {english: 'you got away safety', polski: 'udało sie bezpiecznie uciec'},
     comeBack: {english: ', come back!', polski: ', wracaj!'},
-    go: {english: ', i choose you!', polski: ', wybieram cię!'}
+    go: {english: ', i choose you!', polski: ', wybieram cię!'},
+    used: {english: ' used ', polski: ' używa '},
+    supereffect: {english: 'It\'s supereffective!', polski: 'To superefektywne!'},
+    weakeffect: {english: 'It\'s not very effective...', polski: 'To niezbyt efektywne...'},
+    noeffect: {english: 'It\'s has no effect.', polski: 'To nie dało żadnego efektu.'},
+    fainted: {english: ' fainted', polski: ' zemdlał(a)'},
+    promote: {english: ' promoted to level ', polski: ' awansuje na poziom '},
 }
 
 const BATTLE_COPY_PROPERTIES = 
