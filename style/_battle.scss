@@ -1,20 +1,38 @@
 #battleWindow_container
 {
-    display: flex;
+    @media screen and (min-width: $big_window)    
+    {
+        display: flex;
+    }
 
     .pokemonTeam
     {
-        width: max-content;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        
+        @media screen and (min-width: $big_window)    
+        {
+            width: max-content;
+            display: block;
+        }
 
         > div 
         {
-            width: 100%;
+            flex-basis: 32%;
             height: 70px;
             border: 2px solid;
             padding: 7px;
-            margin-bottom: 5;
+            margin-bottom: 5px;
+            margin-right: 5px;
             border-radius: 10px;
             box-sizing: border-box;
+            
+            @media screen and (min-width: $big_window)    
+            {
+                width: 100%;
+                margin-right: 0;
+            }
 
             &.activeButton:hover
             {

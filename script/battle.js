@@ -470,6 +470,7 @@ function battle_laterEffects(_move,_user,_target,_userSide,_targetSide,_whoNow)
 
 function battle_lose()
 {
+    okno.innerHTML = '<img src=\'' + waitingImageUrl + '\'>';
     let data = new FormData();
     data.append('which', 2);
     sendRequest(function(_RES)

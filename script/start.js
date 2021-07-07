@@ -227,8 +227,13 @@ function sendRequest(_onReadyFunction,_url,_sendingData,_functionData)
 {
 	php_request.abort();
 
+	php_request.onerror = function()
+	{
+		console.log(this.status,this.statusText);
+	}
 	php_request.onreadystatechange = function() 
 	{
+		console.log(this.readyState,this.status);
         if(this.readyState == 4 && this.status == 200)
 		{
 			clearInterval(requestInterval);
