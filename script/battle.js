@@ -182,6 +182,7 @@ function battle_changeFighter(_side, _who)
     F.name.innerHTML = DATA.showName();
     F.gender.innerHTML = DATA.showGender();
     F.status.innerHTML = DATA.status;
+    F.image.innerHTML = '';
     F.image.appendChild(pokemonImage(DATA.name));
 
     if(_side == 'ally')
@@ -204,7 +205,7 @@ function battle_changeFighter(_side, _who)
 
 function battle_info(_what)
 {
-    if(battle.status != 'doSth'){return false;}
+    if(battle.status != 'doSth' && battle.status != 'choose ally'){return false;}
     const whats = _what.split(' ');
     const P = battle_allyTeam[battle.activeFighter.ally.pokemon];
     
@@ -251,7 +252,7 @@ function battle_info(_what)
 
 function battle_decide(_what)
 {
-    if(battle.status != 'doSth'){return false;}
+    if(battle.status != 'doSth' && battle.status != 'choose ally'){return false;}
     
     const WHATS = _what.split(' ');
     const active = battle.activeFighter.ally.pokemon;
@@ -435,6 +436,17 @@ function battle_laterEffects(_move,_user,_target,_userSide,_targetSide,_whoNow)
             //if affection x1.2
 
             P.expirience += Math.ceil(exp);
+
+            for(let i=0;i<3;i++)
+            {
+                if(_target.EVYeld[i] > 0)
+                {
+                    if(_target.sumEV() < MAX_EV_SUM && _target.EV[i] < MAX_EV)
+                    {
+                        _target.EV[i] += 1;
+                    }
+                }
+            }
             
             setTimeout(function()
             {
@@ -448,9 +460,24 @@ function battle_laterEffects(_move,_user,_target,_userSide,_targetSide,_whoNow)
                 }
             },1000);
         }
+        else{setTimeout(() => {battle.changeStatus('next ally');},1000);}
     }
     else
     {
         setTimeout(() => {battle_action(_whoNow + 1)}, 1000);
     }
+}
+
+function battle_lose()
+{
+    let data = new FormData();
+    data.append('which', 2);
+    sendRequest(function(_RES)
+    {
+        changeMap(_RES);
+        actualPosition.x = 3;
+        actualPosition.y = 3;
+        start();
+    },'php/database.php?base=maps',data);
+
 }

@@ -8,6 +8,8 @@ const COLOR_ERROR = '#ff0000';
 const COLOR_WARNING = '#0000ff';
 const waitingImageUrl = "img/vapi.gif";
 const NATURE_CHANGE = 0.1;
+const MAX_EV_SUM = 512;
+const MAX_EV = 256;
 
 //variable
 let logInTab = 'logIn';

@@ -160,24 +160,7 @@ function downloadDataBases(_RES,_number)
 
 		case 'maps-pokemon':
 		{
-			const RES = _RES[0];
-			actualMapData.title.english = RES.name_eng;
-			actualMapData.title.polski = RES.name_pl;
-			actualMapData.no = RES.id;
-
-			actualMap = RES.cells.split('/');
-			for(let i=0;i<actualMap.length;i++)
-			{
-				actualMap[i] = actualMap[i].split('|');
-				for(let j=0;j<actualMap[i].length;j++)
-				{
-					actualMap[i][j] = actualMap[i][j].split(',');
-					for(let k=0;k<actualMap[i][j].length;k++)
-					{
-						actualMap[i][j][k] *= 1;
-					}
-				}
-			}
+			changeMap(_RES);
 			okno.innerHTML = '<img src=\'' + waitingImageUrl + '\'><br><br><b>downloading pokemon...</b>';
 			sendRequest(downloadDataBases,'php/database.php?base=pokemon',null,'pokemon-moves');
 		}
@@ -281,8 +264,7 @@ function sendRequest(_onReadyFunction,_url,_sendingData,_functionData)
 			clearInterval(requestInterval);
 		}
 
-	},3000)
-	//abort()
+	},3000);
 }
 
 function randomInt(_arg1 = 1, _arg2 = 0)
@@ -339,4 +321,26 @@ function newElement(_what,_where, _class = '', _id = '')
 	if(_id != ''){div.id = _id;}
 	_where.appendChild(div);
 	return div;
+}
+
+function changeMap(_RES)
+{
+	const RES = _RES[0];
+	actualMapData.title.english = RES.name_eng;
+	actualMapData.title.polski = RES.name_pl;
+	actualMapData.no = RES.id;
+
+	actualMap = RES.cells.split('/');
+	for(let i=0;i<actualMap.length;i++)
+	{
+		actualMap[i] = actualMap[i].split('|');
+		for(let j=0;j<actualMap[i].length;j++)
+		{
+			actualMap[i][j] = actualMap[i][j].split(',');
+			for(let k=0;k<actualMap[i][j].length;k++)
+			{
+				actualMap[i][j][k] *= 1;
+			}
+		}
+	}
 }

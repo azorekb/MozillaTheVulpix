@@ -150,8 +150,8 @@ function adm_edit_dbElement_ready(_res,[_db,_id])
                     }
                     else
                     {
-                        option.value = array[i].table[j];
-                        option.innerHTML = array[i].table[j];
+                        option.value = array[i].table[j].name;
+                        option.innerHTML = array[i].table[j].name;
                     }
                     input.appendChild(option);
                 }
@@ -532,7 +532,7 @@ function adm_maps_addition(_cells)
     let text = newElement('p',adm_details);
     text.innerHTML = 'X:';
     
-    let adm_sizeX = document.createElement('input',adm_details,'adm_mapSize','adm_mapSizeX');
+    let adm_sizeX = newElement('input',adm_details,'adm_mapSize','adm_mapSizeX');
     adm_sizeX.type = 'number';
     adm_sizeX.min = 1;
     adm_sizeX.max = 50;
@@ -541,7 +541,7 @@ function adm_maps_addition(_cells)
     text = newElement('p',adm_details);
     text.innerHTML = 'Y:';
     
-    let adm_sizeY = document.createElement('input',adm_details,'adm_mapSize','adm_mapSizeY');
+    let adm_sizeY = newElement('input',adm_details,'adm_mapSize','adm_mapSizeY');
     adm_sizeY.type = 'number';
     adm_sizeY.min = 1;
     adm_sizeY.max = 50;
@@ -569,7 +569,7 @@ function adm_maps_addition(_cells)
     
     for(let i=0;i<MAP_ITEMS.object.length;i++)
     {
-        let adm_mapItem = document.createElement('div',adm_mapObject_container);
+        let adm_mapItem = newElement('div',adm_mapObject_container);
         adm_mapItem.onclick = function(){adm_mapObjectSelect(this, i);}
         if(i == 0){adm_mapItem.classList.add('active');}
 

@@ -138,6 +138,15 @@ class Pokemon extends Pokemon_list
         }
     }
 
+    sumEV()
+    {
+        let sum = 0;
+        for(let i=0;i<6;i++)
+        {
+            sum += this.EVYeld[i];
+        }
+    }
+
 
     constructor(specie,level,gender,ability,friednship,expirience,nature,moves,nick,IV,EV,OT,damage,ppUsed,status = 0,item = 0)
     {
@@ -311,7 +320,12 @@ class BattleField
                     document.getElementById('pokemonTeam_' + i).classList.remove('activeButton');
                 }
 
-                battle_tactic();
+                if(this.status == 'doSth'){battle_tactic();}
+                if(this.status == 'choose ally')
+                {
+                    this.order = ['ally'];
+                    battle_action(0);
+                }
             } break;
             case 'who first':
             {
@@ -360,6 +374,32 @@ class BattleField
                     }
                 },1000);
             } break;
+            case 'next ally':
+            {
+                let noAllyLeft = true;
+                for(let i=0;i<6;i++)
+                {
+                    if(battle_allyTeam[i] != null)
+                    {
+                        if(battle_allyTeam[i].actualHP('number') > 0)
+                        {
+                            noAllyLeft = false;
+                            document.getElementById('pokemonTeam_' + i).classList.add('activeButton');
+                        }
+                    }
+                }
+                if(noAllyLeft)
+                {
+                    this.info.innerHTML = BATTLE_TEXTS.lose.language();
+                    setTimeout(function(){battle_lose();},1000);
+                }
+                else
+                {
+                    this.runButton.classList.remove('none');
+                    setTimeout(function(){battle.changeStatus('choose ally')},1);
+                }
+            } break;
+            case 'choose ally': this.info.innerHTML = BATTLE_TEXTS.doSth.language();
         }
 
         this.status = _status;

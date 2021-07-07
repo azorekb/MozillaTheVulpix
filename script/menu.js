@@ -99,8 +99,8 @@ function openMap()
 
 function resize_worldMap()
 {
-	let x_count = 20;//Math.floor((window.innerWidth-800)/20);
-	let y_count = 20;//Math.floor((window.innerHeight-400)/20);
+	let x_count = Math.min(20,actualMap[0].length);//Math.floor((window.innerWidth-800)/20);
+	let y_count = Math.min(20,actualMap[0].length);//Math.floor((window.innerHeight-400)/20);
 	mapCenter.toY = Math.ceil(y_count / 2);
 	mapCenter.isY = 1-y_count % 2;
 	mapCenter.toX = Math.ceil(x_count / 2);

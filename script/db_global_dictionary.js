@@ -465,6 +465,7 @@ const BATTLE_TEXTS =
     noeffect: {english: 'It\'s has no effect.', polski: 'To nie dało żadnego efektu.'},
     fainted: {english: ' fainted', polski: ' zemdlał(a)'},
     promote: {english: ' promoted to level ', polski: ' awansuje na poziom '},
+    lose: {english: 'there is no pokemon left, you lost the battle', polski: 'żaden z pokemonów nie jest zdolny do walki, przegrwasz'}
 }
 
 const BATTLE_COPY_PROPERTIES = 
