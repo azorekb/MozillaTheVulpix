@@ -377,7 +377,7 @@ class BattleField
             case 'next ally':
             {
                 let noAllyLeft = true;
-                for(let i=0;i<6;i++)
+                for(let i=0;i<TEAM_COUNT;i++)
                 {
                     if(battle_allyTeam[i] != null)
                     {

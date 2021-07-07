@@ -10,6 +10,9 @@ const waitingImageUrl = "img/vapi.gif";
 const NATURE_CHANGE = 0.1;
 const MAX_EV_SUM = 512;
 const MAX_EV = 256;
+const ENCOUNTER_CHANCE = 30;
+const TEAM_COUNT = 6;
+const POKEMON_MOVE_COUNT = 4;
 
 //variable
 let logInTab = 'logIn';

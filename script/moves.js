@@ -250,9 +250,7 @@ function endOfWalk(_position, _type, _end)
 	{
 		case 'DrawAPokemonBattle':
 		{
-			let chance = Math.random();
-			console.log(chance);
-			if(chance < 0.3)
+			if(ENCOUNTER_CHANCE > randomInt(100))
 			{
 				battle_start(null, 1);
 			}

@@ -328,7 +328,7 @@ function newElement(_what,_where, _class = '', _id = '')
 	return div;
 }
 
-function changeMap(_RES)
+function changeMap(_RES, _x = 0, _y = 0)
 {
 	const RES = _RES[0];
 	actualMapData.title.english = RES.name_eng;
@@ -348,4 +348,7 @@ function changeMap(_RES)
 			}
 		}
 	}
+	
+	actualPosition.x = _x;
+	actualPosition.y = _y;
 }

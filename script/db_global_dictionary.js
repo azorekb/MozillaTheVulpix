@@ -6,7 +6,7 @@ const POKEMON_TYPES =
     {english: 'water', polski: 'wodny', resistance: [1,1,0.5,0.5,2,2,0.5,1,1,1,1,1,1,1,1,1,1,0.5,1]},
     {english: 'electric', polski: 'elekrtyczny', resistance: [1,1,1,1,0.5,1,1,1,1,2,0.5,1,1,1,1,1,1,0.5,1]},
     {english: 'grass', polski: 'trawiasty', resistance: [1,1,2,0.5,0.5,0.5,2,1,2,0.5,2,1,2,1,1,1,1,1,1]},
-    {english: 'ice', polski: 'lowody', resistance: [1,1,2,1,1,1,0.5,2,1,1,1,1,1,2,1,1,1,2,1]},
+    {english: 'ice', polski: 'lodowy', resistance: [1,1,2,1,1,1,0.5,2,1,1,1,1,1,2,1,1,1,2,1]},
     {english: 'fighting', polski: 'walczący', resistance: [1,1,1,1,1,1,1,1,1,1,2,2,0.5,0.5,1,1,0.5,1,2]},
     {english: 'poison', polski: 'trujący', resistance: [1,1,1,1,1,0.5,1,0.5,0.5,2,1,2,0.5,1,1,1,1,1,0.5]},
     {english: 'ground', polski: 'ziemny', resistance: [1,1,1,2,0,2,2,1,0.5,1,1,1,1,0.5,1,1,1,1,1]},
@@ -185,7 +185,7 @@ const POKEMON_MOVE_EFFECTS =
             {english: 'inlove', polski: 'zauroczenie'},
         ]
     },
-    {english: 'recoil damage', polski: 'obrażenia zwrotne'},
+    {english: 'recoil damage', polski: 'obrażenia zwrotne', done: true},
     {english: 'recover HP', polski: 'leczenie HP'},
     {english: 'drain HP', polski: 'kradzież HP'},
     {english: 'change attack', polski: 'zmiana ataku'},
@@ -202,7 +202,7 @@ const POKEMON_MOVE_EFFECTS =
         [
             {english: 'switch place', polski: 'zmiana miesjca'},
             {english: 'unable to flee', polski: 'uniemożliwienie ucieczki'},
-            {english: 'hit dwo times', polski: 'uderzenie dwukrotne'},
+            {english: 'hit two times', polski: 'uderzenie dwukrotne'},
             {english: 'hit 2-5 times', polski: 'uderzenie 2-5 krotne'},
             {english: 'ignores attack and deffence', polski: 'ignorowanie ataku i obrony'},
             {english: 'return', polski: 'powrót'},
@@ -265,7 +265,7 @@ const POKEMON_MOVE_EFFECTS =
         ]
     },
     {
-        english: 'cxhange battlefield',
+        english: 'change battlefield',
         polski: 'zmiana pola walki',
         types:
         [
@@ -465,7 +465,8 @@ const BATTLE_TEXTS =
     noeffect: {english: 'It\'s has no effect.', polski: 'To nie dało żadnego efektu.'},
     fainted: {english: ' fainted', polski: ' zemdlał(a)'},
     promote: {english: ' promoted to level ', polski: ' awansuje na poziom '},
-    lose: {english: 'there is no pokemon left, you lost the battle', polski: 'żaden z pokemonów nie jest zdolny do walki, przegrwasz'}
+    lose: {english: 'there is no pokemon left, you lost the battle', polski: 'żaden z pokemonów nie jest zdolny do walki, przegrwasz'},
+    missed: {english: 'but it missed...', polski: 'lecz nie trafia...'},
 }
 
 const BATTLE_COPY_PROPERTIES = 
