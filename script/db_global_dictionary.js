@@ -480,3 +480,10 @@ const BATTLE_COPY_PROPERTIES =
     {what: 'status', array: false},
     {what: 'item', array: false}
 ];
+
+const IMG_WAY = 
+{
+    start: 'img/',
+    background: 'img/background/',
+    objects: 'img/objects',
+}

@@ -556,7 +556,7 @@ function adm_maps_addition(_cells)
     {
         let adm_mapItem = newElement('div',adm_mapBG_container);
         let img = newElement('img',adm_mapItem);
-        img.src = IMG_WAY + MAP_ITEMS.background[i].src;
+        img.src = IMG_WAY.background + MAP_ITEMS.background[i].src;
         img.title = ADMIN_MAPS_DESCRIPTIONS.bgTitle.language() + i;
         adm_mapItem.onclick = function(){adm_mapBGSelect(this, i);}
         if(i == 0){adm_mapItem.classList.add('active');}
@@ -574,7 +574,7 @@ function adm_maps_addition(_cells)
         if(i == 0){adm_mapItem.classList.add('active');}
 
         let img = newElement('img',adm_mapItem);
-        img.src = IMG_WAY + MAP_ITEMS.object[i].src;
+        img.src = IMG_WAY.objects + MAP_ITEMS.object[i].src;
         img.title = ADMIN_MAPS_DESCRIPTIONS.imgTitle.language() + i;
     }
 

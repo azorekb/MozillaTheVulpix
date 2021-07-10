@@ -270,14 +270,14 @@ function mapImg(_object,_imgs,_choose)
 	if(_choose == 'object' || _choose == 'both')
 	{
 		let img = document.createElement('img');
-		img.src = _imgs[1] > 0 ? IMG_WAY + MAP_ITEMS.object[_imgs[1]].src : '';
+		img.src = _imgs[1] > 0 ? IMG_WAY.objects + MAP_ITEMS.object[_imgs[1]].src : '';
 		_object.innerHTML = '';
 		_object.appendChild(img);
 	}
 
 	if(_choose == 'bg' || _choose == 'both')
 	{
-		let backGround = 'url(\''+ IMG_WAY + MAP_ITEMS.background[_imgs[0]].src +'\')';
+		let backGround = 'url(\''+ IMG_WAY.background + MAP_ITEMS.background[_imgs[0]].src +'\')';
 		_object.style.backgroundImage = backGround;
 	}
 }
