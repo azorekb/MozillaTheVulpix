@@ -81,7 +81,7 @@ function openMap()
 	
 	mainCharacter = newElement('img',worldMapWindow);
 	mainCharacter.style.position='absolute';
-	mainCharacter.src = 'img/joy.png';
+	mainCharacter.src = MAIN_CHARACTER_IMAGE;
 	
 	resize_worldMap();
 	let helpdiv = newElement('div',worldMapWindow,'helpDiv','worldmap_helpdiv');

@@ -145,8 +145,16 @@ function adm_edit_dbElement_ready(_res,[_db,_id])
                     let option = document.createElement('option');
                     if(array[i].noLanguage === undefined)
                     {
-                        option.value = array[i].table[j].english;
-                        option.innerHTML = array[i].table[j].language();
+                        if(array[i].noFunction === undefined)
+                        {
+                            option.value = array[i].table[j].english;
+                            option.innerHTML = array[i].table[j].language();
+                        }
+                        else
+                        {
+                            option.value = array[i].table[j].name.english;
+                            option.innerHTML = array[i].table[j].name[language];
+                        }
                     }
                     else
                     {

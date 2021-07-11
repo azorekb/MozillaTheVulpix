@@ -99,7 +99,7 @@ const ADMIN_DATABASE_COLS =
     [
         {description: {polski: 'nr', english: 'no'}, dbname: 'id'},
         {description: {english: 'pokemon'}, dbname: 'pokemon', input: 'select', table: pokemonList, noLanguage: true},
-        {description: {english: 'move', polski: 'ruch'}, dbname: 'move', input: 'select', table: moveList, noLanguage: true},
+        {description: {english: 'move', polski: 'ruch'}, dbname: 'move', input: 'select', table: moveList, noFunction: true},
         {description: {polski: 'metoda', english: 'method'}, dbname: 'how', input: 'select', table: POKEMON_MOVES_METHODS}
     ]
 };

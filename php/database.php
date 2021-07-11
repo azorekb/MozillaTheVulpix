@@ -11,6 +11,7 @@
 
         $connection = mysql_connect('mysql1.ugu.pl', 'db699059', 'MalaRuka.037') or die(mysql_error());
         $db = mysql_select_db('db699059', $connection) or die(mysql_error());
+        mysql_set_charset('utf8', $connection);
     
         $cols;
         $isString;

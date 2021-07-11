@@ -58,7 +58,7 @@ function battle_start(_opponentTeam, _numberOfPokemon)
                 let moveBar = newElement('div',moveBars,'moveBar');
                 let moveBar_value = newElement('div',moveBar);
                 moveBar_value.style.width = battle_allyTeam[i].actualPP(j,'percent %');
-                battle_allyTeam[i].objects.moveBars[j] = moveBar;
+                battle_allyTeam[i].objects.moveBars[j] = moveBar_value;
             }
             
             pokemon.onmouseover = function(){if(battle.activeFighter.ally.pokemon != i){battle_info('team ' + i)}};
@@ -296,7 +296,7 @@ function battle_tactic()
 
 function battle_action(_whoNow)
 {
-    if(battle.order[_whoNow] == undefined){battle.changeStatus('doSth'); return false;}
+    if(battle.order[_whoNow] == undefined){battle_finishRound(_whoNow); return false;}
 
     const who = battle.order[_whoNow];
     const user = eval('battle_' + who + 'Team')[battle.activeFighter[who].pokemon];
@@ -316,11 +316,12 @@ function battle_action(_whoNow)
                 setTimeout(function(){battle_action(_whoNow + 1)},2000);
         break;
         case 'useMove':
-            const move = DECISIONS[1] == -1 ? moveList[0] : user.moves[parseInt(DECISIONS[1])];
-            if(DECISIONS[1]*1 >= 0)
+            const whitchMove = DECISIONS[1]*1;
+            const move = whitchMove == -1 ? moveList[0] : user.moves[parseInt(DECISIONS[1])];
+            if(whitchMove >= 0)
             {
-                user.ppUsed[DECISIONS[1]*1]++;
-                if(who == 'ally'){user.objects.moveBars[[DECISIONS[1]*1]].style.width = user.actualPP([DECISIONS[1] * 1],'percent %');}
+                user.ppUsed[whitchMove]++;
+                if(who == 'ally'){user.objects.moveBars[whitchMove].style.width = user.actualPP(whitchMove,'percent %');}
             }
             battle.info.innerHTML = user.name + BATTLE_TEXTS.used.language() + move.name[language];
             let target, targetside;
@@ -399,8 +400,6 @@ function battle_useMove(_move,_user,_target,_userSide,_targetSide,_whoNow)
         let e = POKEMON_TYPES[_target.types[0]].resistance[_move.type];
         e *= POKEMON_TYPES[_target.types[1]].resistance[_move.type];
         dmg *= e;
-        
-        dmg = Math.ceil(dmg);
 
         if(e == 0){battle.info.innerHTML = BATTLE_TEXTS.noeffect.language();}
         
@@ -409,16 +408,16 @@ function battle_useMove(_move,_user,_target,_userSide,_targetSide,_whoNow)
             if(e < 1 && e > 0){battle.info.innerHTML = BATTLE_TEXTS.weakeffect.language();}
             if(e == 1){battle.info.innerHTML = '';}
             if(e > 1){battle.info.innerHTML = BATTLE_TEXTS.supereffect.language();}
-            if(dmg > _target.actualHP('number')){dmg = _target.actualHP('number');}
             
-            _target.damage += dmg;
+            _target.hit(dmg);
             if(_targetSide == 'ally'){_target.objects.lifeBar.style.width = _target.actualHP('percent %');}
             battle.activeFighter[_targetSide].lifeBar.style.width = _target.actualHP('percent %');
             
         }
         
         battle_effects_meanwhile(_move,_user,_target,_userSide,_targetSide, dmg);
-        setTimeout(() => {battle_isSomebodyFaint(_whoNow)}, 1500);
+        let timeout = _move.category == 'status' ? 0 : 1000;
+        setTimeout(() => {battle_effects_after(_move,_user,_target,_userSide,_targetSide, dmg, _whoNow);}, timeout);
     }
     else
     {
@@ -434,7 +433,8 @@ function battle_isSomebodyFaint(_whoNow)
 
     if(AP.actualHP('number') > 0 && OP.actualHP('number') > 0)
     {
-        setTimeout(() => {battle_action(_whoNow + 1)}, 1000);
+        if(battle.finishRound){battle.changeStatus('doSth');}
+        else{setTimeout(() => {battle_action(_whoNow + 1)}, 1000);}
     }
     
     if(AP.actualHP('number') > 0 && OP.actualHP('number') <= 0)
@@ -474,25 +474,30 @@ function battle_isSomebodyFaint(_whoNow)
 
     if(AP.actualHP('number') <= 0 && OP.actualHP('number') > 0)
     {
+        battle.info.innerHTML = AP.showName() + BATTLE_TEXTS.fainted.language();
         setTimeout(() => {battle.changeStatus('next ally');},1000);
     }
 
     if(AP.actualHP('number') <= 0 && OP.actualHP('number') <= 0)
     {
-        let noAllyLeft = true;
-        for(let i=0;i<TEAM_COUNT;i++)
+        battle.info.innerHTML = BATTLE_TEXTS.bothFainted.language();
+        setTimeout(() =>
         {
-            if(battle_allyTeam[i] != null)
+            let noAllyLeft = true;
+            for(let i=0;i<TEAM_COUNT;i++)
             {
-                if(battle_allyTeam[i].actualHP('number') > 0)
+                if(battle_allyTeam[i] != null)
                 {
-                    noAllyLeft = false;
-                    document.getElementById('pokemonTeam_' + i).classList.add('activeButton');
+                    if(battle_allyTeam[i].actualHP('number') > 0)
+                    {
+                        noAllyLeft = false;
+                        document.getElementById('pokemonTeam_' + i).classList.add('activeButton');
+                    }
                 }
             }
-        }
-        if(noAllyLeft){battle_lose();}
-        else{battle_end()}
+            if(noAllyLeft){battle_lose();}
+            else{battle_end()}
+        }, 1000);
     }
 }
 
@@ -522,12 +527,112 @@ function battle_effects_meanwhile(_move,_user,_target,_userSide,_targetSide, _dm
             {
                 case 'recoil damage':
                 {
-                    _user.damage += _dmg * EFFECT.value / 100;
-                    if(EFFECT.value == 0 || _user.actualHP('number') < 0){_user.damage = _user.battle_sumStat('hp');}
+                    _user.hit(_dmg * EFFECT.value / 100);
                     battle.activeFighter[_userSide].lifeBar.style.width = _user.actualHP('percent %');
                     if(_userSide == 'ally'){_user.objects.lifeBar.style.width = _user.actualHP('percent %');}
                 } break;
             }
         }
     }
-}   
+}
+
+function battle_effects_after(_move,_user,_target,_userSide,_targetSide, _dmg, _whoNow)
+{
+    let fail = true;
+    let anything = false;
+    let numberOfEffects = 0;
+    
+    for(let i=0;i<_move.effects.length;i++)
+    {
+        anything = true;
+        const EFFECT = _move.effects[i];
+        let chance = EFFECT.chance;
+        if(chance == 0){chance = 1000;}
+        if(chance > randomInt(100))
+        {
+            let text = '';
+            switch(EFFECT.name.english)
+            {
+                case 'change status':
+                {
+                    switch(EFFECT.value.english)
+                    {
+                        case 'ok':
+                            fail = false;
+                            text = _target.showName();
+                            if(_target.status == 'ok')
+                            {
+                                text += BATTLE_TEXTS.isHealthy;
+                            }
+                            else
+                            {
+                                _target.status = 'ok';
+                                text += BATTLE_TEXTS.healed;
+                            }
+                            break;
+                        case 'burn':
+                            let allIsOk = _target.status == 'ok';
+                            if(_target.type == getTypeNumberByName('fire')){allIsOk = false;}
+                            if(allIsOk)
+                            {
+                                _target.status = 'burn';
+                                fail = false;
+                                text = _target.showName() + BATTLE_TEXTS.burned.language();
+                            }
+                            break;
+                        case 'freeze': if(_target.status == 'ok'){_target.status = 'freeze'; fail = false; text = _target.showName() + BATTLE_TEXTS.freezed.language();} break;
+                        case 'paralysis': if(_target.status == 'ok'){_target.status = 'paralysis'; fail = false; text = _target.showName() + BATTLE_TEXTS.paralyzed.language();} break;
+                        case 'poison': if(_target.status == 'ok'){_target.status = 'poison'; fail = false; text = _target.showName() + BATTLE_TEXTS.poisoned.language();} break;
+                        case 'sleep': if(_target.status == 'ok'){_target.status = 'sleep'; fail = false; text = _target.showName() + BATTLE_TEXTS.sleepy.language();} break;
+                    }
+                }
+            }
+            if(!fail){setTimeout(function(){battle.info.innerHTML = text}, 1000 * numberOfEffects++);}
+        }
+    }
+    console.log(_move.category,anything,fail);
+    if(_move.category == 'status')
+    {
+        if(anything)
+        {
+            if(fail){battle.info.innerHTML = BATTLE_TEXTS.fail.language();}
+        }
+        else{battle.info.innerHTML = BATTLE_TEXTS.nothing.language();}
+    }
+    
+
+    setTimeout(function(){battle_isSomebodyFaint(_whoNow);}, 1000 * numberOfEffects);
+}
+
+function battle_finishRound(_whoNow)
+{
+    battle.changeStatus('finish');
+    battle.finishRound = true;
+    let events = 0;
+    const AP = battle_allyTeam[battle.activeFighter.ally.pokemon]; //ally pokemon
+    const OP = battle_opponentTeam[battle.activeFighter.opponent.pokemon]; //opponent pokemon
+    
+    if(AP.status == 'burn' && AP.actualHP('number') > 0)
+    {
+        setTimeout(function()
+        {
+            AP.hit(AP.battle_sumStat('hp') / 16);
+            AP.objects.lifeBar.style.width = AP.actualHP('percent %');
+            battle.activeFighter.ally.lifeBar.style.width = AP.actualHP('percent %');
+            battle.info.innerHTML = AP.showName() + BATTLE_TEXTS.burnCouses.language();
+        }, 1000 * events++);
+    }
+    console.log(OP.status, OP.actualHP('number'));
+    if(OP.status == 'burn' && OP.actualHP('number') > 0)
+    {
+        console.log('ok');
+        setTimeout(function()
+        {
+            console.log('coś się dzieje');
+            OP.hit(OP.battle_sumStat('hp') / 16);
+            battle.activeFighter.opponent.lifeBar.style.width = OP.actualHP('percent %');
+            battle.info.innerHTML = OP.showName() + BATTLE_TEXTS.burnCouses.language();
+        }, 1000 * events++);
+    }
+    setTimeout(() => {battle_isSomebodyFaint(_whoNow)}, 1000 * (events + 1));
+}

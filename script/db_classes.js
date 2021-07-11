@@ -161,6 +161,7 @@ class Pokemon extends Pokemon_list
         this.level = level;
         this.expirience = expirience;
         this.friednship = friednship;
+        if(status == 0){status = 'ok'}
         this.status = status
         this.item = item;
         this.damage = damage;
@@ -249,6 +250,12 @@ class BattlePokemon extends Pokemon
         return Math.round(this.sumStat(_stat) * (1 + this.statchanges[_stat] / 100));
     }
 
+    hit(_damage)
+    {
+        if(_damage > this.actualHP('number') || _damage == 0){_damage = this.actualHP('number');}
+        this.damage += Math.ceil(_damage);
+    }
+
     objects =
     {
         lifeBar: null,
@@ -290,6 +297,7 @@ class BattleField
     infoBackup = '';
     decision = {ally: '', opponent: ''}
     order = [];
+    finishRound = false;
 
     changeStatus(_status)
     {
@@ -297,6 +305,7 @@ class BattleField
         {
             case 'doSth':
             {
+                this.finishRound = false;
                 this.info.innerHTML = BATTLE_TEXTS.doSth.language();
                 this.runButton.classList.remove('none');
                 this.movePlace.classList.remove('none');

@@ -12,6 +12,7 @@ const MAX_EV = 256;
 const ENCOUNTER_CHANCE = 30;
 const TEAM_COUNT = 6;
 const POKEMON_MOVE_COUNT = 4;
+const MAIN_CHARACTER_IMAGE = 'img/objects/joy.png';
 
 //variable
 let logInTab = 'logIn';

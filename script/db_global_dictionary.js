@@ -174,8 +174,8 @@ const POKEMON_MOVE_EFFECTS =
         english: 'change status',
         types: 
         [
-            {polski: 'zdrowy', english: 'ok'},
-            {polski: 'poparzenia', english: 'burn'},
+            {polski: 'zdrowy', english: 'ok', done: true},
+            {polski: 'poparzenia', english: 'burn', done: true},
             {polski: 'zamrożenie', english: 'freeze'},
             {polski: 'paraliż', english: 'paralysis'},
             {polski: 'zatrucie', english: 'poison'},
@@ -183,7 +183,8 @@ const POKEMON_MOVE_EFFECTS =
             {english: 'flinch', polski: 'stchórzenie'},
             {english: 'confuse',polski: 'zmieszanie'},
             {english: 'inlove', polski: 'zauroczenie'},
-        ]
+        ],
+        done: true
     },
     {english: 'recoil damage', polski: 'obrażenia zwrotne', done: true},
     {english: 'recover HP', polski: 'leczenie HP'},
@@ -467,6 +468,18 @@ const BATTLE_TEXTS =
     promote: {english: ' promoted to level ', polski: ' awansuje na poziom '},
     lose: {english: 'there is no pokemon left, you lost the battle', polski: 'żaden z pokemonów nie jest zdolny do walki, przegrwasz'},
     missed: {english: 'but it missed...', polski: 'lecz nie trafia...'},
+    healed: {english: ' was cured from status problem', polski: ' leczy się z negatywnego statusu'},
+    isHealthy: {english: ' is already healthy', polski: ' jest już zdrowy(a)'},
+    burned: {english: ' was burned', polski: ' zostaje poparzony(a)'},
+    freezed: {english: ' was freezed', polski: ' zostaje zamrożony(a)'},
+    paralyzed: {english: ' was paralyzed', polski: ' zostaje sparaliżowany(a)'},
+    poisoned: {english: ' was poisoned', polski: ' zostaje otruty(a)'},
+    sleepy: {english: ' falles asleep', polski: ' zasypia'},
+    burnCouses: {english: ' looses some HP because of burning', polski: ' traci trochę HP z powodu poparzeń'},
+    fail: {english: 'but it failed', polski: 'ale nie wyszło'},
+    nothing: {english: 'nothing happend', polski: 'nic się nie wydarzyło'},
+    bothFainted: {english: 'both pokemon fainted', polski: 'oba pokemony zemdlały'}
+
 }
 
 const BATTLE_COPY_PROPERTIES = 
@@ -485,5 +498,5 @@ const IMG_WAY =
 {
     start: 'img/',
     background: 'img/background/',
-    objects: 'img/objects',
+    objects: 'img/objects/',
 }
