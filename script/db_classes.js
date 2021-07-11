@@ -435,11 +435,15 @@ class PokemonMove
         else{this.category = 'physical'}
         this.power = power;
 
-        effects = effects.split(',');
-        for(let i=0;i<effects.length;i++)
+        if(effects == ''){effects = [];}
+        else
         {
-            effects[i] = new Effect(effects[i].split('|'));
-
+            effects = effects.split(',');
+            for(let i=0;i<effects.length;i++)
+            {
+                effects[i] = new Effect(effects[i].split('|'));
+    
+            }
         }
         this.effects = effects;
     }

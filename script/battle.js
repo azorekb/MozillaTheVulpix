@@ -585,12 +585,14 @@ function battle_effects_after(_move,_user,_target,_userSide,_targetSide, _dmg, _
                         case 'poison': if(_target.status == 'ok'){_target.status = 'poison'; fail = false; text = _target.showName() + BATTLE_TEXTS.poisoned.language();} break;
                         case 'sleep': if(_target.status == 'ok'){_target.status = 'sleep'; fail = false; text = _target.showName() + BATTLE_TEXTS.sleepy.language();} break;
                     }
-                }
+
+                    battle.activeFighter[_targetSide].status.innerHTML = _target.status;
+                } break;
             }
             if(!fail){setTimeout(function(){battle.info.innerHTML = text}, 1000 * numberOfEffects++);}
         }
     }
-    console.log(_move.category,anything,fail);
+
     if(_move.category == 'status')
     {
         if(anything)
@@ -622,13 +624,10 @@ function battle_finishRound(_whoNow)
             battle.info.innerHTML = AP.showName() + BATTLE_TEXTS.burnCouses.language();
         }, 1000 * events++);
     }
-    console.log(OP.status, OP.actualHP('number'));
     if(OP.status == 'burn' && OP.actualHP('number') > 0)
     {
-        console.log('ok');
         setTimeout(function()
         {
-            console.log('coś się dzieje');
             OP.hit(OP.battle_sumStat('hp') / 16);
             battle.activeFighter.opponent.lifeBar.style.width = OP.actualHP('percent %');
             battle.info.innerHTML = OP.showName() + BATTLE_TEXTS.burnCouses.language();
