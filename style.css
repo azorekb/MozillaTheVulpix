@@ -571,6 +571,11 @@
   background-color: #223;
 }
 
+#admin_content option.new {
+  color: #0f0;
+  background-color: #223;
+}
+
 .adminTask {
   text-align: center;
   width: 150px;

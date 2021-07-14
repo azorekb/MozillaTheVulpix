@@ -194,7 +194,7 @@ function downloadDataBases(_RES,_number)
 
 			activeUser.team =
 			[
-				new Pokemon(11,2,-1,-1,0,0,-1,[15,5,6,7],'Test 1',-1,-1,'Szibi Snowpix',0,0),
+				new Pokemon(11,2,-1,-1,0,0,-1,[23,5,6,7],'Test 1',-1,-1,'Szibi Snowpix',0,0),
 				new Pokemon(randomInt(9),2,-1,-1,0,0,-1,[7,6,5,4],'Test 2',-1,-1,'Szibi Snowpix',0,0),
 				null,null,null,null
 			];

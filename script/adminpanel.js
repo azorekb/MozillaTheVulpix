@@ -177,7 +177,11 @@ function adm_edit_dbElement_ready(_res,[_db,_id])
                         let option = document.createElement('option');
                         option.value = j;
                         option.innerHTML = array[i].table[j].language();
-                        if(array[i].dbname == 'abilities' && POKEMON_ABILITIES[j].done == undefined){option.classList.add('notReady');}
+                        if(array[i].dbname == 'abilities' && POKEMON_ABILITIES[j].done == undefined)
+                        {
+                            if(POKEMON_ABILITIES[j].new == undefined){option.classList.add('notReady');}
+                            else{option.classList.add('new');}
+                        }
                         input[k].appendChild(option);
                     }
                             

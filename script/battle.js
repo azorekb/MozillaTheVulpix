@@ -316,23 +316,32 @@ function battle_action(_whoNow)
                 setTimeout(function(){battle_action(_whoNow + 1)},2000);
         break;
         case 'useMove':
-            const whitchMove = DECISIONS[1]*1;
-            const move = whitchMove == -1 ? moveList[0] : user.moves[parseInt(DECISIONS[1])];
-            if(whitchMove >= 0)
+            const X = randomInt(100); // chance of fully paralysis
+            if(user.status == 'paralysis' && X < 25)
             {
-                user.ppUsed[whitchMove]++;
-                if(who == 'ally'){user.objects.moveBars[whitchMove].style.width = user.actualPP(whitchMove,'percent %');}
+                battle.info.innerHTML = user.showName() + BATTLE_TEXTS.fullyPar.language();
+                setTimeout(() => {battle_action(_whoNow + 1)}, 1000);
             }
-            battle.info.innerHTML = user.name + BATTLE_TEXTS.used.language() + move.name[language];
-            let target, targetside;
-            if(move.target == 'one opponent'){target = secondSide; targetside = sideTwo;}
-            if(move.target == 'all opponents'){target = secondSide; targetside = sideTwo;}
-            if(move.target == 'everyone'){target = secondSide; targetside = sideTwo;}
-            if(move.target == 'self'){target = user; targetside = who;}
-            if(move.target == 'one ally'){target = null; targetside = null;}
-            if(move.target == 'all allies'){target = user; targetside = who;}
-            
-            setTimeout(function(){battle_useMove(move,user,target,who,targetside,_whoNow)},1000)
+            else
+            {
+                const whitchMove = DECISIONS[1]*1;
+                const move = whitchMove == -1 ? moveList[0] : user.moves[parseInt(DECISIONS[1])];
+                if(whitchMove >= 0)
+                {
+                    user.ppUsed[whitchMove]++;
+                    if(who == 'ally'){user.objects.moveBars[whitchMove].style.width = user.actualPP(whitchMove,'percent %');}
+                }
+                battle.info.innerHTML = user.showName() + BATTLE_TEXTS.used.language() + move.name[language];
+                let target, targetside;
+                if(move.target == 'one opponent'){target = secondSide; targetside = sideTwo;}
+                if(move.target == 'all opponents'){target = secondSide; targetside = sideTwo;}
+                if(move.target == 'everyone'){target = secondSide; targetside = sideTwo;}
+                if(move.target == 'self'){target = user; targetside = who;}
+                if(move.target == 'one ally'){target = null; targetside = null;}
+                if(move.target == 'all allies'){target = user; targetside = who;}
+                
+                setTimeout(function(){battle_useMove(move,user,target,who,targetside,_whoNow)},1000);
+            }
         break;
     }
 }
@@ -377,7 +386,11 @@ function battle_useMove(_move,_user,_target,_userSide,_targetSide,_whoNow)
             //dmg = (2 * _user.level / 5) + 2
             dmg = 2;
             dmg *= _move.power / 50;
-            if(_move.category == 'physical'){dmg *= _user.battle_sumStat('attack') / _target.battle_sumStat('defence');}
+            if(_move.category == 'physical')
+            {
+                dmg *= _user.battle_sumStat('attack') / _target.battle_sumStat('defence');
+                if(_user.status == 'burn'){dmg *= 0.5;}
+            }
             else{dmg *= _user.battle_sumStat('spAttack') / _target.battle_sumStat('spDefence');}
             //targets...
             if(_user.types[0] == 2 || _user.types[1] == 2) //fire
@@ -555,6 +568,7 @@ function battle_effects_after(_move,_user,_target,_userSide,_targetSide, _dmg, _
             {
                 case 'change status':
                 {
+                    let allIsOk = _target.status == 'ok';
                     switch(EFFECT.value.english)
                     {
                         case 'ok':
@@ -571,8 +585,8 @@ function battle_effects_after(_move,_user,_target,_userSide,_targetSide, _dmg, _
                             }
                             break;
                         case 'burn':
-                            let allIsOk = _target.status == 'ok';
-                            if(_target.type == getTypeNumberByName('fire')){allIsOk = false;}
+                            if(_target.types[0] == getTypeNumberByName('fire')){allIsOk = false;}
+                            if(_target.types[1] == getTypeNumberByName('fire')){allIsOk = false;}
                             if(allIsOk)
                             {
                                 _target.status = 'burn';
@@ -580,10 +594,19 @@ function battle_effects_after(_move,_user,_target,_userSide,_targetSide, _dmg, _
                                 text = _target.showName() + BATTLE_TEXTS.burned.language();
                             }
                             break;
-                        case 'freeze': if(_target.status == 'ok'){_target.status = 'freeze'; fail = false; text = _target.showName() + BATTLE_TEXTS.freezed.language();} break;
-                        case 'paralysis': if(_target.status == 'ok'){_target.status = 'paralysis'; fail = false; text = _target.showName() + BATTLE_TEXTS.paralyzed.language();} break;
-                        case 'poison': if(_target.status == 'ok'){_target.status = 'poison'; fail = false; text = _target.showName() + BATTLE_TEXTS.poisoned.language();} break;
-                        case 'sleep': if(_target.status == 'ok'){_target.status = 'sleep'; fail = false; text = _target.showName() + BATTLE_TEXTS.sleepy.language();} break;
+                        case 'freeze': if(allIsOk){_target.status = 'freeze'; fail = false; text = _target.showName() + BATTLE_TEXTS.freezed.language();} break;
+                        case 'paralysis':
+                            if(_target.types[0] == getTypeNumberByName('electric')){allIsOk = false;}
+                            if(_target.types[1] == getTypeNumberByName('electric')){allIsOk = false;}
+                            if(_target.status == 'ok')
+                            {
+                                _target.status = 'paralysis';
+                                fail = false;
+                                text = _target.showName() + BATTLE_TEXTS.paralyzed.language();
+                            }
+                            break;
+                        case 'poison': if(allIsOk){_target.status = 'poison'; fail = false; text = _target.showName() + BATTLE_TEXTS.poisoned.language();} break;
+                        case 'sleep': if(allIsOk){_target.status = 'sleep'; fail = false; text = _target.showName() + BATTLE_TEXTS.sleepy.language();} break;
                     }
 
                     battle.activeFighter[_targetSide].status.innerHTML = _target.status;

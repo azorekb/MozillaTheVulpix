@@ -247,7 +247,8 @@ class BattlePokemon extends Pokemon
 
             default: return false;
         }
-        return Math.round(this.sumStat(_stat) * (1 + this.statchanges[_stat] / 100));
+        const P = (_stat == 5 && this.status == 'paralysis') ? 0.4 : 1;
+        return Math.round(this.sumStat(_stat) * (1 + this.statchanges[_stat] / 100) * P);
     }
 
     hit(_damage)
@@ -453,10 +454,10 @@ class Effect
 {
     constructor(_array)
     {
-        let name =  POKEMON_MOVE_EFFECTS[_array[0] *1];
+        const name =  POKEMON_MOVE_EFFECTS[_array[0] *1];
         let value = _array[1] *1;
-        let chance = _array[2] *1;
-        let whom = _array[3] *1;
+        const chance = _array[2] *1;
+        const whom = _array[3] *1;
 
         this.name = name;
         this.chance = chance;
