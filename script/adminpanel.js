@@ -23,6 +23,18 @@ function admin_start()
         else
         {
             task.onclick=function(){admin_show_database(ADMIN_LIST_OF_TASKS[i].english.replace(' ', '_'))}
+            if(i == 3)
+            {
+                task.innerHTML += '<br>';
+                let select = newElement('select',admin_list,'','admin_pokemonSelect');
+                for(let j=-1;j<pokemonList.length;j++)
+                {
+                    let option = newElement('option',select);
+                    option.value = j;
+                    option.innerHTML = j == -1 ? ' - ' :pokemonList[j].name;
+                }
+
+            }
         }
     }
 
@@ -37,7 +49,13 @@ function admin_start()
 function admin_show_database(_db)
 {
     insertWaitingImage(admin_content);
-    sendRequest(admin_database_list, 'php/database.php?base=' + _db, null, _db);
+    let dane = null;
+    if(_db == 'pokemon_moves' && admin_pokemonSelect.value > -1)
+    {
+        dane = new FormData();
+        dane.append('pokemon', pokemonList[admin_pokemonSelect.value].name);
+    }
+    sendRequest(admin_database_list, 'php/database.php?base=' + _db, dane, _db);
 }
 
 function admin_database_list(_res,_db)
@@ -209,6 +227,8 @@ function adm_edit_dbElement_ready(_res,[_db,_id])
             input.id = 'admin_editDBElement_' + array[i].dbname;
             input.disabled = disable;
             editTable.rows[i-1].insertCell(1).appendChild(input);
+
+            if(_db == 'pokemon_moves' && array[i].dbname == 'pokemon' && admin_pokemonSelect.value >= 0 && input.value == ''){input.value = admin_pokemonSelect.options[admin_pokemonSelect.value * 1 + 1].innerHTML;}
         }
         else
         {
