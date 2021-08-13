@@ -476,7 +476,8 @@ const BATTLE_TEXTS =
     fail: {english: 'but it failed', polski: 'ale nie wyszło'},
     nothing: {english: 'nothing happend', polski: 'nic się nie wydarzyło'},
     bothFainted: {english: 'both pokemon fainted', polski: 'oba pokemony zemdlały'},
-    fullyPar: {english: ' is fully paralysed', polski: ' jest całkowicie sparaliżowany(a)'}
+    fullyPar: {english: ' is fully paralysed', polski: ' jest całkowicie sparaliżowany(a)'},
+    flinch: {english: ' flinched', polski: ' stchórzył(a)'},
 
 }
 

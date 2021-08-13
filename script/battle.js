@@ -315,12 +315,19 @@ function battle_action(_whoNow)
                 setTimeout(function(){battle_action(_whoNow + 1)},2000);
         break;
         case 'useMove':
+            let unable = false;
             const X = randomInt(100); // chance of fully paralysis
             if(user.status == 'paralysis' && X < 25)
             {
                 battle.info.innerHTML = user.showName() + BATTLE_TEXTS.fullyPar.language();
-                setTimeout(() => {battle_action(_whoNow + 1)}, 1000);
+                unable = true;
             }
+            if(user.temporaryStatus.flinch)
+            {
+                battle.info.innerHTML = user.showName() + BATTLE_TEXTS.flinch.language();
+                unable = true;
+            }
+            if(unable){setTimeout(() => {battle_action(_whoNow + 1)}, 1000);}
             else
             {
                 const whitchMove = DECISIONS[1]*1;
@@ -609,6 +616,13 @@ function battle_effects_after(_move,_user,_target,_userSide,_targetSide, _dmg, _
                             break;
                         case 'poison': if(allIsOk){_target.status = 'poison'; fail = false; text = _target.showName() + BATTLE_TEXTS.poisoned.language();} break;
                         case 'sleep': if(allIsOk){_target.status = 'sleep'; fail = false; text = _target.showName() + BATTLE_TEXTS.sleepy.language();} break;
+                        case 'flinch':
+                            if(true)
+                            {
+                                _target.temporaryStatus.flinch = true;
+                                fail = false;
+                            }
+                            break;
                     }
 
                     battle.activeFighter[_targetSide].status.innerHTML = _target.status;
@@ -638,6 +652,9 @@ function battle_finishRound(_whoNow)
     let events = 0;
     const AP = battle_allyTeam[battle.activeFighter.ally.pokemon]; //ally pokemon
     const OP = battle_opponentTeam[battle.activeFighter.opponent.pokemon]; //opponent pokemon
+
+    AP.temporaryStatus.flinch = false;
+    OP.temporaryStatus.flinch = false;
     
     if(AP.status == 'burn' && AP.actualHP('number') > 0)
     {

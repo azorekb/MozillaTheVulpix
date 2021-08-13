@@ -263,6 +263,12 @@ class BattlePokemon extends Pokemon
         return _damage;
     }
 
+
+    temporaryStatus = 
+    {
+        flinch: false,
+    }
+
     objects =
     {
         lifeBar: null,
@@ -277,7 +283,6 @@ class BattlePokemon extends Pokemon
         
         this.statchanges = [];
         for(let i=1;i<POKEMON_STATS.length;i++){this.statchanges.push(0);}
-        this.temporaryStatus = [];
         this.mega = false;
     }
 }
