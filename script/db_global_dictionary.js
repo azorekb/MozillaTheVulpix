@@ -156,7 +156,7 @@ const POKEMON_MOVE_EFFECTS =
             {polski: 'zdrowy', english: 'ok', done: true},
             {polski: 'poparzenia', english: 'burn', done: true},
             {polski: 'zamrożenie', english: 'freeze'},
-            {polski: 'paraliż', english: 'paralysis'},
+            {polski: 'paraliż', english: 'paralysis', done: true},
             {polski: 'zatrucie', english: 'poison'},
             {polski: 'sen', english: 'sleep'},
             {english: 'flinch', polski: 'stchórzenie'},
@@ -167,7 +167,7 @@ const POKEMON_MOVE_EFFECTS =
     },
     {english: 'recoil damage', polski: 'obrażenia zwrotne', done: true},
     {english: 'recover HP', polski: 'leczenie HP'},
-    {english: 'drain HP', polski: 'kradzież HP'},
+    {english: 'drain HP', polski: 'kradzież HP', done: true},
     {english: 'change attack', polski: 'zmiana ataku'},
     {english: 'change defence', polski: 'zmiana obrony'},
     {english: 'change lower sp attack', polski: 'zmiana sp ataku'},
@@ -318,6 +318,7 @@ const MAP_ITEMS =
         {name: 'wayS', src: 'drogaS.png', area: 'land'},
         {name: 'waySE', src: 'drogaSE.png', area: 'land'},
         {name: 'water', src: 'woda.gif', area: 'water'},
+        {name: 'floor 1', src: 'floor1.png', area: 'land'},
     ],
     
     object:
@@ -329,6 +330,23 @@ const MAP_ITEMS =
         {name: 'statue base', src: 'statua_podstawa.png'},
         {name: 'plate', src: 'tabliczka.png'},
         {name: 'bush', src: 'krzaczek.png'},
+        {name: 'dach', src: 'dach1_upLeft.gif'},
+        {name: 'dach', src: 'dach1_upCenter.gif'},
+        {name: 'dach', src: 'dach1_upRight.gif'},
+        {name: 'dach', src: 'dach1_downLeft.gif'},
+        {name: 'dach', src: 'dach1_downCenter.png'},
+        {name: 'dach', src: 'dach1_downRight.gif'},
+        {name: 'dom', src: 'dom_1.gif'},
+        {name: 'dom', src: 'dom_2.png'},
+        {name: 'drzwi', src: 'drzwi1up.png'},
+        {name: 'dom', src: 'dom_3.png'},
+        {name: 'dom', src: 'dom_4.gif'},
+        {name: 'dom', src: 'dom_5.gif'},
+        {name: 'drzwi', src: 'drzwi1down.gif'},
+        {name: 'dom', src: 'dom_6.gif'},
+        {name: 'dom', src: 'dom_7.gif'},
+        {name: 'dom', src: 'dom_8.gif'},
+        {name: 'dom', src: 'dom_9.gif'},
     ]
 };
     
@@ -479,4 +497,6 @@ const IMG_WAY =
     start: 'img/',
     background: 'img/background/',
     objects: 'img/objects/',
+    sprite: 'img/sprite/',
+    info: 'img/info/'
 }

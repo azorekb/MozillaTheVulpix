@@ -59,3 +59,17 @@
     }
 
 }
+
+.RESTAB
+{
+    border-spacing: 0;
+    
+    td
+    {
+        border-bottom: 1px black solid;
+        width: 30;
+        height: 30;
+        border-right: 1px solid black;
+        text-align: center;
+    }
+}

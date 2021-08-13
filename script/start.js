@@ -284,7 +284,7 @@ function randomInt(_arg1 = 1, _arg2 = 0)
 function pokemonImage(_pokemon,_size = 0)
 {
 	let object = document.createElement('img');
-	object.src = 'img/sprite/' + _pokemon + '.gif';
+	object.src = IMG_WAY.sprite + _pokemon + '.gif';
 	object.classList.add('image');
 	if(_size > 0){object.style.width = _size;}
 	return object;
@@ -351,4 +351,13 @@ function changeMap(_RES, _x = 0, _y = 0)
 	
 	actualPosition.x = _x;
 	actualPosition.y = _y;
+}
+
+function infoImage(_info, _size = 0)
+{
+	let object = document.createElement('img');
+	object.src = IMG_WAY.info + _info + '.png';
+	object.classList.add('image');
+	if(_size > 0){object.style.width = _size;}
+	return object;
 }

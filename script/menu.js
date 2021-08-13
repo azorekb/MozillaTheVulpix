@@ -1,3 +1,25 @@
+function menuTest()
+{
+	worldmapContent.innerHTML = '';
+	let tab = newElement('table',worldmapContent,'RESTAB');
+	for(let i=0;i<POKEMON_TYPES.length;i++)
+	{
+		tab.insertRow(i);
+		for(let j=0;j<POKEMON_TYPES.length;j++)
+		{
+			tab.rows[i].insertCell(j).innerHTML = POKEMON_TYPES[i].resistance[j];
+		}
+		tab.rows[i].insertCell(0).appendChild(infoImage(POKEMON_TYPES[i].english,30));
+	}
+	tab.insertRow(0);
+	for(let j=0;j<POKEMON_TYPES.length;j++)
+	{
+		tab.rows[0].insertCell(j).appendChild(infoImage(POKEMON_TYPES[j].english,30));;
+	}
+	tab.rows[0].insertCell(0).innerHTML = 'X';
+
+}
+
 function clickMenuButton(_element)
 {
     if(activeWindow != 'unactive')
@@ -8,6 +30,7 @@ function clickMenuButton(_element)
             case 'mapMenuButton_Adventure': openMap(); break;
             case 'mapMenuButton_Pokedex': openPokedex(); break;
 			case 'mapMenuButton_Admin_Panel': admin_start(); break;
+			case 'mapMenuButton_Pokemon': menuTest(); break;
 
             default: return false;
         }

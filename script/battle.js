@@ -214,7 +214,7 @@ function battle_info(_what)
     }
     
     battle.infoBackup = battle.info.innerHTML;
-    let info = '';
+    let info = battle.info;
 
     switch(whats[0])
     {
@@ -222,9 +222,10 @@ function battle_info(_what)
         {
             let move = P.moves[whats[1]];
             if(P.actualPP(whats[1],'number') <= 0){move = moveList[0];}
-            info = BATTLE_TEXTS.use.language() + move.name[language] + BATTLE_TEXTS.type.language();
-            info += POKEMON_TYPES[move.type].language() + BATTLE_TEXTS.power.language() + move.power;
-            info += BATTLE_TEXTS.acc.language() + move.accuracy;
+            info.innerHTML = BATTLE_TEXTS.use.language() + move.name[language];
+            info.appendChild(infoImage(POKEMON_TYPES[move.type].english, 20));
+            info.innerHTML += BATTLE_TEXTS.power.language() + move.power;
+            info.innerHTML += BATTLE_TEXTS.acc.language() + move.accuracy;
         } break;
         case 'run': info = BATTLE_TEXTS.run.language(); break;
         case 'team':
@@ -233,19 +234,17 @@ function battle_info(_what)
             else
             {
                 const pokemon = battle_allyTeam[whats[1]];
-                info = BATTLE_TEXTS.switch.language() + pokemon.name + BATTLE_TEXTS.level.language() + pokemon.level;
-                info += BATTLE_TEXTS.type.language() + POKEMON_TYPES[pokemon.types[0]].language();
-                if(pokemon.types[1] > 0){info += '/' + POKEMON_TYPES[pokemon.types[1]].language();}
-                info += BATTLE_TEXTS.moves.language();
+                info.innerHTML = BATTLE_TEXTS.switch.language() + pokemon.name + BATTLE_TEXTS.level.language() + pokemon.level;
+                info.innerHTML += BATTLE_TEXTS.type.language() + POKEMON_TYPES[pokemon.types[0]].language();
+                if(pokemon.types[1] > 0){info.innerHTML += '/' + POKEMON_TYPES[pokemon.types[1]].language();}
+                info.innerHTML += BATTLE_TEXTS.moves.language();
                 for(let i=0;i<4;i++)
                 {
-                    if(pokemon.moves[i] != 0){info += pokemon.moves[i].name[language] + ', ';}
+                    if(pokemon.moves[i] != 0){info.innerHTML += pokemon.moves[i].name[language] + ', ';}
                 }
             }
         }
     }
-
-    battle.info.innerHTML = info;
 }
 
 function battle_decide(_what)
@@ -418,13 +417,12 @@ function battle_useMove(_move,_user,_target,_userSide,_targetSide,_whoNow)
         
         if(dmg > 0)
         {
-            if(e < 1 && e > 0){battle.info.innerHTML = BATTLE_TEXTS.weakeffect.language();}
-            if(e == 1){battle.info.innerHTML = '';}
-            if(e > 1){battle.info.innerHTML = BATTLE_TEXTS.supereffect.language();}
+            if(e < 1 && e > 0){battle.info.innerHTML = BATTLE_TEXTS.weakeffect.language() + e;}
+            if(e == 1){battle.info.innerHTML = e;}
+            if(e > 1){battle.info.innerHTML = BATTLE_TEXTS.supereffect.language() + e;}
             
-            _target.hit(dmg);
-            if(_targetSide == 'ally'){_target.objects.lifeBar.style.width = _target.actualHP('percent %');}
-            battle.activeFighter[_targetSide].lifeBar.style.width = _target.actualHP('percent %');
+            dmg = _target.hit(dmg);
+            battle_updateHP();
             
         }
         
@@ -541,12 +539,16 @@ function battle_effects_meanwhile(_move,_user,_target,_userSide,_targetSide, _dm
                 case 'recoil damage':
                 {
                     _user.hit(_dmg * EFFECT.value / 100);
-                    battle.activeFighter[_userSide].lifeBar.style.width = _user.actualHP('percent %');
-                    if(_userSide == 'ally'){_user.objects.lifeBar.style.width = _user.actualHP('percent %');}
+                } break;
+                case 'drain HP':
+                {
+                    _user.heal(_dmg * EFFECT.value / 100);
                 } break;
             }
         }
     }
+
+    battle_updateHP();
 }
 
 function battle_effects_after(_move,_user,_target,_userSide,_targetSide, _dmg, _whoNow)
@@ -642,8 +644,7 @@ function battle_finishRound(_whoNow)
         setTimeout(function()
         {
             AP.hit(AP.battle_sumStat('hp') / 16);
-            AP.objects.lifeBar.style.width = AP.actualHP('percent %');
-            battle.activeFighter.ally.lifeBar.style.width = AP.actualHP('percent %');
+            battle_updateHP();
             battle.info.innerHTML = AP.showName() + BATTLE_TEXTS.burnCouses.language();
         }, 1000 * events++);
     }
@@ -652,9 +653,19 @@ function battle_finishRound(_whoNow)
         setTimeout(function()
         {
             OP.hit(OP.battle_sumStat('hp') / 16);
-            battle.activeFighter.opponent.lifeBar.style.width = OP.actualHP('percent %');
+            battle_updateHP();
             battle.info.innerHTML = OP.showName() + BATTLE_TEXTS.burnCouses.language();
         }, 1000 * events++);
     }
     setTimeout(() => {battle_isSomebodyFaint(_whoNow)}, 1000 * (events + 1));
+}
+
+function battle_updateHP()
+{
+    battle.activeFighter.ally.lifeBar.style.width = battle_allyTeam[battle.activeFighter.ally.pokemon].actualHP('percent %');
+    battle.activeFighter.opponent.lifeBar.style.width = battle_opponentTeam[battle.activeFighter.opponent.pokemon].actualHP('percent %');
+    for(let i=0;i<TEAM_COUNT;i++)
+    {
+        if(battle_allyTeam[i] != null){battle_allyTeam[i].objects.lifeBar.style.width = battle_allyTeam[i].actualHP('percent %');}
+    }
 }

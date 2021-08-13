@@ -147,6 +147,11 @@ class Pokemon extends Pokemon_list
         }
     }
 
+    heal(_value)
+    {
+        if(_value > this.damage){_value = this.damage}
+        this.damage -= Math.ceil(_value);
+    }
 
     constructor(specie,level,gender,ability,friednship,expirience,nature,moves,nick,IV,EV,OT,damage,ppUsed,status = 0,item = 0)
     {
@@ -255,6 +260,7 @@ class BattlePokemon extends Pokemon
     {
         if(_damage > this.actualHP('number') || _damage == 0){_damage = this.actualHP('number');}
         this.damage += Math.ceil(_damage);
+        return _damage;
     }
 
     objects =

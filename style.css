@@ -64,6 +64,18 @@
   background-color: #ee0;
 }
 
+.RESTAB {
+  border-spacing: 0;
+}
+
+.RESTAB td {
+  border-bottom: 1px black solid;
+  width: 30;
+  height: 30;
+  border-right: 1px solid black;
+  text-align: center;
+}
+
 .worldMapWindow {
   position: relative;
 }
