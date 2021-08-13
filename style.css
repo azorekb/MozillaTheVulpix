@@ -3,33 +3,23 @@
   max-width: -moz-max-content;
   max-width: max-content;
 }
-
 @media only screen and (min-width: 760px) {
   .widnow_map {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
   }
 }
-
 .widnow_map .mapMenu {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
   margin-bottom: 25px;
 }
-
 @media screen and (min-width: 760px) {
   .widnow_map .mapMenu {
     display: block;
-    -ms-flex-wrap: nowrap;
-        flex-wrap: nowrap;
+    flex-wrap: nowrap;
     margin: 0 30px;
   }
 }
-
 .widnow_map .mapMenu .mapMenuButton {
   text-align: center;
   background-color: #0c0;
@@ -43,22 +33,18 @@
   height: max-content;
   cursor: pointer;
 }
-
 .widnow_map .mapMenu .mapMenuButton:hover {
   border-color: #0c0;
   background-color: #0e0;
 }
-
 .widnow_map .mapMenu .mapMenuButton:active {
   border-style: inset;
   padding: 7px 0px 5px 2px;
 }
-
 .widnow_map .mapMenu .mapMenuButton.active {
   background-color: #cc0;
   border-color: #aa0;
 }
-
 .widnow_map .mapMenu .mapMenuButton.active:hover {
   border-color: #cc0;
   background-color: #ee0;
@@ -67,7 +53,6 @@
 .RESTAB {
   border-spacing: 0;
 }
-
 .RESTAB td {
   border-bottom: 1px black solid;
   width: 30;
@@ -79,20 +64,17 @@
 .worldMapWindow {
   position: relative;
 }
-
 .worldMapWindow .worldmap {
   border-collapse: collapse;
   position: relative;
   left: 0;
   top: 0;
 }
-
 .worldMapWindow .worldmap td {
   padding: 0;
   min-width: 20px;
   height: 20px;
 }
-
 .worldMapWindow .helpDiv {
   position: absolute;
   border-style: ridge;
@@ -105,24 +87,20 @@
   height: -moz-max-content;
   height: max-content;
 }
-
 .tableButton.moving {
   margin-top: 10px;
 }
-
 @media screen and (min-width: 760px) {
   .tableButton.moving {
     margin-left: 20px;
     margin-top: 0;
   }
 }
-
 @media screen and (min-width: 760px) {
   .tableButton {
     margin: 0 40px;
   }
 }
-
 .tableButton .directButton {
   background-color: #0c0;
   width: 30px;
@@ -131,27 +109,22 @@
   font-size: 24px;
   border: 2px outset #0a0;
 }
-
 .tableButton .directButton.active {
   background-color: #cc0;
   border: 2px inset #aa0;
 }
-
 .tableButton .directButton.button0 {
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
 }
-
 .tableButton .directButton.button1 {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
 }
-
 .tableButton .directButton.button2 {
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
 }
-
 .tableButton .directButton.button3 {
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
@@ -161,50 +134,45 @@
   background-color: #05f;
   padding: 10px;
 }
-
 .dexContainer .dexPlace {
   width: auto;
   border: 3px solid #0ae;
   border-radius: 10px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   background-color: #039;
 }
-
 @media screen and (min-width: 760px) {
   .dexContainer .dexPlace {
     width: 500px;
   }
 }
-
 .dexContainer .dexPlace .dexBaseStats {
   color: #0ae;
   margin: 5px;
 }
-
 .dexContainer .dexPlace .dexBaseStats .pokedexTableOfStats td {
   color: #0ae;
 }
-
+.dexContainer .dexPlace #dex_pokemonImage {
+  margin: 5px 5px 0 auto;
+  border: 3px outset deeppink;
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
 .dexContainer .dexPokemonList {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
   width: auto;
   border: 3px solid #0ae;
   margin: 15px;
   background-color: #039;
 }
-
 @media screen and (min-width: 760px) {
   .dexContainer .dexPokemonList {
     width: 470px;
   }
 }
-
 .dexContainer .dexPokemonList .pokedexPokemon {
   width: 20px;
   height: 20px;
@@ -224,35 +192,27 @@
   border-bottom-style: none;
   padding: 15px 0;
 }
-
 .languages .languages_container {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   margin: auto;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
 }
-
 .languages .languages_container div {
   width: 80px;
   height: 60px;
   padding: 10px;
   margin-right: 5px;
 }
-
 .languages .languages_container img {
   border: 1px #000 solid;
 }
-
 .languages .languages_container .active {
   background-color: #ee0;
 }
 
 .login_tabs {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   border: 3px #000 solid;
   width: auto;
@@ -260,19 +220,16 @@
   border-bottom-style: none;
   padding-top: 5px;
 }
-
 .login_tabs div {
   border: 3px #000 solid;
   border-left-style: none;
   padding: 5px;
 }
-
 .login_tabs .empty {
   width: 100%;
   border-right-style: none;
   border-top-style: none;
 }
-
 .login_tabs .active {
   border-bottom-style: none;
 }
@@ -281,7 +238,6 @@
   border: 3px #000 solid;
   border-top-style: none;
 }
-
 .login_content div {
   display: none;
   width: -webkit-max-content;
@@ -290,16 +246,13 @@
   margin: auto;
   padding: 15px;
 }
-
 .login_content .active {
   display: block;
 }
-
 .login_content label {
   display: block;
   margin: 3px;
 }
-
 .login_content p {
   margin: 2px;
 }
@@ -317,55 +270,41 @@
   border-style: outset;
   cursor: pointer;
 }
-
 .button:active {
   border-style: inset;
 }
-
 .button.small {
   border-width: 2px;
   padding: 5px 10px;
 }
-
 .button.small:active {
   padding: 6px 9px 4px 11px;
 }
-
 .button.medium {
   border-width: 4px;
   padding: 6px 1px;
 }
-
 .button.medium:active {
   padding: 7px 0 5px 2px;
 }
-
 .button.big {
   border-width: 6px;
   padding: 6px 1px;
 }
-
 .button.big:active {
   padding: 7px 0 5px 2px;
 }
 
 @media screen and (min-width: 760px) {
   #battleWindow_container {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
   }
 }
-
 #battleWindow_container .pokemonTeam {
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
 }
-
 @media screen and (min-width: 760px) {
   #battleWindow_container .pokemonTeam {
     width: -webkit-max-content;
@@ -374,38 +313,29 @@
     display: block;
   }
 }
-
 #battleWindow_container .pokemonTeam > div {
-  -ms-flex-preferred-size: 32%;
-      flex-basis: 32%;
+  flex-basis: 32%;
   height: 70px;
   border: 2px solid;
   padding: 7px;
   margin-bottom: 5px;
   margin-right: 5px;
   border-radius: 10px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
-
 @media screen and (min-width: 760px) {
   #battleWindow_container .pokemonTeam > div {
     width: 100%;
     margin-right: 0;
   }
 }
-
 #battleWindow_container .pokemonTeam > div.activeButton:hover {
   background-color: #dfd;
   cursor: pointer;
 }
-
 #battleWindow_container .pokemonData {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
-
 #battleWindow_container .pokemonData .image {
   border: 1px black solid;
   width: 20px;
@@ -413,7 +343,6 @@
   text-align: center;
   margin: 2px;
 }
-
 #battleWindow_container .pokemonData p {
   display: block;
   width: -webkit-max-content;
@@ -421,36 +350,27 @@
   width: max-content;
   margin: 2px;
 }
-
 #battleWindow_container .lifebar {
   width: 100%;
   height: 5px;
   margin: 5px 0;
   border: 1px solid black;
 }
-
 #battleWindow_container .lifebar div {
   background-color: #f00;
   color: #fff;
   height: 100%;
-  -webkit-transition: width 1s ease;
   transition: width 1s ease;
 }
-
 #battleWindow_container .moveBarsContainer {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
-
 #battleWindow_container .moveBarsContainer .moveBar {
-  -ms-flex-preferred-size: 25%;
-      flex-basis: 25%;
+  flex-basis: 25%;
   height: 5px;
   border: 1px black solid;
   margin: 0 1px;
 }
-
 #battleWindow_container .moveBarsContainer .moveBar div {
   background-color: #080;
   height: 100%;
@@ -459,21 +379,17 @@
 .battleFieldAction {
   width: 100%;
 }
-
 .battleFieldAction .statusInfo {
   text-align: center;
   min-height: 60;
 }
 
 .battleField .infoBar {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   height: -webkit-max-content;
   height: -moz-max-content;
   height: max-content;
 }
-
 .battleField .infoBar .info {
   width: -webkit-max-content;
   width: -moz-max-content;
@@ -483,28 +399,21 @@
   padding: 5px;
   border-radius: 10px;
 }
-
 .battleField .infoBar .info > div {
   width: 100%;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
 }
-
 .battleField .infoBar .info .data {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
-
 .battleField .infoBar .info .data > div {
   margin: 2px 3px;
 }
-
 .battleField .runSpace {
   width: 100%;
 }
-
 .battleField .runButton {
   background-color: #bb0;
   border-color: #aa0;
@@ -513,76 +422,57 @@
   width: -moz-max-content;
   width: max-content;
 }
-
 .battleField .runButton:hover {
   background-color: #dd0;
   border-color: #cc0;
 }
-
 .battleField .battlePlace {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
-
 .battleField .battlePlace .battleSidePlace {
   width: 100%;
   height: 200px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
-
 .battleField .battlePlace .battleSidePlace div {
   margin: auto;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
 }
-
 .battleField .battlePlace .battleSpace {
   width: 100%;
 }
 
 .movesPlace {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
 }
-
 .movesPlace .button {
   background-color: #0f0;
   border-color: #0e0;
   margin: 2px;
   width: 200px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   text-align: center;
   border-radius: 10px;
 }
 
 .adminList {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
 }
 
 #admin_content {
   padding-top: 15px;
 }
-
 #admin_content option {
   color: #fff;
   background-color: #223;
 }
-
 #admin_content option.notReady {
   color: #f00;
   background-color: #223;
 }
-
 #admin_content option.new {
   color: #0f0;
   background-color: #223;
@@ -595,23 +485,19 @@
   background-color: #0cc;
   border-color: #0aa;
 }
-
 .adminTask:hover {
   border-color: #0cc;
   background-color: #0ee;
 }
-
 .adminTask.disabled {
   cursor: not-allowed;
   background-color: #aaa;
   border-color: #999;
 }
-
 .adminTask.disabled:hover {
   background-color: #aaa;
   border-color: #999;
 }
-
 .adminTask.disabled:active {
   border-style: outset;
   padding: 6px 1px;
@@ -621,41 +507,31 @@
   border: 2px solid #000;
   margin: 10px 0;
 }
-
 .admFormTable tr td {
   border: 2px solid #000;
 }
-
 .admFormTable .admInput {
   width: 100%;
 }
 
 .admDetails {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   padding: 10px;
 }
-
 .admDetails p {
   margin: 5px;
 }
 
 .admMapItems {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
+  flex-wrap: wrap;
   margin: 0 10px;
 }
-
 .admMapItems div {
   padding: 2px;
   margin: 1px;
   border: 1px #000 solid;
 }
-
 .admMapItems .active {
   border-color: #ee0;
   background-color: #ff0;
@@ -670,7 +546,6 @@
   border-collapse: collapse;
   margin: 10px;
 }
-
 .admMapTable td {
   padding: 0;
   border: 1px #000 solid;
@@ -683,26 +558,21 @@
   border-collapse: separate;
   border-spacing: 0 2px;
 }
-
 .admdatabaseTable tr {
   text-align: center;
   background-color: #cfc;
   cursor: pointer;
 }
-
 .admdatabaseTable tr td {
   padding: 5px;
 }
-
 .admdatabaseTable tr:hover {
   background-color: #ffc;
 }
-
 .admdatabaseTable tr:first-child {
   background: none;
   cursor: auto;
 }
-
 .admdatabaseTable tr:first-child:hover {
   background: none;
 }
@@ -719,15 +589,12 @@
   width: max-content;
   margin: 0 5px;
 }
-
 .adminButton:hover {
   background-color: #fde;
   border-color: #fcd;
 }
 
 .adm_buttonContainer {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   margin: 0 auto;
   width: -webkit-max-content;
@@ -738,8 +605,6 @@
 .adminMoveEffectsTab {
   margin: 15px auto;
 }
-
 .adminMoveEffectsTab input, .adminMoveEffectsTab select {
   width: 100px;
-}
-/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=style.css.map */

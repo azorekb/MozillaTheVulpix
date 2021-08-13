@@ -26,6 +26,13 @@
                 color: $dexStats_text;
             }
         }
+
+        #dex_pokemonImage 
+        {
+            margin: 5px 5px 0 auto;
+            border: 3px outset deeppink;
+            height: max-content;
+        }
     }
 
     .dexPokemonList

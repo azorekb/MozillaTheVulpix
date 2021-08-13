@@ -70,6 +70,8 @@ function openPokedex()
 		else{table.rows[i].insertCell(1).style.textAlign = 'right';}
 	}
 	table.insertRow(3).insertCell(0).colSpan = 2;
+
+	newElement('div',dex_dataPlace,'','dex_pokemonImage');
 	
 	activeWindow = 'pokedex';
 
@@ -83,7 +85,7 @@ function pokedex_show(_pokemon)
     let type_text = POKEMON_TYPES[pokemon.types[0]].language();
     if(pokemon.types[1] != 0){type_text += '/' + POKEMON_TYPES[pokemon.types[1]].language();}
 	
-	pokedex_tableOfStats.rows[0].cells[0].innerHTML = POKEDEX_TEXTS.no.language() + ' ' + _pokemon.no;
+	pokedex_tableOfStats.rows[0].cells[0].innerHTML = POKEDEX_TEXTS.no.language() + ' ' + pokemon.no;
 	pokedex_tableOfStats.rows[0].cells[1].innerHTML = pokemon.name;
 	pokedex_tableOfStats.rows[1].cells[1].innerHTML = type_text;
 	pokedex_tableOfStats.rows[3].cells[0].innerHTML = POKEMON_ABILITIES[pokemon.abilities[0]].language(); + '<br>' + POKEMON_ABILITIES[pokemon.abilities[1]].language(); + '<br><i>' + POKEMON_ABILITIES[pokemon.abilities[2]].language(); + '</i>';
@@ -93,6 +95,10 @@ function pokedex_show(_pokemon)
 	pokedex_tableOfStats.rows[8].cells[1].innerHTML = pokemon.baseStats.spAttack;
 	pokedex_tableOfStats.rows[9].cells[1].innerHTML = pokemon.baseStats.spDefence;
 	pokedex_tableOfStats.rows[10].cells[1].innerHTML = pokemon.baseStats.speed;
+
+	dex_pokemonImage.innerHTML = '';
+	dex_pokemonImage.appendChild(pokemonImage(pokemon.name));
+	
 }
 
 function openMap()
