@@ -263,6 +263,22 @@ class BattlePokemon extends Pokemon
         return _damage;
     }
 
+    changeStat(_which,_value)
+    {
+        switch(_which)
+        {
+            case 1: case 'attack': _which = 1; break;
+            case 2: case 'defence': _which = 2; break;
+            case 3: case 'spAttack': _which = 3; break;
+            case 4: case 'spDefence': _which = 4; break;
+            case 5: case 'speed': _which = 5; break;
+        }
+        this.statchanges[_which] += _value;
+        if(this.statchanges[_which] > 300){this.statchanges[_which] = 300; return 'max';}
+        if(this.statchanges[_which] < -75){this.statchanges[_which] = -75; return 'min'}
+        if(_value == 0){this.statchanges[_which] = 0; return 'zero';}
+        return 'ok';
+    }
 
     temporaryStatus = 
     {

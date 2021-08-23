@@ -569,6 +569,7 @@ function battle_effects_after(_move,_user,_target,_userSide,_targetSide, _dmg, _
         anything = true;
         const EFFECT = _move.effects[i];
         let chance = EFFECT.chance;
+        let isMessage = true;
         if(chance == 0){chance = 1000;}
         if(chance > randomInt(100))
         {
@@ -621,14 +622,72 @@ function battle_effects_after(_move,_user,_target,_userSide,_targetSide, _dmg, _
                             {
                                 _target.temporaryStatus.flinch = true;
                                 fail = false;
+                                isMessage = false;
                             }
                             break;
                     }
 
                     battle.activeFighter[_targetSide].status.innerHTML = _target.status;
                 } break;
+                    case 'change attack':
+                        _target.changeStat('attack', EFFECT.value);
+                        fail = false;
+                        text = POKEMON_STATS[1].language();
+                        if(EFFECT.value > 0){text += BATTLE_TEXTS.increse.language();}
+                        else if(EFFECT.value < 0){text += BATTLE_TEXTS.decrese.language();}
+                        else{text += BATTLE_TEXTS.reset.language();}
+                        break;
+                    case 'change defence':
+                        _target.changeStat('defence', EFFECT.value);
+                        fail = false;
+                        text = POKEMON_STATS[2].language();
+                        if(EFFECT.value > 0){text += BATTLE_TEXTS.increse.language();}
+                        else if(EFFECT.value < 0){text += BATTLE_TEXTS.decrese.language();}
+                        else{text += BATTLE_TEXTS.reset.language();}
+                        break;
+                    case 'change sp attack':
+                        _target.changeStat('sp attack', EFFECT.value);
+                        fail = false;
+                        text = POKEMON_STATS[3].language();
+                        if(EFFECT.value > 0){text += BATTLE_TEXTS.increse.language();}
+                        else if(EFFECT.value < 0){text += BATTLE_TEXTS.decrese.language();}
+                        else{text += BATTLE_TEXTS.reset.language();}
+                        break;
+                    case 'change sp defence':
+                        _target.changeStat('sp defence', EFFECT.value);
+                        fail = false;
+                        text = POKEMON_STATS[4].language();
+                        if(EFFECT.value > 0){text += BATTLE_TEXTS.increse.language();}
+                        else if(EFFECT.value < 0){text += BATTLE_TEXTS.decrese.language();}
+                        else{text += BATTLE_TEXTS.reset.language();}
+                        break;
+                    case 'change speed':
+                        _target.changeStat('speed', EFFECT.value);
+                        fail = false;
+                        text = POKEMON_STATS[5].language();
+                        if(EFFECT.value > 0){text += BATTLE_TEXTS.increse.language();}
+                        else if(EFFECT.value < 0){text += BATTLE_TEXTS.decrese.language();}
+                        else{text += BATTLE_TEXTS.reset.language();}
+                        break;
+                    case 'change random stat': 
+                        const S = randomInt(4);
+                        _target.changeStat(S, EFFECT.value);
+                        fail = false;
+                        text = POKEMON_STATS[S + 1].language();
+                        if(EFFECT.value > 0){text += BATTLE_TEXTS.increse.language();}
+                        else if(EFFECT.value < 0){text += BATTLE_TEXTS.decrese.language();}
+                        else{text += BATTLE_TEXTS.reset.language();}
+                        break;
+                    case 'change every stat':
+                        for(let j=0; j<5;j++){_target.changeStat(j), EFFECT.value}
+                        fail = false;
+                        text = BATTLE_TEXTS.everyStat.language();
+                        if(EFFECT.value > 0){text += BATTLE_TEXTS.increse.language();}
+                        else if(EFFECT.value < 0){text += BATTLE_TEXTS.decrese.language();}
+                        else{text += BATTLE_TEXTS.reset.language();}
+                        break;
             }
-            if(!fail){setTimeout(function(){battle.info.innerHTML = text}, 1000 * numberOfEffects++);}
+            if(!fail && isMessage){setTimeout(function(){battle.info.innerHTML = text}, 1000 * numberOfEffects++);}
         }
     }
 

@@ -159,7 +159,7 @@ const POKEMON_MOVE_EFFECTS =
             {polski: 'paraliż', english: 'paralysis', done: true},
             {polski: 'zatrucie', english: 'poison'},
             {polski: 'sen', english: 'sleep'},
-            {english: 'flinch', polski: 'stchórzenie'},
+            {english: 'flinch', polski: 'stchórzenie', done: true},
             {english: 'confuse',polski: 'zmieszanie'},
             {english: 'inlove', polski: 'zauroczenie'},
         ],
@@ -168,13 +168,13 @@ const POKEMON_MOVE_EFFECTS =
     {english: 'recoil damage', polski: 'obrażenia zwrotne', done: true},
     {english: 'recover HP', polski: 'leczenie HP'},
     {english: 'drain HP', polski: 'kradzież HP', done: true},
-    {english: 'change attack', polski: 'zmiana ataku'},
-    {english: 'change defence', polski: 'zmiana obrony'},
-    {english: 'change lower sp attack', polski: 'zmiana sp ataku'},
-    {english: 'change sp defence', polski: 'zmiana sp obrony'},
-    {english: 'change speed', polski: 'zmiana szybkości'},
-    {english: 'change random stat', polski: 'zmiena losowej cechy'},
-    {english: 'change every stat', polski: 'zmiena każdej cechy'},
+    {english: 'change attack', polski: 'zmiana ataku', done: true},
+    {english: 'change defence', polski: 'zmiana obrony', done: true},
+    {english: 'change sp attack', polski: 'zmiana sp ataku', done: true},
+    {english: 'change sp defence', polski: 'zmiana sp obrony', done: true},
+    {english: 'change speed', polski: 'zmiana szybkości', done: true},
+    {english: 'change random stat', polski: 'zmiena losowej cechy', done: true},
+    {english: 'change every stat', polski: 'zmiena każdej cechy', done: true},
     {
         english: 'special event',
         polski: 'secjalne zdarzenie',
@@ -279,6 +279,10 @@ const POKEMON_MOVE_EFFECTS =
             {english: 'use (user\'s)'},
             {english: 'use (target\'s)'},
         ]
+    },
+    {
+        english: 'supereffective against',
+        types: POKEMON_TYPES.slice(1)
     }
 
     
@@ -478,7 +482,10 @@ const BATTLE_TEXTS =
     bothFainted: {english: 'both pokemon fainted', polski: 'oba pokemony zemdlały'},
     fullyPar: {english: ' is fully paralysed', polski: ' jest całkowicie sparaliżowany(a)'},
     flinch: {english: ' flinched', polski: ' stchórzył(a)'},
-
+    increse: {english: ' increase', polski: ' zwiększa się'},
+    decrese: {english: ' decrease', polski: ' zmniejsza się'},
+    reset: {english: ' changes has been reset', polski: ': reset zmian'},
+    evertStat: {english: 'every stat', polski: 'każda statystyka'}
 }
 
 const BATTLE_COPY_PROPERTIES = 
