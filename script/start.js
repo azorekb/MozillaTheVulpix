@@ -178,19 +178,32 @@ function downloadDataBases(_RES,_number)
 			})
 			okno.innerHTML = '<img src=\'' + waitingImageUrl + '\'><br><br><b>downloading moves...</b>';
 
-			sendRequest(downloadDataBases,'php/database.php?base=moves',null,'moves-start');
+			sendRequest(downloadDataBases,'php/database.php?base=moves',null,'moves-moves');
+		}
+		break;
+
+		case 'moves-moves':
+		{
+			Object.keys(_RES).forEach(element => 
+			{
+				let el = _RES[element];
+				moveList[element*1] = new PokemonMove({english: el.name_eng, polski: el.name_pl}, el.power*1, 
+				el.accuracy*1, el.type, el.PP, el.target, el.priority*1, el.contact, el.effects);
+				});
+	
+				sendRequest(downloadDataBases,'php/database.php?base=pokemon_moves',null,'moves-start');
 		}
 		break;
 
 		case 'moves-start':
 		{
+			
 			Object.keys(_RES).forEach(element => 
 			{
-				let el = _RES[element];
-
-				moveList[element*1] = new PokemonMove({english: el.name_eng, polski: el.name_pl}, el.power*1, 
-				el.accuracy*1, el.type, el.PP, el.target, el.priority*1, el.contact, el.effects);
-			})
+				const E = _RES[element];
+				movesForPokemon[element*1] = {pokemon: E.pokemon, move: E.move, method: E.how};
+			});
+			okno.innerHTML = '<img src=\'' + waitingImageUrl + '\'><br><br><b>downloading moves for pokemon...</b>';
 
 			activeUser.team =
 			[
@@ -306,6 +319,17 @@ function getTypeNumberByName(_name)
 	for(let i=0;i<POKEMON_TYPES.length;i++)
 	{
 		if(_name == POKEMON_TYPES[i].english)
+		{
+			return i;
+		}
+	}
+}
+
+function getMoveNumberByName(_name)
+{
+	for(let i=0;i<moveList.length;i++)
+	{
+		if(_name == moveList[i].name.english)
 		{
 			return i;
 		}

@@ -38,6 +38,7 @@ let numberOfTries = 0;
 // tables from server db
 let pokemonList = [];
 let moveList = [];
+let movesForPokemon = [];
 
 //admin vars
 let adm_selectedMapObject = 0;

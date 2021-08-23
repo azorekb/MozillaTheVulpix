@@ -217,6 +217,32 @@ class Pokemon extends Pokemon_list
             moves = moves.split(',')
         }
 
+        if(moves == -1)
+        {
+            moves = [];
+            let avaliableMoves = [];
+            for(let i=0;i<movesForPokemon.length;i++)
+            {
+                if(movesForPokemon[i].pokemon == this.name)
+                {
+                    for(let j=1;j<=this.level;j++)
+                    {
+                        if(movesForPokemon[i].method == (j + ' level'))
+                        {
+                            avaliableMoves.push(getMoveNumberByName(movesForPokemon[i].move));
+                        }
+                    }
+                }
+            }
+
+            for(let i=0;i<POKEMON_MOVE_COUNT;i++)
+            {
+                const L = avaliableMoves.length;
+                if(L > 0){moves[i] = avaliableMoves.splice(randomInt(L - 1),1)[0];}
+                else{moves[i] = 0;}
+            }
+        }
+
         for(let i=0;i<moves.length;i++)
         {
             if(typeof(moves[i]) == 'number')

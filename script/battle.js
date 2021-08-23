@@ -155,7 +155,7 @@ function battle_start(_opponentTeam, _numberOfPokemon)
 
 function randomWildPokemon()
 {
-    return new Pokemon(randomInt(pokemonList.length - 1), 1, -1, -1, 0, 0, -1, [1,0,0,0],'',-1,-1,'wild',0,0,0,0);
+    return new Pokemon(randomInt(pokemonList.length - 1), 1, -1, -1, 0, 0, -1, -1,'',-1,-1,'wild',0,0,0,0);
 }
 
 function battle_changeFighter(_side, _who)
