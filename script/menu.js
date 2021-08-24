@@ -54,7 +54,8 @@ function openPokedex()
 	for(let i=0;i<pokemonList.length;i++)
 	{
 		const pokemon = pokemonList[i];
-		if(pokemon.no == 0){continue;}
+		if(pokemon.no == undefined){continue;}
+		//if(pokemon.no == 0){continue;}
 
 		let newPokemon = newElement('div',dex_pokemonList,'pokedexPokemon');
 		newPokemon.innerHTML = pokemon.no;

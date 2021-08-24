@@ -632,7 +632,7 @@ function battle_effects_after(_move,_user,_target,_userSide,_targetSide, _dmg, _
                     case 'change attack':
                         _target.changeStat('attack', EFFECT.value);
                         fail = false;
-                        text = POKEMON_STATS[1].language();
+                        text = POKEMON_STATS[2].language();
                         if(EFFECT.value > 0){text += BATTLE_TEXTS.increse.language();}
                         else if(EFFECT.value < 0){text += BATTLE_TEXTS.decrese.language();}
                         else{text += BATTLE_TEXTS.reset.language();}
@@ -640,7 +640,7 @@ function battle_effects_after(_move,_user,_target,_userSide,_targetSide, _dmg, _
                     case 'change defence':
                         _target.changeStat('defence', EFFECT.value);
                         fail = false;
-                        text = POKEMON_STATS[2].language();
+                        text = POKEMON_STATS[3].language();
                         if(EFFECT.value > 0){text += BATTLE_TEXTS.increse.language();}
                         else if(EFFECT.value < 0){text += BATTLE_TEXTS.decrese.language();}
                         else{text += BATTLE_TEXTS.reset.language();}
@@ -648,7 +648,7 @@ function battle_effects_after(_move,_user,_target,_userSide,_targetSide, _dmg, _
                     case 'change sp attack':
                         _target.changeStat('sp attack', EFFECT.value);
                         fail = false;
-                        text = POKEMON_STATS[3].language();
+                        text = POKEMON_STATS[4].language();
                         if(EFFECT.value > 0){text += BATTLE_TEXTS.increse.language();}
                         else if(EFFECT.value < 0){text += BATTLE_TEXTS.decrese.language();}
                         else{text += BATTLE_TEXTS.reset.language();}
@@ -656,7 +656,7 @@ function battle_effects_after(_move,_user,_target,_userSide,_targetSide, _dmg, _
                     case 'change sp defence':
                         _target.changeStat('sp defence', EFFECT.value);
                         fail = false;
-                        text = POKEMON_STATS[4].language();
+                        text = POKEMON_STATS[5].language();
                         if(EFFECT.value > 0){text += BATTLE_TEXTS.increse.language();}
                         else if(EFFECT.value < 0){text += BATTLE_TEXTS.decrese.language();}
                         else{text += BATTLE_TEXTS.reset.language();}
@@ -664,7 +664,7 @@ function battle_effects_after(_move,_user,_target,_userSide,_targetSide, _dmg, _
                     case 'change speed':
                         _target.changeStat('speed', EFFECT.value);
                         fail = false;
-                        text = POKEMON_STATS[5].language();
+                        text = POKEMON_STATS[6].language();
                         if(EFFECT.value > 0){text += BATTLE_TEXTS.increse.language();}
                         else if(EFFECT.value < 0){text += BATTLE_TEXTS.decrese.language();}
                         else{text += BATTLE_TEXTS.reset.language();}
