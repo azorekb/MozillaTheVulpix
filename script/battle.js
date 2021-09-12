@@ -155,7 +155,12 @@ function battle_start(_opponentTeam, _numberOfPokemon)
 
 function randomWildPokemon()
 {
-    return new Pokemon(randomInt(pokemonList.length - 1), 1, -1, -1, 0, 0, -1, -1,'',-1,-1,'wild',0,0,0,0);
+    let pokemonNumber = randomInt(pokemonList.length - 1);
+    if(activeUser.meet != undefined)
+    {
+        pokemonNumber = activeUser.meet;
+    }
+    return new Pokemon(pokemonNumber, 1, -1, -1, 0, 0, -1, -1,'',-1,-1,'wild',0,0,0,0);
 }
 
 function battle_changeFighter(_side, _who)
@@ -288,7 +293,7 @@ function battle_tactic()
 
     if(moves.length == 0){battle.decision.opponent = 'useMove -1';}
     if(moves.length == 1){battle.decision.opponent = 'useMove ' + moves[0];}
-    if(moves.length > 1){battle.decision.opponent = 'useMove ' + randomInt(moves.length);}
+    if(moves.length > 1){battle.decision.opponent = 'useMove ' + randomInt(moves.length -1);}
 
     battle.changeStatus('who first');
 }
@@ -317,14 +322,19 @@ function battle_action(_whoNow)
         case 'useMove':
             let unable = false;
             const X = randomInt(100); // chance of fully paralysis
+            if(user.temporaryStatus.flinch)
+            {
+                battle.info.innerHTML = user.showName() + BATTLE_TEXTS.flinch.language();
+                unable = true;
+            }
             if(user.status == 'paralysis' && X < 25)
             {
                 battle.info.innerHTML = user.showName() + BATTLE_TEXTS.fullyPar.language();
                 unable = true;
             }
-            if(user.temporaryStatus.flinch)
+            if(user.status == 'freeze')
             {
-                battle.info.innerHTML = user.showName() + BATTLE_TEXTS.flinch.language();
+                battle.info.innerHTML = user.showName() + BATTLE_TEXTS.freezeSolid.language();
                 unable = true;
             }
             if(unable){setTimeout(() => {battle_action(_whoNow + 1)}, 1000);}
@@ -604,7 +614,17 @@ function battle_effects_after(_move,_user,_target,_userSide,_targetSide, _dmg, _
                                 text = _target.showName() + BATTLE_TEXTS.burned.language();
                             }
                             break;
-                        case 'freeze': if(allIsOk){_target.status = 'freeze'; fail = false; text = _target.showName() + BATTLE_TEXTS.freezed.language();} break;
+                        case 'freeze':
+                            if(_target.types[0] == getTypeNumberByName('ice')){allIsOk = false;}
+                            if(_target.types[1] == getTypeNumberByName('ice')){allIsOk = false;}
+                            if(battle.weather == 'sunny'){allIsOk = false;}
+                            if(allIsOk)
+                            {
+                                _target.status = 'freeze';
+                                fail = false;
+                                text = _target.showName() + BATTLE_TEXTS.freezed.language();
+                            }
+                            break;
                         case 'paralysis':
                             if(_target.types[0] == getTypeNumberByName('electric')){allIsOk = false;}
                             if(_target.types[1] == getTypeNumberByName('electric')){allIsOk = false;}

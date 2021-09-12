@@ -230,6 +230,7 @@ const POKEMON_MOVE_EFFECTS =
             {english: 'poison spikes', polski: 'trujące kolce'},
             {english: 'sticky web', polski: 'lepka sieć'},
             {english: 'unable tu use status', polski: 'uniemożliwienie użycia ruchu statusowego'},
+            {english: 'destruct all', polski: 'zniszczenie wszystkich'},
         ]
     },
     {
@@ -242,6 +243,8 @@ const POKEMON_MOVE_EFFECTS =
             {english: 'special', polski: 'specjalna'},
             {english: 'destruct special', polski: 'zniszczenie specjalnej'},
             {english: 'completely', polski: 'całkowita'},
+            {english: 'spiky', polski: 'kolczasta'},
+            {english: 'destruct all', polski: 'zniszczenie wszystkich'},
         ]
     },
     {
@@ -283,7 +286,40 @@ const POKEMON_MOVE_EFFECTS =
     {
         english: 'supereffective against',
         types: POKEMON_TYPES.slice(1)
-    }
+    },
+    {
+        english: 'sure hit when',
+        polski: 'pewne trafienie gdy',
+        types:
+        [
+            {english: 'rain', polski: 'deszcz'},
+            {english: 'hail', polski: 'grad'},
+            {english: 'sunny', polski: 'słonecznie'},
+            {english: 'storm', polski: 'burza'},
+            {english: 'strong wind', polski: 'silny wiatr'},
+            {english: 'fog', polski: 'mgła'}
+        ]
+    },
+    {
+        english: 'use different stat to attack',
+        polski: 'użyj innej statystyki do ataku',
+        types:
+        [
+            {english: 'hp', polski: 'życie'},
+            {english: 'attack', polski: 'atak'},
+            {english: 'defence', polski: 'obrona'},
+            {english: 'spAttack', polski: 'sp. atak'},
+            {english: 'spDefence', polski: 'sp. obrona'},
+            {english: 'speed', polski: 'szybkość'},
+            {english: 'target\'s hp', polski: 'życie celu'},
+            {english: 'target\'s attack', polski: 'atak celu'},
+            {english: 'target\'s defence', polski: 'obrona celu'},
+            {english: 'target\'s spAttack', polski: 'sp. atak celu'},
+            {english: 'target\'s spDefence', polski: 'sp. obrona celu'},
+            {english: 'target\'s speed', polski: 'szybkość celu'},
+        ]
+    },
+    {english: 'doubles power when repeat up to', polski: 'podwaja moc gdy powtarza się aż do'},
 
     
     // usuwanie itemku rywala, 
@@ -480,12 +516,13 @@ const BATTLE_TEXTS =
     fail: {english: 'but it failed', polski: 'ale nie wyszło'},
     nothing: {english: 'nothing happend', polski: 'nic się nie wydarzyło'},
     bothFainted: {english: 'both pokemon fainted', polski: 'oba pokemony zemdlały'},
-    fullyPar: {english: ' is fully paralysed', polski: ' jest całkowicie sparaliżowany(a)'},
-    flinch: {english: ' flinched', polski: ' stchórzył(a)'},
+    fullyPar: {english: ' is fully paralysed', polski: ' nie może się ruszyć z powodu paraliżu'},
+    flinch: {english: ' flinched', polski: ' nie może się ruszyć z powodu stchórzenia'},
     increse: {english: ' increase', polski: ' zwiększa się'},
     decrese: {english: ' decrease', polski: ' zmniejsza się'},
     reset: {english: ' changes has been reset', polski: ': reset zmian'},
-    evertStat: {english: 'every stat', polski: 'każda statystyka'}
+    evertStat: {english: 'every stat', polski: 'każda statystyka'},
+    freezeSolid: {english: ' i freezed solid', polski: ' nie może się ruszyć z powodu zamrożenia'},
 }
 
 const BATTLE_COPY_PROPERTIES = 
