@@ -25,12 +25,13 @@ function clickMenuButton(_element)
     if(activeWindow != 'unactive')
     {
 		tableButton.classList.add('none');
-        switch(_element.id)
+        switch(_element.id.slice(14))
         {
-            case 'mapMenuButton_Adventure': openMap(); break;
-            case 'mapMenuButton_Pokedex': openPokedex(); break;
-			case 'mapMenuButton_Admin_Panel': admin_start(); break;
-			case 'mapMenuButton_Pokemon': menuTest(); break;
+            case 'Adventure': openMap(); break;
+            case 'Pokedex': openPokedex(); break;
+			case 'Admin_Panel': admin_start(); break;
+			case 'Pokemon': menuTest(); break;
+			case 'Test': openTest(); break;
 
             default: return false;
         }
@@ -66,7 +67,7 @@ function openPokedex()
 	let rows = ['no','types','ability','baseStats','hp','attack','defence','spAttack','spDefence','speed'];
 	for(let i=0;i<rows.length;i++)
 	{
-		table.insertRow(i).insertCell(0).innerHTML = POKEDEX_TEXTS[rows[i]].language();
+		table.insertRow(i).insertCell(0).innerHTML = showLanguage(POKEDEX_TEXTS[rows[i]]);
 		if(i == 2 || i == 3){table.rows[i].cells[0].colSpan = 2;}
 		else{table.rows[i].insertCell(1).style.textAlign = 'right';}
 	}
@@ -83,13 +84,13 @@ function openPokedex()
 function pokedex_show(_pokemon)
 {
 	const pokemon = pokemonList[_pokemon];
-    let type_text = POKEMON_TYPES[pokemon.types[0]].language();
-    if(pokemon.types[1] != 0){type_text += '/' + POKEMON_TYPES[pokemon.types[1]].language();}
+    let type_text = showLanguage(POKEMON_TYPES[pokemon.types[0]]);
+    if(pokemon.types[1] != 0){type_text += '/' + showLanguage(POKEMON_TYPES[pokemon.types[1]]);}
 	
-	pokedex_tableOfStats.rows[0].cells[0].innerHTML = POKEDEX_TEXTS.no.language() + ' ' + pokemon.no;
-	pokedex_tableOfStats.rows[0].cells[1].innerHTML = pokemon.name;
+	pokedex_tableOfStats.rows[0].cells[0].innerHTML = showLanguage(POKEDEX_TEXTS.no) + ' ' + pokemon.no;
+	pokedex_tableOfStats.rows[0].cells[1].innerHTML = pokemonName(pokemon.name);
 	pokedex_tableOfStats.rows[1].cells[1].innerHTML = type_text;
-	pokedex_tableOfStats.rows[3].cells[0].innerHTML = POKEMON_ABILITIES[pokemon.abilities[0]].language(); + '<br>' + POKEMON_ABILITIES[pokemon.abilities[1]].language(); + '<br><i>' + POKEMON_ABILITIES[pokemon.abilities[2]].language(); + '</i>';
+	pokedex_tableOfStats.rows[3].cells[0].innerHTML = showLanguage(POKEMON_ABILITIES[pokemon.abilities[0]]); + '<br>' + showLanguage(POKEMON_ABILITIES[pokemon.abilities[1]]); + '<br><i>' + showLanguage(POKEMON_ABILITIES[pokemon.abilities[2]]); + '</i>';
 	pokedex_tableOfStats.rows[5].cells[1].innerHTML = pokemon.baseStats.hp;
 	pokedex_tableOfStats.rows[6].cells[1].innerHTML = pokemon.baseStats.attack;
 	pokedex_tableOfStats.rows[7].cells[1].innerHTML = pokemon.baseStats.defence;

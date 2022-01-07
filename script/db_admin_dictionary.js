@@ -82,7 +82,7 @@ const ADMIN_DATABASE_COLS =
                 value.appendChild(option);
             }
         }, notImportant: true}, //'select', table: []},
-        {description: {polski: 'wartość metody ewolucji', english: 'preevolution value '}, dbname: 'preevolution_value', input: 'select', table: [{english: '', language: function(){return this.english}}], notImportant: true}, //'select', table: []},
+        {description: {polski: 'wartość metody ewolucji', english: 'preevolution value '}, dbname: 'preevolution_value', input: 'select', table: [{english: '',}], notImportant: true}, //'select', table: []},
         {description: {polski: 'wysokość', english: 'height'}, dbname: 'height', input: 'number', min: 0.1, max: 500},
         {description: {polski: 'waga', english: 'weight'}, dbname: 'weight', input: 'number', min: 0.1, max: 1000},
     ],

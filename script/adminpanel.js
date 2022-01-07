@@ -15,7 +15,7 @@ function admin_start()
     for(let i=0;i<ADMIN_LIST_OF_TASKS.length;i++)
     {
         let task = newElement('div',admin_list,'adminTask button medium');
-        task.innerHTML = ADMIN_LIST_OF_TASKS[i].language();
+        task.innerHTML = showLanguage(ADMIN_LIST_OF_TASKS[i]);
         if(ADMIN_LIST_OF_TASKS[i].disabled)
         {
             task.classList.add('disabled');
@@ -39,7 +39,7 @@ function admin_start()
     }
 
     let admin_content = newElement('div',admin_conteiner,'','admin_content');
-    admin_content.innerHTML = ADMIN_WARNINGS[2].language();
+    admin_content.innerHTML = showLanguage(ADMIN_WARNINGS[2]);
 
     activeWindow = 'admin';
 
@@ -71,7 +71,7 @@ function admin_database_list(_res,_db)
     {
         if(details[i].hidden === undefined)
         {
-            databaseTable.rows[0].insertCell(i).innerHTML = details[i].description.language();
+            databaseTable.rows[0].insertCell(i).innerHTML = showLanguage(details[i].description);
         }
     }
     
@@ -131,7 +131,7 @@ function adm_edit_dbElement_ready(_res,[_db,_id])
     let editTable = newElement('table',admin_content,'','admin_editTable');
     for(let i=1; i<array.length;i++)
     {
-        editTable.insertRow(i-1).insertCell(0).innerHTML = array[i].description.language();
+        editTable.insertRow(i-1).insertCell(0).innerHTML = showLanguage(array[i].description);
         let disable = false;
         let input;
         
@@ -166,12 +166,12 @@ function adm_edit_dbElement_ready(_res,[_db,_id])
                         if(array[i].noFunction === undefined)
                         {
                             option.value = array[i].table[j].english;
-                            option.innerHTML = array[i].table[j].language();
+                            option.innerHTML = showLanguage(array[i].table[j]);
                         }
                         else
                         {
                             option.value = array[i].table[j].name.english;
-                            option.innerHTML = array[i].table[j].name[language];
+                            option.innerHTML = showLanguage(array[i].table[j].name);
                         }
                     }
                     else
@@ -194,7 +194,7 @@ function adm_edit_dbElement_ready(_res,[_db,_id])
                     {
                         let option = document.createElement('option');
                         option.value = j;
-                        option.innerHTML = array[i].table[j].language();
+                        option.innerHTML = showLanguage(array[i].table[j]);
                         if(array[i].dbname == 'abilities' && POKEMON_ABILITIES[j].done == undefined)
                         {
                             if(POKEMON_ABILITIES[j].new == undefined){option.classList.add('notReady');}
@@ -258,7 +258,7 @@ function adm_edit_dbElement_ready(_res,[_db,_id])
     let buttonDiv = newElement('div',admin_content,'adm_buttonContainer');
 
     let save = newElement('div',buttonDiv,'adminButton button small','adm_edit_saveButton');
-    save.innerHTML = ADMIN_EDIT_TEXTS.save.language();
+    save.innerHTML = showLanguage(ADMIN_EDIT_TEXTS.save);
     save.onclick = function(){admin_saveDBElement(_db,_id);}
 
     let waitingImage = newElement('img',buttonDiv,'none','adm_edit_waitingIMG');
@@ -266,7 +266,7 @@ function adm_edit_dbElement_ready(_res,[_db,_id])
     waitingImage.height = 33;
 
     let cancel = newElement('div',buttonDiv,'adminButton button small','adm_edit_cancelButton');
-    cancel.innerHTML = ADMIN_EDIT_TEXTS.cancel.language();
+    cancel.innerHTML = showLanguage(ADMIN_EDIT_TEXTS.cancel);
     cancel.onclick = function(){admin_show_database(_db);}
     
     newElement('div',admin_content,'','adm_edit_info');
@@ -445,7 +445,7 @@ function adm_edit_success(_RES,_resText)
 
 function admin_addWarning(_number,_effect)
 {
-    const TEXT = (_effect + 1) + ADMIN_POKEMON_TEXTS.errors[_number].language() + '<br>';
+    const TEXT = (_effect + 1) + showLanguage(ADMIN_POKEMON_TEXTS.errors[_number]) + '<br>';
     adm_edit_info.innerHTML += colorText(TEXT,COLOR_WARNING);
 }
 
@@ -454,15 +454,15 @@ function admin_addError(_property,_error,_db)
     if(noErrors)
     {
         noErrors = false;
-        adm_edit_info.innerHTML += colorText(ADMIN_POKEMON_TEXTS.error.language(),COLOR_ERROR);
+        adm_edit_info.innerHTML += colorText(showLanguage(ADMIN_POKEMON_TEXTS.error),COLOR_ERROR);
     }
-    const TEXT = '<br>' + ADMIN_DATABASE_COLS[_db][_property].description.language() + ADMIN_POKEMON_TEXTS.errors[_error].language();
+    const TEXT = '<br>' + showLanguage(ADMIN_DATABASE_COLS[_db][_property].description) + showLanguage(ADMIN_POKEMON_TEXTS.errors[_error]);
     adm_edit_info.innerHTML +=  colorText(TEXT,COLOR_ERROR);
 }
 
 function admin_addSuccess()
 {
-    adm_edit_info.innerHTML += colorText(ADMIN_POKEMON_TEXTS.success.language(),COLOR_SUCCESS);
+    adm_edit_info.innerHTML += colorText(showLanguage(ADMIN_POKEMON_TEXTS.success),COLOR_SUCCESS);
 }
 
 function adm_updateArrays()
@@ -488,7 +488,7 @@ function adm_moves_addition()
         {
             let option = document.createElement('option');
             option.value = j;
-            option.innerHTML = POKEMON_MOVE_EFFECTS[j].language();
+            option.innerHTML = showLanguage(POKEMON_MOVE_EFFECTS[j]);
             if(POKEMON_MOVE_EFFECTS[j].done == undefined){option.classList.add('notReady');}
             whatEffect.appendChild(option);
         }
@@ -511,7 +511,7 @@ function adm_moves_addition()
     {
         let option = document.createElement('option');
         option.value = j;
-        option.innerHTML = MOVE_EFFECT_WHOM[j].language();
+        option.innerHTML = showLanguage(MOVE_EFFECT_WHOM[j]);
         whom.appendChild(option);
     }
     effectsTab.rows[i].insertCell(3).appendChild(whom);
@@ -520,7 +520,7 @@ function adm_moves_addition()
     effectsTab.insertRow(0);
     for(let i=0;i<ADMIN_EFFECTS_COLS.length;i++)
     {
-        effectsTab.rows[0].insertCell(i).innerHTML = ADMIN_EFFECTS_COLS[i].language();
+        effectsTab.rows[0].insertCell(i).innerHTML = showLanguage(ADMIN_EFFECTS_COLS[i]);
     }
 
     return effectsTab;
@@ -545,7 +545,7 @@ function admin_changeWhatMoveEffect(_number)
         {
             let optClass = '';
             if(POKEMON_MOVE_EFFECTS[selectValue].types[i].done == undefined){optClass = ' class =\'notReady\'';}
-            value += '<option value=' + i + optClass + '>' + POKEMON_MOVE_EFFECTS[selectValue].types[i].language() + '</option>';
+            value += '<option value=' + i + optClass + '>' + showLanguage(POKEMON_MOVE_EFFECTS[selectValue].types[i]) + '</option>';
         }
         value += '</select>';
     }
@@ -580,7 +580,7 @@ function adm_maps_addition(_cells)
     adm_sizeY.oninput = function(){adm_changeSizeOfMap();}
     
     text = newElement('p',content);
-    text.innerHTML = ADMIN_EDIT_TEXTS.bg.language() + '<br>';
+    text.innerHTML = showLanguage(ADMIN_EDIT_TEXTS.bg) + '<br>';
     
     let adm_mapBG_container = newElement('div',content,'admMapItems');
     
@@ -589,13 +589,13 @@ function adm_maps_addition(_cells)
         let adm_mapItem = newElement('div',adm_mapBG_container);
         let img = newElement('img',adm_mapItem);
         img.src = IMG_WAY.background + MAP_ITEMS.background[i].src;
-        img.title = ADMIN_MAPS_DESCRIPTIONS.bgTitle.language() + i;
+        img.title = showLanguage(ADMIN_MAPS_DESCRIPTIONS.bgTitle) + i;
         adm_mapItem.onclick = function(){adm_mapBGSelect(this, i);}
         if(i == 0){adm_mapItem.classList.add('active');}
     }
 
     text = newElement('p',content);
-    text.innerHTML = ADMIN_EDIT_TEXTS.object.language() + '<br>';
+    text.innerHTML = showLanguage(ADMIN_EDIT_TEXTS.object) + '<br>';
     
     let adm_mapObject_container = newElement('div',content,'admMapItems');
     
@@ -607,11 +607,11 @@ function adm_maps_addition(_cells)
 
         let img = newElement('img',adm_mapItem);
         img.src = IMG_WAY.objects + MAP_ITEMS.object[i].src;
-        img.title = ADMIN_MAPS_DESCRIPTIONS.imgTitle.language() + i;
+        img.title = showLanguage(ADMIN_MAPS_DESCRIPTIONS.imgTitle) + i;
     }
 
     let choose = newElement('div',content);
-    choose.innerHTML = ADMIN_EDIT_TEXTS.edit.language() + '<br>';
+    choose.innerHTML = showLanguage(ADMIN_EDIT_TEXTS.edit) + '<br>';
     let tempArray = ['bg','object','both'];
     for(let i=0;i<tempArray.length;i++)
     {
@@ -625,11 +625,11 @@ function adm_maps_addition(_cells)
         if(i == 0){radio.checked = true;}
 
         text = newElement('b',label);
-        text.innerHTML = ADMIN_EDIT_TEXTS[tempArray[i]].language() + ' ';
+        text.innerHTML = showLanguage(ADMIN_EDIT_TEXTS[tempArray[i]]) + ' ';
     }
     
     let adm_infoDiv = newElement('div',content,'admInfo');
-    adm_infoDiv.innerHTML = ADMIN_WARNINGS[1].language();
+    adm_infoDiv.innerHTML = showLanguage(ADMIN_WARNINGS[1]);
     
     let adm_mapTable = newElement('table',content,'admMapTable','adm_mapTable');
     

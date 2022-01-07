@@ -1,108 +1,5 @@
-function skipLogin(_admin)
-{
-	activeUser.admin = _admin;
-	activeUser.name = 'skipLogin';
-	start();
-}
-
-function addLanguageFunction()
-{
-	let listOfObjects =
-	[
-		{object: POKEMON_TYPES},
-		{object: POKEMON_STATS},
-		{object: POKEMON_ABILITIES},
-		{object: POKEMON_MOVE_TARGET},
-		{object: POKEMON_EXP_GROWTH},
-		{object: POKEMON_EGG_GROUP},
-		{object: POKEMON_MOVE_EFFECTS},
-		{object: MOVE_EFFECT_WHOM},
-		{object: POKEDEX_TEXTS, noArray: true},
-		{object: MAIN_TEXTS, noArray: true, parametr: 'texts'},
-		{object: MAIN_ERRORS, noArray: true},
-		{object: ADMIN_WARNINGS},
-		{object: ADMIN_LIST_OF_TASKS},
-		{object: ADMIN_EFFECTS_COLS},
-		{object: ADMIN_EDIT_TEXTS, noArray: true},
-		{object: ADMIN_POKEMON_TEXTS, noArray: true, skip: 'errors'},
-		{object: ADMIN_POKEMON_TEXTS.errors},
-		{object: ADMIN_MAPS_DESCRIPTIONS, noArray: true},
-		{object: actualMapData.title, onlyOne: true},
-		{object: POKEMON_EVOLUTION_METHODS},
-		{object: POKEMON_MOVES_METHODS},
-		{object: BATTLE_TEXTS, noArray: true}
-	];
-
-	Object.keys(ADMIN_DATABASE_COLS).forEach(database => {
-
-		listOfObjects[listOfObjects.length] = {object: ADMIN_DATABASE_COLS[database], parametr: 'description'};
-	});
-	
-	for(let i=0;i<POKEMON_MOVE_EFFECTS.length;i++)
-	{
-		if(POKEMON_MOVE_EFFECTS[i].types !== undefined)
-		{
-			listOfObjects[listOfObjects.length] = {object: POKEMON_MOVE_EFFECTS[i].types};
-		}
-	}
-
-	for(let i=0;i<listOfObjects.length;i++)
-	{
-		const OBJ = listOfObjects[i];
-		let parametr = '';
-		let end = 0;
-		let help = '';
-
-		if(OBJ.noArray == undefined)
-		{
-			if(OBJ.onlyOne == undefined)
-			{
-				parametr = '[j]';
-				end = OBJ.object.length;
-			}
-			else
-			{
-				parametr = '';
-				end = 1;
-			}
-		}
-		else
-		{
-			help = Object.keys(OBJ.object);
-			end = help.length;
-			parametr = '[help[j]]';
-		}
-
-		if(OBJ.parametr != undefined)
-		{
-			parametr += '.' + OBJ.parametr;
-		}
-
-		for(let j=0;j<end;j++)
-		{
-			if(OBJ.skip != undefined)
-			{
-				if(help[j] == OBJ.skip){continue;}
-			}
-			eval('OBJ.object' + parametr).language = function()
-			{
-				if(this[language] == undefined){return this.english}
-				return this[language];
-			}
-		}
-	}
-} addLanguageFunction();
-
 function start()
 {
-	let mapMenu_buttons = [];
-	mapMenu_buttons.push({polski: 'Przygoda', english: 'Adventure'});
-	mapMenu_buttons.push({polski: 'Pokedex', english: 'Pokedex'});
-	mapMenu_buttons.push({polski: 'Pokemony', english: 'Pokemon'});
-	mapMenu_buttons.push({polski: 'Przedmioty', english: 'Items'});
-	mapMenu_buttons.push({polski: 'Opcje', english: 'Options'});
-	if(activeUser.admin){mapMenu_buttons.push({polski: 'Panel Admina',english: 'Admin Panel'});}
-	
 	okno.innerHTML = '';
 
 	let worldMapConteiner = newElement('div',okno,'widnow_map','worldMapConteiner');
@@ -111,7 +8,7 @@ function start()
 	for(let i=0;i<mapMenu_buttons.length;i++)
 	{
 		let newbutton = newElement('div',map_menu,'mapMenuButton', ('mapMenuButton_' + mapMenu_buttons[i].english).replace(' ','_'));
-		newbutton.innerHTML = mapMenu_buttons[i][language];
+		newbutton.innerHTML = showLanguage(mapMenu_buttons[i]);
 		newbutton.onclick = function(){clickMenuButton(this);}
 	}
 
@@ -207,7 +104,7 @@ function downloadDataBases(_RES,_number)
 
 			activeUser.team =
 			[
-				new Pokemon(11,2,'female',-1,0,0,-1,[23,5,6,69],'Ruka',-1,-1,'Szibi Snowpix',0,0),
+				new Pokemon(11,2,'female',-1,0,0,-1,[1,2,126,208],'Ruka',-1,-1,'Szibi Snowpix',0,0),
 				new Pokemon(randomInt(9),2,-1,-1,0,0,-1,[7,6,5,4],'',-1,-1,'Szibi Snowpix',0,0),
 				null,null,null,null
 			];
@@ -294,11 +191,12 @@ function randomInt(_arg1 = 1, _arg2 = 0)
 	return min + Math.floor(Math.random() * (max - min + 1))
 }
 
-function pokemonImage(_pokemon,_size = 0)
+function pokemonImage(_pokemon,_size = 0, _reverse = false)
 {
 	let object = document.createElement('img');
 	object.src = IMG_WAY.sprite + _pokemon + '.gif';
 	object.classList.add('image');
+	if(_reverse){object.classList.add('reverse');}
 	if(_size > 0){object.style.width = _size;}
 	return object;
 }
@@ -330,6 +228,17 @@ function getMoveNumberByName(_name)
 	for(let i=0;i<moveList.length;i++)
 	{
 		if(_name == moveList[i].name.english)
+		{
+			return i;
+		}
+	}
+}
+
+function getStatNumberByName(_name)
+{
+	for(let i=0;i<POKEMON_STATS.length;i++)
+	{
+		if(_name == POKEMON_STATS[i].name.english)
 		{
 			return i;
 		}
@@ -384,4 +293,18 @@ function infoImage(_info, _size = 0)
 	object.classList.add('image');
 	if(_size > 0){object.style.width = _size;}
 	return object;
+}
+
+function pokemonName(_name)
+{
+	const FIRST = _name[0].toUpperCase();
+	const DASH = _name.indexOf('-');
+	if(DASH > -1){return FIRST + _name.slice(1,DASH);}
+	return FIRST + _name.slice(1);
+}
+
+function showLanguage(_ofWhat)
+{
+	if(_ofWhat[language] == undefined){return _ofWhat.english}
+	return _ofWhat[language];
 }

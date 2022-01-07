@@ -458,6 +458,10 @@
   border-radius: 10px;
 }
 
+.reverse {
+  transform: scaleX(-1);
+}
+
 .adminList {
   display: flex;
 }
@@ -607,4 +611,28 @@
 }
 .adminMoveEffectsTab input, .adminMoveEffectsTab select {
   width: 100px;
+}
+
+.testTable {
+  border: 2px black solid;
+}
+.testTable td {
+  border: 1px solid black;
+  text-align: center;
+}
+.testTable input {
+  width: 125px;
+  text-align: center;
+}
+.testTable select {
+  text-align: center;
+  width: 125px;
+}
+
+.test.button {
+  width: 100px;
+  margin: 10px 0 0 auto;
+  text-align: center;
+  background: #080;
+  border-color: #080;
 }/*# sourceMappingURL=style.css.map */

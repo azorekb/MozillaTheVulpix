@@ -13,7 +13,7 @@ function login_changeLanguage(_language)
 	}
 
 	Object.keys(MAIN_TEXTS).forEach(text =>{
-		MAIN_TEXTS[text].object.innerHTML = MAIN_TEXTS[text].texts.language();
+		MAIN_TEXTS[text].object.innerHTML = showLanguage(MAIN_TEXTS[text].texts);
 		}
 	)
 
@@ -76,6 +76,7 @@ function login_send_ready(_RES)
     {
         activeUser.name = _RES.name;
         activeUser.admin = _RES.admin;
+        if(activeUser.admin){mapMenu_buttons.push({polski: 'Panel Admina',english: 'Admin Panel'});}
         okno.innerHTML = '<img src=\'' + waitingImageUrl + '\'><br><br><b>downloading map...</b>';
         downloadDataBases(null,'maps');
     }
@@ -99,6 +100,6 @@ function login_addError(_error)
     }
     else
     {
-        object.innerHTML +=  MAIN_ERRORS[_error].language() + '<br>';
+        object.innerHTML += showLanguage(MAIN_ERRORS[_error]) + '<br>';
     }
 }

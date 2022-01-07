@@ -1,0 +1,31 @@
+.testTable
+{
+    border: 2px black solid;
+
+    td
+    {
+        border: 1px solid black;
+        text-align: center;
+    }
+
+    input
+    {
+        width: 125px;
+        text-align: center;
+    }
+
+    select
+    {
+        text-align: center;
+        width: 125px;
+    }
+}
+
+.test.button
+{
+    width: 100px;
+    margin: 10px 0 0 auto;
+    text-align: center;
+    background: #080;
+    border-color: #080;
+}

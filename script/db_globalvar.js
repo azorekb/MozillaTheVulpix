@@ -13,6 +13,7 @@ const ENCOUNTER_CHANCE = 30;
 const TEAM_COUNT = 6;
 const POKEMON_MOVE_COUNT = 4;
 const MAIN_CHARACTER_IMAGE = 'img/objects/joy.png';
+const SIZE_OF_BATTLE_POKEMON_STATUS = 20;
 
 //variable
 let logInTab = 'logIn';
@@ -27,8 +28,8 @@ let activeButton = null;
 let activeUser = {name: '', admin: false, team: []};
 let language = 'polski';
 let battle = new BattleField();
-let battle_opponentTeam = [];
-let battle_allyTeam = [];
+let battleTeam = {ally: [], opponent: []};
+let battleActionCooldown = 1000;
 
 //HTTP Request
 let php_request = new XMLHttpRequest();

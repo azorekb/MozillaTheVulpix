@@ -36,18 +36,18 @@ const POKEMON_ABILITIES =
 [
     {english: '-', done: true},
     {english: 'run away', polski: 'ucieczka'},
-    {english: 'adaptability'},
-    {english: 'new 1', new: true},
+    {english: 'adaptability', polski: 'adaptacja', done: true},
+    {english: 'pickup'},
     {english: 'flash fire'},
     {english: 'guts'},
     {english: 'volt absorb'},
     {english: 'quick feet'},
     {english: 'water absorb'},
     {english: 'hydration'},
-    {english: 'new 2', new: true},
+    {english: 'Royal Feather'},
     {english: 'chlorophyll'},
     {english: 'snow cloak'},
-    {english: 'new 3', new: true},
+    {english: 'Slush Rush'},
     {english: 'synchronize'},
     {english: 'magic bounce'},
     {english: 'inner focus'},
@@ -55,56 +55,62 @@ const POKEMON_ABILITIES =
     {english: 'pixilate'},
     {english: 'simple'},
     {english: 'unaware'},
-    {english: 'new 4', new: true},
+    {english: 'Technician'},
     {english: 'keen eye'},
     {english: 'sheer force'},
     {english: 'hustle'},
     {english: 'defiant'},
     {english: 'drought'},
     {english: 'swift swim'},
-    {english: 'new 5', new: true},
+    {english: 'Snow Warning'},
     {english: 'dry skin'},
-    {english: 'new 6', new: true},
+    {english: 'new 1', new: true},
     {english: 'solar power'},
     {english: 'big pecks'},
     {english: 'gale wings'},
     {english: 'flame body'},
-    {english: 'new 7', new: true},
+    {english: 'new 2', new: true},
     {english: 'intimidate'},
-    {english: 'new 8', new: true},
+    {english: 'new 3', new: true},
     {english: 'mold breaker'},
     {english: 'moxie'},
-    {english: 'new 9', new: true},
+    {english: 'new 4', new: true},
     {english: 'prankster'},
-    {english: 'new 10', new: true},
+    {english: 'new 5', new: true},
     {english: 'regenerator'},
     {english: 'reckless'},
-    {english: 'new 11', new: true},
+    {english: 'new 6', new: true},
     {english: 'poison point'},
     {english: 'poison touch'},
     {english: 'static'},
     {english: 'lightning rod'},
-    {english: 'new 12', new: true},
+    {english: 'new 7', new: true},
     {english: 'tinted lens'},
     {english: 'shield dust'},
-    {english: 'new 13', new: true},
+    {english: 'new 8', new: true},
     {english: 'rock head'},
-    {english: 'new 14', new: true},
+    {english: 'new 9', new: true},
     {english: 'aerilate'},
-    {english: 'new 15', new: true},
-    {english: 'new 16', new: true},
+    {english: 'new 10', new: true},
+    {english: 'new 11', new: true},
     {english: 'own tempo'},
     {english: 'stamina'},
-    {english: 'new 17', new: true},
+    {english: 'new 12', new: true},
     {english: 'thick fat'},
     {english: 'scrappy'},
-    {english: 'new 18', new: true},
-    {english: 'new 19', new: true},
+    {english: 'new 13', new: true},
+    {english: 'new 14', new: true},
     {english: 'storm drain'},
     {english: 'magic drain'},
     {english: 'refigerate'},
     {english: 'zephyr boost'},
     {english: 'huge power'},
+    {english: 'new 15', new: true},
+    {english: 'new 16', new: true},
+    {english: 'new 17', new: true},
+    {english: 'new 18', new: true},
+    {english: 'new 19', new: true},
+    {english: 'new 20', new: true},
 ];
 
 const POKEMON_MOVE_TARGET = 
@@ -155,10 +161,10 @@ const POKEMON_MOVE_EFFECTS =
         [
             {polski: 'zdrowy', english: 'ok', done: true},
             {polski: 'poparzenia', english: 'burn', done: true},
-            {polski: 'zamrożenie', english: 'freeze'},
+            {polski: 'zamrożenie', english: 'freeze', done: true},
             {polski: 'paraliż', english: 'paralysis', done: true},
-            {polski: 'zatrucie', english: 'poison'},
-            {polski: 'sen', english: 'sleep'},
+            {polski: 'zatrucie', english: 'poison', done: true},
+            {polski: 'sen', english: 'sleep', done: true},
             {english: 'flinch', polski: 'stchórzenie', done: true},
             {english: 'confuse',polski: 'zmieszanie'},
             {english: 'inlove', polski: 'zauroczenie'},
@@ -166,12 +172,12 @@ const POKEMON_MOVE_EFFECTS =
         done: true
     },
     {english: 'recoil damage', polski: 'obrażenia zwrotne', done: true},
-    {english: 'recover HP', polski: 'leczenie HP'},
+    {english: 'recover HP', polski: 'leczenie HP', done: true},
     {english: 'drain HP', polski: 'kradzież HP', done: true},
     {english: 'change attack', polski: 'zmiana ataku', done: true},
     {english: 'change defence', polski: 'zmiana obrony', done: true},
-    {english: 'change sp attack', polski: 'zmiana sp ataku', done: true},
-    {english: 'change sp defence', polski: 'zmiana sp obrony', done: true},
+    {english: 'change spAttack', polski: 'zmiana sp ataku', done: true},
+    {english: 'change spDefence', polski: 'zmiana sp obrony', done: true},
     {english: 'change speed', polski: 'zmiana szybkości', done: true},
     {english: 'change random stat', polski: 'zmiena losowej cechy', done: true},
     {english: 'change every stat', polski: 'zmiena każdej cechy', done: true},
@@ -182,41 +188,45 @@ const POKEMON_MOVE_EFFECTS =
         [
             {english: 'switch place', polski: 'zmiana miesjca'},
             {english: 'unable to flee', polski: 'uniemożliwienie ucieczki'},
-            {english: 'hit two times', polski: 'uderzenie dwukrotne'},
+            {english: 'hit two times', polski: 'uderzenie dwukrotne', done: true},
             {english: 'hit 2-5 times', polski: 'uderzenie 2-5 krotne'},
-            {english: 'ignores attack and deffence', polski: 'ignorowanie ataku i obrony'},
-            {english: 'return', polski: 'powrót'},
+            {english: 'ignores attack and deffence', polski: 'ignorowanie ataku i obrony', done: true},
+            {english: 'return', polski: 'powrót', done: true},
             {english: 'boost power', polski: 'bonus do mocy'},
-        ]
+        ],
+        done: true
     },
     {
         polski: 'zmiana pogody',
         english: 'change weather',
         types:
         [
-            {english: 'none', polski: 'brak'},
-            {english: 'rain', polski: 'deszcz'},
-            {english: 'hail', polski: 'grad'},
-            {english: 'sunny', polski: 'słonecznie'},
-            {english: 'storm', polski: 'burza'},
-            {english: 'strong wind', polski: 'silny wiatr'},
-            {english: 'fog', polski: 'mgła'}
-        ]
+            {english: 'none', polski: 'brak', done: true},
+            {english: 'rain', polski: 'deszcz', done: true},
+            {english: 'hail', polski: 'grad', done: true},
+            {english: 'sunny', polski: 'słonecznie', done: true},
+            {english: 'storm', polski: 'burza', done: true},
+            {english: 'strong wind', polski: 'silny wiatr', done: true},
+            {english: 'fog', polski: 'mgła', done: true},
+            {english: 'sandstorm', polski: 'burza piaskowa', done: true}
+        ],
+        done: true
     },
     {
         polski: 'dwie tury', 
         english: 'two round',
         types:
         [
-            {english: 'dig in hole', polski: 'pod ziemią'},
-            {english: 'fly high', polski: 'lod w górę'},
-            {english: 'under water', polski: 'pod wodą'},
+            {english: 'dig in hole', polski: 'pod ziemią', done: true},
+            {english: 'fly high', polski: 'lot w górę', done: true},
+            {english: 'under water', polski: 'pod wodą', done: true},
             {english: 'rest', polski: 'odpoczynek'},
             {english: 'sun light', polski: 'światło słońca'},
             {english: 'waiting', polski: 'czekanie'},
-        ]
+        ],
+        done: true
     },
-    {english: 'change cristal hit ratio', polski: 'zmiana szansy na obrażenia krytyczne'},
+    {english: 'change cristal hit ratio', polski: 'zmiana szansy na obrażenia krytyczne', done: true},
     {
         polski: 'pułapka',
         english: 'trap',
@@ -229,7 +239,7 @@ const POKEMON_MOVE_EFFECTS =
             {english: 'spikes', polski: 'kolce'},
             {english: 'poison spikes', polski: 'trujące kolce'},
             {english: 'sticky web', polski: 'lepka sieć'},
-            {english: 'unable tu use status', polski: 'uniemożliwienie użycia ruchu statusowego'},
+            {english: 'unable to use status', polski: 'uniemożliwienie użycia ruchu statusowego'},
             {english: 'destruct all', polski: 'zniszczenie wszystkich'},
         ]
     },
@@ -242,10 +252,11 @@ const POKEMON_MOVE_EFFECTS =
             {english: 'destruct physical', polski: 'zniszczenie fizycznej'},
             {english: 'special', polski: 'specjalna'},
             {english: 'destruct special', polski: 'zniszczenie specjalnej'},
-            {english: 'completely', polski: 'całkowita'},
+            {english: 'completely', polski: 'całkowita', done: true},
             {english: 'spiky', polski: 'kolczasta'},
             {english: 'destruct all', polski: 'zniszczenie wszystkich'},
-        ]
+        ],
+        done: true
     },
     {
         english: 'change battlefield',
@@ -320,16 +331,36 @@ const POKEMON_MOVE_EFFECTS =
         ]
     },
     {english: 'doubles power when repeat up to', polski: 'podwaja moc gdy powtarza się aż do'},
+    {
+        english: 'can hit when',
+        polski: 'może trafić, gdy',
+        types:
+        [
+            {english: 'is digging in hole', polski: 'jest pod ziemią'},
+            {english: 'is flying high', polski: 'leci w górę'},
+            {english: 'is under water', polski: 'jest pod wodą'},
+        ]
+    },
+    {
+        english: 'halves power when',
+        polski: 'połowa mocy gdy',
+        types:
+        [
+            {english: 'rain', polski: 'deszcz'},
+            {english: 'hail', polski: 'grad'},
+            {english: 'sunny', polski: 'słonecznie'},
+            {english: 'storm', polski: 'burza'},
+            {english: 'strong wind', polski: 'silny wiatr'},
+            {english: 'fog', polski: 'mgła'}
+        ]
+    },
 
-    
-    // usuwanie itemku rywala, 
     
     // {english: 'recover by turs', polski: 'leczenie co turę'},
     // {english: 'gives protity', polski: 'daje priorytet'},
     // {english: 'change physical damage', polski: 'zmienia obrażenia fizyczne'},
     // {english: 'change damage when first', polski: 'zmienia obrażenia gdy pierwszy'},
     // {english: 'change damage when last', polski: 'zmienia obrażenia gdy ostatni'},
-    // {english: 'switch item', polski: 'zamiania przedmiony'},
     // gdy nie ma itemku jest mocniejszy
     
 ];
@@ -359,6 +390,10 @@ const MAP_ITEMS =
         {name: 'waySE', src: 'drogaSE.png', area: 'land'},
         {name: 'water', src: 'woda.gif', area: 'water'},
         {name: 'floor 1', src: 'floor1.png', area: 'land'},
+        {name: 'wayN-W', src: 'drogaN-W.png', area: 'land'},
+        {name: 'wayN-E', src: 'drogaN-E.png', area: 'land'},
+        {name: 'wayS-W', src: 'drogaS-W.png', area: 'land'},
+        {name: 'wayS-E', src: 'drogaS-E.png', area: 'land'},
     ],
     
     object:
@@ -387,6 +422,15 @@ const MAP_ITEMS =
         {name: 'dom', src: 'dom_7.gif'},
         {name: 'dom', src: 'dom_8.gif'},
         {name: 'dom', src: 'dom_9.gif'},
+        {name: 'tree', src: 'tree1.gif'},
+        {name: 'tree', src: 'tree2.gif'},
+        {name: 'tree', src: 'tree3.gif'},
+        {name: 'tree', src: 'tree4.gif'},
+        {name: 'tree', src: 'tree5.gif'},
+        {name: 'tree', src: 'tree6.gif'},
+        {name: 'tree', src: 'tree7.gif'},
+        {name: 'tree', src: 'tree8.gif'},
+        {name: 'tree', src: 'tree9.gif'},
     ]
 };
     
@@ -497,10 +541,10 @@ const BATTLE_TEXTS =
     runSuccess: {english: 'you got away safety', polski: 'udało sie bezpiecznie uciec'},
     comeBack: {english: ', come back!', polski: ', wracaj!'},
     go: {english: ', i choose you!', polski: ', wybieram cię!'},
-    used: {english: ' used ', polski: ' używa '},
+    used: {english: ' used ', polski: ' używa ruchu o nazwie '},
     supereffect: {english: 'It\'s supereffective!', polski: 'To superefektywne!'},
     weakeffect: {english: 'It\'s not very effective...', polski: 'To niezbyt efektywne...'},
-    noeffect: {english: 'It\'s has no effect.', polski: 'To nie dało żadnego efektu.'},
+    noeffect: {english: 'It has no effect.', polski: 'To nie dało żadnego efektu.'},
     fainted: {english: ' fainted', polski: ' zemdlał(a)'},
     promote: {english: ' promoted to level ', polski: ' awansuje na poziom '},
     lose: {english: 'there is no pokemon left, you lost the battle', polski: 'żaden z pokemonów nie jest zdolny do walki, przegrwasz'},
@@ -513,6 +557,7 @@ const BATTLE_TEXTS =
     poisoned: {english: ' was poisoned', polski: ' zostaje otruty(a)'},
     sleepy: {english: ' falles asleep', polski: ' zasypia'},
     burnCouses: {english: ' looses some HP because of burning', polski: ' traci trochę HP z powodu poparzeń'},
+    poisonCouses: {english: ' looses some HP because of poison', polski: ' traci trochę HP z powodu zatrucia'},
     fail: {english: 'but it failed', polski: 'ale nie wyszło'},
     nothing: {english: 'nothing happend', polski: 'nic się nie wydarzyło'},
     bothFainted: {english: 'both pokemon fainted', polski: 'oba pokemony zemdlały'},
@@ -523,6 +568,25 @@ const BATTLE_TEXTS =
     reset: {english: ' changes has been reset', polski: ': reset zmian'},
     evertStat: {english: 'every stat', polski: 'każda statystyka'},
     freezeSolid: {english: ' i freezed solid', polski: ' nie może się ruszyć z powodu zamrożenia'},
+    recovered: {english: ' recovers ', polski: ' leczy '},
+    isSleeping: {english: ' is sleeping', polski: ' śpi'},
+    wakingUp: {english: ' woke up', polski: ' budzi się'},
+    chooseAlly: {english: 'choose pokemon', polski: 'wybierz pokemona'},
+    protects: {english: ' is hidding behind shield', polski: ' chowa się za tarczą'},
+    blocked: {english: ' blocked the move with shield', polski: ' blokuje ruch tarczą'},
+    criticalHit: {english: ' critical hit!', polski: ' cios krytyczny!'},
+    hide_dig_in_hole: {english: ' hides in the hole', polski: ' chowa się w wykopanej diurze'},
+    hide_fly_high: {english: ' flies up', polski: ' leci w górę'},
+    hide_under_water: {english: ' dive into water', polski: ' nurkuje w wodzie'},
+    hailHit: {english: ' got damage from hail', polski: ' otrzymuje obrażenia od gradu'},
+    sandstormHit: {english: ' got damage from sandstorm', polski: ' otrzymuje obrażenia od burzy biaskowej'},
+    bindhit: {english: ' got damage from bind', polski: ' otrzymuje obrażenia zpowodowane uciskiem'},
+    flamehit: {english: ' got damage from flame', polski: ' otrzymuje obrażenia zpowodowane płomieniami'},
+    drained: {english: ' drained HP from ', polski: ' zabiera HP '},
+    shieldUp_physical: {english: 'physical shield active', polski: 'fizyczna tarcza aktywna'},
+    shieldUp_special: {english: 'special shield active', polski: 'specialna tarcza aktywna'},
+    shieldBreak_physical: {english: 'physical shield destroyed', polski: 'fizyczna tarcza zniszczona'},
+    shieldBreak_special: {english: 'special shield destroyed', polski: 'specialna tarcza zniszczona'},
 }
 
 const BATTLE_COPY_PROPERTIES = 
@@ -545,3 +609,13 @@ const IMG_WAY =
     sprite: 'img/sprite/',
     info: 'img/info/'
 }
+
+let mapMenu_buttons =
+[
+    {polski: 'Przygoda', english: 'Adventure'},
+	{polski: 'Pokedex', english: 'Pokedex'},
+	{polski: 'Pokemony', english: 'Pokemon'},
+	{polski: 'Przedmioty', english: 'Items'},
+	{polski: 'Opcje', english: 'Options'},
+    {english: 'Test'}
+];

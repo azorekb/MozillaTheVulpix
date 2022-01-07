@@ -111,8 +111,9 @@ class Pokemon extends Pokemon_list
 
     showName()
     {
-        if(this.nick == '') return this.name;
-        else return this.nick;
+        if(this.nick == '')
+            return pokemonName(this.name);
+        return this.nick;
     }
 
     actualPP(_which, _type)
@@ -278,8 +279,23 @@ class BattlePokemon extends Pokemon
 
             default: return false;
         }
-        const P = (_stat == 5 && this.status == 'paralysis') ? 0.4 : 1;
-        return Math.round(this.sumStat(_stat) * (1 + this.statchanges[_stat] / 100) * P);
+        let changes = 1;
+        if((_stat == 2 || _stat == 4) && hasItType(this,'ice') && battle.weather == 'hail'){changes *= 1.5;}
+        if(_stat == 5)
+        {
+            if(this.status == 'paralysis'){changes *= 0.4;}
+            if(hasItType(this,'flying') && battle.weather == 'wind'){changes *= 1.5}
+        }
+
+        return Math.round(this.sumStat(_stat) * (1 + this.statchanges[_stat] / 100) * changes);
+    }
+
+    resistance(_type)
+    {
+        const TYPE = typeof(_type) == 'number'? _type: getTypeNumberByName(_type);
+        let res = POKEMON_TYPES[this.types[0]].resistance[TYPE];
+        res *= POKEMON_TYPES[this.types[1]].resistance[TYPE];
+        return res;
     }
 
     hit(_damage)
@@ -306,9 +322,27 @@ class BattlePokemon extends Pokemon
         return 'ok';
     }
 
+    isFlying()
+    {
+        if(hasItType(this, 'flying')){return true;}
+        if(this.ability == 'levitate'){return true;}
+
+        return false;
+    }
+
     temporaryStatus = 
     {
         flinch: false,
+        protect: false,
+        hide: {where: '', nextMove: ''},
+        waiting: {why: '', nextMove: ''},
+        traps :
+        {
+            bind: 0,
+            flame: 0,
+            leech: 0,
+            unable_to_use_status: 0,
+        }
     }
 
     objects =
@@ -331,7 +365,7 @@ class BattlePokemon extends Pokemon
 
 class BattleField
 {
-    weather = null;
+    weather = 'none';
     weatherTime = 0;
     field = null;
     fieldTime = 0;
@@ -352,6 +386,17 @@ class BattleField
     decision = {ally: '', opponent: ''}
     order = [];
     finishRound = false;
+    whoNow = null;
+    traps = 
+    {
+        ally: {stealth_rock: 0, spikes: 0, poison_spikes: 0, sticky_web: 0},
+        opponent: {stealth_rock: 0, spikes: 0, poison_spikes: 0, sticky_web: 0}
+    }
+    shields = 
+    {
+        ally: {physical: 0, special: 0},
+        opponent: {physical: 0, special: 0}
+    }
 
     changeStatus(_status)
     {
@@ -360,21 +405,28 @@ class BattleField
             case 'doSth':
             {
                 this.finishRound = false;
-                this.info.innerHTML = BATTLE_TEXTS.doSth.language();
-                this.runButton.classList.remove('none');
-                this.movePlace.classList.remove('none');
-                this.itemsPlace.classList.remove('none');
-                for(let i=0;i<6;i++)
+                if(battleTeam.ally[this.activeFighter.ally.pokemon].temporaryStatus.hide.where == '')
                 {
-                    if(battle_allyTeam[i] == null){continue;}
-                    if(battle_allyTeam[i].actualHP('number') <= 0){continue;}
-                    if(battle.activeFighter.ally.pokemon == i){continue;}
-                    document.getElementById('pokemonTeam_' + i).classList.add('activeButton');
+                    this.info.innerHTML = showLanguage(BATTLE_TEXTS.doSth);
+                    this.runButton.classList.remove('none');
+                    this.movePlace.classList.remove('none');
+                    this.itemsPlace.classList.remove('none');
+                    for(let i=0;i<6;i++)
+                    {
+                        if(battleTeam.ally[i] == null){continue;}
+                        if(battleTeam.ally[i].actualHP('number') <= 0){continue;}
+                        if(battle.activeFighter.ally.pokemon == i){continue;}
+                        document.getElementById('pokemonTeam_' + i).classList.add('activeButton');
+                    }
+                }
+                else
+                {
+                    setTimeout(() => battle_decide('useMove x'), 0);
                 }
             } break;
             case 'opponent move':
             {
-                this.info.innerHTML = BATTLE_TEXTS.oppmove.language();
+                this.info.innerHTML = showLanguage(BATTLE_TEXTS.oppmove);
                 this.runButton.classList.add('none');
                 this.movePlace.classList.add('none');
                 this.itemsPlace.classList.add('none');
@@ -389,6 +441,10 @@ class BattleField
                     this.order = ['ally'];
                     battle_action(0);
                 }
+                if(this.status == 'return')
+                {
+                    battle_action(this.whoNow);
+                }
             } break;
             case 'who first':
             {
@@ -397,10 +453,29 @@ class BattleField
                 if(A[0] == 'run' || A[0] == 'changeAlly' || A[0] == 'useItem'){this.order = ['ally','opponent'];}
                 else if(O[0] = 'useMove')
                 {
-                    const activeA = battle_allyTeam[this.activeFighter.ally.pokemon];
-                    const activeO = battle_opponentTeam[this.activeFighter.opponent.pokemon];
-                    const moveA = A[1] == -1 ? moveList[0]: activeA.moves[A[1]];
-                    const moveO = O[1] == -1 ? moveList[0]: activeA.moves[O[1]];
+                    const activeA = battleTeam.ally[this.activeFighter.ally.pokemon];
+                    const activeO = battleTeam.opponent[this.activeFighter.opponent.pokemon];
+                    let moveA,moveO;
+                    if(A[1] == 'x')
+                    {
+                        if(activeA.temporaryStatus.waiting.why != ''){moveA = activeA.temporaryStatus.waiting.nextMove;}
+                        else if(activeA.temporaryStatus.hide.where != ''){moveA = activeA.temporaryStatus.hide.nextMove;}
+                        else{moveA = moveList[0]}
+                    }
+                    else
+                    {
+                        moveA = A[1] == -1 ? moveList[0]: activeA.moves[A[1]];
+                    }
+                    if(O[1] == 'x')
+                    {
+                        if(activeO.temporaryStatus.waiting.why != ''){moveO = activeO.temporaryStatus.waiting.nextMove;}
+                        else if(activeO.temporaryStatus.hide.where != ''){moveO = activeO.temporaryStatus.hide.nextMove;}
+                        else{moveO = moveList[0]}
+                    }
+                    else
+                    {
+                        moveO = O[1] == -1 ? moveList[0]: activeO.moves[O[1]];
+                    }
 
                     if(moveA.priority > moveO.priority){this.order = ['ally','opponent'];}
                     else if(moveA.priority < moveO.priority){this.order = ['opponent','ally'];}
@@ -422,9 +497,9 @@ class BattleField
             } break;
             case 'level up':
             {
-                const P = battle_allyTeam[battle.activeFighter.ally.pokemon];
+                const P = battleTeam.ally[battle.activeFighter.ally.pokemon];
                 P.level += 1;
-                this.info.innerHTML = P.name + BATTLE_TEXTS.promote.language() + P.level;
+                this.info.innerHTML = P.name + showLanguage(BATTLE_TEXTS.promote) + P.level;
                 setTimeout(function()
                 {
                     if(P.expirience >=  P.whenNextLevel())
@@ -439,30 +514,23 @@ class BattleField
             } break;
             case 'next ally':
             {
-                let noAllyLeft = true;
-                for(let i=0;i<TEAM_COUNT;i++)
-                {
-                    if(battle_allyTeam[i] != null)
-                    {
-                        if(battle_allyTeam[i].actualHP('number') > 0)
-                        {
-                            noAllyLeft = false;
-                            document.getElementById('pokemonTeam_' + i).classList.add('activeButton');
-                        }
-                    }
-                }
-                if(noAllyLeft)
-                {
-                    this.info.innerHTML = BATTLE_TEXTS.lose.language();
-                    setTimeout(function(){battle_lose();},1000);
-                }
-                else
+                if(isAllyAvailable())
                 {
                     this.runButton.classList.remove('none');
                     setTimeout(function(){battle.changeStatus('choose ally')},1);
                 }
+                else
+                {
+                    this.info.innerHTML = showLanguage(BATTLE_TEXTS.lose);
+                    setTimeout(function(){battle_lose();},1000);
+                }
             } break;
-            case 'choose ally': this.info.innerHTML = BATTLE_TEXTS.doSth.language();
+            case 'choose ally': this.info.innerHTML = showLanguage(BATTLE_TEXTS.doSth); break;
+            case 'return':
+            {
+                this.info.innerHTML = showLanguage(BATTLE_TEXTS.chooseAlly);
+            }
+            break;
         }
 
         this.status = _status;
